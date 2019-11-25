@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="398c01d4-f46e-44df-b3f7-695dfb77e7b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/base/ExcelFormat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base/HTMLTestReportCN.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base/HTMLTestReportEN.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base/httpRequest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base/logInfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base/sendMail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_CheckInEvent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_LuckyWheelManagement.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_MissionReward.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_NewLuckyWheel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_RedEnvelopeManagement.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_TimeLimitedEvent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_AgTransferRecord.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_CommissionService.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Contribution.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Discount.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GameSupplierTransaction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupAccount.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupThirdParty.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_LoginRecords.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberLevelSetting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberTransaction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_ModifyMemberBankAccount.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_SendMail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Statistics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_ThirdPartyPayment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_TransferUnknownMoney.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyDeposit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyWithdraw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Yuebao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_CheckGameDetailUrl.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_CreateThirdParty.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_FixVerifyAuditTypeField.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_GameCategoryRawDateForBetAmount.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_MemberSearchAdjustReturnErrorMessage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_SearchGameNumber.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyBetRecordHistoryData.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForDeposit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForWithdraw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master_api/account_login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master_api/account_management.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master_api/memeber_and_agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master_api/reports.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master_api/system_management.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_VerifyBetRecordHistoryData_VerifyBetRecordHistoryData.coverage" NAME="Unittests for test_Master_Flow_VerifyBetRecordHistoryData.VerifyBetRecordHistoryData Coverage Results" MODIFIED="1574323739709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Discount_DiscountBaseTest.coverage" NAME="Unittests for test_Master_Base_API_Discount.DiscountBaseTest Coverage Results" MODIFIED="1574074064561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_MemberTransaction_MemberTransactionBaseTest.coverage" NAME="Unittests for test_Master_Base_API_MemberTransaction.MemberTransactionBaseTest Coverage Results" MODIFIED="1574155456593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_ThirdPartyPayment_ThirdPartyPaymentBaseTest.coverage" NAME="Unittests for test_Master_Base_API_ThirdPartyPayment.ThirdPartyPaymentBaseTest Coverage Results" MODIFIED="1574155955537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_ModifyMemberBankAccount_MemberSearchModifyBankAccountTest_test_Member_Modify_BankAccount_Account_Ali_pay.coverage" NAME="Unittests for test_Master_Base_API_ModifyMemberBankAccount.MemberSearchModifyBankAccountTest.test_Member_Modify_BankAccount_Account_Ali_pay Coverage Results" MODIFIED="1574334655741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_MemberSearchAdjustReturnErrorMessage_MemberSearchAdjustReturnErrorMessage.coverage" NAME="Unittests for test_Master_Flow_MemberSearchAdjustReturnErrorMessage.MemberSearchAdjustReturnErrorMessage Coverage Results" MODIFIED="1574159671109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_GameSupplierTransaction_GameSupplierTransactionBaseTest.coverage" NAME="Unittests for test_Master_Base_API_GameSupplierTransaction.GameSupplierTransactionBaseTest Coverage Results" MODIFIED="1574074117130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_VerifyWithdraw_VerifyWithdrawBaseTest_test_VerifyWithdraw_relatedApi_status_02.coverage" NAME="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_02 Coverage Results" MODIFIED="1574390695164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_VerifyWithdraw_VerifyWithdrawBaseTest.coverage" NAME="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest Coverage Results" MODIFIED="1574390702539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_CheckGameDetailUrl_CheckGameDetailUrl.coverage" NAME="Unittests for test_Master_Flow_CheckGameDetailUrl.CheckGameDetailUrl Coverage Results" MODIFIED="1574322274238" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Activity_RedEnvelopeManagement_RedEnvelopeManagementBaseTest.coverage" NAME="Unittests for test_Master_Base_API_Activity_RedEnvelopeManagement.RedEnvelopeManagementBaseTest Coverage Results" MODIFIED="1574326792785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_ModifyMemberBankAccount_MemberSearchModifyBankAccountTest.coverage" NAME="Unittests for test_Master_Base_API_ModifyMemberBankAccount.MemberSearchModifyBankAccountTest Coverage Results" MODIFIED="1574155532064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_CommissionService_CommissionServiceBaseTest.coverage" NAME="Unittests for test_Master_Base_API_CommissionService.CommissionServiceBaseTest Coverage Results" MODIFIED="1574073333713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_FixVerifyAuditTypeField_FixVerifyAuditTypeField.coverage" NAME="Unittests for test_Master_Flow_FixVerifyAuditTypeField.FixVerifyAuditTypeField Coverage Results" MODIFIED="1574159312933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_ModifyMemberBankAccount_MemberSearchModifyBankAccountTest_test_Member_Modify_BankAccount_Account_Is_Null.coverage" NAME="Unittests for test_Master_Base_API_ModifyMemberBankAccount.MemberSearchModifyBankAccountTest.test_Member_Modify_BankAccount_Account_Is_Null Coverage Results" MODIFIED="1574334616588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_SendMail_SiteMailBaseTest.coverage" NAME="Unittests for test_Master_Base_API_SendMail.SiteMailBaseTest Coverage Results" MODIFIED="1574155706778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Statistics_StatisticsBaseTest.coverage" NAME="Unittests for test_Master_Base_API_Statistics.StatisticsBaseTest Coverage Results" MODIFIED="1574155841245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_TransferUnknownMoney_TransferUnknownMoneyBaseTest.coverage" NAME="Unittests for test_Master_Base_API_TransferUnknownMoney.TransferUnknownMoneyBaseTest Coverage Results" MODIFIED="1574156042246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_GameCategoryRawDateForBetAmount_GameCategoryRawDateForBetAmount.coverage" NAME="Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount Coverage Results" MODIFIED="1574416599038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_SearchGameNumber_SearchGameNumber.coverage" NAME="Unittests for test_Master_Flow_SearchGameNumber.SearchGameNumber Coverage Results" MODIFIED="1574159724207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Activity_CheckInEvent_CheckInEventBaseTest_test_CheckInEvent_relatedApi_status_01.coverage" NAME="Unittests for test_Master_Base_API_Activity_CheckInEvent.CheckInEventBaseTest.test_CheckInEvent_relatedApi_status_01 Coverage Results" MODIFIED="1574070386204" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_GroupThirdParty_GroupThirdPartyBaseTest.coverage" NAME="Unittests for test_Master_Base_API_GroupThirdParty.GroupThirdPartyBaseTest Coverage Results" MODIFIED="1574074969892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Contribution_ContributionBaseTest.coverage" NAME="Unittests for test_Master_Base_API_Contribution.ContributionBaseTest Coverage Results" MODIFIED="1574073473189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_VerifyValueDifferenceForDeposit_VerifyValueDifferenceForDeposit.coverage" NAME="Unittests for test_Master_Flow_VerifyValueDifferenceForDeposit.VerifyValueDifferenceForDeposit Coverage Results" MODIFIED="1574159925322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_VerifyWithdraw_VerifyWithdrawBaseTest_test_VerifyWithdraw_relatedApi_status_06.coverage" NAME="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_06 Coverage Results" MODIFIED="1574390645474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow.coverage" NAME="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow Coverage Results" MODIFIED="1574412786419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_VerifyDeposit_VerifyDepositBaseTest.coverage" NAME="Unittests for test_Master_Base_API_VerifyDeposit.VerifyDepositBaseTest Coverage Results" MODIFIED="1574156124195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_Activity_NewLuckyWheel_NewLuckyWheelBaseTest_test_NewLuckyWheel_relatedApi_status_01.coverage" NAME="Unittests for test_Master_Base_API_Activity_NewLuckyWheel.NewLuckyWheelBaseTest.test_NewLuckyWheel_relatedApi_status_01 Coverage Results" MODIFIED="1574071255631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Flow_VerifyValueDifferenceForWithdraw_VerifyValueDifferenceForWithdraw.coverage" NAME="Unittests for test_Master_Flow_VerifyValueDifferenceForWithdraw.VerifyValueDifferenceForWithdraw Coverage Results" MODIFIED="1574160193892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_GroupAccount_GroupAccountBaseTest.coverage" NAME="Unittests for test_Master_Base_API_GroupAccount.GroupAccountBaseTest Coverage Results" MODIFIED="1574074709177" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_AgTransferRecord_AgTransferRecordBaseTest.coverage" NAME="Unittests for test_Master_Base_API_AgTransferRecord.AgTransferRecordBaseTest Coverage Results" MODIFIED="1574073207626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+    <SUITE FILE_PATH="coverage/automation_test_project$Unittests_for_test_Master_Base_API_LoginRecords_MemberLoginBaseTest.coverage" NAME="Unittests for test_Master_Base_API_LoginRecords.MemberLoginBaseTest Coverage Results" MODIFIED="1574075164901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/case/test_api" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-2121862795">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="91" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="91" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1573" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1573" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_ModifyMemberBankAccount.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="897">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="e#47#62#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="72" column="44" selection-start-line="72" selection-start-column="44" selection-end-line="72" selection-end-column="44" />
+              <folding>
+                <element signature="e#48#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForWithdraw.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="431">
+              <caret line="62" column="98" selection-start-line="62" selection-start-column="98" selection-end-line="62" selection-end-column="98" />
+              <folding>
+                <element signature="e#48#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_GameCategoryRawDateForBetAmount.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
+              <folding>
+                <element signature="e#48#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/runAll.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="575">
+              <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/master_api/memeber_and_agent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="805">
+              <caret line="288" selection-start-line="288" selection-end-line="288" />
+              <folding>
+                <element signature="e#131#1954#0" />
+                <element signature="e#1998#3399#0" />
+                <element signature="e#3444#4174#0" />
+                <element signature="e#4221#5474#0" />
+                <element signature="e#5517#6469#0" />
+                <element signature="e#6530#8248#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/master_api/system_management.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1151">
+              <caret line="1459" column="32" selection-start-line="1459" selection-start-column="32" selection-end-line="1459" selection-end-column="32" />
+              <folding>
+                <element signature="e#97#3642#0" />
+                <element signature="e#3687#8315#0" />
+                <element signature="e#47865#48527#0" />
+                <element signature="e#48577#49821#0" />
+                <element signature="e#48615#48669#0" />
+                <element signature="e#49875#56402#0" />
+                <element signature="e#56448#56830#0" />
+                <element signature="e#56877#57244#0" />
+                <element signature="e#57291#57658#0" />
+                <marker date="1574326792716" expanded="false" signature="47810:47811" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_CheckInEvent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="782">
+              <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+              <folding>
+                <element signature="e#49#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_CheckGameDetailUrl.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-46">
+              <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
+              <folding>
+                <element signature="e#48#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyWithdraw.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="621">
+              <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
+              <folding>
+                <element signature="e#49#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/data_config/portal_config.py" />
+        <option value="$PROJECT_DIR$/master_api/account_login.py" />
+        <option value="$PROJECT_DIR$/base/httpRequest.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_CheckInEvent.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_LuckyWheelManagement.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_MissionReward.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_NewLuckyWheel.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_TimeLimitedEvent.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_AgTransferRecord.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_CommissionService.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Contribution.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Discount.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GameSupplierTransaction.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupAccount.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_LoginRecords.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberTransaction.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Statistics.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_SendMail.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberLevelSetting.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_ThirdPartyPayment.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_TransferUnknownMoney.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyDeposit.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Yuebao.py" />
+        <option value="$PROJECT_DIR$/data_config/common_config.py" />
+        <option value="$PROJECT_DIR$/data_config/master_config.py" />
+        <option value="$PROJECT_DIR$/master_api/memeber_and_agent.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_CreateThirdParty.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_MemberSearchAdjustReturnErrorMessage.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_SearchGameNumber.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyBetRecordHistoryData.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForDeposit.py" />
+        <option value="$PROJECT_DIR$/runAll.py" />
+        <option value="$PROJECT_DIR$/master_api/system_management.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_RedEnvelopeManagement.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupThirdParty.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_ModifyMemberBankAccount.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_FixVerifyAuditTypeField.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_CheckGameDetailUrl.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyWithdraw.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForWithdraw.py" />
+        <option value="$PROJECT_DIR$/case/test_api/test_Master_Flow_GameCategoryRawDateForBetAmount.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="automation_test_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="automation_test_project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="automation_test_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="automation_test_project" type="462c0819:PsiDirectoryNode" />
+              <item name="case" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="automation_test_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="automation_test_project" type="462c0819:PsiDirectoryNode" />
+              <item name="master_api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="automation_test_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574662833152" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GM Automation\automation_test_project" />
+      <recent name="D:\GM Automation\automation_test_project\case\test_api" />
+      <recent name="D:\GM Automation\automation_test_project\master_api" />
+      <recent name="D:\GM Automation\automation_test_project\base" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python tests.Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount">
+    <configuration name="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="automation_test_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/case/test_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_02" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="automation_test_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/case/test_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_02&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_06" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="automation_test_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/case/test_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_06&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="automation_test_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/case/test_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="automation_test_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/case/test_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_06" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_02" />
+      <item itemvalue="Python tests.Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" />
+      <item itemvalue="Python tests.Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount" />
+        <item itemvalue="Python tests.Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_02" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest.test_VerifyWithdraw_relatedApi_status_06" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="398c01d4-f46e-44df-b3f7-695dfb77e7b4" name="Default Changelist" comment="" />
+      <created>1574047384517</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574047384517</updated>
+      <workItem from="1574047397859" duration="17858000" />
+      <workItem from="1574209786283" duration="21325000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_for_test_Master_Base_API_VerifyWithdraw_VerifyWithdrawBaseTest - 2019.11.22 at 10h 45m 04s.xml">
+      <configuration name="Unittests for test_Master_Base_API_VerifyWithdraw.VerifyWithdrawBaseTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 11h 01m 49s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 35m 04s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 37m 07s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 37m 29s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 38m 17s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 50m 46s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 51m 32s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_BoardEffectiveBetChangeToLow_BoardEffectiveBetChangeToLow - 2019.11.22 at 16h 53m 14s.xml">
+      <configuration name="Unittests for test_Master_Flow_BoardEffectiveBetChangeToLow.BoardEffectiveBetChangeToLow" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_Master_Flow_GameCategoryRawDateForBetAmount_GameCategoryRawDateForBetAmount - 2019.11.22 at 17h 57m 10s.xml">
+      <configuration name="Unittests for test_Master_Flow_GameCategoryRawDateForBetAmount.GameCategoryRawDateForBetAmount" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="39183000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32899022" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995657" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="SciView" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Maven Projects" order="9" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/data_config/portal_config.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/ExcelFormat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/httpRequest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="60" column="50" lean-forward="true" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_LuckyWheelManagement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_MissionReward.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_NewLuckyWheel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_TimeLimitedEvent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_CommissionService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_AgTransferRecord.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Contribution.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Discount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_GameSupplierTransaction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupAccount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_LoginRecords.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" selection-start-line="6" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberTransaction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberLevelSetting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_ThirdPartyPayment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="53" column="32" lean-forward="true" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Statistics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" selection-start-line="5" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_TransferUnknownMoney.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="5" selection-start-line="5" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyDeposit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="5" selection-start-line="5" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_config/common_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Yuebao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_config/master_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_CreateThirdParty.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1081">
+          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_MemberSearchAdjustReturnErrorMessage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyBetRecordHistoryData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1265">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForDeposit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+          <folding>
+            <element signature="e#48#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_SendMail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_FixVerifyAuditTypeField.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#48#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/master_api/account_login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_SearchGameNumber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="48" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_RedEnvelopeManagement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="31" column="64" lean-forward="true" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_GroupThirdParty.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="93" column="64" selection-start-line="93" selection-start-column="64" selection-end-line="93" selection-end-column="64" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/master_api/account_management.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-317">
+          <caret line="247" column="26" selection-start-line="247" selection-start-column="26" selection-end-line="247" selection-end-column="31" />
+          <folding>
+            <element signature="e#92#3049#0" />
+            <element signature="e#3099#6461#0" />
+            <element signature="e#11646#13515#0" />
+            <element signature="e#13565#15755#0" />
+            <element signature="e#15794#20544#0" />
+            <element signature="e#20592#21740#0" />
+            <element signature="e#21793#25471#0" />
+            <element signature="e#25515#29318#0" />
+            <element signature="e#29375#29990#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_VerifyWithdraw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_ModifyMemberBankAccount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="897">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#47#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_CheckGameDetailUrl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-46">
+          <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="72" column="44" selection-start-line="72" selection-start-column="44" selection-end-line="72" selection-end-column="44" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_VerifyValueDifferenceForWithdraw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="62" column="98" selection-start-line="62" selection-start-column="98" selection-end-line="62" selection-end-column="98" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/master_api/memeber_and_agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="805">
+          <caret line="288" selection-start-line="288" selection-end-line="288" />
+          <folding>
+            <element signature="e#131#1954#0" />
+            <element signature="e#1998#3399#0" />
+            <element signature="e#3444#4174#0" />
+            <element signature="e#4221#5474#0" />
+            <element signature="e#5517#6469#0" />
+            <element signature="e#6530#8248#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/master_api/system_management.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1151">
+          <caret line="1459" column="32" selection-start-line="1459" selection-start-column="32" selection-end-line="1459" selection-end-column="32" />
+          <folding>
+            <element signature="e#97#3642#0" />
+            <element signature="e#3687#8315#0" />
+            <element signature="e#47865#48527#0" />
+            <element signature="e#48577#49821#0" />
+            <element signature="e#48615#48669#0" />
+            <element signature="e#49875#56402#0" />
+            <element signature="e#56448#56830#0" />
+            <element signature="e#56877#57244#0" />
+            <element signature="e#57291#57658#0" />
+            <marker date="1574326792716" expanded="false" signature="47810:47811" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_CheckInEvent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Flow_GameCategoryRawDateForBetAmount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
+          <folding>
+            <element signature="e#48#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runAll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Python 3.7 interpreter library</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>Python 3.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>automation_test_project</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Python 3.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
