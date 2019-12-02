@@ -5,6 +5,7 @@
 
 import unittest
 from data_config import common_config
+from data_config import master_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import memeber_and_agent
@@ -31,7 +32,7 @@ class MemberSearchBaseTest(unittest.TestCase):
 
     def test_MemberSearch_relatedApi_status_02(self):
         """驗證 会员查询 狀態"""
-        data = {"Account": "hsiang",
+        data = {"Account": master_config.Account,
                 "connectionId": self.user.info()}
         response_data = self.memberSearch.search(data)
         status_code = response_data[0]
@@ -39,10 +40,41 @@ class MemberSearchBaseTest(unittest.TestCase):
 
     def test_MemberSearch_relatedApi_status_03(self):
         """驗證 会员查询 狀態"""
-        data = {"Account": "hsiang"}
+        data = {"Account": master_config.Account}
         response_data = self.memberSearch.search(data)
         error_message = response_data[1]['ErrorMessage']
         self.assertEqual(error_message, "connectionId cannot be null.")
+
+    def test_MemberSearch_relatedApi_status_04(self):
+        """驗證 會員等級 狀態"""
+        response_data = self.memberSearch.getAllMemberLevels()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberSearch_relatedApi_status_05(self):
+        """驗證 反水等級 狀態"""
+        response_data = self.memberSearch.getAllDiscountSettings()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberSearch_relatedApi_status_06(self):
+        """驗證 匯出檔案標籤 狀態"""
+        response_data = self.memberSearch.getColumnForExport()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberSearch_relatedApi_status_07(self):
+        """驗證 功能開關 狀態"""
+        response_data = self.memberSearch.getShelfFunctionSwitch()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberSearch_relatedApi_status_08(self):
+        """驗證 匯出檔案 狀態"""
+        data = {"search": {"Account": master_config.Account}, "columns": [1, 2, 120], "connectionId": self.user.info()}
+        response_data = self.memberSearch.exportMemberSearch(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':

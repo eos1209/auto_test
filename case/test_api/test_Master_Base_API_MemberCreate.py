@@ -24,13 +24,13 @@ class MemberCreateTest(unittest.TestCase):
         self.user.logout()
 
     def test_MemberCreate_baseApi_status_01(self):
-        # 驗證 新增會員 - 頁面狀態
+        """驗證 新增會員 - 頁面狀態"""
         response_data = self.memberCreate.createPage()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberCreate_baseApi_status_02(self):
-        # 驗證 是否為新增會員頁面
+        """ 驗證 是否為新增會員頁面 """
         response_data = self.memberCreate.isEnableAddMemberSite()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -42,8 +42,8 @@ class MemberCreateTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberCreate_baseApi_status_04(self):
-        # 驗證 驗證使用者是否能夠新增
-        """帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501"""
+        """驗證 驗證使用者是否能夠新增"""
+        # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         data = {"account": account}
         response_data = self.memberCreate.checkAccountIsInUse(data)
@@ -51,49 +51,47 @@ class MemberCreateTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberCreate_baseApi_status_05(self):
-        # 驗證 欄位驗證中使用者已有帳號時失敗
+        """驗證 欄位驗證中使用者已有帳號時失敗"""
         data = {"account": master_config.Account}  # Config.exist_account = QATEST
         response_data = self.memberCreate.checkAccountIsInUse(data)
-        errormessage = response_data[1]['ErrorMessage']
+        errorMessage = response_data[1]['ErrorMessage']
         # print(errormessage)
-        self.assertEqual(errormessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
+        self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_06(self):
-        # 驗證 預設會員密碼是否為123456
+        """ 驗證 預設會員密碼是否為123456"""
         response_data = self.memberCreate.getDefaultPasswords()
         defaultpassword = response_data[1]['DefaultPassword']
         # print(defaultpassword)
         self.assertEqual(defaultpassword, '123456')
 
     def test_MemberCreate_baseApi_status_07(self):
-        # 驗證 預設取款密碼是否為123456
+        """驗證 預設取款密碼是否為123456"""
         response_data = self.memberCreate.getDefaultPasswords()
         defaultMoneypassword = response_data[1]['DefaultMoneyPassword']
         # print(defaultMoneypassword)
         self.assertEqual(defaultMoneypassword, '123456')
 
     def test_MemberCreate_baseApi_status_08(self):
-        # 驗證 代理商是否能夠空白
-        """帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501"""
+        """驗證 代理商是否能夠空白"""
+        # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         data = {"Account": account}
         response_data = self.memberCreate.createSubmit(data)
-        errormessage = response_data[1]['ErrorMessage']
-        # print(errormessage)
-        self.assertEqual(errormessage, '代理商不可能空白')
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '代理商不可能空白')
 
     def test_MemberCreate_baseApi_status_09(self):
-        # 驗證 代理商是否存在
-        """帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501"""
+        """驗證 代理商是否存在"""
+        # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         data = {"Account": account, "Agent": master_config.no_exist_agent}  # Config.no_exist_agent = DS_a_player
         response_data = self.memberCreate.createSubmit(data)
-        errormessage = response_data[1]['ErrorMessage']
-        # print(errormessage)
-        self.assertEqual(errormessage, '找不到此代理商')
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '找不到此代理商')
 
     def test_MemberCreate_baseApi_status_10(self):
-        # 驗證 提交表單中 已有帳號時失敗
+        """驗證 提交表單中 已有帳號時失敗"""
         data = {"Account": master_config.Account, "Agent": master_config.exist_agent}
         response_data = self.memberCreate.createSubmit(data)
         errormessage = response_data[1]['ErrorMessage']
@@ -101,8 +99,8 @@ class MemberCreateTest(unittest.TestCase):
         self.assertEqual(errormessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_11(self):
-        # 驗證 使用者是否能夠新增
-        """帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501"""
+        """驗證 使用者是否能夠新增"""
+        # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         agent = master_config.exist_agent
         data = {"Account": account, "Agent": agent}

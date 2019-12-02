@@ -36,12 +36,13 @@ class HttpRequest(object):
         return str(status_code), response_json, r.cookies  # 返回響應碼，内容
 
     def send_post_request_for_file(self, base_url, file, Headers):
-        r = requests.post(base_url, file=file, headers=Headers, cookies=self.Cookies)
+        r = requests.post(base_url, files=file, headers=Headers, cookies=self.Cookies)
         status_code = r.status_code  # 獲取返回狀態碼
         if r.content:
             response_json = r.json()  # 響應内容，json類型轉化成python數據類型
         else:
             response_json = r.content
+            print(status_code, response_json)
         return str(status_code), response_json, r.cookies  # 返回響應碼，内容
 
     """
@@ -57,8 +58,7 @@ class HttpRequest(object):
             response_data = self.send_post_request(base_url, data, master_config.Post_Master_Headers)
         return response_data
 
-    def sendRequestForUploadFile(self, method, path, data):
+    def sendRequestForUploadFile(self, path, data):
         base_url = master_config.Master_url + path
-        if method == "POST":
-            response_data = self.send_post_request_for_file(base_url, data, master_config.Post_Master_Headers)
+        response_data = self.send_post_request_for_file(base_url, data, master_config.Post_headers_upLoadFile)
         return response_data
