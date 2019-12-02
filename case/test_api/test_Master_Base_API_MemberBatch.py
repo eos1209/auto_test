@@ -27,7 +27,7 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_01(self):
         """驗證 會員批次 - 匯入大量帳號 狀態"""
-        upload_file = '../../testData/memberSearchBatch.xlsx'  # 檔案
+        upload_file = common_config.file_Path + 'testData/memberSearchBatch.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'filename': ('memberSearchBatch.xlsx', open_file, mime_Type, {'Expires': '0'})}
@@ -43,9 +43,10 @@ class MemberBatchBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberBatch_relatedApi_status_03(self):
+        """驗證 會員批次 - 清除樣板 狀態  """  # 不確定
         response_data = self.memberBatch.clearTemp()
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        # print(response_data)
+        self.assertEqual(response_data, None)
 
     def test_MemberBatch_relatedApi_status_04(self):
         """驗證 會員批次 - 取得會員狀態 狀態"""
@@ -90,7 +91,7 @@ class MemberBatchBaseTest(unittest.TestCase):
             'search': {'Account': master_config.batchAccount},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
-            'levelId': 46
+            'levelId': 21
         }
         response_data = self.memberBatch.batchUpdateMemberLevel(data)
         status_code = response_data[0]
@@ -150,7 +151,6 @@ class MemberBatchBaseTest(unittest.TestCase):
         getData = self.memberTags.getTags()
         dataLength = len(getData[1]['ReturnObject']) - 1  # 取得最後一筆資料
         memberTagId = dataLength
-        a = getData[1]['ReturnObject'][memberTagId]['Id']
         data = {
             'search': {'MemberTagIds': getData[1]['ReturnObject'][memberTagId]['Id']},
             'isSuper': 'false',
