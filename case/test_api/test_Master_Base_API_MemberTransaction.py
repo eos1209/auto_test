@@ -5,6 +5,7 @@
 
 import unittest
 from data_config import common_config
+from data_config import master_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import account_management
@@ -23,17 +24,34 @@ class MemberTransactionBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
+    def searchDataId(self, mode):
+        # 取得單筆交易Id(交易單號) - 單一會員紀錄
+        if mode == 1:
+            # 撈全部
+            searchData = {"Account": master_config.Account,
+                          "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual", "Bonus", "Discount",
+                                    "Payoff", "AnyTimeDiscount", "Yuebao", "Other"]}
+            return self.memberTransaction.search(searchData)
+        elif mode == 2:
+            # 實際存提資料
+            searchData = {"Account": master_config.Account,
+                          "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual"]
+                          }
+            return self.memberTransaction.search(searchData)
+        elif mode == 3:
+            # 時返明細
+            searchData = {"Types": ["AnyTimeDiscount"]}
+            return self.memberTransaction.search(searchData)
+
     def test_MemberTransaction_baseApi_status_01(self):
         """驗證 交易記錄查詢頁面狀態"""
-        data = {}
-        response_data = self.memberTransaction.query(data)
+        response_data = self.memberTransaction.query()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberTransaction_baseApi_status_02(self):
         """驗證 取得交易紀錄類型狀態"""
-        data = {}
-        response_data = self.memberTransaction.queryInit(data)
+        response_data = self.memberTransaction.queryInit()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -56,30 +74,33 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_04(self):
         """驗證 取得交易記錄詳細頁面狀態"""
-        data = {}
-        response_data = self.memberTransaction.detail(data)
+        response_data = self.memberTransaction.detail()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberTransaction_baseApi_status_05(self):
         """驗證 取得單筆紀錄明細狀態"""
-        data = {"id": 3468324}
+        detailId = self.searchDataId(1)
+        data = {"id": detailId[1]['PageData'][0]['Id']}
         response_data = self.memberTransaction.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    # def test_MemberTransaction_baseApi_status_06(self):
-    #     """驗證 更新實際存提狀態"""
-    #     data = {"id": 3468324,
-    #             "isReal": True}
-    #     response_data = self.memberTransaction.updateIsReal(data)
-    #     print(response_data)
-    #     status_code = response_data[0]
-    #     self.checkIfTheTestCaseIsPassOrFail(status_code)
+    def test_MemberTransaction_baseApi_status_06(self):
+        """驗證 更新實際存提狀態 2019/12/03"""
+        searchData = {"Account": master_config.Account,
+                      "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual"]}  # 篩選有實際存提的資料
+        search = self.memberTransaction.search(searchData)
+        data = {"id": search[1]['PageData'][0]['Id'],
+                "isReal": True}
+        response_data = self.memberTransaction.updateIsReal(data)
+        # print(response_data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberTransaction_baseApi_status_07(self):
         """驗證 匯出狀態"""
-        data = {"Account": "hsiang",
+        data = {"Account": master_config.Account,
                 "TimeBegin": common_config.BeginDate,
                 "Types": ["Account",
                           "ThirdPartyPayment",
@@ -92,6 +113,22 @@ class MemberTransactionBaseTest(unittest.TestCase):
                           "Other"]}
         response_data = self.memberTransaction.export(data)
         status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberTransaction_baseApi_status_08(self):
+        """驗證 更新實際存提-是否成功 -2019/12/03"""
+        searchData = self.searchDataId(2)
+        data = {"id": searchData[1]['PageData'][0]['Id']}
+        response_data = self.memberTransaction.getDetail(data)
+        self.assertEqual(response_data[1]['Detail']['IsReal'], True)
+
+    def test_MemberTransaction_baseApi_status_09(self):
+        """驗證 時返明細狀態 - 2019/12/03"""
+        searchData = self.searchDataId(3)
+        data = {"id": searchData[1]['PageData'][0]['Id']}
+        response_data = self.memberTransaction.getAnytimeDiscountDetail(data)
+        status_code = response_data[0]
+        print(response_data[1])
         self.assertEqual(status_code, common_config.Status_Code)
 
 

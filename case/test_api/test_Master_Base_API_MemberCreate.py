@@ -55,7 +55,6 @@ class MemberCreateTest(unittest.TestCase):
         data = {"account": master_config.Account}  # Config.exist_account = QATEST
         response_data = self.memberCreate.checkAccountIsInUse(data)
         errorMessage = response_data[1]['ErrorMessage']
-        # print(errormessage)
         self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_06(self):
@@ -94,16 +93,15 @@ class MemberCreateTest(unittest.TestCase):
         """驗證 提交表單中 已有帳號時失敗"""
         data = {"Account": master_config.Account, "Agent": master_config.exist_agent}
         response_data = self.memberCreate.createSubmit(data)
-        errormessage = response_data[1]['ErrorMessage']
-        # print(errormessage)
-        self.assertEqual(errormessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_11(self):
         """驗證 使用者是否能夠新增"""
         # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         agent = master_config.exist_agent
-        data = {"Account": account, "Agent": agent}
+        data = {'Account': account, 'Agent': agent, 'memo': '@QA_automation'}
         response_data = self.memberCreate.createSubmit(data)
         status_code = response_data[0]
         # print(status_code)

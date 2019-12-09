@@ -32,6 +32,7 @@ class MemberDetailBaseTest(unittest.TestCase):
         response_data = self.searchMember.search(data)
         memberId = response_data[1]['PageData'][0]['Id']
         # print(memberId)
+        time.sleep(1)
         return memberId
 
     def depositSubmitAudit(self):
@@ -90,6 +91,7 @@ class MemberDetailBaseTest(unittest.TestCase):
         data = {'memberId': getMemberId}
         response_data = self.memberDetail.getMemberEventList(data)
         status_code = response_data[0]
+        print(response_data[1])
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberDetail_relatedApi_status_05(self):
@@ -203,12 +205,12 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_17(self):
         """會員詳細資料 - 更新區域驗證限制 狀態"""
         getMemberId = self.Get_Member_Id()
-        data = {'memberId': getMemberId, 'allow': 'true'}
-        response_data = self.memberDetail.updateMemberLoginEveryWhere(data)
+        data = {'memberId': getMemberId, 'enable': 'true'}
+        response_data = self.memberDetail.updateMemberIsNeedRegionValidate(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        data = {'memberId': getMemberId, 'allow': 'false'}
-        self.memberDetail.updateMemberLoginEveryWhere(data)
+        data = {'memberId': getMemberId, 'enable': 'false'}
+        self.memberDetail.updateMemberIsNeedRegionValidate(data)
 
     def test_MemberDetail_relatedApi_status_18(self):
         """會員詳細資料 - 手機簡訊驗證 狀態"""
