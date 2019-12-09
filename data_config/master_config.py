@@ -18,7 +18,7 @@ Post_Master_Headers = {'Content-Type': "application/json", 'X-Requested-With': "
 Post_headers_upLoadFile = {'X-Requested-With': "XMLHttpRequest"}
 
 # 測試會員
-Account = 'DS_Nplayer'
+Account = 'DS_player4'
 # 測試批次會員
 batchAccount = 'QATEST,DS,DS_player4,DS_player8'
 
@@ -32,3 +32,5 @@ exist_Lv3_agent = 'QA_Test_C'
 exist_Lv2_agent = 'QA_Test_B'
 # 新增代理商 - 已存在的大股東
 exist_Lv1_agent = 'QA_Test_A'
+
+

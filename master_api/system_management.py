@@ -1479,6 +1479,12 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def addRedEnvelope(self, data):
+            # 紅包匯入 - 1205
+            path = '/RedEnvelopeManagement/AddRedEnvelope'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
     # 限时优惠
     class TimeLimitedEvent:
 

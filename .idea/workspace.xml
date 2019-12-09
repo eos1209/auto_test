@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="398c01d4-f46e-44df-b3f7-695dfb77e7b4" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
     <list default="true" id="398c01d4-f46e-44df-b3f7-695dfb77e7b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_DepositImport.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_LostDiscountMembers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testData/depositImport-A.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testData/depositImport-B.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testData/red.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_RedEnvelopeManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_Activity_RedEnvelopeManagement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberCreate.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberCreate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberDetail.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberDetail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberTransaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberTransaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Flow_BoardEffectiveBetChangeToLow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_config/master_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_config/master_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master_api/account_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/master_api/account_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master_api/memeber_and_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/master_api/memeber_and_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master_api/system_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/master_api/system_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_reports/2019-12-02 11-28-41-Test_Result.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_reports/2019-12-02 12-02-35-Test_Result.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_reports/2019-12-02 12-32-17-Test_Result.html" beforeDir="false" afterPath="$PROJECT_DIR$/test_reports/2019-12-02 12-32-17-Test_Result.html" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberBatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberBatch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/case/test_api/test_Master_Base_ApI_MemberImport.py" beforeDir="false" afterPath="$PROJECT_DIR$/case/test_api/test_Master_Base_ApI_MemberImport.py" afterDir="false" />
+>>>>>>> 17b0373fe323c11ae44531bfa6fc5d5ddbfd327e
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+>>>>>>> f51fe649312ac92813ce40079c08669a98a54a49
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,12 +76,12 @@
     <session id="-2121862795">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="5" />
+          <entry key="py" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="5" />
+          <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -71,52 +97,15 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="1" />
+          <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/httpRequest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1311">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_SendMail.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_ApI_MemberImport.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="51" column="58" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberSearch.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_MemberBatch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -154,7 +143,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -197,15 +185,30 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+<<<<<<< HEAD
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575873197562" />
+=======
+<<<<<<< HEAD
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574662833152" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gpk.api.test-master - 1115-dev" />
+=======
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575516256337" />
+>>>>>>> f51fe649312ac92813ce40079c08669a98a54a49
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> 17b0373fe323c11ae44531bfa6fc5d5ddbfd327e
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -221,20 +224,8 @@
       <recent name="D:\GM Automation\automation_test_project\base" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_08">
-    <configuration name="Unittests for case.test_api.test_Master_Base_API_MemberCreate.MemberCreateTest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_09">
+    <configuration name="Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="automation_test_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -245,11 +236,11 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;case.test_api.test_Master_Base_API_MemberCreate.MemberCreateTest&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_MemberDetail.MemberDetailBaseTest&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_Master_Base_API_AgentDetail.AgentDetailTest.test_AgentDetail_baseApi_status_25" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_04" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="automation_test_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -260,11 +251,11 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_Master_Base_API_AgentDetail.AgentDetailTest.test_AgentDetail_baseApi_status_25&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_04&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_01" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_10" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="automation_test_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -275,11 +266,11 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_01&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_10&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_03" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_17" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="automation_test_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -290,11 +281,11 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_03&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_17&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_08" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_09" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="automation_test_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -305,26 +296,38 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_08&quot;" />
+      <option name="_new_target" value="&quot;test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_09&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.Unittests for case.test_api.test_Master_Base_API_MemberCreate.MemberCreateTest" />
-      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_01" />
-      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_03" />
-      <item itemvalue="Python tests.Unittests for test_Master_Base_API_AgentDetail.AgentDetailTest.test_AgentDetail_baseApi_status_25" />
-      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_08" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_10" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_04" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_17" />
+      <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_09" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_08" />
-        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_01" />
-        <item itemvalue="Python tests.Unittests for test_Master_Base_API_AgentDetail.AgentDetailTest.test_AgentDetail_baseApi_status_25" />
-        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberBatch.MemberBatchBaseTest.test_MemberBatch_relatedApi_status_03" />
-        <item itemvalue="Python tests.Unittests for case.test_api.test_Master_Base_API_MemberCreate.MemberCreateTest" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberSearch.MemberSearchBaseTest.test_MemberSearch_relatedApi_status_09" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_17" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_04" />
+        <item itemvalue="Python tests.Unittests for test_Master_Base_API_MemberDetail.MemberDetailBaseTest.test_MemberDetail_relatedApi_status_10" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -339,16 +342,17 @@
       <workItem from="1574047397859" duration="17858000" />
       <workItem from="1574209786283" duration="21325000" />
       <workItem from="1575523663080" duration="119000" />
+      <workItem from="1575869899191" duration="1256000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41935000" />
+    <option name="totallyTimeSpent" value="43191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -363,7 +367,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.17698154" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3029316" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -439,13 +443,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/runAll.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/master_api/memeber_and_agent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20930">
@@ -504,6 +501,83 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/runAll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case/test_api/test_Master_Base_API_AgentCreate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6161">
+          <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575883302903">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883302903" />
+    <state x="740" y="295" key="FileChooserDialogImpl" timestamp="1575883402628">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="740" y="295" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883402628" />
+    <state width="1899" height="365" key="GridCell.Tab.0.bottom" timestamp="1575883338365">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="365" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883338365" />
+    <state width="1899" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1575871523800" />
+    <state width="1899" height="365" key="GridCell.Tab.0.center" timestamp="1575883338365">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="365" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883338365" />
+    <state width="1899" height="246" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1575871523800" />
+    <state width="1899" height="365" key="GridCell.Tab.0.left" timestamp="1575883338365">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="365" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883338365" />
+    <state width="1899" height="246" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1575871523800" />
+    <state width="1899" height="365" key="GridCell.Tab.0.right" timestamp="1575883338365">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="365" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883338365" />
+    <state width="1899" height="246" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1575871523800" />
+    <state width="1607" height="142" key="GridCell.Tab.1.bottom" timestamp="1575531265898">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1607" height="142" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575531265898" />
+    <state width="1607" height="142" key="GridCell.Tab.1.center" timestamp="1575531265897">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1607" height="142" key="GridCell.Tab.1.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575531265897" />
+    <state width="1607" height="142" key="GridCell.Tab.1.left" timestamp="1575531265897">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1607" height="142" key="GridCell.Tab.1.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575531265897" />
+    <state width="1607" height="142" key="GridCell.Tab.1.right" timestamp="1575531265897">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1607" height="142" key="GridCell.Tab.1.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575531265897" />
+    <state x="647" y="364" key="com.intellij.ide.util.TipDialog" timestamp="1575883397449">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="647" y="364" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575883397449" />
+    <state x="2567" y="364" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1575505629068" />
+    <state x="2201" y="212" width="1394" height="801" key="dock-window-1" timestamp="1575861703587">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2201" y="212" width="1394" height="801" key="dock-window-1/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575861703587" />
+    <state x="2102" y="479" width="855" height="717" key="dock-window-2" timestamp="1575882408943">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2102" y="479" width="855" height="717" key="dock-window-2/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575882408943" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1575859907598">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1575859907598" />
   </component>
   <component name="masterDetails">
     <states>
