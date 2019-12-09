@@ -76,6 +76,13 @@ class MemberSearchBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_MemberSearch_relatedApi_status_09(self):
+        """驗證 會員搜尋 - 進階 區域驗證 狀態"""
+        data = {'IsNeedRegionValidate': 'true', 'connectionId': self.user.info()}
+        response_data = self.memberSearch.search(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner=HTMLTestRunner())

@@ -484,6 +484,20 @@ class MemberDetail(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def updateMemberIsNeedRegionValidate(self, data):
+        # 更新區域驗證限制 - 1206
+        path = '/Member/UpdateMemberIsNeedRegionValidate'
+        data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def resetMemberGoogleAuthenticatorEnable(self, data):
+        # 重置二次驗證 - 1206
+        path = '/Member/ResetMemberGoogleAuthenticatorEnable'
+        data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 人工存款
 class MemberDeposit(object):
@@ -971,6 +985,7 @@ class AgentCreate(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+
 # 代理申请审核
 
 
@@ -1107,6 +1122,5 @@ class MemberVerifyPage(object):
         data = data
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
-
 
 # 试玩审核

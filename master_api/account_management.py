@@ -435,19 +435,19 @@ class MemberTransaction(object):
         self.__http = http
         self.response_data = {}
 
-    def query(self, data):
+    def query(self):
         # API Name =>交易记录查询-取得頁面
         # body--
         path = '/MemberTransaction/Query'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def detail(self, data):
+    def detail(self):
         # API Name =>交易记录查询-取得詳細頁面
         # body--
         path = '/MemberTransaction/Detail'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -459,11 +459,11 @@ class MemberTransaction(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def queryInit(self, data):
+    def queryInit(self):
         # API Name =>交易记录查询-取得交易紀錄類型
         # body--
         path = '/MemberTransaction/QueryInit'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -492,7 +492,7 @@ class MemberTransaction(object):
         return self.response_data
 
     def getAnytimeDiscountDetail(self, data):
-        # API Name =>交易记录查询-
+        # API Name =>交易记录查询-時返明細
         # body--/{id}
         path = '/MemberTransaction/GetAnytimeDiscountDetail'
         data = data
@@ -684,6 +684,19 @@ class CommissionService(object):
         return self.response_data
 
 
+# 時返異常紀錄
+class LostDiscountMembers(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def getLostDiscountMembers(self, data):
+        # 時返異常紀錄
+        path = '/AnyTimeDiscount/GetLostDiscountMembers'
+        data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+
+
 # 转帐额度确认
 class TransferUnknownMoney(object):
 
@@ -803,11 +816,11 @@ class DepositImport(object):
         self.__http = http
         self.response_data = {}
 
-    def index(self, data):
+    def index(self):
         # API Name =>优惠汇入-取得頁面
         # body--
         path = '/DepositImport/Index'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -872,7 +885,7 @@ class DepositImport(object):
         # body--/{filebase}
         path = '/DepositImport/GetExcelSum'
         data = data
-        self.response_data = self.__http.sendRequest('POST', path, data)
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
         return self.response_data
 
     def getRetrySum(self, data):
@@ -912,6 +925,18 @@ class DepositImport(object):
         # body--/{noticeDto}
         path = '/DepositImport/GetNoticeFromSignalR'
         data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def submitDepositImport(self, data):
+        # 優惠匯入
+        path = '/DepositImport/SubmitDepositImport'
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
+
+    def cancelReserveImport(self, data):
+        # 取消預約匯入
+        path = '/DepositImport/CancelReserveImport'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
