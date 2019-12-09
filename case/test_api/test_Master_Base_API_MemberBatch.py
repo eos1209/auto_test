@@ -27,7 +27,7 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_01(self):
         """驗證 會員批次 - 匯入大量帳號 狀態"""
-        upload_file = common_config.file_Path + 'testData/memberSearchBatch.xlsx'  # 檔案
+        upload_file = common_config.file_Path + 'test_data/memberSearchBatch.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'filename': ('memberSearchBatch.xlsx', open_file, mime_Type, {'Expires': '0'})}
