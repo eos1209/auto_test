@@ -51,7 +51,7 @@ class MemberLoginBaseTest(unittest.TestCase):
         data = {}
         response_data = self.memberLogin.searchV2(data)
         ff = len(response_data[1]['PageData'])
-        flag = random.randint(0, ff-1)
+        flag = random.randint(0, ff - 1)
         login_id = response_data[1]['PageData'][flag]['Id']
 
         # STEP2
@@ -76,4 +76,4 @@ class MemberLoginBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

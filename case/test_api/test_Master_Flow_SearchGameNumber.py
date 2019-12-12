@@ -32,7 +32,6 @@ class SearchGameNumber(unittest.TestCase):
         ("verify_bureau_number_query_GPK", 'Rg2Slot', 2),
     ])
     def testCase(self, name, game_type, data_location):
-
         self.verifyGameNumberFunctionIsNormally(game_type, data_location)
 
     def verifyGameNumberFunctionIsNormally(self, game_type, data_location):
@@ -68,4 +67,4 @@ class SearchGameNumber(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

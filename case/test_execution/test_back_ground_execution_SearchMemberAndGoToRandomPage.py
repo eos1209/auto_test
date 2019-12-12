@@ -27,7 +27,9 @@ class SearchMemberAndGoToRandomPage(unittest.TestCase):
     """会员相關功能查询"""
 
     def getMemberCount(self):
-        self.driver = webdriver.Chrome()
+        chrome_path ="D:\chromedriver.exe"
+        self.driver = webdriver.Chrome(chrome_path)
+        # self.driver = webdriver.Chrome()
         self.driver.get("http://master.fnjtd.com/Account/Login")
         sleep(1)
         self.driver.set_window_size(1900, 1020)
@@ -64,7 +66,7 @@ class SearchMemberAndGoToRandomPage(unittest.TestCase):
         # print(TotalPage)
         self.user.login()
 
-        for i in range(0, 150000 - 1):
+        for i in range(0, 2 - 1):
             random_page = random.randint(0, TotalPage)
             # print(random_page + 1)
 

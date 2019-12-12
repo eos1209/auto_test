@@ -44,7 +44,7 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_03(self):
         """優惠匯入 - 上傳Excel 狀態"""
-        upload_file = common_config.file_Path + 'testData/depositImport-A.xlsx'  # 檔案
+        upload_file = common_config.file_Path + 'test_data/depositImport-A.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'filebase': ('depositImport-A.xlsx', open_file, mime_Type, {'Expires': '0'})}
@@ -55,9 +55,9 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_04(self):
         """優惠匯入 - 優惠匯入-立刻 狀態"""
-        ReserveTime = (datetime.now() + timedelta(hours=1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
+        ReserveTime = (datetime.now() + timedelta(hours = 1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
-        upload_file = common_config.file_Path + 'testData/depositImport-A.xlsx'  # 檔案
+        upload_file = common_config.file_Path + 'test_data/depositImport-A.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'password': (None, master_config.Master_Password),  # 有其他參數上傳用這種mode
@@ -101,9 +101,9 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_05(self):
         """優惠匯入 - 優惠匯入-預約時間 狀態"""
-        ReserveTime = (datetime.now() + timedelta(hours=-11)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
+        ReserveTime = (datetime.now() + timedelta(hours = -11)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
-        upload_file = common_config.file_Path + 'testData/depositImport-B.xlsx'  # 檔案
+        upload_file = common_config.file_Path + 'test_data/depositImport-B.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'password': (None, master_config.Master_Password), 'ReserveTime': (None, ReserveTime),  # 有其他參數上傳用這種mode
@@ -126,4 +126,4 @@ class DepositImportBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())
