@@ -66,7 +66,7 @@ class SearchMemberAndGoToRandomPage(unittest.TestCase):
         # print(TotalPage)
         self.user.login()
 
-        for i in range(0, 2 - 1):
+        for i in range(0, 100000 - 1):
             random_page = random.randint(0, TotalPage)
             # print(random_page + 1)
 
