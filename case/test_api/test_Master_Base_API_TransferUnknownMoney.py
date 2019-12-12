@@ -26,8 +26,7 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
 
     def test_transfer_unknown_money_relatedApi_status_01(self):
         """驗證 转帐额度确认 - 取得頁面"""
-        data = {}
-        response_data = self.transfer_unknown_money.index(data)
+        response_data = self.transfer_unknown_money.index()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -40,8 +39,7 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
 
     def test_transfer_unknown_money_relatedApi_status_03(self):
         """驗證 转帐额度确认 - 取得詳細頁面"""
-        data = {}
-        response_data = self.transfer_unknown_money.detail(data)
+        response_data = self.transfer_unknown_money.detail()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -50,9 +48,41 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
         data = {"count": 100, "minId": None, "query": {}}
         response_data = self.transfer_unknown_money.getList(data)
         get_data_id = response_data[1]['Data'][0]['Id']
-
         data = {"id": get_data_id}
         response_data = self.transfer_unknown_money.getDetail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_transfer_unknown_money_relatedApi_status_05(self):
+        """驗證 转帐额度确认 - 取得娛樂城列表 2019/12/12"""
+        response_data = self.transfer_unknown_money.getGameHallSearchList()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_transfer_unknown_money_relatedApi_status_06(self):
+        """驗證 转帐额度确认 - 取得轉帳額度狀態 2019/12/12"""
+        response_data = self.transfer_unknown_money.getStates()
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_transfer_unknown_money_relatedApi_status_07(self):
+        """驗證 转帐额度确认 - 取得詳細資料狀態列 2019/12/12"""
+        data = {"count": 100, "minId": None, "query": {}}
+        response_data = self.transfer_unknown_money.getList(data)
+        get_data_id = response_data[1]['Data'][0]['Id']
+        data = {"id": get_data_id}
+        response_data = self.transfer_unknown_money.getDetailStatusBar(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_transfer_unknown_money_relatedApi_status_08(self):
+        """驗證 转帐额度确认 - 手動補額度 2019/12/12"""
+        data = {"count": 100, "minId": None, "query": {}}
+        response_data = self.transfer_unknown_money.getList(data)
+        get_data_id = response_data[1]['Data'][0]['Id']
+        data = {"MaxId": get_data_id, "query": {"IsCheckSuppliers": 'true',
+                                                "Suppliers": []}}
+        response_data = self.transfer_unknown_money.fillMoneyCount(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

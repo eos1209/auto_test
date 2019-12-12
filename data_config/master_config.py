@@ -33,4 +33,7 @@ exist_Lv2_agent = 'QA_Test_B'
 # 新增代理商 - 已存在的大股東
 exist_Lv1_agent = 'QA_Test_A'
 
+# 總存取款匯出 決定 以月匯出 還是 以日匯出
+# 1:月，#0:日
+switch_month_day = 1
 
