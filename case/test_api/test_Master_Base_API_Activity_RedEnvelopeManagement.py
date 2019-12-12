@@ -43,9 +43,9 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
     def test_RedEnvelopeManagement_relatedApi_status_03(self):
         """ 紅包派送 - 紅包匯入 狀態 2019/12/03"""
         # 1205
-        startTime = (datetime.now() + timedelta(hours=-12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
-        endTime = (datetime.now() + timedelta(hours=+11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
-        upload_file = common_config.file_Path + 'testData/red.xlsx'  # 檔案
+        startTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
+        endTime = (datetime.now() + timedelta(hours = +11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
+        upload_file = common_config.file_Path + 'test_data/red.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
         open_file = open(upload_file, 'rb')  # 打開檔案
         data = {'Name': (None, 'QA_automation_redEnvelope'), 'Password': (None, master_config.Master_Password),
@@ -59,4 +59,4 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

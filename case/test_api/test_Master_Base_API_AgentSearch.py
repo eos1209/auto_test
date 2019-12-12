@@ -26,7 +26,7 @@ class AgentSearchBaseTest(unittest.TestCase):
         """驗證 代理商查询頁面 狀態"""
         response_data = self.agentSearch.query()
         status_code = response_data[0]
-        self.assertEqual(status_code,common_config.Status_Code)
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentSearch_relatedApi_status_02(self):
         """驗證 代理商查詢頁面 取得所有會員等級"""
@@ -68,6 +68,4 @@ class AgentSearchBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
-
-
+    unittest.main(testRunner = HTMLTestRunner())
