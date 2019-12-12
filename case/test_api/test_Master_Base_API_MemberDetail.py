@@ -32,7 +32,7 @@ class MemberDetailBaseTest(unittest.TestCase):
         response_data = self.searchMember.search(data)
         memberId = response_data[1]['PageData'][0]['Id']
         # print(memberId)
-        time.sleep(1)
+        time.sleep(3)
         return memberId
 
     def depositSubmitAudit(self):

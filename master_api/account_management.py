@@ -371,11 +371,11 @@ class YuebaoBoard(object):
         self.__http = http
         self.response_data = {}
 
-    def index(self, data):
+    def index(self):
         # API Name =>余额宝看板-
         # body--/{search}/{minTime}/{pageSize}
         path = '/YuebaoList'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -423,6 +423,13 @@ class YuebaoBoard(object):
         # API Name =>余额宝看板-
         # body--
         path = '/YuebaoBoard/GetMemberLevelSetting'
+        data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def export(self, data):
+        # 餘額寶看板-匯出Excel
+        path = '/YuebaoBoard/Export'
         data = data
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
@@ -704,19 +711,19 @@ class TransferUnknownMoney(object):
         self.__http = http
         self.response_data = {}
 
-    def index(self, data):
+    def index(self):
         # API Name =>转帐额度确认-頁面
         # body--
         path = '/TransferUnknownMoney/Index'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def detail(self, data):
+    def detail(self):
         # API Name =>转帐额度确认-詳細頁面
         # body--
         path = '/TransferUnknownMoney/Detail'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -728,19 +735,19 @@ class TransferUnknownMoney(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def getStates(self, data):
+    def getStates(self):
         # API Name =>转帐额度确认-取得狀態
         # body--
         path = '/TransferUnknownMoney/GetStates'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def getGameHallSearchList(self, data):
+    def getGameHallSearchList(self):
         # API Name =>转帐额度确认-取得娛樂城列表
         # body--
         path = '/TransferUnknownMoney/GetGameHallSearchList'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -948,11 +955,11 @@ class TransactionReportSummary(object):
         self.__http = http
         self.response_data = {}
 
-    def summary(self, data):
+    def summary(self):
         # API Name =>总存取款汇出-取得頁面
         # body--
         path = '/TransactionReport/Summary'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -961,5 +968,12 @@ class TransactionReportSummary(object):
         # body--/{beginDate}/{endDate}
         path = '/TransactionReport/ReportExport'
         data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateStatus(self):
+        # 大量匯出時更新狀態
+        path = '/TransactionReport/UpdateStatus'
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data

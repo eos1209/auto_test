@@ -7,6 +7,7 @@ import datetime as datetime
 # Global setting
 from datetime import date, timedelta
 import time
+import calendar
 
 # 狀態碼
 Status_Code = '200'
@@ -16,6 +17,10 @@ BeginDate = (date.today() - timedelta(7)).strftime("%Y/%m/%d")
 EndDate = date.today().strftime("%Y/%m/%d")
 TodayDate = date.today().strftime("%Y/%m/%d")
 
+# 月初1號月底
+FirstDay = datetime.date(date.today().year, date.today().month, day=1).strftime("%Y/%m/%d")
+weekDay, Day = calendar.monthrange(datetime.date.today().year, datetime.date.today().month)
+EndDay = datetime.date(datetime.date.today().year, datetime.date.today().month, day=Day).strftime("%Y/%m/%d")
 # 美東時間轉換
 transactionDateBegin = (datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S")
 transactionDateEnd = (datetime.datetime.now() + timedelta(hours=2)).strftime("%Y-%m-%d %H:%M:%S")

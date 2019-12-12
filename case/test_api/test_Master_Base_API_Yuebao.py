@@ -24,28 +24,6 @@ class YuebaoBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_Yuebao_relatedApi_status_01(self):
-        """驗證 余额宝 - 取得看板頁面"""
-        data = {}
-        response_data = self.yuebaoBoard.index(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_Yuebao_relatedApi_status_02(self):
-        """驗證 余额宝 - 取得看板列表資料"""
-        data = {"pageSize": 100,
-                "search": {}}
-        response_data = self.yuebaoBoard.list(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_Yuebao_relatedApi_status_03(self):
-        """驗證 余额宝 - 取得總計數據"""
-        data = {}
-        response_data = self.yuebaoBoard.summary(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
-
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

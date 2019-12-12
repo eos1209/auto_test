@@ -337,13 +337,6 @@ class MemberDetail(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def updateMemberLoginEveryWhere(self, data):
-        # 更新區域驗證限制
-        path = '/Member/UpdateMemberLoginEveryWhere'
-        data = data
-        self.response_data = self.__http.sendRequest('POST', path, data)
-        return self.response_data
-
     def updateMemberSmsLoginValidationEnable(self, data):
         # 手機簡訊驗證
         path = '/Member/UpdateMemberSmsLoginValidationEnable'
