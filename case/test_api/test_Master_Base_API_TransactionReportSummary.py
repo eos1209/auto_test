@@ -25,7 +25,6 @@ class TransactionReportSummaryBaseTest(unittest.TestCase):
         self.user.logout()
 
     def switchMonthDay(self, mode):
-        # 選擇以月來匯出還是以日匯出
         if mode == 1:  # 月
             data = {'beginDate': common_config.FirstDay, 'endDate': common_config.EndDay, 'isByMonth': 1}
             return self.TransactionReportSummary.reportExport(data)
@@ -40,12 +39,18 @@ class TransactionReportSummaryBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_TransactionReportSummary_baseApi_status_02(self):
-        """驗證 總存取款匯出-總存取款匯出 狀態"""
-        response_data = self.switchMonthDay(master_config.switch_month_day)
+        """驗證 總存取款匯出-總存取款匯出 -日 狀態"""
+        response_data = self.switchMonthDay(0)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_TransactionReportSummary_baseApi_status_03(self):
+        """驗證 總存取款匯出-總存取款匯出 -月 狀態"""
+        response_data = self.switchMonthDay(1)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_TransactionReportSummary_baseApi_status_04(self):
         """驗證 總存取款匯出-大量匯出時更新狀態 狀態"""
         response_data = self.TransactionReportSummary.updateStatus()
         status_code = response_data[0]

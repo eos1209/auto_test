@@ -11,19 +11,19 @@ class MemberLevelSetting(object):
         self.__http = http
         self.response_data = {}
 
-    def list(self, data):
+    def list(self):
         # API Name =>会员等级管理-取得頁面
         # body--
         path = '/MemberLevelSetting/List'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def getList(self, data):
+    def getList(self):
         # API Name =>会员等级管理-取得列表清單
         # body--
         path = '/MemberLevelSetting/GetList'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -35,11 +35,18 @@ class MemberLevelSetting(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def create(self, data):
+    def getEventList(self, data):
+        #  取得各等級的參加活動數量
+        path = '/MemberLevelSetting/GetEventList'
+        data = data
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def create(self):
         # API Name =>会员等级管理-新增等級頁面
         # body--
         path = '/MemberLevelSetting/Create'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -67,11 +74,11 @@ class MemberLevelSetting(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def modify(self, data):
+    def modify(self):
         # API Name =>会员等级管理-取得修改頁面
         # body--
         path = '/MemberLevelSetting/Modify'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -99,11 +106,11 @@ class MemberLevelSetting(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def detail(self, data):
+    def detail(self):
         # API Name =>会员等级管理-取得設定詳細資料頁面
         # body--
         path = '/MemberLevelSetting/Detail'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -123,35 +130,35 @@ class GroupAccount(object):
         self.__http = http
         self.response_data = {}
 
-    def list(self, data):
+    def list(self):
         # API Name =>公司入款帐户管理-取得頁面
         # body--
         path = '/GroupAccount/List'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def create(self, data):
+    def create(self):
         # API Name =>公司入款帐户管理-取得新增頁面
         # body--
         path = '/GroupAccount/Create'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def detail(self, data):
+    def detail(self):
         # API Name =>公司入款帐户管理-取得詳細頁面
         # body--
         path = '/GroupAccount/Detail'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def modify(self, data):
+    def modify(self):
         # API Name =>公司入款帐户管理-取得修改頁面
         # body--
         path = '/GroupAccount/Modify'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -187,11 +194,11 @@ class GroupAccount(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def getList(self, data):
+    def getList(self):
         # API Name =>公司入款帐户管理-取得公司入款帳戶列表
         # body--
         path = '/GroupAccount/GetList'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -227,11 +234,11 @@ class GroupAccount(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def getAllGroupAccountType(self, data):
+    def getAllGroupAccountType(self):
         # API Name =>公司入款帐户管理-取得所有公司入款帳戶類型
         # body--
         path = '/GroupAccount/GetAllGroupAccountType'
-        data = data
+        data = {}
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -251,13 +258,13 @@ class GroupAccount(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    # def updateImage(self, data):
-    #     # API Name =>公司入款帐户管理-更新圖片
-    #     # body--/{qrCodefile}
-    #     path = '/GroupAccount/UpdateImage'
-    #     data = data
-    #     self.response_data = self.__http.sendRequestForUploadFile('POST', path, data)
-    #     return self.response_data
+    def updateImage(self, data):
+        # API Name =>公司入款帐户管理-更新圖片
+        # body--/{qrCodefile}
+        path = '/GroupAccount/UpdateImage'
+        data = data
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
 
 
 # 线上支付商户
@@ -1455,7 +1462,6 @@ class SiteMail(object):
 
 # 活动管理
 class ActivityManagement(object):
-
     # 红包派送
     class RedEnvelopeManagement:
 
