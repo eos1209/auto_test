@@ -45,13 +45,13 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_01(self):
         """驗證 交易記錄查詢頁面狀態"""
-        response_data = self.memberTransaction.query()
+        response_data = self.memberTransaction.query({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberTransaction_baseApi_status_02(self):
         """驗證 取得交易紀錄類型狀態"""
-        response_data = self.memberTransaction.queryInit()
+        response_data = self.memberTransaction.queryInit({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -74,7 +74,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_04(self):
         """驗證 取得交易記錄詳細頁面狀態"""
-        response_data = self.memberTransaction.detail()
+        response_data = self.memberTransaction.detail({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

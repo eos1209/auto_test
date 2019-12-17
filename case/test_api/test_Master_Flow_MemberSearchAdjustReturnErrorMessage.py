@@ -4,10 +4,10 @@
 '''
 
 import unittest
-
+from time import sleep
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 
 
@@ -17,7 +17,7 @@ class MemberSearchAdjustReturnErrorMessage(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberSearch = memeber_and_agent.MemberSearch(self.__http)
+        self.memberSearch = member_and_agent.MemberSearch(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -33,6 +33,8 @@ class MemberSearchAdjustReturnErrorMessage(unittest.TestCase):
 
     def test_member_search_request_payload_have_not_connectionId(self):
         """驗證 会员查询 Request Payload 未帶 Connection Id"""
+        # 因修改查詢頻率限制
+        sleep(1.5)
         data = {"Account": "hsiang"}
         response_data = self.memberSearch.search(data)
         error_message = response_data[1]['ErrorMessage']

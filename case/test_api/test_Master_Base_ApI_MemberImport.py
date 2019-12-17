@@ -6,7 +6,7 @@ import unittest
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 from data_config import master_config
 
@@ -17,7 +17,7 @@ class MemberImportBaseTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberImport = memeber_and_agent.MemberImport(self.__http)
+        self.memberImport = member_and_agent.MemberImport(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -25,25 +25,25 @@ class MemberImportBaseTest(unittest.TestCase):
 
     def test_MemberImport_relatedApi_status_01(self):
         """驗證 會員匯入 - 會員匯入頁面 狀態"""
-        response_data = self.memberImport.index()
+        response_data = self.memberImport.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberImport_relatedApi_status_02(self):
         """驗證 會員匯入 - 會員匯入紀錄 狀態"""
-        response_data = self.memberImport.getRecord()
+        response_data = self.memberImport.getRecord({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberImport_relatedApi_status_03(self):
         """驗證 會員匯入 - 確認是否有會員匯入 狀態"""
-        response_data = self.memberImport.checkHasMemberImporting()
+        response_data = self.memberImport.checkHasMemberImporting({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberImport_relatedApi_status_04(self):
         """驗證 會員匯入 - 下載範本 狀態"""
-        response_data = self.memberImport.downloadExample()
+        response_data = self.memberImport.downloadExample({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

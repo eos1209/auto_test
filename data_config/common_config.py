@@ -9,6 +9,9 @@ from datetime import date, timedelta
 import time
 import calendar
 
+# 延遲時間
+DelayTime = 1.5
+
 # 狀態碼
 Status_Code = '200'
 
@@ -17,7 +20,7 @@ BeginDate = (date.today() - timedelta(7)).strftime("%Y/%m/%d")
 EndDate = date.today().strftime("%Y/%m/%d")
 TodayDate = date.today().strftime("%Y/%m/%d")
 
-# 月初1號月底
+# 月初1號&月底
 FirstDay = datetime.date(date.today().year, date.today().month, day=1).strftime("%Y/%m/%d")
 weekDay, Day = calendar.monthrange(datetime.date.today().year, datetime.date.today().month)
 EndDay = datetime.date(datetime.date.today().year, datetime.date.today().month, day=Day).strftime("%Y/%m/%d")

@@ -11,7 +11,7 @@ from parameterized import parameterized
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import master_config
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 
 
@@ -21,8 +21,8 @@ class FixVerifyAuditTypeField(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberSearch = memeber_and_agent.MemberSearch(self.__http)
-        self.memberDeposit = memeber_and_agent.MemberDeposit(self.__http)
+        self.memberSearch = member_and_agent.MemberSearch(self.__http)
+        self.memberDeposit = member_and_agent.MemberDeposit(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -42,7 +42,7 @@ class FixVerifyAuditTypeField(unittest.TestCase):
     def testCase(self, name, audit_type, select_type):
         # 測試案例名稱、稽核方式、类型
         # Step1 取得人工存入的token
-        response_data = self.memberDeposit.deposit_token()
+        response_data = self.memberDeposit.deposit_token({})
 
         # Step2 人工存入api 呼叫
         data = {"AccountsString": master_config.Test_Account,

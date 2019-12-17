@@ -6,10 +6,11 @@
 import unittest
 from data_config import master_config
 from data_config import common_config
+from data_config import portal_config
 import random
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 from selenium import webdriver
 from time import sleep
@@ -21,43 +22,58 @@ class MemberRegisterVerifyTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberVerify = memeber_and_agent.MemberVerifyPage(self.__http)
+        self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
-    def Portal_Member_Register(self):
+    # def PortalExecutionMemberRegister(self):
+    #     self.driver = webdriver.Chrome()
+    #     self.driver.get("http://www.fnjtd.com/Register")
+    #     self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
+    #     self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/input").send_keys(
+    #         "QAtest" + common_config.now)  # 會員帳號
+    #     self.driver.find_element_by_xpath("//div[@class='form-group'][3]/div[@class='control-div']/input").send_keys(
+    #         "a123456")  # 會員密碼
+    #     self.driver.find_element_by_xpath("//div[@class='form-group'][4]/div[@class='control-div']/input").send_keys(
+    #         "a123456")  # 確認密碼
+    #     self.driver.find_element_by_xpath(
+    #         "//div[@class='form-group ng-scope'][1]/div[@class='control-div']/input").send_keys("123456")  # 取款密碼
+    #     # self.driver.find_element_by_xpath( "//div[@class='form-group ng-scope'][2]/div[
+    #     # @class='control-div']/input").send_keys("QA_Test@gmail.com")#電子信箱
+    #     self.driver.find_element_by_xpath(
+    #         "//div[@class='form-group'][2]/div[@class='control-div']/div[@id='checkcode-input-group']/input").send_keys(
+    #         "e5466e48e20e4944a0bdaa6bac351c8d")  # 萬用碼
+    #     sleep(2)
+    #     self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/button").click()
+    #     sleep(2)
+    #     self.driver.close()
+
+    def PortalExecutionMemberRegister(self):
         self.driver = webdriver.Chrome()
+        self.driver.set_window_size(1900, 1020)
         self.driver.get("http://www.fnjtd.com/Register")
         self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
-        self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/input").send_keys(
-            "QAtest" + common_config.now)  # 會員帳號
-        self.driver.find_element_by_xpath("//div[@class='form-group'][3]/div[@class='control-div']/input").send_keys(
-            "a123456")  # 會員密碼
-        self.driver.find_element_by_xpath("//div[@class='form-group'][4]/div[@class='control-div']/input").send_keys(
-            "a123456")  # 確認密碼
-        self.driver.find_element_by_xpath(
-            "//div[@class='form-group ng-scope'][1]/div[@class='control-div']/input").send_keys("123456")  # 取款密碼
-        # self.driver.find_element_by_xpath( "//div[@class='form-group ng-scope'][2]/div[
-        # @class='control-div']/input").send_keys("QA_Test@gmail.com")#電子信箱
-        self.driver.find_element_by_xpath(
-            "//div[@class='form-group'][2]/div[@class='control-div']/div[@id='checkcode-input-group']/input").send_keys(
-            "e5466e48e20e4944a0bdaa6bac351c8d")  # 萬用碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys("QAtest" + common_config.now)  # 會員帳號
+        self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
+        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
-        self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/button").click()
+        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").click()
         sleep(2)
         self.driver.close()
 
     def test_MemberRegisterVerify_baseApi_status_01(self):
         """驗證 會員註冊審核-取得各站台資訊"""
-        response_data = self.memberVerify.getSetting()
+        response_data = self.memberVerify.getSetting({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberRegisterVerify_baseApi_status_02(self):
         """驗證 會員註冊審核-取得所有狀態"""
-        response_data = self.memberVerify.getAllStatus()
+        response_data = self.memberVerify.getAllStatus({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -80,7 +96,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_05(self):
         """驗證 會員註冊審核-取得設定資料"""
-        response_data = self.memberVerify.getSetting()
+        response_data = self.memberVerify.getSetting({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -119,7 +135,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_10(self):
         """驗證 會員註冊審核-刪除域名"""
-        response = self.memberVerify.getSetting()
+        response = self.memberVerify.getSetting({})
         getDomainName_id = response[1]['ReturnObject']['DomainNamesSetting']['Item'][0]['Id']
         getDomainName_value = response[1]['ReturnObject']['DomainNamesSetting']['Item'][0]['Url']
         data = {'id': getDomainName_id, 'value': getDomainName_value}
@@ -146,7 +162,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_13(self):
         """驗證 會員註冊審核-刪除代理商項目"""
-        response = self.memberVerify.getSetting()
+        response = self.memberVerify.getSetting({})
         getAgentItem_Id = response[1]['ReturnObject']['AgentsSetting']['Item'][0]['Id']
         getAgentItem_value = response[1]['ReturnObject']['AgentsSetting']['Item'][0]['Account']
         data = {'id': getAgentItem_Id, 'value': getAgentItem_value}
@@ -156,7 +172,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_14(self):
         """驗證 會員註冊審核-審核會員"""
-        self.Portal_Member_Register()  # 前端執行
+        self.PortalExecutionMemberRegister()  # 前端執行
         sleep(1)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
@@ -179,7 +195,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_16(self):
         """驗證 會員註冊審核-同意"""
-        self.Portal_Member_Register()  # 前端執行
+        self.PortalExecutionMemberRegister()  # 前端執行
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         Id = getData[1]['Data'][0]['Id']
@@ -202,11 +218,10 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_18(self):
         """驗證 會員註冊審核-拒絕"""
-        self.Portal_Member_Register()  # 前端執行
+        self.PortalExecutionMemberRegister()  # 前端執行
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         accountId = getData[1]['Data'][0]['Id']
-        # print(accountId)
         data = {'Id': accountId}
         response_data = self.memberVerify.deny(data)
         status_code = response_data[0]

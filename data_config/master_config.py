@@ -18,9 +18,12 @@ Post_Master_Headers = {'Content-Type': "application/json", 'X-Requested-With': "
 Post_headers_upLoadFile = {'X-Requested-With': "XMLHttpRequest"}
 
 # 測試會員
-Account = 'DS_player4'
+Account = 'DS_player7'
 # 測試批次會員
-batchAccount = 'QATEST,DS,DS_player4,DS_player8'
+batchAccount = 'QATEST,DS,DS_player7,DS_player8'
+
+# 測試會員標籤
+memberTags = 'QA_batchAutomation'
 
 # 新增會員-已存在的代理
 exist_agent = 'QA_Test_D'
@@ -36,4 +39,3 @@ exist_Lv1_agent = 'QA_Test_A'
 # 總存取款匯出 決定 以月匯出 還是 以日匯出
 # 1:月，#0:日
 switch_month_day = 1
-

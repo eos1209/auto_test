@@ -4,11 +4,13 @@
 '''
 
 import unittest
+
+from base.CommonMethod import SetDelayTime
 from data_config import common_config
 from data_config import master_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 
 
@@ -18,7 +20,7 @@ class MemberSearchBaseTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberSearch = memeber_and_agent.MemberSearch(self.__http)
+        self.memberSearch = member_and_agent.MemberSearch(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -26,12 +28,14 @@ class MemberSearchBaseTest(unittest.TestCase):
 
     def test_MemberSearch_relatedApi_status_01(self):
         """驗證 会员查询頁面 狀態"""
-        response_data = self.memberSearch.query_page()
+        response_data = self.memberSearch.query_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberSearch_relatedApi_status_02(self):
         """驗證 会员查询 狀態"""
+        # 因修改查詢頻率限制
+        SetDelayTime()
         data = {"Account": master_config.Account,
                 "connectionId": self.user.info()}
         response_data = self.memberSearch.search(data)
@@ -47,25 +51,25 @@ class MemberSearchBaseTest(unittest.TestCase):
 
     def test_MemberSearch_relatedApi_status_04(self):
         """驗證 會員等級 狀態"""
-        response_data = self.memberSearch.getAllMemberLevels()
+        response_data = self.memberSearch.getAllMemberLevels({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberSearch_relatedApi_status_05(self):
         """驗證 反水等級 狀態"""
-        response_data = self.memberSearch.getAllDiscountSettings()
+        response_data = self.memberSearch.getAllDiscountSettings({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberSearch_relatedApi_status_06(self):
         """驗證 匯出檔案標籤 狀態"""
-        response_data = self.memberSearch.getColumnForExport()
+        response_data = self.memberSearch.getColumnForExport({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberSearch_relatedApi_status_07(self):
         """驗證 功能開關 狀態"""
-        response_data = self.memberSearch.getShelfFunctionSwitch()
+        response_data = self.memberSearch.getShelfFunctionSwitch({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

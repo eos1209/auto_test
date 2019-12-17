@@ -24,38 +24,42 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
+    def GetGroupThirdPartyId(self):
+        response_data = self.groupThirdParty.get_list({})
+        for i in range(len(response_data[1]['Settings'])):
+            if response_data[1]['Settings'][i]['Name'] == "QA - 測試API":
+                self.getNewCreateGroupThirdPartyId = response_data[1]['Settings'][i]['Id']
+            elif response_data[1]['Settings'][i]['Name'] == "QA - 測試API-modify":
+                self.getNewCreateGroupThirdPartyId = response_data[1]['Settings'][i]['Id']
+        return self.getNewCreateGroupThirdPartyId
+
     def test_GroupAccount_relatedApi_status_01(self):
         """驗證 线上支付商户管理 - 取得列表頁面"""
-        data = {}
-        response_data = self.groupThirdParty.list(data)
+        response_data = self.groupThirdParty.list({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_02(self):
         """驗證 线上支付商户管理 - 取得線上支付商戶列表"""
-        data = {}
-        response_data = self.groupThirdParty.get_list(data)
+        response_data = self.groupThirdParty.get_list({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_03(self):
         """驗證 线上支付商户管理 - 取得新增頁面"""
-        data = {}
-        response_data = self.groupThirdParty.create(data)
+        response_data = self.groupThirdParty.create({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_04(self):
         """驗證 线上支付商户管理 - 取得線上商戶類型"""
-        data = {}
-        response_data = self.groupThirdParty.get_types(data)
+        response_data = self.groupThirdParty.get_types({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_05(self):
         """驗證 线上支付商户管理 - 取得目前支付種類"""
-        data = {}
-        response_data = self.groupThirdParty.get_third_party_type_list(data)
+        response_data = self.groupThirdParty.get_third_party_type_list({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -97,40 +101,50 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_07(self):
         """驗證 线上支付商户管理 - 取得金流公司商戶資料"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id}
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的詳細資料
+        data = {"id": groupThirdPartyId}
         response_data = self.groupThirdParty.get_dtpp_detail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_08(self):
         """驗證 线上支付商户管理 - 停用金流公司商戶資料"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id}
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的停用
+        data = {"id": groupThirdPartyId}
         response_data = self.groupThirdParty.dtpp_disable(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_09(self):
         """驗證 线上支付商户管理 - 啟用金流公司商戶資料"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id}
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的啟用
+        data = {"id": groupThirdPartyId}
         response_data = self.groupThirdParty.dtpp_active(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_10(self):
         """驗證 线上支付商户管理 - 歸零目前商戶累計金額"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id}
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的累計金額
+        data = {"id": groupThirdPartyId}
         response_data = self.groupThirdParty.dtpp_reset(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GroupAccount_relatedApi_status_11(self):
         """驗證 线上支付商户管理 - 更新商戶名稱"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id,
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的更新資料
+        data = {"id": groupThirdPartyId,
                 "args": "QA - 測試API-modify"}
         response_data = self.groupThirdParty.update_dtpp_name(data)
         status_code = response_data[0]
@@ -138,21 +152,13 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_25(self):
         """驗證 线上支付商户管理 - 刪除金流公司商戶資料"""
-        group_third_party_id = self.get_group_third_party_id()
-        data = {"id": group_third_party_id}
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的刪除
+        data = {"id": groupThirdPartyId}
         response_data = self.groupThirdParty.dTPPDelete(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-
-    def get_group_third_party_id(self):
-        data = {}
-        response_data = self.groupThirdParty.get_list(data)
-        for i in range(len(response_data[1]['Settings'])):
-            if response_data[1]['Settings'][i]['Name'] == "QA - 測試API":
-                self.get_new_create_group_third_party_id = response_data[1]['Settings'][i]['Id']
-            elif response_data[1]['Settings'][i]['Name'] == "QA - 測試API-modify":
-                self.get_new_create_group_third_party_id = response_data[1]['Settings'][i]['Id']
-        return self.get_new_create_group_third_party_id
 
 
 if __name__ == '__main__':
