@@ -26,15 +26,13 @@ class ContributionBaseTest(unittest.TestCase):
 
     def test_Contribution_relatedApi_status_01(self):
         """驗證 取得頁面 狀態"""
-        data = {}
-        response_data = self.contribution.index(data)
+        response_data = self.contribution.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_Contribution_relatedApi_status_02(self):
         """驗證 取得有貢獻金的娛樂城清單 狀態"""
-        data = {}
-        response_data = self.contribution.getContributionGameSuppliers(data)
+        response_data = self.contribution.getContributionGameSuppliers({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

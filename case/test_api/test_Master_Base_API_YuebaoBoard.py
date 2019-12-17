@@ -27,7 +27,7 @@ class YuebaoBoardBaseTest(unittest.TestCase):
 
     def test_YuebaoBoard_relatedApi_status_01(self):
         """驗證 余额宝 - 取得看板頁面"""
-        response_data = self.yuebaoBoard.index()
+        response_data = self.yuebaoBoard.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

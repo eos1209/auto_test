@@ -31,7 +31,7 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_01(self):
         """優惠匯入 - 優惠匯入頁面 狀態"""
-        response_data = self.DepositImport.index()
+        response_data = self.DepositImport.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -55,7 +55,7 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_04(self):
         """優惠匯入 - 優惠匯入-立刻 狀態"""
-        ReserveTime = (datetime.now() + timedelta(hours = 1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
+        # ReserveTime = (datetime.now() + timedelta(hours = 1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
         upload_file = common_config.file_Path + 'test_data/depositImport-A.xlsx'  # 檔案
         mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型

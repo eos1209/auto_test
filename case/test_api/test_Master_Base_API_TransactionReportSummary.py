@@ -34,7 +34,7 @@ class TransactionReportSummaryBaseTest(unittest.TestCase):
 
     def test_TransactionReportSummary_baseApi_status_01(self):
         """驗證 總存取款匯出-總存取款匯出頁面 狀態"""
-        response_data = self.TransactionReportSummary.summary()
+        response_data = self.TransactionReportSummary.summary({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -52,7 +52,7 @@ class TransactionReportSummaryBaseTest(unittest.TestCase):
 
     def test_TransactionReportSummary_baseApi_status_04(self):
         """驗證 總存取款匯出-大量匯出時更新狀態 狀態"""
-        response_data = self.TransactionReportSummary.updateStatus()
+        response_data = self.TransactionReportSummary.updateStatus({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

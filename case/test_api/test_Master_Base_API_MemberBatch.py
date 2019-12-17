@@ -7,7 +7,7 @@ import unittest
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 from data_config import master_config
 import time
@@ -19,7 +19,7 @@ class MemberBatchBaseTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberBatch = memeber_and_agent.MemberBatch(self.__http)
+        self.memberBatch = member_and_agent.MemberBatch(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -38,19 +38,19 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_02(self):
         """驗證 會員批次 - 會員批次頁面 狀態"""
-        response_data = self.memberBatch.batch_page()
+        response_data = self.memberBatch.batch_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberBatch_relatedApi_status_03(self):
         """驗證 會員批次 - 清除樣板 狀態  """  # 不確定
-        response_data = self.memberBatch.clearTemp()
-        # print(response_data)
-        self.assertEqual(response_data, None)
+        response_data = self.memberBatch.clearTemp({})
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberBatch_relatedApi_status_04(self):
         """驗證 會員批次 - 取得會員狀態 狀態"""
-        response_data = self.memberBatch.getMemberStates()
+        response_data = self.memberBatch.getMemberStates({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -111,8 +111,11 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_10(self):
         """驗證 會員批次 - 批次人工存入 狀態"""
-        self.memberDeposit = memeber_and_agent.MemberDeposit(self.__http)
-        depositToken = self.memberDeposit.deposit_token()
+        # Step1 先從人工存入取得 Token
+        self.memberDeposit = member_and_agent.MemberDeposit(self.__http)
+        depositToken = self.memberDeposit.deposit_token({})
+
+        # Step2 使用批次人工存入
         data = {
             'search': {'Account': master_config.batchAccount},
             'isSuper': 'false',
@@ -135,29 +138,34 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_11(self):
         """驗證 會員批次 - 批次修改會員標籤 狀態"""
-        self.memberTags = memeber_and_agent.MemberTags(self.__http)
+        # Step1 批次修改會員標籤
         data = {
             'search': {'Account': master_config.batchAccount},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
-            'newTags': ['QA_batchAutomation'],
+            'newTags': [master_config.memberTags],
             'addTagIds': [],
             'deleteTagIds': []
         }
         response_data = self.memberBatch.batchAddOrDeleteMemberTags(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        # 刪除標籤
-        getData = self.memberTags.getTags()
-        dataLength = len(getData[1]['ReturnObject']) - 1  # 取得最後一筆資料
-        memberTagId = dataLength
+
+        # Step2 驗證更改完畢後刪除標籤
+        # 呼叫取得會員標籤 API 後取最後一筆資料
+        self.memberTags = member_and_agent.MemberTags(self.__http)
+        getMemberTagsData = self.memberTags.getTags({})
+        for i in range(len(getMemberTagsData[1]['ReturnObject'])):
+            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.memberTags:
+                self.getTagsId = getMemberTagsData[1]['ReturnObject'][i]['Id']
+
         data = {
-            'search': {'MemberTagIds': getData[1]['ReturnObject'][memberTagId]['Id']},
+            'search': {'MemberTagIds': self.getTagsId},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
             'newTags': [],
             'addTagIds': [],
-            'deleteTagIds': [getData[1]['ReturnObject'][memberTagId]['Id']]
+            'deleteTagIds': [self.getTagsId]
         }
         self.memberBatch.batchAddOrDeleteMemberTags(data)
 

@@ -26,15 +26,13 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_Statistics_relatedApi_status_01(self):
         """驗證 站內信 - 取得列表頁面"""
-        data = {}
-        response_data = self.siteMail.list(data)
+        response_data = self.siteMail.list({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_Statistics_relatedApi_status_02(self):
         """驗證 站內信 - 取得發送信件頁面"""
-        data = {}
-        response_data = self.siteMail.send(data)
+        response_data = self.siteMail.send({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

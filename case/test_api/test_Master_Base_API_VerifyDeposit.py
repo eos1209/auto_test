@@ -63,10 +63,9 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def test_VerifyDeposit_relatedApi_status_01(self):
         """驗證 公司入款审核 - 取得頁面"""
-        data = {}
         # response_data = self.verifyDeposit.index(data)
         # self.Portal_VerifyDeposit()
-        response_data = self.verify_deposit.get_index_page(data)
+        response_data = self.verify_deposit.get_index_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -90,15 +89,13 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def test_VerifyDeposit_relatedApi_status_04(self):
         """驗證 公司入款审核 - 取得訂單狀態"""
-        data = {}
-        response_data = self.verify_deposit.get_apply_states(data)
+        response_data = self.verify_deposit.get_apply_states({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_VerifyDeposit_relatedApi_status_05(self):
         """驗證 公司入款审核 - 取得詳細頁面"""
-        data = {}
-        response_data = self.verify_deposit.get_detail_page(data)
+        response_data = self.verify_deposit.get_detail_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

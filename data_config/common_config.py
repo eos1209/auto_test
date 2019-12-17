@@ -9,6 +9,9 @@ from datetime import date, timedelta
 import time
 import calendar
 
+# 延遲時間
+DelayTime = 1.5
+
 # 狀態碼
 Status_Code = '200'
 

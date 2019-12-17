@@ -6,7 +6,7 @@ import unittest
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 from data_config import master_config
 
@@ -17,7 +17,7 @@ class MemberCreateTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.memberCreate = memeber_and_agent.MemberCreate(self.__http)
+        self.memberCreate = member_and_agent.MemberCreate(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -25,19 +25,19 @@ class MemberCreateTest(unittest.TestCase):
 
     def test_MemberCreate_baseApi_status_01(self):
         """驗證 新增會員 - 頁面狀態"""
-        response_data = self.memberCreate.createPage()
+        response_data = self.memberCreate.createPage({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberCreate_baseApi_status_02(self):
         """ 驗證 是否為新增會員頁面 """
-        response_data = self.memberCreate.isEnableAddMemberSite()
+        response_data = self.memberCreate.isEnableAddMemberSite({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberCreate_baseApi_status_03(self):
         # 驗證 是否能夠取得預設密碼
-        response_data = self.memberCreate.getDefaultPasswords()
+        response_data = self.memberCreate.getDefaultPasswords({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -59,17 +59,15 @@ class MemberCreateTest(unittest.TestCase):
 
     def test_MemberCreate_baseApi_status_06(self):
         """ 驗證 預設會員密碼是否為123456"""
-        response_data = self.memberCreate.getDefaultPasswords()
-        defaultpassword = response_data[1]['DefaultPassword']
-        # print(defaultpassword)
-        self.assertEqual(defaultpassword, '123456')
+        response_data = self.memberCreate.getDefaultPasswords({})
+        defaultPassword = response_data[1]['DefaultPassword']
+        self.assertEqual(defaultPassword, '123456')
 
     def test_MemberCreate_baseApi_status_07(self):
         """驗證 預設取款密碼是否為123456"""
-        response_data = self.memberCreate.getDefaultPasswords()
-        defaultMoneypassword = response_data[1]['DefaultMoneyPassword']
-        # print(defaultMoneypassword)
-        self.assertEqual(defaultMoneypassword, '123456')
+        response_data = self.memberCreate.getDefaultPasswords({})
+        defaultMoneyPassword = response_data[1]['DefaultMoneyPassword']
+        self.assertEqual(defaultMoneyPassword, '123456')
 
     def test_MemberCreate_baseApi_status_08(self):
         """驗證 代理商是否能夠空白"""
@@ -104,7 +102,6 @@ class MemberCreateTest(unittest.TestCase):
         data = {'Account': account, 'Agent': agent, 'memo': '@QA_automation'}
         response_data = self.memberCreate.createSubmit(data)
         status_code = response_data[0]
-        # print(status_code)
         self.assertEqual(status_code, common_config.Status_Code)
 
 

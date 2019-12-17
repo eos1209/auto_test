@@ -26,8 +26,7 @@ class GameSupplierTransactionBaseTest(unittest.TestCase):
 
     def test_GameSupplierTransaction_relatedApi_status_01(self):
         """驗證 娛樂城轉帳紀錄查詢 - 取得頁面狀態"""
-        data = {}
-        response_data = self.gameSupplierTransaction.index(data)
+        response_data = self.gameSupplierTransaction.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

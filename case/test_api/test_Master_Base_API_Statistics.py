@@ -26,8 +26,7 @@ class StatisticsBaseTest(unittest.TestCase):
 
     def test_Statistics_relatedApi_status_01(self):
         """驗證 統計報表 - 取得頁面狀態"""
-        data = {}
-        response_data = self.statistics.index(data)
+        response_data = self.statistics.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

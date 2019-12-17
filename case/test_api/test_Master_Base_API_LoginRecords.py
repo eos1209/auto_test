@@ -26,44 +26,39 @@ class MemberLoginBaseTest(unittest.TestCase):
 
     def test_MemberLoginRecords_relatedApi_status_01(self):
         """驗證 登入紀錄查詢頁面 狀態"""
-        data = {}
-        response_data = self.memberLogin.query(data)
+        response_data = self.memberLogin.query({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_02(self):
         """驗證 查詢v2 狀態"""
-        data = {}
-        response_data = self.memberLogin.searchV2(data)
+        response_data = self.memberLogin.searchV2({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_03(self):
         """驗證 取得登入紀錄詳細頁面 狀態"""
-        data = {}
-        response_data = self.memberLogin.detail(data)
+        response_data = self.memberLogin.detail({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_04(self):
         """驗證 取得詳細資料 狀態"""
         # STEP1
-        data = {}
-        response_data = self.memberLogin.searchV2(data)
+        response_data = self.memberLogin.searchV2({})
         ff = len(response_data[1]['PageData'])
         flag = random.randint(0, ff - 1)
-        login_id = response_data[1]['PageData'][flag]['Id']
+        loginId = response_data[1]['PageData'][flag]['Id']
 
         # STEP2
-        data = {"id": login_id}
+        data = {"id": loginId}
         response_data = self.memberLogin.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_05(self):
         """驗證 匯出 狀態"""
-        data = {}
-        response_data = self.memberLogin.export(data)
+        response_data = self.memberLogin.export({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
