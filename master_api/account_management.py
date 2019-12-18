@@ -702,6 +702,7 @@ class LostDiscountMembers(object):
         path = '/AnyTimeDiscount/GetLostDiscountMembers'
         data = data
         self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
 
 
 # 转帐额度确认
