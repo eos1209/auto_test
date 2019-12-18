@@ -27,22 +27,27 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
         self.user.logout()
 
     @parameterized.expand([
-        ("verify_effective_bet_change_to_low_JdbBoard", 'JdbBoard', 6, 9),
-        ("verify_effective_bet_change_to_low_Rg2Board", 'Rg2Board', 4, 5),
-        ("verify_effective_bet_change_to_low_KgBoard", 'KgBoard', 9, 10),
-        ("verify_effective_bet_change_to_low_City761Board", 'City761Board', 5, 6),
-        ("verify_effective_bet_change_to_low_FsBoard", 'FsBoard', 6, 7),
-        ("verify_effective_bet_change_to_low_NwBoard", 'NwBoard', 7, 8),
-        ("verify_effective_bet_change_to_low_JsBoard", 'JsBoard', 6, 7),
-        ("verify_effective_bet_change_to_low_MtBoard", 'MtBoard', 6, 9),
-        ("verify_effective_bet_change_to_low_ThBoard", 'ThBoard', 7, 8),
-        ("verify_effective_bet_change_to_low_DhBoard", 'DhBoard', 3, 4),
-        ("verify_effective_bet_change_to_low_VgBoard", 'VgBoard', 3, 5),
-        ("verify_effective_bet_change_to_low_LegBoard", 'LegBoard', 7, 8),
-        # # ("Regression_SaBoard", 'SaBoard', '', 1, 6),
-        # ("verify_effective_bet_change_to_low_TogBoard", 'TogBoard', 5, 6),
+        ("Verify_EffectiveBetChangeToLow_Rg2Board", 'Rg2Board', 4, 5),  # GPK 棋牌
+        ("Verify_EffectiveBetChangeToLow_JdbBoard", 'JdbBoard', 6, 9),  # JDB 奪寶棋牌
+        ("Verify_EffectiveBetChangeToLow_KgBoard", 'KgBoard', 9, 10),  # KG 開元棋牌
+        ("Verify_EffectiveBetChangeToLow_City761Board", 'City761Board', 5, 6),  # AP 愛棋牌
+        ("Verify_EffectiveBetChangeToLow_FsBoard", 'FsBoard', 6, 7),  # 樂遊棋牌
+        ("Verify_EffectiveBetChangeToLow_NwBoard", 'NwBoard', 7, 8),  # 新世界棋牌
+        ("Verify_EffectiveBetChangeToLow_JsBoard", 'JsBoard', 6, 7),  # JS 金龍棋牌
+        ("Verify_EffectiveBetChangeToLow_MtBoard", 'MtBoard', 6, 9),  # MT 美天棋牌
+        ("Verify_EffectiveBetChangeToLow_ThBoard", 'ThBoard', 7, 8),  # TH 天豪棋牌
+        ("Verify_EffectiveBetChangeToLow_DtBoard", 'DtBoard', 5, 6),  # DT 梦想棋牌
+        ("Verify_EffectiveBetChangeToLow_DhBoard", 'DhBoard', 3, 4),  # RM 富豪棋牌
+        ("Verify_EffectiveBetChangeToLow_VgBoard", 'VgBoard', 3, 5),  # VG 财神棋牌
+        # ("Verify_EffectiveBetChangeToLow_TogBoard", 'TogBoard', 5, 6),  # TOG 星球棋牌
+        ("Verify_EffectiveBetChangeToLow_LegBoard", 'LegBoard', 7, 8),  # LEG 乐棋牌
+        ("Verify_EffectiveBetChangeToLow_GmgBoard", 'GmgBoard', 4, 5),  # GMG 光明棋牌
+        ("Verify_EffectiveBetChangeToLow_Im2Board", 'Im2Board', 7, 8),  # IM 棋牌
+
+        # 尚未對接完成
+        # ("Verify_SaBoard", 'SaBoard', '', 1, 6),
         # 停止合作
-        # ("verify_effective_bet_change_to_low_Mw2Board", 'Mw2Board', 7, 3),
+        # ("Verify_effective_bet_change_to_low_Mw2Board", 'Mw2Board', 7, 3),  # MW 棋牌
     ])
     def testCase(self, name, game_type, bet_amount_location, payoff_location):
         # 測試案例名稱、遊戲類型、抓取的數值回傳位置(下注金額，派彩)
@@ -59,8 +64,8 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
         # Step2
         data = {"Id": self.betRecordId}
         response_data = self.betRecord.getDetail(data)
-        self.commissionable = Decimal(response_data[1]['Commissionable']).quantize(Decimal('0.00'))
-        # print("有效投注:" + str(self.commissionable))
+        self.commissionAble = Decimal(response_data[1]['Commissionable']).quantize(Decimal('0.00'))
+        # print("有效投注:" + str(self.commissionAble))
 
         # Step3
         data = {"Id": self.betRecordId}
@@ -84,7 +89,7 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
             check_value = abs(payoff)
         else:
             check_value = bet_amount
-        self.assertEqual(str(self.commissionable), str(check_value))
+        self.assertEqual(str(self.commissionAble), str(check_value))
 
 
 if __name__ == '__main__':

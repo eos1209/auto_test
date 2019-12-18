@@ -26,7 +26,7 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
 
     def test_transfer_unknown_money_relatedApi_status_01(self):
         """驗證 转帐额度确认 - 取得頁面"""
-        response_data = self.transfer_unknown_money.index()
+        response_data = self.transfer_unknown_money.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -39,7 +39,7 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
 
     def test_transfer_unknown_money_relatedApi_status_03(self):
         """驗證 转帐额度确认 - 取得詳細頁面"""
-        response_data = self.transfer_unknown_money.detail()
+        response_data = self.transfer_unknown_money.detail({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -55,13 +55,13 @@ class TransferUnknownMoneyBaseTest(unittest.TestCase):
 
     def test_transfer_unknown_money_relatedApi_status_05(self):
         """驗證 转帐额度确认 - 取得娛樂城列表 2019/12/12"""
-        response_data = self.transfer_unknown_money.getGameHallSearchList()
+        response_data = self.transfer_unknown_money.getGameHallSearchList({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_transfer_unknown_money_relatedApi_status_06(self):
         """驗證 转帐额度确认 - 取得轉帳額度狀態 2019/12/12"""
-        response_data = self.transfer_unknown_money.getStates()
+        response_data = self.transfer_unknown_money.getStates({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

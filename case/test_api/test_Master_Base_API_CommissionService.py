@@ -26,8 +26,7 @@ class CommissionServiceBaseTest(unittest.TestCase):
 
     def test_CommissionService_relatedApi_status_01(self):
         """驗證 佣金计算 - 取得頁面(新)"""
-        data = {}
-        response_data = self.commissionService.index(data)
+        response_data = self.commissionService.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

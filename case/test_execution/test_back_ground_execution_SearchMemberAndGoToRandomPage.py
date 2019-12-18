@@ -10,7 +10,7 @@ import random
 from selenium import webdriver
 
 from master_api.account_login import User
-from master_api.memeber_and_agent import MemberSearch
+from master_api.member_and_agent import MemberSearch
 from master_api.account_management import MemberTransaction
 from master_api.account_management import ThirdPartyPayment
 from master_api.account_management import VerifyDeposit
@@ -20,6 +20,7 @@ from master_api.reports import BetRecords
 from master_api.reports import GameSupplierTransaction
 from master_api.reports import MemberLogin
 from base.httpRequest import HttpRequest
+from base.CommonMethod import SetDelayTime
 from data_config import common_config
 
 
@@ -27,7 +28,7 @@ class SearchMemberAndGoToRandomPage(unittest.TestCase):
     """会员相關功能查询"""
 
     def getMemberCount(self):
-        chrome_path ="D:\chromedriver.exe"
+        chrome_path = "D:\chromedriver.exe"
         self.driver = webdriver.Chrome(chrome_path)
         # self.driver = webdriver.Chrome()
         self.driver.get("http://master.fnjtd.com/Account/Login")
@@ -72,7 +73,8 @@ class SearchMemberAndGoToRandomPage(unittest.TestCase):
 
             random_member = random.randint(0, 9)
             # print(random_member)
-
+            # 等待設定秒數在進行查詢
+            SetDelayTime()
             data = {"pageIndex": random_page,
                     "connectionId": self.user.info()}
             response_data = self.memberSearch.search(data)

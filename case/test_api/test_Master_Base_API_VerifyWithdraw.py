@@ -26,8 +26,7 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
 
     def test_VerifyWithdraw_relatedApi_status_01(self):
         """驗證 取款申请审核 - 取得頁面"""
-        data = {}
-        response_data = self.verifyWithdraw.index(data)
+        response_data = self.verifyWithdraw.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -55,15 +54,13 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
 
     def test_VerifyWithdraw_relatedApi_status_04(self):
         """驗證 取款申请审核 - 取得訂單狀態"""
-        data = {}
-        response_data = self.verifyWithdraw.getApplyStates(data)
+        response_data = self.verifyWithdraw.getApplyStates({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_VerifyWithdraw_relatedApi_status_05(self):
         """驗證 取款申请审核 - 取得詳細頁面"""
-        data = {}
-        response_data = self.verifyWithdraw.detail(data)
+        response_data = self.verifyWithdraw.detail({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

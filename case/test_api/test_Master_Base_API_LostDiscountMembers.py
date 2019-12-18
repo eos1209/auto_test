@@ -23,7 +23,7 @@ class LostDiscountMembersBaseTest(unittest.TestCase):
         self.user.logout()
 
     def test_LostDiscountMembers_baseApi_status_01(self):
-        """驗證 新增會員 - 頁面狀態"""
+        """驗證 時返異常紀錄 - 頁面狀態"""
         data = {'query': {'Status': [1, 2], 'IsCheckStatus': 'true'}, 'take': 100, 'skip': 0}
         response_data = self.lostDiscountMembers.getLostDiscountMembers(data)
         status_code = response_data[0]

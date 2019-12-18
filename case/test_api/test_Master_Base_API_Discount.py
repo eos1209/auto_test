@@ -26,14 +26,14 @@ class DiscountBaseTest(unittest.TestCase):
 
     def test_discount_relatedApi_status_01(self):
         """驗證 返水计算 - 取得頁面"""
-        data = {}
-        response_data = self.discount.index(data)
+        response_data = self.discount.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_discount_relatedApi_status_02(self):
         """驗證 返水计算 - 載入歷史資料"""
-        data = {"take": 100, "skip": 0}
+        data = {"take": 100,
+                "skip": 0}
         response_data = self.discount.loadHistory(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

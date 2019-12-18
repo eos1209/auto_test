@@ -7,7 +7,7 @@ import unittest
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from master_api import memeber_and_agent
+from master_api import member_and_agent
 from master_api.account_login import User
 import random
 from data_config import master_config
@@ -19,10 +19,10 @@ class AgentCreateTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.AgentCreate = memeber_and_agent.AgentCreate(self.__http)
-        self.AgentSearch = memeber_and_agent.AgentSearchPage(self.__http)
-        self.MemberSearch = memeber_and_agent.MemberSearch(self.__http)
-        self.MemberCreate = memeber_and_agent.MemberCreate(self.__http)
+        self.AgentCreate = member_and_agent.AgentCreate(self.__http)
+        self.AgentSearch = member_and_agent.AgentSearch(self.__http)
+        self.MemberSearch = member_and_agent.MemberSearch(self.__http)
+        self.MemberCreate = member_and_agent.MemberCreate(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -30,49 +30,49 @@ class AgentCreateTest(unittest.TestCase):
 
     def test_AgentCreate_baseApi_status_01(self):
         """驗證 新增代理商 - 頁面狀態"""
-        response_data = self.AgentCreate.create()
+        response_data = self.AgentCreate.create({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_02(self):
         """驗證 新增代理商 - 檢查並更新所有代理權限"""
-        response_data = self.AgentCreate.checkAllUpdateAgentAuthority()
+        response_data = self.AgentCreate.checkAllUpdateAgentAuthority({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_03(self):
         """驗證 新增代理商 - 是否取得預設密碼"""
-        response_data = self.MemberCreate.getDefaultPasswords()
+        response_data = self.MemberCreate.getDefaultPasswords({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_04(self):
         """驗證 新增代理商 - 是否取得所有代理等級"""
-        response_data = self.AgentCreate.get_all_level_with_create()
+        response_data = self.AgentCreate.get_all_level_with_create({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_05(self):
         """驗證 新增代理商 - 是否取得所有傭金等級"""
-        response_data = self.AgentSearch.get_all_commission_settings()
+        response_data = self.AgentSearch.get_all_commission_settings({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_06(self):
         """驗證 新增代理商 - 是否取得所有返水設定"""
-        response_data = self.MemberSearch.getAllDiscountSettings()
+        response_data = self.MemberSearch.getAllDiscountSettings({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_07(self):
         """驗證 新增代理商 - 是否取得所有會員等級"""
-        response_data = self.AgentSearch.get_all_level()
+        response_data = self.AgentSearch.get_all_level({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_08(self):
         """新增代理商 - 是否取得所有銀行"""
-        response_data = self.AgentCreate.get_all_banks()
+        response_data = self.AgentCreate.get_all_banks({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -100,17 +100,15 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_12(self):
         """新增代理商 - 驗證代理是否存在-ErrorMessage"""
         level = random.randint(1, 3)  # 1:大股東 2:股東 3:總代理 ，亂數測試代理帳號存在
-        # print(level)
         data = {"level": level, "account": master_config.no_exist_agent}
         response_data = self.AgentCreate.check_parent(data)
-        errormessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errormessage, '找不到此上线帐号')
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '找不到此上线帐号')
 
     def test_AgentCreate_baseApi_status_13(self):
         """新增代理商 - 驗證代理是否新增-代理"""
         account = 'QA_Test' + common_config.now  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -165,7 +163,6 @@ class AgentCreateTest(unittest.TestCase):
             "ParentAccount": parent,
             "Percent": 0, "BankName": "北京银行"
         }
-        print(data)
         response_data = self.AgentCreate.create_submit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -211,7 +208,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 沒有銀行名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -243,7 +239,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 沒有縣市名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -275,7 +270,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 沒有省分名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -307,7 +301,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 沒有銀行帳戶是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -339,7 +332,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 代理沒有會員等級設定是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定
@@ -371,7 +363,6 @@ class AgentCreateTest(unittest.TestCase):
         """新增代理商 - 代理沒有返水設定是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
-        # print(account)
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
             "commissionSettingId": "61",  # 佣金設定

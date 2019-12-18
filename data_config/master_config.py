@@ -22,6 +22,9 @@ Account = 'DS_player7'
 # 測試批次會員
 batchAccount = 'QATEST,DS,DS_player7,DS_player8'
 
+# 測試會員標籤
+memberTags = 'QA_batchAutomation'
+
 # 新增會員-已存在的代理
 exist_agent = 'QA_Test_D'
 # 新增會員-不存在的代理

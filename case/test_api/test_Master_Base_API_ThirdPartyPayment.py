@@ -26,8 +26,7 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_01(self):
         """驗證 线上支付看板 - 取得頁面"""
-        data = {}
-        response_data = self.thirdPartyPayment.get_index_page(data)
+        response_data = self.thirdPartyPayment.get_index_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -52,8 +51,7 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_04(self):
         """驗證 线上支付看板 - 取得訂單狀態"""
-        data = {}
-        response_data = self.thirdPartyPayment.get_apply_states(data)
+        response_data = self.thirdPartyPayment.get_apply_states({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

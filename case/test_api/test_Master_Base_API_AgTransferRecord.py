@@ -26,15 +26,13 @@ class AgTransferRecordBaseTest(unittest.TestCase):
 
     def test_AgTransferRecord_baseApi_status_01(self):
         """驗證 AG交易记录汇出 - 頁面狀態"""
-        data = {}
-        response_data = self.agTransferRecord.index(data)
+        response_data = self.agTransferRecord.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgTransferRecord_baseApi_status_02(self):
         """驗證 AG交易记录汇出 - 取得種類"""
-        data = {}
-        response_data = self.agTransferRecord.getAgTrTypeList(data)
+        response_data = self.agTransferRecord.getAgTrTypeList({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
