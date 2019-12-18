@@ -36,4 +36,4 @@ WagersTimeBegin = (date.today().replace(day=1) - timedelta(1)).replace(day=1).st
 now = time.strftime("%m%d%M%S", time.localtime())
 
 # 上傳檔案絕對路徑-專案存放位址，檔案路徑另外一半在程式裡
-file_Path = 'D:/automation_test_project/'
+file_Path = 'D:/automation_test_project/test_data/'

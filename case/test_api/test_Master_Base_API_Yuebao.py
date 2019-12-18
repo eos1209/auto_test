@@ -8,7 +8,7 @@ import unittest
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import common_config
-from master_api import account_management
+from master_api import system_management
 from master_api.account_login import User
 
 
@@ -18,7 +18,7 @@ class YuebaoBaseTest(unittest.TestCase):
     def setUp(self):
         self.__http = HttpRequest()
         self.user = User(self.__http)
-        self.yuebaoBoard = account_management.YuebaoBoard(self.__http)
+        self.yuebao = system_management.Yuebao(self.__http)
         self.user.login()
 
     def tearDown(self):

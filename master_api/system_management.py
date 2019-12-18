@@ -394,7 +394,7 @@ class GroupThirdParty(object):
         # API Name =>线上支付商户管理-
         # body--/{id}
         path = '/GroupThirdParty/GetDepositLimitsCn'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateDTPPDepositLimitsCn(self, data):
@@ -408,21 +408,21 @@ class GroupThirdParty(object):
         # API Name =>线上支付商户管理-
         # body--/{id}/{args}
         path = '/GroupThirdParty/UpdateDTPPRecommendationMemo'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateDTPPAmountLock(self, data):
         # API Name =>线上支付商户管理-
         # body--/{id}/{args}
         path = '/GroupThirdParty/UpdateDTPPAmountLock'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateDTPPRecommendationAmountSettings(self, data):
         # API Name =>线上支付商户管理-
         # body--/{id}/{args}
         path = '/GroupThirdParty/UpdateDTPPRecommendationAmountSettings'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateThirdPartySettingSort(self, data):
@@ -430,6 +430,24 @@ class GroupThirdParty(object):
         # body--/{SettingId}/{PreviousSort}/{NextSort}
         path = '/GroupThirdParty/UpdateThirdPartySettingSort'
         self.response_data = self.__http.sendRequest('', path, data)
+        return self.response_data
+
+    def getDTPPTypeList(self, data):
+        # 新增商戶取得支付商戶列表
+        path = '/GroupThirdParty/GetDTPPTypeList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getSettingDetail(self, data):
+        # 取得商戶詳細設定資料
+        path = '/GroupThirdParty/GetSettingDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getValidDTPP(self, data):
+        # 新增商戶取得支付商戶
+        path = '/GroupThirdParty/GetValidDTPP'
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
 

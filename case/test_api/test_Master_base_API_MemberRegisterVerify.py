@@ -62,7 +62,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").click()
-        sleep(2)
+        sleep(3)
         self.driver.close()
 
     def test_MemberRegisterVerify_baseApi_status_01(self):
