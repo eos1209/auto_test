@@ -12,13 +12,8 @@ from master_api import account_management
 from master_api.account_login import User
 from datetime import datetime, timedelta
 import time
+from base.CommonMethod import UploadFile
 
-
-# switch開發調整
-# 原因:執行這一整個baseApi呼叫因為檔案匯入需要時間的關係，後面的取消預約匯入與沖銷優惠沒有辦法有效執行與驗證
-# 方法:
-# method1:切開寫一個function進行呼叫
-# method2:切檔案
 
 class DepositImportBaseTest(unittest.TestCase):
     """優惠匯入 - 相關 API 調用狀態"""
@@ -44,29 +39,31 @@ class DepositImportBaseTest(unittest.TestCase):
 
     def test_DepositImport_baseApi_status_03(self):
         """優惠匯入 - 上傳Excel 狀態"""
-        upload_file = common_config.file_Path + 'test_data/depositImport-A.xlsx'  # 檔案
-        mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
-        open_file = open(upload_file, 'rb')  # 打開檔案
-        data = {'filebase': ('depositImport-A.xlsx', open_file, mime_Type, {'Expires': '0'})}
+        self.upload = UploadFile('document/depositImport-A.xlsx',  # 檔案路徑
+                                 'filebase',  # 上傳欄位
+                                 'depositImport-A.xlsx'  # 上傳檔名
+                                 )  # 先實例上傳檔案物件
+        data = self.upload.Upload_file()  # 實作上傳檔案物件方法
         response_data = self.DepositImport.getExcelSum(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        open_file.close()  # 關閉
+        self.upload.Close_file()  # 關閉檔案
 
     def test_DepositImport_baseApi_status_04(self):
         """優惠匯入 - 優惠匯入-立刻 狀態"""
         # ReserveTime = (datetime.now() + timedelta(hours = 1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
-        upload_file = common_config.file_Path + 'test_data/depositImport-A.xlsx'  # 檔案
-        mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
-        open_file = open(upload_file, 'rb')  # 打開檔案
+        self.upload = UploadFile('document/depositImport-A.xlsx',  # 檔案路徑
+                                 'Filebase',  # 上傳欄位
+                                 'depositImport-A.xlsx'  # 上傳檔名
+                                 )
         data = {'password': (None, master_config.Master_Password),  # 有其他參數上傳用這種mode
-                'Filebase': ('depositImport-A.xlsx', open_file, mime_Type, {'Expires': '0'})}
+                self.upload.upload_name: (
+                    self.upload.filename, self.upload.open_file, self.upload.file_type, {'Expires': '0'})}
         response_data = self.DepositImport.submitDepositImport(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        open_file.close()  # 關閉
-        time.sleep(10)
+        self.upload.Close_file()  # 關閉
 
     def test_DepositImport_baseApi_status_06(self):
         """優惠匯入 - 檢查沖銷 狀態"""
@@ -103,16 +100,17 @@ class DepositImportBaseTest(unittest.TestCase):
         """優惠匯入 - 優惠匯入-預約時間 狀態"""
         ReserveTime = (datetime.now() + timedelta(hours = -11)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
-        upload_file = common_config.file_Path + 'test_data/depositImport-B.xlsx'  # 檔案
-        mime_Type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳的類型
-        open_file = open(upload_file, 'rb')  # 打開檔案
+        self.upload = UploadFile('document/depositImport-B.xlsx',  # 檔案路徑
+                                 'Filebase',  # 上傳欄位
+                                 'depositImport-B.xlsx'  # 上傳檔名
+                                 )
         data = {'password': (None, master_config.Master_Password), 'ReserveTime': (None, ReserveTime),  # 有其他參數上傳用這種mode
-                'Filebase': ('depositImport-B.xlsx', open_file, mime_Type, {'Expires': '0'})}
+                self.upload.upload_name: (
+                    self.upload.filename, self.upload.open_file, self.upload.file_type, {'Expires': '0'})}
         response_data = self.DepositImport.submitDepositImport(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        open_file.close()  # 關閉
-        time.sleep(5)
+        self.upload.Close_file()
 
     def test_DepositImport_baseApi_status_09(self):
         """優惠匯入 - 取消預約匯入 狀態"""

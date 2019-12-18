@@ -10,6 +10,7 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import system_management
 from master_api.account_login import User
+from base.CommonMethod import UploadFile
 
 
 class GroupAccountBaseTest(unittest.TestCase):
@@ -24,22 +25,36 @@ class GroupAccountBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def GetNewGroupAccountId(self, bankName):
+    def GetNewGroupAccountId(self, PersonName):
         response_data = self.groupAccount.getList({})
         for i in range(len(response_data[1]['Accounts'])):
-            if response_data[1]['Accounts'][i]['PersonName'] == bankName:
+            if response_data[1]['Accounts'][i]['PersonName'] == PersonName:
                 get_id = response_data[1]['Accounts'][i]['Id']
                 return get_id
 
     def get_QRcode_Url(self):
         # 取得商戶的上傳URL
-        upload_file = common_config.file_Path + 'test_data/groupAccount.png'  # 檔案
-        mime_Type = 'image/jpeg'  # 上傳的類型
-        open_file = open(upload_file, 'rb')  # 打開檔案
-        data = {'qrCodeFile': ('groupAccount.png', open_file, mime_Type, {'Expires': '0'})}
+        self.upload = UploadFile('image/groupAccount.png',  # 檔案路徑
+                                 'qrCodeFile',  # 上傳欄位
+                                 'groupAccount.png'  # 上傳檔名
+                                 )  # 先實例上傳檔案物件
+        data = self.upload.Upload_file()  # 實作上傳檔案物件方法
         response_data = self.groupAccount.updateImage(data)
-        open_file.close()  # 關閉
+        self.upload.Close_file()
         return response_data[1]['QrCodeUrl']
+
+    def create_groupAccount(self, account_type):
+        # 其他方式建立商戶
+        QRCodeUrl = self.get_QRcode_Url()
+        data = {
+            'Type': account_type,
+            'PersonName': '@QA_automation-' + account_type,
+            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
+            'Memo': '@QA_automation',
+            'AvailableMinutes': 1,
+            'MemberLevelSettingIds': [21],
+            'QRCodeUrl': QRCodeUrl}
+        return data
 
     def test_GroupAccount_relatedApi_status_01(self):
         """驗證 公司入款帐户管理 - 取得頁面"""
@@ -67,15 +82,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_05(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(微信支付)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'WeChat',
-            'PersonName': '@QA_automation-wechat',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('wechat')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -99,14 +106,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_08(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(支付寶)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {'Type': 'Alipay',
-                'PersonName': '@QA_automation-Alipay',
-                'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-                'Memo': '@QA_automation',
-                'AvailableMinutes': 1,
-                'MemberLevelSettingIds': [21],
-                'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('Alipay')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -130,15 +130,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_11(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(財付通)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'Tenpay',
-            'PersonName': '@QA_automation-Tenpay',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('Tenpay')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -162,15 +154,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_14(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(QQ掃碼)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'QQWallet',
-            'PersonName': '@QA_automation-QQWallet',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('QQWallet')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -194,15 +178,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_17(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(東京)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'JD',
-            'PersonName': '@QA_automation-JD',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('JD')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -226,15 +202,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_20(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(銀聯)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'UnionPay',
-            'PersonName': '@QA_automation-UnionPay',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('UnionPay')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -258,15 +226,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_23(self):
         """驗證 公司入款帐户管理 - 新增公司入款帳戶(百度)"""
-        QRCodeUrl = self.get_QRcode_Url()
-        data = {
-            'Type': 'BaiduWallet',
-            'PersonName': '@QA_automation-BaiduWallet',
-            'QRCodeUrlFile': {'$ngfBlobUrl': 'blob:http://master.fnjtd.com/' + self.user.info()},
-            'Memo': '@QA_automation',
-            'AvailableMinutes': 1,
-            'MemberLevelSettingIds': [21],
-            'QRCodeUrl': QRCodeUrl}
+        data = self.create_groupAccount('BaiduWallet')
         response_data = self.groupAccount.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -304,7 +264,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_27(self):
         """驗證 公司入款帐户管理 - 廣播更新"""
-        getId = self.GetNewGroupAccountId('API - 銀行')
+        getId = self.GetNewGroupAccountId('API - 測試')
         data = {"id": getId}
         response_data = self.groupAccount.broadcastSumInfoUpdated(data)
         status_code = response_data[0]
@@ -326,7 +286,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_30(self):
         """驗證 公司入款帐户管理 - 啟用公司入款帳戶"""
-        getId = self.GetNewGroupAccountId('API - 銀行')
+        getId = self.GetNewGroupAccountId('API - 測試')
         data = {"id": getId}
         response_data = self.groupAccount.active(data)
         status_code = response_data[0]
@@ -340,7 +300,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_32(self):
         """驗證 公司入款帐户管理 - 取得公司入款帳戶詳細資料"""
-        getId = self.GetNewGroupAccountId('API - 銀行')
+        getId = self.GetNewGroupAccountId('API - 測試')
         data = {"id": getId}
         response_data = self.groupAccount.getDetail(data)
         status_code = response_data[0]
@@ -354,7 +314,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_34(self):
         """驗證 公司入款帐户管理 - 變更目前累積(調整)(歸零)"""
-        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 銀行')
+        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 測試')
         data = {"Id": getNewCreateGroupAccountId,
                 "targetNumber": 10}
         response_data = self.groupAccount.adjustSum(data)
@@ -363,7 +323,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_35(self):
         """驗證 公司入款帐户管理 - 更新有效分鐘數"""
-        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 銀行')
+        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 測試')
         data = {"Id": getNewCreateGroupAccountId,
                 "args": 10}
         response_data = self.groupAccount.updateAvailableMinutes(data)
@@ -372,10 +332,10 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_36(self):
         """驗證 公司入款帐户管理 - 修改公司入款帳戶詳細資料"""
-        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 銀行')
+        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 測試')
         data = {"Id": getNewCreateGroupAccountId,
                 "BankName": "API - 銀行-modify",
-                "PersonName": "API - 測試",
+                "PersonName": "API - 測試 -modify",
                 "NetPoint": "吉林省松原市",
                 "Account": "12345678987654321",
                 "IsDisabled": False,
@@ -422,7 +382,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_37(self):
         """驗證 公司入款帐户管理 - 刪除公司入款帳戶詳細資料"""
-        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 銀行-modify')
+        getNewCreateGroupAccountId = self.GetNewGroupAccountId('API - 測試 -modify')
         data = {"id": getNewCreateGroupAccountId}
         response_data = self.groupAccount.delete(data)
         status_code = response_data[0]
@@ -430,14 +390,15 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_38(self):
         """驗證 公司入款帐户管理 - 更新圖片"""
-        upload_file = common_config.file_Path + 'test_data/groupAccount_api.png'  # 檔案
-        mime_Type = 'image/jpeg'  # 上傳的類型
-        open_file = open(upload_file, 'rb')  # 打開檔案
-        data = {'qrCodeFile': ('groupAccount_api.png', open_file, mime_Type, {'Expires': '0'})}
+        self.upload = UploadFile('image/groupAccount_api.png',  # 檔案路徑
+                                 'qrCodeFile',  # 上傳欄位
+                                 'groupAccount_api.png'  # 上傳檔名
+                                 )  # 先實例上傳檔案物件
+        data = self.upload.Upload_file()  # 實作上傳檔案物件方法
         response_data = self.groupAccount.updateImage(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        open_file.close()  # 關閉
+        self.upload.Close_file()
 
 
 if __name__ == '__main__':
