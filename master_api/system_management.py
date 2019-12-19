@@ -462,35 +462,35 @@ class Yuebao(object):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/Create'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def setEnableTime(self, data):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/SetEnableTime'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def setMemberLevelSetting(self, data):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/SetMemberLevelSetting'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def sort(self, data):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/Sort'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def withdraw(self, data):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/Withdraw'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def query(self, data):
@@ -511,7 +511,7 @@ class Yuebao(object):
         # API Name =>余额宝管理-
         # body--/{dto}
         path = '/Yuebao/Detail'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def orderUserDetail(self, data):
@@ -525,7 +525,7 @@ class Yuebao(object):
         # API Name =>余额宝管理-
         # body--/{id}/{pageSize}/{pageIndex}
         path = '/Yuebao/History'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getMemberLevelSetting(self, data):
@@ -568,7 +568,7 @@ class PortalSetting(object):
         # API Name =>会员端设定-取得會員端設定列表
         # body--
         path = '/PortalSetting/GetList'
-        self.response_data = self.__http.sendRequest('GET', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def createSubmit(self, data):
@@ -694,7 +694,7 @@ class PortalSetting(object):
         # API Name =>会员端设定-
         # body--/{id}/{status}
         path = '/PortalSetting/UpdateIsYuebaoToggle'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
 

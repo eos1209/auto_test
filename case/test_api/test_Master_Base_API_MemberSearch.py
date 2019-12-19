@@ -43,7 +43,9 @@ class MemberSearchBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberSearch_relatedApi_status_03(self):
-        """驗證 会员查询 狀態"""
+        """驗證 会员查询 未帶 connectionId 狀態"""
+        # 因修改查詢頻率限制
+        SetDelayTime()
         data = {"Account": master_config.Account}
         response_data = self.memberSearch.search(data)
         error_message = response_data[1]['ErrorMessage']
