@@ -6,8 +6,6 @@
 import unittest
 from decimal import Decimal
 
-from replace import replace
-
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import reports
