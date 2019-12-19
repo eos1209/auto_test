@@ -142,7 +142,7 @@ class MemberBatchBaseTest(unittest.TestCase):
             'search': {'Account': master_config.batchAccount},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
-            'newTags': [master_config.memberTags],
+            'newTags': [master_config.batchMemberTags],
             'addTagIds': [],
             'deleteTagIds': []
         }
@@ -155,7 +155,7 @@ class MemberBatchBaseTest(unittest.TestCase):
         self.memberTags = member_and_agent.MemberTags(self.__http)
         getMemberTagsData = self.memberTags.getTags({})
         for i in range(len(getMemberTagsData[1]['ReturnObject'])):
-            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.memberTags:
+            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.batchMemberTags:
                 self.getTagsId = getMemberTagsData[1]['ReturnObject'][i]['Id']
 
         data = {

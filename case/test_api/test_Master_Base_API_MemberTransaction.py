@@ -117,9 +117,13 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_08(self):
         """驗證 更新實際存提-是否成功 -2019/12/03"""
+        # Step 1
         searchData = self.searchDataId(2)
+        print(searchData[1])
+        # Step 2
         data = {"id": searchData[1]['PageData'][0]['Id']}
         response_data = self.memberTransaction.getDetail(data)
+        print(response_data[1])
         self.assertEqual(response_data[1]['Detail']['IsReal'], True)
 
     def test_MemberTransaction_baseApi_status_09(self):
