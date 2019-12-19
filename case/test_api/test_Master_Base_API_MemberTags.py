@@ -50,7 +50,7 @@ class MemberTagsTest(unittest.TestCase):
     def GetLastMemberTags(self):
         getMemberTagsData = self.memberTags.getTags({})
         for i in range(len(getMemberTagsData[1]['ReturnObject'])):
-            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.memberTags:
+            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.singleMemberTags:
                 getTagsId = getMemberTagsData[1]['ReturnObject'][i]['Id']
                 return getTagsId
 

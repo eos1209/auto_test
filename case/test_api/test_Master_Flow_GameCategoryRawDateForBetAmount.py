@@ -6,6 +6,8 @@
 import unittest
 from decimal import Decimal
 
+from replace import replace
+
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import reports
@@ -141,7 +143,8 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
             return bet_amount
 
         def Val(value):
-            value = value.lstrip(cut_off_characters)
+            value = value.lstrip(cut_off_characters)  # 切割$字號
+            value = value.replace(',', '')  # 千位數會有,號 直接替換掉
             bet_value = Decimal(value).quantize(Decimal('0.00')) / proportion
             return bet_value
 

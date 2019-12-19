@@ -28,30 +28,10 @@ class MemberRegisterVerifyTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    # def PortalExecutionMemberRegister(self):
-    #     self.driver = webdriver.Chrome()
-    #     self.driver.get("http://www.fnjtd.com/Register")
-    #     self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
-    #     self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/input").send_keys(
-    #         "QAtest" + common_config.now)  # 會員帳號
-    #     self.driver.find_element_by_xpath("//div[@class='form-group'][3]/div[@class='control-div']/input").send_keys(
-    #         "a123456")  # 會員密碼
-    #     self.driver.find_element_by_xpath("//div[@class='form-group'][4]/div[@class='control-div']/input").send_keys(
-    #         "a123456")  # 確認密碼
-    #     self.driver.find_element_by_xpath(
-    #         "//div[@class='form-group ng-scope'][1]/div[@class='control-div']/input").send_keys("123456")  # 取款密碼
-    #     # self.driver.find_element_by_xpath( "//div[@class='form-group ng-scope'][2]/div[
-    #     # @class='control-div']/input").send_keys("QA_Test@gmail.com")#電子信箱
-    #     self.driver.find_element_by_xpath(
-    #         "//div[@class='form-group'][2]/div[@class='control-div']/div[@id='checkcode-input-group']/input").send_keys(
-    #         "e5466e48e20e4944a0bdaa6bac351c8d")  # 萬用碼
-    #     sleep(2)
-    #     self.driver.find_element_by_xpath("//div[@class='form-group'][2]/div[@class='control-div']/button").click()
-    #     sleep(2)
-    #     self.driver.close()
-
     def PortalExecutionMemberRegister(self):
-        self.driver = webdriver.Chrome()
+        chrome_path = "D:\chromedriver.exe"
+        self.driver = webdriver.Chrome(chrome_path)
+        # self.driver = webdriver.Chrome()
         self.driver.set_window_size(1900, 1020)
         self.driver.get("http://www.fnjtd.com/Register")
         self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
