@@ -25,9 +25,10 @@ class PortalSettingBaseTest(unittest.TestCase):
         self.user.logout()
 
     def getPortalSettingId(self):
-        # 取得設定Id 55test
+        # 取得設定Id
         response_data = self.PortalSetting.getList({})
-        getPortalSettingId = response_data[1][1]['Id']
+        length = len(response_data[1]) - 1  # 取最新的新增最後一筆Id
+        getPortalSettingId = response_data[1][length]['Id']
         return getPortalSettingId
 
     def test_PortalSetting_relatedApi_status_01(self):
@@ -109,7 +110,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         """驗證 會員端管理 - 更新會員端設定名稱"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
-        data = {'id': settingId, 'args': 'QA'}
+        data = {'id': settingId, 'args': 'QA' + common_config.now}
         response_data = self.PortalSetting.updateName(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

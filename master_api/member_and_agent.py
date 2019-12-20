@@ -426,6 +426,12 @@ class MemberDetail(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def getMemberInfoHistories(self, data):
+        # 會員基本資料修改歷程 -1220
+        path = '/Member/GetMemberInfoHistories'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 人工存款
 class MemberDeposit(object):

@@ -716,42 +716,42 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/CreateForBatch'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def detail(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/Detail'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def modifyForBatch(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/ModifyForBatch'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def modifyForATD(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/ModifyForATD'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def activeDialog(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/ActiveDialog'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def resetDialog(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/ResetDialog'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
     def detailDialog(self, data):
@@ -765,7 +765,7 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/GetList'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def createSubmit(self, data):
@@ -773,56 +773,56 @@ class AnyTimeDiscountSetting(object):
         # body--/{createParams}/{setting}/{detail}
         path = '/AnyTimeDiscount/CreateSubmit'
 
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def verifyParams(self, data):
         # API Name =>时时返水-
         # body--/{createParams}
         path = '/AnyTimeDiscount/VerifyParams'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getDetail(self, data):
         # API Name =>时时返水-
         # body--/{id}
         path = '/AnyTimeDiscount/GetDetail'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def delete(self, data):
         # API Name =>时时返水-
         # body--/{id}
         path = '/AnyTimeDiscount/Delete'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateHasDiscount(self, data):
         # API Name =>时时返水-
         # body--/{id}/{isDiscount}
         path = '/AnyTimeDiscount/UpdateHasDiscount'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateMemo(self, data):
         # API Name =>时时返水-
         # body--/{id}/{memo}
         path = '/AnyTimeDiscount/UpdateMemo'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateName(self, data):
         # API Name =>时时返水-
         # body--/{id}/{name}
         path = '/AnyTimeDiscount/UpdateName'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def updateDetails(self, data):
         # API Name =>时时返水-
         # body--/{id}/{details}
         path = '/AnyTimeDiscount/UpdateDetails'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def notifyResetFinish(self, data):
@@ -836,21 +836,21 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--/{discountSettingId}
         path = '/AnyTimeDiscount/GetATDSetting'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getATDSettingDetail(self, data):
         # API Name =>时时返水-
         # body--/{discountSettingId}
         path = '/AnyTimeDiscount/GetATDSettingDetail'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getATDSupplierDetail(self, data):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/GetATDSupplierDetail'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDSetting(self, data):
@@ -864,21 +864,21 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--/{discountSettingId}/{limit}
         path = '/AnyTimeDiscount/AlterATDLimit'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDMaxAmountLimit(self, data):
         # API Name =>时时返水-
         # body--/{discountSettingId}/{Maxlimint}
         path = '/AnyTimeDiscount/AlterATDMaxAmountLimit'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDAppointment(self, data):
         # API Name =>时时返水-
         # body--/{discountSettingId}/{EnableAppointment}/{DisableAppointment}
         path = '/AnyTimeDiscount/AlterATDAppointment'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDAudit(self, data):
@@ -892,21 +892,21 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--/{discountSettingId}/{receiveSwitch}
         path = '/AnyTimeDiscount/AlterATDReceiveSwitch'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDPercentages(self, data):
         # API Name =>时时返水-
         # body--/{discountSettingId}/{viewModel}
         path = '/AnyTimeDiscount/AlterATDPercentages'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDResetByDiscountSetting(self, data):
         # API Name =>时时返水-
         # body--/{password}/{discountSettingId}
         path = '/AnyTimeDiscount/AlterATDResetByDiscountSetting'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def alterATDResetByOneMember(self, data):
@@ -941,7 +941,7 @@ class AnyTimeDiscountSetting(object):
         # API Name =>时时返水-
         # body--
         path = '/AnyTimeDiscount/GetIsATDResetRunning'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getGPKReceivSwitchStatus(self, data):
@@ -956,6 +956,18 @@ class AnyTimeDiscountSetting(object):
         # body--/{memberId}
         path = '/AnyTimeDiscount/RefreshMemberDiscountDetail'
         self.response_data = self.__http.sendRequest('', path, data)
+        return self.response_data
+
+    def getATDResetByDiscountSettingRecord(self, data):
+        # 時返歸零歷程記錄 -2019/12/20
+        path = '/AnyTimeDiscount/GetATDResetByDiscountSettingRecord'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getATDWithdrawSwitchLog(self, data):
+        # 時返歸零歷程記錄 -2019/12/20
+        path = '/AnyTimeDiscount/GetATDWithdrawSwitchLog'
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
 
