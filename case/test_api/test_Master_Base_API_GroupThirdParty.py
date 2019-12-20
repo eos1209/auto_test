@@ -188,19 +188,12 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         groupThirdPartyId = self.GetGroupThirdPartyId()
         # Step2 取得 支付金流Id
         response_data = self.groupThirdParty.getValidDTPP({})
-<<<<<<< HEAD
-        Type = response_data[0]['ReturnObject'][0]['Value']  # 新金流Id
-        TypeValue = response_data[0]['ReturnObject'][0]['TypeValue']  # 新金流Id
-        data = {'id': groupThirdPartyId, 'args': {'Settings': [], 'Account': '@QA_automation',
-=======
-        Type = response_data[1]['ReturnObject'][1]['Value']  # 新金流Id
-        TypeValue = response_data[1]['ReturnObject'][1]['TypeValue']  # 新金流Id
-        data = {'id': groupThirdPartyId,
-                'args': {'Settings': [], 'Account': '@QA_automation',
->>>>>>> de33e63df941e057e03096f972d23a8c0e66c063
-                                                  'Password': '@QA_automation',
-                                                  'Gateway': 'https://www.@QA_automation.com', 'Type': Type,
-                                                  'TypeValue': TypeValue}}
+        print(response_data)
+        Type = response_data[1]['ReturnObject'][0]['Value']
+        typeValue = response_data[1]['ReturnObject'][0]['TypeValue']
+        data = {"id": groupThirdPartyId, "args": {
+            "Settings": [{"key": "Account", "value": "11333"}, {"key": "Password", "value": "33"},
+                         {"key": "Gateway", "value": "http://tw"}], "Type": Type, "TypeValue": typeValue}}
         response_data = self.groupThirdParty.updateDTPPMerchantData(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
