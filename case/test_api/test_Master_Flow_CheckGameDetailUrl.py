@@ -48,7 +48,7 @@ class CheckGameDetailUrl(unittest.TestCase):
         ("Verify_BetDetailUrl_Pt2Slot", 'Pt2Slot'),
         ("Verify_BetDetailUrl_Rg2Real", 'Rg2Real'),
         ("Verify_BetDetailUrl_Rg2Board", 'Rg2Board'),
-        ("Verify_BetDetailUrl_Rg2Lottery2", 'Rg2Lottery2'),
+        # ("Verify_BetDetailUrl_Rg2Lottery2", 'Rg2Lottery2'),
         ("Verify_BetDetailUrl_MtFish", 'MtFish'),
         ("Verify_BetDetailUrl_MtSlot", 'MtSlot'),
         ("Verify_BetDetailUrl_MtBoard", 'MtBoard'),
