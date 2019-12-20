@@ -26,8 +26,9 @@ class PortalSettingBaseTest(unittest.TestCase):
 
     def getPortalSettingId(self):
         # 取得設定Id 55test
-        getId = self.PortalSetting.getList({})
-        return getId[1][2]
+        response_data = self.PortalSetting.getList({})
+        getPortalSettingId = response_data[1][1]['Id']
+        return getPortalSettingId
 
     def test_PortalSetting_relatedApi_status_01(self):
         """驗證 會員端管理 - 取得列表頁面"""
@@ -65,8 +66,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_06(self):
         """驗證 會員端管理 - 詳細資料"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id']}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId}
         response_data = self.PortalSetting.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -74,41 +75,41 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_07(self):
         """驗證 會員端管理 - 更新餘額寶顯示開關"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'status': 'false'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'status': 'false'}
         response_data = self.PortalSetting.updateIsYuebaoToggle(data)
         status_code = response_data[0]
-        data = {'id': Id['Id'], 'status': 'true'}  # 開啟
+        data = {'id': settingId, 'status': 'true'}  # 開啟
         self.PortalSetting.updateIsYuebaoToggle(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_PortalSetting_relatedApi_status_08(self):
         """驗證 會員端管理 - 更新取款申請顯示開關"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'status': 'false'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'status': 'false'}
         response_data = self.PortalSetting.updateWithdrawToggle(data)
         status_code = response_data[0]
-        data = {'id': Id['Id'], 'status': 'true'}  # 開啟
+        data = {'id': settingId, 'status': 'true'}  # 開啟
         self.PortalSetting.updateWithdrawToggle(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_PortalSetting_relatedApi_status_09(self):
         """驗證 會員端管理 - 更新公司入款顯示開關"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'status': 'false'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'status': 'false'}
         response_data = self.PortalSetting.updateCompanyDepositToggle(data)
         status_code = response_data[0]
-        data = {'id': Id['Id'], 'status': 'true'}  # 開啟
+        data = {'id': settingId, 'status': 'true'}  # 開啟
         self.PortalSetting.updateCompanyDepositToggle(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_PortalSetting_relatedApi_status_10(self):
         """驗證 會員端管理 - 更新會員端設定名稱"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'args': 'QA'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'args': 'QA'}
         response_data = self.PortalSetting.updateName(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -116,8 +117,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_11(self):
         """驗證 會員端管理 - 更新跑馬燈"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'args': 'QA'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'args': 'QA'}
         response_data = self.PortalSetting.updateMarquee(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -125,8 +126,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_12(self):
         """驗證 會員端管理 - 更新取款提示訊息"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'args': 'QA'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId, 'args': 'QA'}
         response_data = self.PortalSetting.updateWithdrawMessage(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -134,8 +135,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_13(self):
         """驗證 會員端管理 - 更新會員註冊設定"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {"id": Id['Id'],
+        settingId = self.getPortalSettingId()
+        data = {"id": settingId,
                 "args": {'IsShow_Name': 'true', 'IsRequired_Name': 'true', "IsCheckDuplicated_Name": 'false',
                          'IsShow_Mobile': 'true', 'IsRequired_Mobile': 'true',
                          "IsCheckDuplicated_Mobile": 'false',
@@ -156,8 +157,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_14(self):
         """驗證 會員端管理 - 更新代理商註冊設定"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {"id": Id['Id'],
+        settingId = self.getPortalSettingId()
+        data = {"id": settingId,
                 "args": {'IsShow_AgentName': 'true',
                          'IsRequired_AgentName': 'false',
                          'IsCheckDuplicated_AgentName': 'false',
@@ -182,8 +183,9 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_15(self):
         """驗證 會員端管理 - 更新備註"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id'], 'args': 'QA'}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId,
+                'args': 'QA'}
         response_data = self.PortalSetting.updateMemo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -191,8 +193,8 @@ class PortalSettingBaseTest(unittest.TestCase):
     def test_PortalSetting_relatedApi_status_16(self):
         """驗證 會員端管理 - 刪除"""
         # step1 取得會員端設定Id
-        Id = self.getPortalSettingId()
-        data = {'id': Id['Id']}
+        settingId = self.getPortalSettingId()
+        data = {'id': settingId}
         response_data = self.PortalSetting.delete(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

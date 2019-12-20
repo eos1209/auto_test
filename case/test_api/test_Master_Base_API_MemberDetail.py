@@ -6,6 +6,7 @@ import unittest
 import time
 from data_config import common_config
 from data_config import master_config
+from base.CommonMethod import SetDelayTime
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
@@ -33,7 +34,8 @@ class MemberDetailBaseTest(unittest.TestCase):
                 'connectionId': self.user.info()}
         response_data = self.searchMember.search(data)
         memberId = response_data[1]['PageData'][0]['Id']
-        time.sleep(3)
+        SetDelayTime()
+        # time.sleep(3)
         return memberId
 
     def depositSubmitAudit(self):
@@ -92,7 +94,6 @@ class MemberDetailBaseTest(unittest.TestCase):
         data = {'memberId': getMemberId}
         response_data = self.memberDetail.getMemberEventList(data)
         status_code = response_data[0]
-        print(response_data[1])
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberDetail_relatedApi_status_05(self):
@@ -257,7 +258,6 @@ class MemberDetailBaseTest(unittest.TestCase):
         amountAudit = int(time.time())  # 修改金額為現在時間戳
         depositData[1]['Data'][0]['AuditAmount'] = amountAudit
         updateData = depositData
-        print(updateData)
         data = {"id": getMemberId, "updateParams": updateData[1]['Data']}
         response_data = self.memberDetail.updateDepositAudit(data)
         status_code = response_data[0]
@@ -274,11 +274,10 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_25(self):
         """會員詳細資料 -重設密碼 狀態"""
         getMemberId = self.GetMemberId()
-        print(getMemberId)
+
         data = {'id': getMemberId}
-        print(data)
         response_data = self.memberDetail.resetPassword(data)
-        print(response_data)
+        # print(response_data)
         # status_code = response_data[0]
         # self.assertEqual(status_code, common_config.Status_Code)
 
