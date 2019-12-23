@@ -53,7 +53,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_GPK_Fish", 'Rg2Fish', '', 1, 4),
         ("Verify_GPK_Board", 'Rg2Board', '', 1, 4),
         ("Verify_GPK_Lottery", 'Rg2Lottery', '', 1, 4),
-        ("Verify_GPK_Lottery2", 'Rg2Lottery2', '', 1, 4),
+        # ("Verify_GPK_Lottery2", 'Rg2Lottery2', '', 1, 4),
         ("Verify_GPK_Slot", 'Rg2Slot', '', 1, 4),
         ("Verify_JDB_Slot", 'JdbSlot', '', 1, 4),
         ("Verify_JDB_Fish", 'JdbFish', '', 1, 3),
