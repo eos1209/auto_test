@@ -29,4 +29,4 @@ runner = HTMLTestReportCN.HTMLTestRunner(**setting)
 runner.run(suite)
 # 關閉文件，否則會無法生成文件
 fp.close()
-# sendMail.send_mail()
+
