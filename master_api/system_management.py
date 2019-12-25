@@ -1162,7 +1162,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-踢出指定娛樂城所有會員
         # body--/{gameSupplierType}
         path = '/GameHallManagement/ExitGameHall'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

@@ -1,0 +1,3151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>API[AB005]-自動化測試報告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+    <style type="text/css" media="screen">
+        p.attribute {
+            font-size: 3em;
+        }
+        #result_table {
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "詳細"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">API[AB005]-自動化測試報告</h1>
+<p class='attribute'><strong>測試人員 : </strong> 格明 - QA Team</p>
+<p class='attribute'><strong>開始時間 : </strong> 2019-12-19 18:03:57</p>
+<p class='attribute'><strong>合計耗時 : </strong> 0:14:32.750578</p>
+<p class='attribute'><strong>測試結果 : </strong> 共 454，通過 448，失敗 2，錯誤 4，通過率 = 98.68%</p>
+
+<p class='description'></p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要 98.68% </a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通過 448 </a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失敗 2 </a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有 454 </a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>總計</td>
+    <td>通過</td>
+    <td>失敗</td>
+    <td>錯誤</td>
+    <td>詳細</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_CheckInEvent:  签到奖励 - 相關 API 調用狀態</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',1)" class="detail" id='c1'>詳細</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 签到奖励 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_LuckyWheelManagement:  幸运转盘 - 相關 API 調用狀態</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',1)" class="detail" id='c2'>詳細</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 幸运转盘 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_MissionReward:  任务挑战 - 相關 API 調用狀態</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',1)" class="detail" id='c3'>詳細</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 任务挑战 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_NewLuckyWheel:  时来运转 - 相關 API 調用狀態</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',1)" class="detail" id='c4'>詳細</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 时来运转 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_RedEnvelopeManagement:  红包派送 - 相關 API 調用狀態</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',3)" class="detail" id='c5'>詳細</a></td>
+</tr>
+
+<tr id='pt5_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 红包派送 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt5_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 红包派送 - 詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt5_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>紅包派送 - 紅包匯入 狀態 2019/12/03</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Activity_TimeLimitedEvent:  限时优惠 - 相關 API 調用狀態</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',4)" class="detail" id='c6'>詳細</a></td>
+</tr>
+
+<tr id='pt6_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 限时优惠 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt6_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 限时优惠 - 取得活動名稱</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt6_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 限时优惠 - 取得活動詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt6_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 限时优惠 - 取得活動會員參與名單</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_AgTransferRecord: AG 交易紀錄匯出 - 相關 API 調用狀態</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c7',3)" class="detail" id='c7'>詳細</a></td>
+</tr>
+
+<tr id='pt7_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 AG交易记录汇出 - 頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt7_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 AG交易记录汇出 - 取得種類</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt7_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 AG交易记录汇出 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_AgentCreate: 新增代理商 - 相關 API 調用狀態</td>
+    <td class="text-center">21</td>
+    <td class="text-center">21</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c8',21)" class="detail" id='c8'>詳細</a></td>
+</tr>
+
+<tr id='pt8_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 檢查並更新所有代理權限</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 是否取得預設密碼</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 是否取得所有代理等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 是否取得所有傭金等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 是否取得所有返水設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增代理商 - 是否取得所有會員等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 是否取得所有銀行</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理帳號是否重複-連線</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理帳號是否重複-ErrorMessage</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理是否存在-連線</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理是否存在-ErrorMessage</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理是否新增-代理</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證代理是否新增-總代理 OR 股東</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 驗證QQ欄位是否可以輸入英文</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 沒有銀行名稱是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 沒有縣市名稱是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 沒有省分名稱是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 沒有銀行帳戶是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 代理沒有會員等級設定是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt8_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>新增代理商 - 代理沒有返水設定是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_AgentDetail: 代理商詳細資料 - 相關 API 調用狀態</td>
+    <td class="text-center">34</td>
+    <td class="text-center">34</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c9',34)" class="detail" id='c9'>詳細</a></td>
+</tr>
+
+<tr id='pt9_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得所有返水設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得所有會員等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得所有佣金設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 停用代理商</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 啟用代理商</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 修改自訂推廣鏈接</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 修改推廣鏈接</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新代理推廣鏈接</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 修改更新佣金設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新預設會員等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新預設返水等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 檢查更新代理商權限</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得修改代理商基本資料頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新代理商基本資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得所有銀行</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得修改銀行基本資料頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新銀行基本資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 銀行修改紀錄</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新備註</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 重設密碼</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_23' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 代理商歷史紀錄頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_24' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 歷史紀錄資訊</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_25' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 讀取歷史紀錄</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_26' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 取得不存在代理商</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_27' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 超過10個自訂代理鏈接是否可以新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_28' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 已停用推廣鏈接是否再次停用</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_29' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 佣金為不存在時是否更新成功</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_30' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 會員等級為不存在時是否更新成功</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_31' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 返水等級為不存在時是否更新成功</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_32' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新代理商基本資料-手機為空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_33' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新代理商基本資料-手機有數字以外的字元</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt9_34' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商詳細資料 - 更新代理商基本資料-真實姓名為空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_AgentSearch: 代理商查询 - 相關 API 調用狀態</td>
+    <td class="text-center">7</td>
+    <td class="text-center">7</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c10',7)" class="detail" id='c10'>詳細</a></td>
+</tr>
+
+<tr id='pt10_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查询頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 取得所有會員等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 取得所有返水設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 取得所有佣金設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 取得所有代理商等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 取得所有代理商等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt10_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商查詢頁面 匯出Excel</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_CommissionService: 佣金计算 - 相關 API 調用狀態</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c11',2)" class="detail" id='c11'>詳細</a></td>
+</tr>
+
+<tr id='pt11_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 佣金计算 - 取得頁面(新)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt11_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 佣金计算 - 取得結果(新)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Contribution: 貢獻金查詢 - 相關 API 調用狀態</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c12',8)" class="detail" id='c12'>詳細</a></td>
+</tr>
+
+<tr id='pt12_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得有貢獻金的娛樂城清單 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得當期累計貢獻金 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得詳情 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得娛樂城詳情 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得全部 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得娛樂城獎池彩金清單 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt12_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得遊戲獎池彩金清單 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_DepositImport: 優惠匯入 - 相關 API 調用狀態</td>
+    <td class="text-center">9</td>
+    <td class="text-center">9</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c13',9)" class="detail" id='c13'>詳細</a></td>
+</tr>
+
+<tr id='pt13_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 優惠匯入頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 取得優惠匯入列表 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 上傳Excel 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 優惠匯入-立刻 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 優惠匯入-預約時間 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 檢查沖銷 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 優惠沖銷 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 取得優惠沖銷詳細 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt13_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>優惠匯入 - 取消預約匯入 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Discount:  返水计算 - 相關 API 調用狀態</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c14',2)" class="detail" id='c14'>詳細</a></td>
+</tr>
+
+<tr id='pt14_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 返水计算 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt14_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 返水计算 - 載入歷史資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_GameSupplierTransaction:  娛樂城轉帳紀錄查詢 - 相關 API 調用狀態</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c15',3)" class="detail" id='c15'>詳細</a></td>
+</tr>
+
+<tr id='pt15_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 娛樂城轉帳紀錄查詢 - 取得頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt15_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 娛樂城轉帳紀錄查詢 - 搜尋</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt15_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 娛樂城轉帳紀錄查詢 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_GroupAccount:  公司入款帐户 - 相關 API 調用狀態</td>
+    <td class="text-center">38</td>
+    <td class="text-center">38</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c16',38)" class="detail" id='c16'>詳細</a></td>
+</tr>
+
+<tr id='pt16_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得公司入款帳戶列表</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得所有公司入款帳戶類型</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得新增頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(微信支付)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(微信支付)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(微信支付)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(支付寶)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(支付寶)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(支付寶)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(財付通)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(財付通)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(財付通)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(QQ掃碼)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(QQ掃碼)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(QQ掃碼)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(東京)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(東京)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(東京)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(銀聯)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(銀聯)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(銀聯)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_23' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶(百度)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_24' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 公司入款帳戶(百度)是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_25' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶(百度)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_26' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 新增公司入款帳戶</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_27' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 廣播更新</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_28' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 確認 CDN 上 QRCode 圖片</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_29' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 停用公司入款帳戶</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_30' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 啟用公司入款帳戶</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_31' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得詳細頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_32' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得公司入款帳戶詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_33' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 取得修改頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_34' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 變更目前累積(調整)(歸零)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_35' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 更新有效分鐘數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_36' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 修改公司入款帳戶詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_37' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 刪除公司入款帳戶詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt16_38' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款帐户管理 - 更新圖片</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_GroupThirdParty:  线上支付商户管理 - 相關 API 調用狀態</td>
+    <td class="text-center">24</td>
+    <td class="text-center">24</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c17',24)" class="detail" id='c17'>詳細</a></td>
+</tr>
+
+<tr id='pt17_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得列表頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得線上支付商戶列表</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得新增頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得線上商戶類型</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得目前支付種類</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 新增金流公司商戶資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 取得金流公司商戶資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 停用金流公司商戶資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 啟用金流公司商戶資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 歸零目前商戶累計金額</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 更新商戶名稱</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 新增商戶取得支付商戶類型</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 新增商戶取得支付商戶列表</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 取得商戶詳細設定資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 取得商戶簡體中文限制</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新商戶資料</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt17_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt17_16'>通過</button>
+    <div id='div_pt17_16' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt17_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt17_16'>通過</button>
+    <div id='div_pt17_16' class="collapse in">
+    <pre>
+    
+pt17_16: ('200', {'ReturnObject': [{'Value': '2174', 'Text': 'QA_网银1_COPY-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2387', 'Text': 'QA_网银1_SKY 01-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2388', 'Text': 'QA_网银1_SKY 02-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2392', 'Text': 'QA_网银1_sky3_COPY-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2391', 'Text': 'QA_网银1_sky3-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2173', 'Text': 'QA_网银1_不限金額-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': False}, {'Value': '96', 'Text': 'QA_网银1-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 13, 'IsDanger': True}, {'Value': '2287', 'Text': '網銀測試01-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2288', 'Text': '網銀測試04-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2289', 'Text': '網銀測試05-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2290', 'Text': '網銀測試06-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2291', 'Text': '網銀測試07-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2292', 'Text': '網銀測試08-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2293', 'Text': '網銀測試09-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2384', 'Text': '網銀測試100-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2294', 'Text': '網銀測試10-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2295', 'Text': '網銀測試11-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2297', 'Text': '網銀測試123-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2296', 'Text': '網銀測試12-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2298', 'Text': '網銀測試14-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2299', 'Text': '網銀測試15-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2300', 'Text': '網銀測試16-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2301', 'Text': '網銀測試17-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2302', 'Text': '網銀測試18-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2303', 'Text': '網銀測試19-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2304', 'Text': '網銀測試20-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2305', 'Text': '網銀測試21-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2306', 'Text': '網銀測試22-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2307', 'Text': '網銀測試23-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2308', 'Text': '網銀測試24-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2309', 'Text': '網銀測試25-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2310', 'Text': '網銀測試26-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2311', 'Text': '網銀測試27-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2312', 'Text': '網銀測試28-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2313', 'Text': '網銀測試29-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2314', 'Text': '網銀測試30-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2315', 'Text': '網銀測試31-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2316', 'Text': '網銀測試32-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2317', 'Text': '網銀測試33-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2318', 'Text': '網銀測試34-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2319', 'Text': '網銀測試35-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2320', 'Text': '網銀測試36-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2321', 'Text': '網銀測試37-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2322', 'Text': '網銀測試38-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2323', 'Text': '網銀測試39-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2324', 'Text': '網銀測試40-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2325', 'Text': '網銀測試41-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2326', 'Text': '網銀測試42-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2327', 'Text': '網銀測試43-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2328', 'Text': '網銀測試44-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2329', 'Text': '網銀測試45-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2330', 'Text': '網銀測試46-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2331', 'Text': '網銀測試47-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2332', 'Text': '網銀測試48-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2333', 'Text': '網銀測試49-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2334', 'Text': '網銀測試50-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2335', 'Text': '網銀測試51-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2336', 'Text': '網銀測試52-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2337', 'Text': '網銀測試53-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2338', 'Text': '網銀測試54-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2339', 'Text': '網銀測試55-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2340', 'Text': '網銀測試56-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2341', 'Text': '網銀測試57-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2342', 'Text': '網銀測試58-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2343', 'Text': '網銀測試59-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2344', 'Text': '網銀測試60-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2345', 'Text': '網銀測試61-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2346', 'Text': '網銀測試62-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2347', 'Text': '網銀測試63-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2348', 'Text': '網銀測試64-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2349', 'Text': '網銀測試65-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2350', 'Text': '網銀測試66-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2351', 'Text': '網銀測試67-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2352', 'Text': '網銀測試68-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2353', 'Text': '網銀測試69-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2354', 'Text': '網銀測試70-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2355', 'Text': '網銀測試71-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2356', 'Text': '網銀測試72-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2357', 'Text': '網銀測試73-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2358', 'Text': '網銀測試74-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2359', 'Text': '網銀測試75-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2360', 'Text': '網銀測試76-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2361', 'Text': '網銀測試77-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2362', 'Text': '網銀測試78-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2363', 'Text': '網銀測試79-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2364', 'Text': '網銀測試81-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2365', 'Text': '網銀測試82-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2366', 'Text': '網銀測試83-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2368', 'Text': '網銀測試84-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2369', 'Text': '網銀測試85-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2370', 'Text': '網銀測試86-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2371', 'Text': '網銀測試87-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2372', 'Text': '網銀測試88-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2373', 'Text': '網銀測試89-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2367', 'Text': '網銀測試8-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2374', 'Text': '網銀測試90-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2375', 'Text': '網銀測試91-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2376', 'Text': '網銀測試92-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2377', 'Text': '網銀測試93-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2378', 'Text': '網銀測試94-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2379', 'Text': '網銀測試95-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2380', 'Text': '網銀測試96-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2381', 'Text': '網銀測試97-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2382', 'Text': '網銀測試98-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2383', 'Text': '網銀測試99-网银', 'TypeValue': 1, 'TypeName': '网银', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2286', 'Text': 'QQ付款測試100-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2201', 'Text': 'QQ付款測試13-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2202', 'Text': 'QQ付款測試14-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2203', 'Text': 'QQ付款測試15-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2204', 'Text': 'QQ付款測試16-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2205', 'Text': 'QQ付款測試17-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2206', 'Text': 'QQ付款測試18-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2207', 'Text': 'QQ付款測試19-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2208', 'Text': 'QQ付款測試20-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2209', 'Text': 'QQ付款測試21-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2210', 'Text': 'QQ付款測試22-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2211', 'Text': 'QQ付款測試24-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2212', 'Text': 'QQ付款測試25-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2213', 'Text': 'QQ付款測試26-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2214', 'Text': 'QQ付款測試27-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2215', 'Text': 'QQ付款測試28-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2216', 'Text': 'QQ付款測試29-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2217', 'Text': 'QQ付款測試30-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2218', 'Text': 'QQ付款測試31-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2200', 'Text': 'QQ付款測試32-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2219', 'Text': 'QQ付款測試32-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2220', 'Text': 'QQ付款測試33-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2221', 'Text': 'QQ付款測試34-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2222', 'Text': 'QQ付款測試35-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2223', 'Text': 'QQ付款測試36-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2224', 'Text': 'QQ付款測試37-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2225', 'Text': 'QQ付款測試38-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2226', 'Text': 'QQ付款測試39-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2227', 'Text': 'QQ付款測試40-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2228', 'Text': 'QQ付款測試41-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2229', 'Text': 'QQ付款測試42-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2230', 'Text': 'QQ付款測試43-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2231', 'Text': 'QQ付款測試44-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2232', 'Text': 'QQ付款測試45-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2233', 'Text': 'QQ付款測試46-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2234', 'Text': 'QQ付款測試47-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2235', 'Text': 'QQ付款測試48-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2236', 'Text': 'QQ付款測試49-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2237', 'Text': 'QQ付款測試50-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2238', 'Text': 'QQ付款測試51-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2239', 'Text': 'QQ付款測試52-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2240', 'Text': 'QQ付款測試53-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2241', 'Text': 'QQ付款測試554-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2242', 'Text': 'QQ付款測試56-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2243', 'Text': 'QQ付款測試57-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2244', 'Text': 'QQ付款測試58-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2245', 'Text': 'QQ付款測試59-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2246', 'Text': 'QQ付款測試60-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2247', 'Text': 'QQ付款測試61-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2248', 'Text': 'QQ付款測試62-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2249', 'Text': 'QQ付款測試63-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2250', 'Text': 'QQ付款測試64-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2251', 'Text': 'QQ付款測試65-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2252', 'Text': 'QQ付款測試66-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2253', 'Text': 'QQ付款測試67-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2254', 'Text': 'QQ付款測試68-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2255', 'Text': 'QQ付款測試69-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2256', 'Text': 'QQ付款測試70-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2257', 'Text': 'QQ付款測試71-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2258', 'Text': 'QQ付款測試72-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2259', 'Text': 'QQ付款測試73-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2260', 'Text': 'QQ付款測試74-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2261', 'Text': 'QQ付款測試75-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2262', 'Text': 'QQ付款測試76-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2263', 'Text': 'QQ付款測試77-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2264', 'Text': 'QQ付款測試78-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2265', 'Text': 'QQ付款測試79-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2266', 'Text': 'QQ付款測試80-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2267', 'Text': 'QQ付款測試81-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2268', 'Text': 'QQ付款測試82-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2269', 'Text': 'QQ付款測試83-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2270', 'Text': 'QQ付款測試84-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2271', 'Text': 'QQ付款測試85-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2272', 'Text': 'QQ付款測試86-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2273', 'Text': 'QQ付款測試87-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2274', 'Text': 'QQ付款測試88-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2275', 'Text': 'QQ付款測試89-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2276', 'Text': 'QQ付款測試90-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2277', 'Text': 'QQ付款測試91-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2278', 'Text': 'QQ付款測試92-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2279', 'Text': 'QQ付款測試93-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': False}, {'Value': '2280', 'Text': 'QQ付款測試94-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2281', 'Text': 'QQ付款測試95-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2282', 'Text': 'QQ付款測試96-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2283', 'Text': 'QQ付款測試97-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2284', 'Text': 'QQ付款測試98-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}, {'Value': '2285', 'Text': 'QQ付款測試99-QQ付款码', 'TypeValue': 16, 'TypeName': 'QQ付款码', 'IsNew': False, 'NeedSettingCallBackUrl': False, 'CustomCallbackId': 123, 'IsDanger': True}], 'IsSuccess': True, 'ErrorMessage': None}, &lt;RequestsCookieJar[]&gt;)
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt17_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新更新單次存款限額</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新推薦說明</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新推薦金額鎖</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新推薦金額</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新總存款額度</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新有效分鐘數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_23' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 線上支付商戶管理 - 更新備註</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt17_24' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付商户管理 - 刪除金流公司商戶資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_LoginRecords: 登入紀錄查詢 - 相關 API 調用狀態</td>
+    <td class="text-center">5</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c18',5)" class="detail" id='c18'>詳細</a></td>
+</tr>
+
+<tr id='pt18_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 登入紀錄查詢頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt18_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 查詢v2 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt18_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得登入紀錄詳細頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt18_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得詳細資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt18_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 匯出 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_LostDiscountMembers: 時返異常紀錄- 相關 API 調用狀態</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c19',1)" class="detail" id='c19'>詳細</a></td>
+</tr>
+
+<tr id='pt19_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 時返異常紀錄 - 頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberBatch: 會員批次 - 相關 API 調用狀態</td>
+    <td class="text-center">11</td>
+    <td class="text-center">11</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c20',11)" class="detail" id='c20'>詳細</a></td>
+</tr>
+
+<tr id='pt20_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 匯入大量帳號 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 會員批次頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 清除樣板 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 取得會員狀態 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次會員資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 強制取回餘額寶 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次修改會員狀態 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次修改會員等級 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次時時歸水歸零 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次人工存入 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt20_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員批次 - 批次修改會員標籤 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberCreate: 新增會員 - 相關 API 調用狀態</td>
+    <td class="text-center">11</td>
+    <td class="text-center">11</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c21',11)" class="detail" id='c21'>詳細</a></td>
+</tr>
+
+<tr id='pt21_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 新增會員 - 頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 是否為新增會員頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_MemberCreate_baseApi_status_03</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 驗證使用者是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 欄位驗證中使用者已有帳號時失敗</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 預設會員密碼是否為123456</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 預設取款密碼是否為123456</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商是否能夠空白</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 代理商是否存在</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 提交表單中 已有帳號時失敗</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt21_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 使用者是否能夠新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberDetail: 會員詳細資料 - 相關 API 調用狀態</td>
+    <td class="text-center">35</td>
+    <td class="text-center">35</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c22',35)" class="detail" id='c22'>詳細</a></td>
+</tr>
+
+<tr id='pt22_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 會員詳細資料頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得會員詳細資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得存提款資訊 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得會員正在參與的活動 狀態</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt22_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt22_4'>通過</button>
+    <div id='div_pt22_4' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt22_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt22_4'>通過</button>
+    <div id='div_pt22_4' class="collapse in">
+    <pre>
+    
+pt22_4: {'IsSuccess': True, 'MemberEventList': [{'Type': 2, 'Id': 307, 'Name': 'PT_真人_test816', 'WebsiteId': None, 'WebsiteName': None}]}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt22_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新會員狀態 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新會員等級 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新返水等級 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 修改會員資料頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得會員基本資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新會員基本資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 修改銀行資料頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得銀行資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 檢查銀行帳戶 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新銀行資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得銀行修改紀錄 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 取得支付寶修改紀錄 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 更新區域驗證限制 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 手機簡訊驗證 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 - 稽核頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -取得稽核詳細資料  狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -修改稽核頁面  狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -取得會員稽核列表資料 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_23' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -更新稽核資料 狀態</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt22_23' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt22_23'>通過</button>
+    <div id='div_pt22_23' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt22_23' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt22_23'>通過</button>
+    <div id='div_pt22_23' class="collapse in">
+    <pre>
+    
+pt22_23: ('200', {'Id': 3144301, 'Data': [{'Id': 5950265, 'MemberTransactionId': 13969614, 'Time': '/Date(1576706988730)/', 'Amount': 0.1, 'AuditAmount': 1576750194, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950262, 'MemberTransactionId': 13969610, 'Time': '/Date(1576706918517)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950259, 'MemberTransactionId': 13969607, 'Time': '/Date(1576706825893)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950256, 'MemberTransactionId': 13969604, 'Time': '/Date(1576706752947)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950212, 'MemberTransactionId': 13969534, 'Time': '/Date(1576626022403)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950207, 'MemberTransactionId': 13969532, 'Time': '/Date(1576625967783)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950200, 'MemberTransactionId': 13969503, 'Time': '/Date(1576620419387)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950196, 'MemberTransactionId': 13969499, 'Time': '/Date(1576620349573)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950060, 'MemberTransactionId': 13969307, 'Time': '/Date(1576530950587)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5950055, 'MemberTransactionId': 13969305, 'Time': '/Date(1576530875640)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5949924, 'MemberTransactionId': 13969047, 'Time': '/Date(1576450671743)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5949897, 'MemberTransactionId': 13969016, 'Time': '/Date(1576445547297)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5949857, 'MemberTransactionId': 13968953, 'Time': '/Date(1576190423927)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5949852, 'MemberTransactionId': 13968948, 'Time': '/Date(1576190363997)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5948671, 'MemberTransactionId': 13966908, 'Time': '/Date(1574780835063)/', 'Amount': 0.1, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5925104, 'MemberTransactionId': 13938097, 'Time': '/Date(1573142167900)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': 0.01, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5923193, 'MemberTransactionId': 13936186, 'Time': '/Date(1573141805980)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': 0.01, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5890542, 'MemberTransactionId': 13876124, 'Time': '/Date(1571983370927)/', 'Amount': None, 'AuditAmount': None, 'Discount': 0.1, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5887721, 'MemberTransactionId': 13863202, 'Time': '/Date(1571856819680)/', 'Amount': None, 'AuditAmount': None, 'Discount': 525.3, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5887720, 'MemberTransactionId': 13863201, 'Time': '/Date(1571856819633)/', 'Amount': 30.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5849536, 'MemberTransactionId': 13804245, 'Time': '/Date(1571241575497)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5644735, 'MemberTransactionId': 13566437, 'Time': '/Date(1568268160360)/', 'Amount': None, 'AuditAmount': None, 'Discount': 0.05, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5439316, 'MemberTransactionId': 13360922, 'Time': '/Date(1568128573183)/', 'Amount': 5.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5435500, 'MemberTransactionId': 13355813, 'Time': '/Date(1566495786157)/', 'Amount': None, 'AuditAmount': None, 'Discount': 1.46, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5434990, 'MemberTransactionId': 13354954, 'Time': '/Date(1565902639993)/', 'Amount': 30.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5434988, 'MemberTransactionId': 13354922, 'Time': '/Date(1565897648017)/', 'Amount': None, 'AuditAmount': None, 'Discount': 10.0, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5434949, 'MemberTransactionId': 13354756, 'Time': '/Date(1565793149417)/', 'Amount': None, 'AuditAmount': None, 'Discount': 10.0, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 5434948, 'MemberTransactionId': 13354755, 'Time': '/Date(1565793148387)/', 'Amount': None, 'AuditAmount': None, 'Discount': 10.0, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4860908, 'MemberTransactionId': 12588666, 'Time': '/Date(1565290651193)/', 'Amount': 9.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4847494, 'MemberTransactionId': 12565237, 'Time': '/Date(1565287110930)/', 'Amount': 30.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4779281, 'MemberTransactionId': 12496776, 'Time': '/Date(1565276762157)/', 'Amount': None, 'AuditAmount': None, 'Discount': 0.05, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4779280, 'MemberTransactionId': 12496775, 'Time': '/Date(1565276762157)/', 'Amount': 10.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4694506, 'MemberTransactionId': 12411889, 'Time': '/Date(1565183238163)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4694505, 'MemberTransactionId': 12411888, 'Time': '/Date(1565183235783)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4694479, 'MemberTransactionId': 12411850, 'Time': '/Date(1565120703637)/', 'Amount': None, 'AuditAmount': None, 'Discount': 0.1, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4694462, 'MemberTransactionId': 12411823, 'Time': '/Date(1565115277537)/', 'Amount': 10.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 4693727, 'MemberTransactionId': 12411079, 'Time': '/Date(1565113901437)/', 'Amount': 0.01, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}, {'Id': 2683461, 'MemberTransactionId': 9742278, 'Time': '/Date(1564351554957)/', 'Amount': 10.0, 'AuditAmount': None, 'Discount': None, 'DiscountAuditAmount': None, 'IsSystemSum': False}]}, &lt;RequestsCookieJar[]&gt;)
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt22_24' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -清除稽核 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_25' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -重設密碼 狀態</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt22_25' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt22_25'>通過</button>
+    <div id='div_pt22_25' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt22_25' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt22_25'>通過</button>
+    <div id='div_pt22_25' class="collapse in">
+    <pre>
+    
+pt22_25: 3144301
+{'id': 3144301}
+('200', {'Password': 'yja24z'}, &lt;RequestsCookieJar[]&gt;)
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt22_26' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -娛樂城錢包全取回 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_27' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -娛樂城錢包全更新 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_28' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -重設取款密碼 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_29' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -更新備註 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_30' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -更換代理商頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_31' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -取得代理 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_32' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -更換代理 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_33' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -會員歷史紀錄頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_34' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -會員歷史紀錄 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt22_35' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員詳細資料 -讀取會員歷史紀錄 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberLevelSetting: 会员等级管理 - 相關 API 調用狀態</td>
+    <td class="text-center">15</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c23',15)" class="detail" id='c23'>詳細</a></td>
+</tr>
+
+<tr id='pt23_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得列表清單</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得各等級的會員數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得電子錢包狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 新增等級頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 新增等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得設定詳細資料頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得設定詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得修改頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 修改等級(更新)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 取得該等級會員數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 更改危險等級設定 - 危險等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 更改危險等級設定 - 安全等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 驗證自動化建立等級是否是- API 測試</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt23_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员等级管理 - 刪除等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberSearch: 会员查询 - 相關 API 調用狀態</td>
+    <td class="text-center">9</td>
+    <td class="text-center">9</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c24',9)" class="detail" id='c24'>詳細</a></td>
+</tr>
+
+<tr id='pt24_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员查询頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员查询 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员查询 未帶 connectionId 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員等級 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 反水等級 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 匯出檔案標籤 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 功能開關 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 匯出檔案 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt24_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員搜尋 - 進階 區域驗證 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberTags: 會員標籤 - 相關 API 調用狀態</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c25',3)" class="detail" id='c25'>詳細</a></td>
+</tr>
+
+<tr id='pt25_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員標籤 - 取得所有標籤 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt25_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員標籤 - 新增標籤 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt25_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>會員標籤 - 刪除標籤 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_MemberTransaction: 交易記錄查詢 - 相關 API 調用狀態</td>
+    <td class="text-center">9</td>
+    <td class="text-center">9</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c26',9)" class="detail" id='c26'>詳細</a></td>
+</tr>
+
+<tr id='pt26_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 交易記錄查詢頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得交易紀錄類型狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 交易紀錄搜尋狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得交易記錄詳細頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取得單筆紀錄明細狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 更新實際存提狀態 2019/12/03</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 匯出狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt26_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 更新實際存提-是否成功 -2019/12/03</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt26_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt26_8'>通過</button>
+    <div id='div_pt26_8' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt26_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt26_8'>通過</button>
+    <div id='div_pt26_8' class="collapse in">
+    <pre>
+    
+pt26_8: {'IsSuccess': True, 'Total': 36, 'TotalMoney': 105.94, 'PageData': [{'Id': 13969615, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706996037)/', 'Amount': 0.1, 'IsIncome': False, 'TypeString': '人工存提', 'Subtotal': 639.36, 'TypeForMember': '人工存提', 'Memo': None}, {'Id': 13969614, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706988730)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.46, 'TypeForMember': '人工存提', 'Memo': '@autotest-Preliminary work-Audit'}, {'Id': 13969610, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706918517)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.36, 'TypeForMember': '人工存提', 'Memo': '@0.1'}, {'Id': 13969608, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706833360)/', 'Amount': 0.1, 'IsIncome': False, 'TypeString': '人工存提', 'Subtotal': 639.26, 'TypeForMember': '人工存提', 'Memo': None}, {'Id': 13969607, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706825893)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.36, 'TypeForMember': '人工存提', 'Memo': '@autotest-Preliminary work-Audit'}, {'Id': 13969604, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576706752947)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.26, 'TypeForMember': '人工存提', 'Memo': '@0.1'}, {'Id': 13969535, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576626030767)/', 'Amount': 0.1, 'IsIncome': False, 'TypeString': '人工存提', 'Subtotal': 639.16, 'TypeForMember': '人工存提', 'Memo': None}, {'Id': 13969534, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576626022403)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.26, 'TypeForMember': '人工存提', 'Memo': '@autotest-Preliminary work-Audit'}, {'Id': 13969532, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576625967783)/', 'Amount': 0.1, 'IsIncome': True, 'TypeString': '人工存提', 'Subtotal': 639.16, 'TypeForMember': '人工存提', 'Memo': '@0.1'}, {'Id': 13969504, 'MemberId': 3144301, 'Account': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Time': '/Date(1576620426807)/', 'Amount': 0.1, 'IsIncome': False, 'TypeString': '人工存提', 'Subtotal': 639.06, 'TypeForMember': '人工存提', 'Memo': None}]}
+{'Detail': {'Amount': 0.1, 'IsIncome': False, 'Subtotal': 639.36, 'Time': '/Date(1576706996037)/', 'TypeString': 'ENUM_MemberTransactionType_Manual', 'TypeForMember': '人工存提', 'MemberId': 3144301, 'MemberAccount': 'DS_player7', 'MemberLevelId': 21, 'MemberLevelName': 'QA_Test', 'Memo': None, 'PortalMemo': None, 'IsReal': True, 'IsShowIsReal': True, 'CreateName': 'QAautomation', 'IsNew': False, 'IsLostDiscount': None}}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt26_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 時返明細狀態 - 2019/12/03</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_pt26_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt26_9'>通過</button>
+    <div id='div_pt26_9' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_pt26_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt26_9'>通過</button>
+    <div id='div_pt26_9' class="collapse in">
+    <pre>
+    
+pt26_9: {'IsSuccess': True, 'Account': 'penguin', 'TimeBegin': '/Date(1575993600000)/', 'TimeEnd': '/Date(1576692319000)/', 'AnytimeDiscountAmount': 1.15, 'ReceiveAmount': 1.15, 'DifferenceAmount': 0.0, 'TimeLine': [{'Type': 6, 'TimeBegin': '/Date(1575993600000)/', 'TimeEnd': '/Date(1575993600000)/', 'Description': 'penguin 上次领取时时返水', 'AnytimeDiscountAmount': 0, 'MemberDiscountSettingId': 0, 'BetRecordList': None}, {'Type': 1, 'TimeBegin': '/Date(1575993600000)/', 'TimeEnd': '/Date(1576692319000)/', 'Description': None, 'AnytimeDiscountAmount': 1.15, 'MemberDiscountSettingId': 0, 'BetRecordList': [{'GameSupplier': 'PG', 'GameCategory': 'ENUM_GameCategoryShortName_PgsSlot', 'GameType': '旺旺旺', 'BetRecordCount': 8, 'Commissionable': 11.5, 'AnytimeDiscountProportion': 10.0, 'AnytimeDiscountAmount': 1.15, 'BetRecordLink': '/BetRecord?search=true&amp;account=penguin&amp;payoffTimeBegin=2019%2f12%2f11+00%3a00%3a00&amp;payoffTimeEnd=2019%2f12%2f19+02%3a05%3a19&amp;gameTypeName=%e6%97%ba%e6%97%ba%e6%97%ba&amp;gameCategories=PgsSlot&amp;gameTypeNameIsLike=false'}]}, {'Type': 6, 'TimeBegin': '/Date(1576692319000)/', 'TimeEnd': '/Date(1576692319000)/', 'Description': 'penguin 领取时时返水', 'AnytimeDiscountAmount': 0, 'MemberDiscountSettingId': 0, 'BetRecordList': None}], 'IsExcessLimit': False, 'ExcessAmount': None}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_ModifyMemberBankAccount: Master 會員- 更新修改銀行帳戶</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c27',3)" class="detail" id='c27'>詳細</a></td>
+</tr>
+
+<tr id='pt27_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證-會員更新修改銀行帳戶-帳戶為空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt27_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證-會員更新修改銀行帳戶-帳戶為空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt27_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證-會員正常更新修改銀行帳戶</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_PortalSetting:  會員端設定 - 相關 API 調用狀態</td>
+    <td class="text-center">16</td>
+    <td class="text-center">16</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c28',16)" class="detail" id='c28'>詳細</a></td>
+</tr>
+
+<tr id='pt28_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 取得列表頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 取得列表</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 新增頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 詳細資料頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新餘額寶顯示開關</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新取款申請顯示開關</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新公司入款顯示開關</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新會員端設定名稱</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新跑馬燈</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新取款提示訊息</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新會員註冊設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新代理商註冊設定</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 更新備註</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt28_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員端管理 - 刪除</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_SendMail:  站內信 - 相關 API 調用狀態</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c29',6)" class="detail" id='c29'>詳細</a></td>
+</tr>
+
+<tr id='pt29_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信 - 取得列表頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt29_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信 - 取得發送信件頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt29_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信(發送對象--單個會員)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt29_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信(發送對象--多個會員)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt29_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信(發送對象--全站)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt29_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 站內信(發送對象--批次-會員等級)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Statistics:  統計報表 - 相關 API 調用狀態</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c30',6)" class="detail" id='c30'>詳細</a></td>
+</tr>
+
+<tr id='pt30_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 取得頁面狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt30_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 取得代理商或會員資訊</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt30_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 取得統計資訊(起始日期、結束日期、代理商帳號)</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt30_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 取得統計資料會員數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt30_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 取得統計報表詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt30_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 統計報表 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_ThirdPartyPayment:  线上支付看板 - 相關 API 調用狀態</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c31',4)" class="detail" id='c31'>詳細</a></td>
+</tr>
+
+<tr id='pt31_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付看板 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt31_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付看板 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt31_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付看板 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt31_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 线上支付看板 - 取得訂單狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_TransactionReportSummary: 總存取款匯出 - 相關 API 調用狀態</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c32',4)" class="detail" id='c32'>詳細</a></td>
+</tr>
+
+<tr id='pt32_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 總存取款匯出-總存取款匯出頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt32_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 總存取款匯出-總存取款匯出 -日 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt32_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 總存取款匯出-總存取款匯出 -月 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt32_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 總存取款匯出-大量匯出時更新狀態 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_TransferUnknownMoney:  转帐额度确认 - 相關 API 調用狀態</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c33',8)" class="detail" id='c33'>詳細</a></td>
+</tr>
+
+<tr id='pt33_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得詳細頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得資料詳細</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得娛樂城列表 2019/12/12</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得轉帳額度狀態 2019/12/12</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 取得詳細資料狀態列 2019/12/12</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt33_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 转帐额度确认 - 手動補額度 2019/12/12</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_VerifyDeposit:  公司入款审核 - 相關 API 調用狀態</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c34',6)" class="detail" id='c34'>詳細</a></td>
+</tr>
+
+<tr id='pt34_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt34_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt34_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt34_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 取得訂單狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt34_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 取得詳細頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt34_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 公司入款审核 - 取得詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_VerifyWithdraw:  取款申请审核 - 相關 API 調用狀態</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c35',6)" class="detail" id='c35'>詳細</a></td>
+</tr>
+
+<tr id='pt35_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 取得頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt35_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 取得詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt35_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 匯出</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt35_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 取得訂單狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt35_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 取得詳細頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt35_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 取款申请审核 - 取得列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_Yuebao:  余额宝 - 相關 API 調用狀態</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c36',8)" class="detail" id='c36'>詳細</a></td>
+</tr>
+
+<tr id='pt36_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 取得列表</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 排序</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 新增</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 更改會員等級</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 設定下架時間</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 上下架歷程記錄</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt36_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶管理 - 強制贖回</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_API_YuebaoBoard:  余额宝 - 相關 API 調用狀態</td>
+    <td class="text-center">5</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c37',5)" class="detail" id='c37'>詳細</a></td>
+</tr>
+
+<tr id='pt37_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 余额宝 - 取得看板頁面</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt37_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 余额宝 - 取得看板列表資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt37_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 余额宝 - 取得總計數據</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt37_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶看板 - 匯出Excel</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt37_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 餘額寶看板 - 匯出Excel</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Base_ApI_MemberImport: 會員匯入 - 相關 API 調用狀態</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c38',6)" class="detail" id='c38'>詳細</a></td>
+</tr>
+
+<tr id='pt38_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 會員匯入頁面 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt38_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 會員匯入紀錄 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt38_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 確認是否有會員匯入 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt38_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 下載範本 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt38_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 上傳Excel 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt38_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員匯入 - 開始匯入 狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_BoardEffectiveBetChangeToLow: 棋牌类游戏有效投注统一改为「取其低」</td>
+    <td class="text-center">15</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c39',15)" class="detail" id='c39'>詳細</a></td>
+</tr>
+
+<tr id='pt39_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_00_Verify_EffectiveBetChangeToLow_Rg2Board</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_01_Verify_EffectiveBetChangeToLow_JdbBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_02_Verify_EffectiveBetChangeToLow_KgBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_03_Verify_EffectiveBetChangeToLow_City761Board</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_04_Verify_EffectiveBetChangeToLow_FsBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_05_Verify_EffectiveBetChangeToLow_NwBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_06_Verify_EffectiveBetChangeToLow_JsBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_07_Verify_EffectiveBetChangeToLow_MtBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_08_Verify_EffectiveBetChangeToLow_ThBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_09_Verify_EffectiveBetChangeToLow_DtBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_10_Verify_EffectiveBetChangeToLow_DhBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_11_Verify_EffectiveBetChangeToLow_VgBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_12_Verify_EffectiveBetChangeToLow_LegBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_13_Verify_EffectiveBetChangeToLow_GmgBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt39_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_14_Verify_EffectiveBetChangeToLow_Im2Board</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_Master_Flow_CheckGameDetailUrl: 驗證外部注單連結</td>
+    <td class="text-center">41</td>
+    <td class="text-center">39</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c40',41)" class="detail" id='c40'>詳細</a></td>
+</tr>
+
+<tr id='pt40_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_00_Verify_BetDetailUrl_Mg2Real</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_01_Verify_BetDetailUrl_Mg2Slot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_02_Verify_BetDetailUrl_Mg2Html5</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_03_Verify_BetDetailUrl_PrgSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_04_Verify_BetDetailUrl_GdSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_05_Verify_BetDetailUrl_Cq9Slot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_06_Verify_BetDetailUrl_Cq9Fish</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_07_Verify_BetDetailUrl_HabaSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_08_Verify_BetDetailUrl_City761Board</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_09_Verify_BetDetailUrl_City761Fish</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_10_Verify_BetDetailUrl_IboSport</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_11_Verify_BetDetailUrl_Ibo2Real</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_12_Verify_BetDetailUrl_JdbBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_13_Verify_BetDetailUrl_JdbSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_14_Verify_BetDetailUrl_JdbFish</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_15_Verify_BetDetailUrl_KaSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_16_Verify_BetDetailUrl_PlsSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_17_Verify_BetDetailUrl_PngSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_18_Verify_BetDetailUrl_Pt2Real</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_19_Verify_BetDetailUrl_Pt2Slot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_21' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_20_Verify_BetDetailUrl_Rg2Real</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_21_Verify_BetDetailUrl_Rg2Board</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='ft40_23' class='none'>
+    <td class='failCase'><div class='testcase'>testCase_22_Verify_BetDetailUrl_Rg2Lottery2</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft40_23' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft40_23'>失敗</button>
+    <div id='div_ft40_23' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft40_23' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft40_23'>失敗</button>
+    <div id='div_ft40_23' class="collapse in">
+    <pre>
+    
+ft40_23: Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\parameterized\parameterized.py", line 518, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "D:\automation_test_project\case\test_api\test_Master_Flow_CheckGameDetailUrl.py", line 88, in testCase
+    self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
+AssertionError: [] == [] : 目前查詢區間無資料，請產生測試注單!!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt40_24' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_23_Verify_BetDetailUrl_MtFish</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_25' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_24_Verify_BetDetailUrl_MtSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_26' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_25_Verify_BetDetailUrl_MtBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_27' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_26_Verify_BetDetailUrl_ThBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_28' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_27_Verify_BetDetailUrl_ThFish</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_29' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_28_Verify_BetDetailUrl_SabaSport</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_30' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_29_Verify_BetDetailUrl_SabaNumber</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='ft40_31' class='none'>
+    <td class='failCase'><div class='testcase'>testCase_30_Verify_BetDetailUrl_SabaVirtualSport</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft40_31' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft40_31'>失敗</button>
+    <div id='div_ft40_31' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft40_31' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft40_31'>失敗</button>
+    <div id='div_ft40_31' class="collapse in">
+    <pre>
+    
+ft40_31: Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\parameterized\parameterized.py", line 518, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "D:\automation_test_project\case\test_api\test_Master_Flow_CheckGameDetailUrl.py", line 88, in testCase
+    self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
+AssertionError: [] == [] : 目前查詢區間無資料，請產生測試注單!!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt40_32' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_31_Verify_BetDetailUrl_BfLottery</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_33' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_32_Verify_BetDetailUrl_DhBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_34' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_33_Verify_BetDetailUrl_DtBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_35' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_34_Verify_BetDetailUrl_EBetReal</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_36' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_35_Verify_BetDetailUrl_KgBoard</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_37' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_36_Verify_BetDetailUrl_RedTiger2Slot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_38' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_37_Verify_BetDetailUrl_RedTigerSlot</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_39' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_38_Verify_BetDetailUrl_Sunbet2Real</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_40' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_39_Verify_BetDetailUrl_SunbetReal</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt40_41' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_40_Verify_BetDetailUrl_LtLottery</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_FixVerifyAuditTypeField: 驗證存款類型於即時稽核顯示邏輯</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c41',6)" class="detail" id='c41'>詳細</a></td>
+</tr>
+
+<tr id='pt41_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_0_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt41_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_1_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt41_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_2_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt41_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_3_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt41_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_4_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt41_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_5_verify_audit_type_field</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>unittest.loader</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c42',1)" class="detail" id='c42'>詳細</a></td>
+</tr>
+
+<tr id='ft42_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_Master_Flow_GameCategoryRawDateForBetAmount</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft42_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft42_1'>錯誤</button>
+    <div id='div_ft42_1' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft42_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft42_1'>錯誤</button>
+    <div id='div_ft42_1' class="collapse in">
+    <pre>
+    
+ft42_1: ImportError: Failed to import test module: test_Master_Flow_GameCategoryRawDateForBetAmount
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "D:\automation_test_project\case\test_api\test_Master_Flow_GameCategoryRawDateForBetAmount.py", line 9, in &lt;module&gt;
+    from replace import replace
+ModuleNotFoundError: No module named 'replace'
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_MemberSearchAdjustReturnErrorMessage: 会员查询：調整回傳錯誤訊息</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c43',2)" class="detail" id='c43'>詳細</a></td>
+</tr>
+
+<tr id='pt43_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员查询 Request Payload 有帶 Connection Id</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt43_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 会员查询 Request Payload 未帶 Connection Id</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_SearchGameNumber: 驗證局號查詢功能正常</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c44',4)" class="detail" id='c44'>詳細</a></td>
+</tr>
+
+<tr id='pt44_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_0_verify_bureau_number_query_AG</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt44_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_1_verify_bureau_number_query_CQ9</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt44_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_2_verify_bureau_number_query_PNG</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt44_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_3_verify_bureau_number_query_GPK</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_VerifyBetRecordHistoryData: 驗證历史投注记录查询每個月都注單</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c45',8)" class="detail" id='c45'>詳細</a></td>
+</tr>
+
+<tr id='pt45_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_0_verify_bet_record_history_11_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_1_verify_bet_record_history_12_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_2_verify_bet_record_history_01_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_3_verify_bet_record_history_02_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_4_verify_bet_record_history_03_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_5_verify_bet_record_history_04_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_6_verify_bet_record_history_05_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt45_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_7_verify_bet_record_history_06_month</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_VerifyValueDifferenceForDeposit: 驗證人工存款流程</td>
+    <td class="text-center">15</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c46',15)" class="detail" id='c46'>詳細</a></td>
+</tr>
+
+<tr id='pt46_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_00_Verify_deposit_none_manual</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_01_Verify_deposit_none_bonus</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_02_Verify_deposit_none_discount</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_03_Verify_deposit_none_reissuePayOff</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_04_Verify_deposit_none_other</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_05_Verify_deposit_deposit_manual</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_06_Verify_deposit_deposit_bonus</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_07_Verify_deposit_deposit_discount</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_08_Verify_deposit_deposit_reissuePayOff</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_09_Verify_deposit_deposit_other</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_10_Verify_deposit_discount_manual</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_11_Verify_deposit_discount_bonus</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_12_Verify_deposit_discount_discount</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_13_Verify_deposit_discount_reissuePayOff</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt46_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_14_Verify_deposit_discount_other</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_Master_Flow_VerifyValueDifferenceForWithdraw: 驗證人工提款流程</td>
+    <td class="text-center">5</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c47',5)" class="detail" id='c47'>詳細</a></td>
+</tr>
+
+<tr id='pt47_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_0_Verify_withdraw_type_manual</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt47_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_1_Verify_withdraw_type_bonus</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt47_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_2_Verify_withdraw_type_discount</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt47_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_3_Verify_withdraw_type_reissuePayOff</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt47_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>testCase_4_Verify_withdraw_type_other</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_Master_base_API_MemberRegisterVerify: 會員註冊審核 - 相關 API 調用狀態</td>
+    <td class="text-center">18</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">3</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c48',18)" class="detail" id='c48'>詳細</a></td>
+</tr>
+
+<tr id='pt48_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-取得各站台資訊</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-取得所有狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-取得看板資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-取得詳細資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-取得設定資料</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-更新審核有效分鐘數</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-更新會員註冊審核開關</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-更新域名狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-新增域名</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-刪除域名</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-更新代理商狀態</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-新增代理商項目</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='pt48_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-刪除代理商項目</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='ft48_14' class='none'>
+    <td class='errorCase'><div class='testcase'>驗證 會員註冊審核-審核會員</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft48_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft48_14'>錯誤</button>
+    <div id='div_ft48_14' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft48_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft48_14'>錯誤</button>
+    <div id='div_ft48_14' class="collapse in">
+    <pre>
+    
+ft48_14: Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 76, in start
+    stdin=PIPE)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 1178, in _execute_child
+    startupinfo)
+FileNotFoundError: [WinError 2] 系統找不到指定的檔案。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 155, in test_MemberRegisterVerify_baseApi_status_14
+    self.PortalExecutionMemberRegister()  # 前端執行
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 33, in PortalExecutionMemberRegister
+    self.driver = webdriver.Chrome(chrome_path)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 73, in __init__
+    self.service.start()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 83, in start
+    os.path.basename(self.path), self.start_error_message)
+selenium.common.exceptions.WebDriverException: Message: 'chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt48_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-會員註冊審核設定歷史紀錄</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='ft48_16' class='none'>
+    <td class='errorCase'><div class='testcase'>驗證 會員註冊審核-同意</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft48_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft48_16'>錯誤</button>
+    <div id='div_ft48_16' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft48_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft48_16'>錯誤</button>
+    <div id='div_ft48_16' class="collapse in">
+    <pre>
+    
+ft48_16: Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 76, in start
+    stdin=PIPE)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 1178, in _execute_child
+    startupinfo)
+FileNotFoundError: [WinError 2] 系統找不到指定的檔案。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 178, in test_MemberRegisterVerify_baseApi_status_16
+    self.PortalExecutionMemberRegister()  # 前端執行
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 33, in PortalExecutionMemberRegister
+    self.driver = webdriver.Chrome(chrome_path)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 73, in __init__
+    self.service.start()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 83, in start
+    os.path.basename(self.path), self.start_error_message)
+selenium.common.exceptions.WebDriverException: Message: 'chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt48_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>驗證 會員註冊審核-更新備註</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通過</span></td>
+</tr>
+
+<tr id='ft48_18' class='none'>
+    <td class='errorCase'><div class='testcase'>驗證 會員註冊審核-拒絕</div></td>
+    <td colspan='5' align='center'>
+    <!--默認收起錯誤資訊 -->
+    <button id='btn_ft48_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft48_18'>錯誤</button>
+    <div id='div_ft48_18' class="collapse">  -->
+
+    <!-- 默認展開錯誤資訊 -->
+    <button id='btn_ft48_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft48_18'>錯誤</button>
+    <div id='div_ft48_18' class="collapse in">
+    <pre>
+    
+ft48_18: Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 76, in start
+    stdin=PIPE)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 775, in __init__
+    restore_signals, start_new_session)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\subprocess.py", line 1178, in _execute_child
+    startupinfo)
+FileNotFoundError: [WinError 2] 系統找不到指定的檔案。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 201, in test_MemberRegisterVerify_baseApi_status_18
+    self.PortalExecutionMemberRegister()  # 前端執行
+  File "D:\automation_test_project\case\test_api\test_Master_base_API_MemberRegisterVerify.py", line 33, in PortalExecutionMemberRegister
+    self.driver = webdriver.Chrome(chrome_path)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 73, in __init__
+    self.service.start()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python37-32\lib\site-packages\selenium\webdriver\common\service.py", line 83, in start
+    os.path.basename(self.path), self.start_error_message)
+selenium.common.exceptions.WebDriverException: Message: 'chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>總計</td>
+    <td>454</td>
+    <td>448</td>
+    <td>2</td>
+    <td>4</td>
+    <td>通過率：98.68%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>

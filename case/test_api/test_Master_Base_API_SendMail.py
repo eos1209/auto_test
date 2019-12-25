@@ -129,7 +129,7 @@ class SiteMailBaseTest(unittest.TestCase):
         self.upload = UploadFile('document/Email_Import.xlsx', 'excelFile', 'Email_Import.xlsx')
         data = self.upload.Upload_file()
         response_data = self.siteMail.uploadCustomExcel(data)
-        self.upload.Close_file()
+        self.upload.Close_file()  # 關閉
         ExcelPath = response_data[1]['ExcelPath']
         data = {"SendMailType": 5,
                 "MailRecievers": " ",
@@ -153,6 +153,7 @@ class SiteMailBaseTest(unittest.TestCase):
         response_data = self.siteMail.uploadCustomExcel(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+        self.upload.Close_file()  # 關閉
 
     def test_SiteMail_relatedApi_status_09(self):
         """驗證 站內信(發送對象--回覆信件)"""
@@ -204,7 +205,7 @@ class SiteMailBaseTest(unittest.TestCase):
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
-        getId = response_data[1]['SentboxMailList'][0]['Id']
+        getId = response_data[1]['InboxMailList'][0]['Id']
         data = {"inboxMailIds": [getId]}
         response_data = self.siteMail.deleteInboxMails(data)
         status_code = response_data[0]
@@ -216,7 +217,7 @@ class SiteMailBaseTest(unittest.TestCase):
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
-        getId = response_data[1]['SentboxMailList'][0]['Id']
+        getId = response_data[1]['InboxMailList'][0]['Id']
         data = {"mailId": getId}
         response_data = self.siteMail.getMailDetail(data)
         status_code = response_data[0]
@@ -234,7 +235,7 @@ class SiteMailBaseTest(unittest.TestCase):
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
-        getId = response_data[1]['SentboxMailList'][0]['Id']
+        getId = response_data[1]['InboxMailList'][0]['Id']
         data = {"inboxMailIds": [getId], "isRead": 'true'}  # 已讀
         response_data = self.siteMail.setInboxMailsAsReadOrUnread(data)
         status_code = response_data[0]
@@ -263,34 +264,34 @@ class SiteMailBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_SiteMail_relatedApi_status_19(self):
-        """驗證 站內信 - 下載信件內容明細"""
-        # 前置作業 : 先送一封匯入檔案的信件給會員
-        self.upload = UploadFile('document/Email_Import.xlsx', 'excelFile', 'Email_Import.xlsx')
-        data = self.upload.Upload_file()
-        response_data = self.siteMail.uploadCustomExcel(data)
-        self.upload.Close_file()
-        ExcelPath = response_data[1]['ExcelPath']
-        data = {"SendMailType": 5,
-                "MailRecievers": " ",
-                "BatchParam": " ",
-                "SearchParam": " ",
-                "SuperSearchRequest": " ",
-                "ResendMailID": " ",
-                "Subject": "測試站內信(發送對象--匯入檔案)",
-                "MailBody": "<p>"
-                            "%S0-%S1-%S2-%S3-%S4-%S5-%S6-%S7-%S8-%S9-%S10"
-                            "</p>\n",
-                "ExcelFilePath": ExcelPath}
-        self.siteMail.sendMail(data)
-        # step 1: 取得寄件匣信件Id
-        data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
-        response_data = self.siteMail.getSentboxList(data)
-        getId = response_data[1]['SentboxMailList'][0]['Id']
-        data = {"siteMailId": getId}
-        response_data = self.siteMail.downloadSiteMailExcelContent(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+    # def test_SiteMail_relatedApi_status_19(self):
+    #     """驗證 站內信 - 下載信件內容明細"""
+    #     # 前置作業 : 先送一封匯入檔案的信件給會員
+    #     self.upload = UploadFile('document/Email_Import.xlsx', 'excelFile', 'Email_Import.xlsx')
+    #     data = self.upload.Upload_file()
+    #     response_data = self.siteMail.uploadCustomExcel(data)
+    #     self.upload.Close_file()
+    #     ExcelPath = response_data[1]['ExcelPath']
+    #     data = {"SendMailType": 5,
+    #             "MailRecievers": " ",
+    #             "BatchParam": " ",
+    #             "SearchParam": " ",
+    #             "SuperSearchRequest": " ",
+    #             "ResendMailID": " ",
+    #             "Subject": "測試站內信(發送對象--匯入檔案)",
+    #             "MailBody": "<p>"
+    #                         "%S0-%S1-%S2-%S3-%S4-%S5-%S6-%S7-%S8-%S9-%S10"
+    #                         "</p>\n",
+    #             "ExcelFilePath": ExcelPath}
+    #     self.siteMail.sendMail(data)
+    #     # step 1: 取得寄件匣信件Id
+    #     data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
+    #     response_data = self.siteMail.getSentboxList(data)
+    #     getId = response_data[1]['SentboxMailList'][0]['Id']
+    #     data = {"siteMailId": getId}
+    #     response_data = self.siteMail.downloadSiteMailExcelContent(data)
+    #     status_code = response_data[0]
+    #     self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SiteMail_relatedApi_status_20(self):
         """驗證 站內信 - 促銷匣列表"""
