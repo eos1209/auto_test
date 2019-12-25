@@ -1307,7 +1307,7 @@ class SiteMail(object):
         # API Name =>站内信-
         # body--/{excelFile}
         path = '/SiteMail/UploadCustomExcel'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
         return self.response_data
 
     def downloadCustomExcelValidateResult(self, data):
@@ -1328,7 +1328,23 @@ class SiteMail(object):
         # API Name =>站内信-
         # body--/{siteMailId}
         path = '/SiteMail/DownloadSiteMailExcelContent'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def announcement_GetList(self, data):
+        # 站內信 - 促銷匣列表
+        path = '/AnnouncementSiteMail/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def announcement_SendMail(self, data):
+        path = '/AnnouncementSiteMail/SendMail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def announcement_Delete(self, data):
+        path = '/AnnouncementSiteMail/Delete'
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
 
