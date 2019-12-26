@@ -11,7 +11,6 @@ from base.httpRequest import HttpRequest
 from master_api import account_management
 from master_api.account_login import User
 from datetime import datetime, timedelta
-import time
 from base.CommonMethod import UploadFile
 
 

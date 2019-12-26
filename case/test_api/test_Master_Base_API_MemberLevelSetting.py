@@ -24,10 +24,14 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
+    '''
+    @方法：取得會員等級的最後一筆 id
+    '''
     def GetMemberLevelSettingId(self):
         getData = self.memberLevelSetting.getList({})
         dataLength = len(getData[1]['Levels']) - 1  # 取得最後一筆資料
-        return getData[1]['Levels'][dataLength]['Id']
+        getMemberLevelSettingId = getData[1]['Levels'][dataLength]['Id']
+        return getMemberLevelSettingId
 
     def test_Member_Level_Setting_relatedApi_status_01(self):
         """驗證 会员等级管理 - 取得頁面"""

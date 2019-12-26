@@ -54,7 +54,7 @@ class YuebaoBoardBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_YuebaoBoard_relatedApi_status_05(self):
-        """驗證 餘額寶看板 - 匯出Excel"""
+        """驗證 餘額寶看板 - 匯出Excel-未帶搜尋條件匯出Excel"""
         data = {"_": time.time()}
         response_data = self.yuebaoBoard.export(data)
         errorMessage = response_data[1]['ErrorMessage']

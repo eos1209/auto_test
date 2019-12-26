@@ -24,9 +24,12 @@ class LuckyWheelManagementBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_LuckyWheelManagement_relatedApi_status_01(self):
+    def test_LuckyWheelManagement_Get_List_Data(self):
         """驗證 幸运转盘 - 取得列表資料"""
-        data = {"Size": 100, "IsPending": True, "IsStart": True, "IsEnd": True}
+        data = {"Size": 100,
+                "IsPending": True,
+                "IsStart": True,
+                "IsEnd": True}
         response_data = self.luckyWheelManagement.getEventList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

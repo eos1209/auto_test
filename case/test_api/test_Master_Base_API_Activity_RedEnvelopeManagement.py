@@ -27,10 +27,12 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_RedEnvelopeManagement_relatedApi_status_01(self):
+    def test_RedEnvelopeManagement_Get_List_Data(self):
         """驗證 红包派送 - 取得列表資料"""
-        data = {"take": 100, "skip": 0, "search": {}}
-        response_data = self.redEnvelopeManagement.get_list(data)
+        data = {"take": 100,
+                "skip": 0,
+                "search": {}}
+        response_data = self.redEnvelopeManagement.getList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

@@ -24,10 +24,14 @@ class CheckInEventBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_CheckInEvent_relatedApi_status_01(self):
+    def test_CheckInEvent_Get_List_Data(self):
         """驗證 签到奖励 - 取得列表資料"""
-        data = {"take": 100, "skip": 0, "query": {"AllState": True, "StatusList": [0, 1, 2]}}
-        response_data = self.checkInEvent.check_in_event_load_new(data)
+        data = {"take": 100,
+                "skip": 0,
+                "query": {"AllState": True,
+                          "StatusList": [0, 1, 2]}
+                }
+        response_data = self.checkInEvent.loadNew(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

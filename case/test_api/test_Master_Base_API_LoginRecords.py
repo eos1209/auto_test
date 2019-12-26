@@ -13,7 +13,7 @@ from master_api.account_login import User
 
 
 class MemberLoginBaseTest(unittest.TestCase):
-    """登入紀錄查詢 - 相關 API 調用狀態"""
+    """登入记录查询- 相關 API 調用狀態"""
 
     def setUp(self):
         self.__http = HttpRequest()
@@ -25,7 +25,7 @@ class MemberLoginBaseTest(unittest.TestCase):
         self.user.logout()
 
     def test_MemberLoginRecords_relatedApi_status_01(self):
-        """驗證 登入紀錄查詢頁面 狀態"""
+        """驗證 登入记录查询 - 查詢頁面 狀態"""
         response_data = self.memberLogin.query({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -37,13 +37,13 @@ class MemberLoginBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_03(self):
-        """驗證 取得登入紀錄詳細頁面 狀態"""
+        """驗證 登入记录查询 - 取得詳細頁面 狀態"""
         response_data = self.memberLogin.detail({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_04(self):
-        """驗證 取得詳細資料 狀態"""
+        """驗證 登入记录查询 - 取得詳細資料 狀態"""
         # STEP1
         response_data = self.memberLogin.searchV2({})
         ff = len(response_data[1]['PageData'])
@@ -57,7 +57,7 @@ class MemberLoginBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberLoginRecords_relatedApi_status_05(self):
-        """驗證 匯出 狀態"""
+        """驗證 登入记录查询 - 匯出 狀態"""
         response_data = self.memberLogin.export({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

@@ -357,6 +357,14 @@ class MemberDetailBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_MemberDetail_relatedApi_status_36(self):
+        """會員詳細資料 -讀取會員修改歷史紀錄 狀態"""
+        getMemberId = self.GetMemberId()
+        data = {'id': getMemberId}
+        response_data = self.memberDetail.getMemberInfoHistories(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

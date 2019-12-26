@@ -82,14 +82,16 @@ class MemberCreateTest(unittest.TestCase):
         """驗證 代理商是否存在"""
         # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
-        data = {"Account": account, "Agent": master_config.no_exist_agent}  # Config.no_exist_agent = DS_a_player
+        data = {"Account": account,
+                "Agent": master_config.no_exist_agent}  # Config.no_exist_agent = DS_a_player
         response_data = self.memberCreate.createSubmit(data)
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '找不到此代理商')
 
     def test_MemberCreate_baseApi_status_10(self):
         """驗證 提交表單中 已有帳號時失敗"""
-        data = {"Account": master_config.Account, "Agent": master_config.exist_agent}
+        data = {"Account": master_config.Account,
+                "Agent": master_config.exist_agent}
         response_data = self.memberCreate.createSubmit(data)
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
@@ -99,7 +101,9 @@ class MemberCreateTest(unittest.TestCase):
         # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
         agent = master_config.exist_agent
-        data = {'Account': account, 'Agent': agent, 'memo': '@QA_automation'}
+        data = {'Account': account,
+                'Agent': agent,
+                'memo': '@QA_automation'}
         response_data = self.memberCreate.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
