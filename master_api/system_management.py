@@ -1366,7 +1366,7 @@ class ActivityManagement(object):
             self.__http = http
             self.response_data = {}
 
-        def get_list(self, data):
+        def getList(self, data):
             # API Name =>红包派送-取得列表資料
             # body--
             path = '/RedEnvelopeManagement/GetList'
@@ -1589,7 +1589,7 @@ class ActivityManagement(object):
             self.__http = http
             self.response_data = {}
 
-        def check_in_event_load_new(self, data):
+        def loadNew(self, data):
             # API Name =>签到奖励-取得列表資料
             # body--
             path = '/CheckInOffer/LoadNew'

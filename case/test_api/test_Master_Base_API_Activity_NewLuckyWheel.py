@@ -24,9 +24,14 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_NewLuckyWheel_relatedApi_status_01(self):
+    def test_NewLuckyWheel_Get_List_Data(self):
         """驗證 时来运转 - 取得列表資料"""
-        data = {"websiteId": 29, "skip": 0, "take": 100, "search": {"AllState": True, "Status": [0, 1, 2]}}
+        data = {"websiteId": 29,
+                "skip": 0,
+                "take": 100,
+                "search": {"AllState": True,
+                           "Status": [0, 1, 2]}
+                }
         response_data = self.newLuckyWheel.getList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

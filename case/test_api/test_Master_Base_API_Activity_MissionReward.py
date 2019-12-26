@@ -24,9 +24,11 @@ class MissionRewardBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
-    def test_MissionReward_relatedApi_status_01(self):
+    def test_MissionReward_Get_List_Data(self):
         """驗證 任务挑战 - 取得列表資料"""
-        data = {"take": 100, "skip": 0, "search": {}}
+        data = {"take": 100,
+                "skip": 0,
+                "search": {}}
         response_data = self.missionReward.getList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
