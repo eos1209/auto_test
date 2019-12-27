@@ -48,7 +48,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         # 1205
         self.upload = UploadFile('document/red.xlsx',  # 檔案路徑
                                  'fileBase',  # 上傳欄位
-                                 'memberImport.xlsx'  # 上傳檔名
+                                 'red.xlsx'  # 上傳檔名
                                  )  # 先實例上傳檔案物件
         startTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
         endTime = (datetime.now() + timedelta(hours = +11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
@@ -56,7 +56,8 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                 'Password': (None, master_config.Master_Password),
                 'StartTime': (None, startTime),  # 有其他參數上傳用這種mode
                 'EndTime': (None, endTime), 'Description': (None, 'QA_automation'),
-                self.upload.upload_name: (self.upload.filename, self.upload.open_file, self.upload.file_type, {'Expires': '0'})}
+                self.upload.upload_name: (
+                self.upload.filename, self.upload.open_file, self.upload.file_type, {'Expires': '0'})}
         response_data = self.redEnvelopeManagement.addRedEnvelope(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

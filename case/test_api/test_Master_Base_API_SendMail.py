@@ -321,6 +321,18 @@ class SiteMailBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_SiteMail_relatedApi_status_23(self):
+        """驗證 站內信 - 取得收件人名單"""
+        # step 1 取得寄件匣Id
+        data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
+        response_data = self.siteMail.getSentboxList(data)
+        getId = response_data[1]['SentboxMailList'][0]['Id']
+        data = {"mailId": getId, "size": 30, "lastId": ''}
+        response_data = self.siteMail.getMailReceiverList(data)
+        status_code = response_data[0]
+        # print(response_data[1])
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())
