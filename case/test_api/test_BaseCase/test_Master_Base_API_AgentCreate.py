@@ -216,11 +216,11 @@ class AgentCreateTest(unittest.TestCase):
             "GroupBank": {"Id": 5, "Name": "", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
-            "Name": "QA_Test",  # 真實姓名
+            "Name": "QATest",  # 真實姓名
             "Mobile": "987654312",  # 手機
             "Sex": "false",  # 性別 true = 男,false = 女
             "Email": "aa@qq.com",  # Email
-            "Birthday": "2019/11/04",  # 生日
+            "Birthday": common_config.FirstDay,  # 生日
             "IdNumber": "a123456",  # 微信
             "QQ": "123456",  # QQ
             "Memo": "@auto_test",  # 備註
@@ -389,6 +389,37 @@ class AgentCreateTest(unittest.TestCase):
         response_data = self.AgentCreate.create_submit(data)
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '最後一层的代理商必须选择预设返水设定')
+
+    def test_AgentCreate_baseApi_status_23(self):
+        """代理商新增 - 真實姓名混入非中英文 狀態"""
+        account = 'QA_Test' + common_config.now  # 代理帳號
+        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        data = {
+            "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
+            "commissionSettingId": "61",  # 佣金設定
+            "defaultDiscountSettingId": "179",  # 預設返水設定
+            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
+            "parent": parent,  # 上層
+            "Account": account,  # 代理商帳號
+            "Name": 'QA_Test' + common_config.now,  # 真實姓名
+            "Mobile": "987654312",  # 手機
+            "Sex": "false",  # 性別 true = 男,false = 女
+            "Email": "aa@qq.com",  # Email
+            "Birthday": "2019/11/04",  # 生日
+            "IdNumber": "a123456",  # 微信
+            "QQ": "123456",  # QQ
+            "Memo": "@auto_test",  # 備註
+            "BankAccount": "112233445566",  # 銀行帳號
+            "Province": "abc",  # 省分
+            "City": "efg",  # 縣市
+            "AgentLevelId": 4,  # 代理等級
+            "ParentAccount": parent,  # 上層帳號
+            "Percent": 0, "BankName": "光大银行"
+        }
+        response_data = self.AgentCreate.create_submit(data)
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '姓名只允许中英文，與全、半形英文句號')
 
 
 if __name__ == '__main__':

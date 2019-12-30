@@ -173,17 +173,21 @@ class AgentDetailTest(unittest.TestCase):
         # Step2
         data = {
             'Id': agentId,
-            'Name': 'QA_Test' + common_config.now,
+            'Name': 'QATest',
             'Mobile': '987654312',
             'Sex': 'false',
             'Email': 'aa@qq.com',
             'Birthday': '2019/11/04',
-            'IdNumber': 'a123456',
-            'QQAccount': 'a123456'
+            'IdNumber': 'a1234567',
+            'QQAccount': 'QA_Test' + common_config.now
         }
         response_data = self.agentDetail.updateAgentInfo(data)
         status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        data = {'account': master_config.exist_agent}
+        response_data = self.agentDetail.get_detail(data)
+        validateData = response_data[1]['Agent']['QQ']  # 驗證資料
+        self.assertEqual(bool(status_code == common_config.Status_Code),
+                         bool(validateData == 'QA_Test' + common_config.now))
 
     def test_AgentDetail_baseApi_status_17(self):
         """驗證 代理商詳細資料 - 取得所有銀行"""
@@ -403,6 +407,24 @@ class AgentDetailTest(unittest.TestCase):
         response_data = self.agentDetail.updateAgentInfo(data)
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '姓名不得为空值')
+
+    def test_AgentDetail_baseApi_status_35(self):
+        """驗證 代理商詳細資料 - 更新代理商基本資料-真實姓名混入非中英文"""
+        # Step1 取得代理商的 Agent Id(需從詳細資料中取得)
+        agentId = self.GetAgentId()
+        # Step2
+        data = {'Id': agentId,
+                'Name': 'QA_Test' + common_config.now,
+                'Mobile': '1234567',
+                'Sex': 'false',
+                'Email': 'aa@qq.com',
+                'Birthday': '2019/11/04',
+                'IdNumber': 'a123456',
+                'QQAccount': 'a123456'
+                }
+        response_data = self.agentDetail.updateAgentInfo(data)
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '姓名只允许中英文，與全、半形英文句號')
 
 
 if __name__ == '__main__':

@@ -38,6 +38,13 @@ class MemberDetailBaseTest(unittest.TestCase):
         # time.sleep(3)
         return memberId
 
+    # 取得會員詳細資料
+    def GetMemberDetail(self):
+        data = {'connectionId': self.user.info(), 'account': master_config.Account}
+        response_data = self.memberDetail.getDetail(data)
+        memberDetail = response_data[1]
+        return memberDetail
+
     def depositSubmitAudit(self):
         depositToken = self.deposit.deposit_token({})
         data = {
@@ -138,17 +145,20 @@ class MemberDetailBaseTest(unittest.TestCase):
         getMemberId = self.GetMemberId()
         data = {
             'Id': getMemberId,
-            'Name': 'QATest' + common_config.now,
+            'Name': 'QATest',
             'Mobile': '+888' + common_config.now,
             'Sex': 'true',
             'Email': 'QA_Test@gmail.com',
             'Birthday': '2019/11/20',
             'IdNumber': 'a123456',
-            'QQAccount': 'dddd'
+            'QQAccount': 'QAtest' + common_config.now
         }
         response_data = self.memberDetail.updateMemberInfo(data)
         status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        getDetail = self.GetMemberDetail()  # 刷新會員資料
+        validateData = getDetail['Member']['QQ']  # 驗證資料
+        self.assertEqual(bool(status_code == common_config.Status_Code),
+                         bool(validateData == 'QAtest' + common_config.now))
 
     def test_MemberDetail_relatedApi_status_11(self):
         """會員詳細資料 - 修改銀行資料頁面 狀態"""
@@ -186,7 +196,10 @@ class MemberDetailBaseTest(unittest.TestCase):
         }
         response_data = self.memberDetail.updateBankAccount(data)
         status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        getDetail = self.GetMemberDetail()  # 刷新會員資料
+        validateData = getDetail['Member']['BankAccount']['Account']  # 驗證資料
+        self.assertEqual(bool(status_code == common_config.Status_Code),
+                         bool(validateData == common_config.now))
 
     def test_MemberDetail_relatedApi_status_15(self):
         """會員詳細資料 - 取得銀行修改紀錄 狀態"""
@@ -194,7 +207,10 @@ class MemberDetailBaseTest(unittest.TestCase):
         data = {'id': getMemberId}
         response_data = self.memberDetail.getBankHistories(data)
         status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        getDetail = self.GetMemberDetail()  # 刷新會員資料
+        validateData = getDetail['Member']['AlipayAccount']['Account']  # 驗證資料
+        self.assertEqual(bool(status_code == common_config.Status_Code),
+                         bool(validateData == 'QA_Test' + common_config.now))
 
     def test_MemberDetail_relatedApi_status_16(self):
         """會員詳細資料 - 取得支付寶修改紀錄 狀態"""
@@ -278,8 +294,8 @@ class MemberDetailBaseTest(unittest.TestCase):
         data = {'id': getMemberId}
         response_data = self.memberDetail.resetPassword(data)
         # print(response_data)
-        # status_code = response_data[0]
-        # self.assertEqual(status_code, common_config.Status_Code)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberDetail_relatedApi_status_26(self):
         """會員詳細資料 -娛樂城錢包全取回 狀態"""
@@ -364,6 +380,23 @@ class MemberDetailBaseTest(unittest.TestCase):
         response_data = self.memberDetail.getMemberInfoHistories(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberDetail_relateApi_status_37(self):
+        """會員詳細資料 - 更新會員基本資料 - 真實姓名混入非中英文 狀態"""
+        getMemberId = self.GetMemberId()
+        data = {
+            'Id': getMemberId,
+            'Name': 'QATest' + common_config.now,
+            'Mobile': '+888' + common_config.now,
+            'Sex': 'true',
+            'Email': 'QA_Test@gmail.com',
+            'Birthday': '2019/11/20',
+            'IdNumber': 'a123456',
+            'QQAccount': 'dddd'
+        }
+        response_data = self.memberDetail.updateMemberInfo(data)
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句號')
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ Post_Master_Headers = {'Content-Type': "application/json", 'X-Requested-With': "
 Post_headers_upLoadFile = {'X-Requested-With': "XMLHttpRequest"}
 
 # 測試會員
-Account = 'DS_player7'
+Account = 'DS_player3'
 # 測試批次會員
 batchAccount = 'QATEST,DS,DS_player7,DS_player8'
 

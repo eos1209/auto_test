@@ -108,6 +108,18 @@ class MemberCreateTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_MemberCreate_baseApi_status_12(self):
+        """會員新增 - 真實姓名混入非中英文 狀態"""
+        account = "QA_Test" + common_config.now
+        agent = master_config.exist_agent
+        data = {'Account': account,
+                'Agent': agent,
+                'Name': account,
+                'memo': '@QA_automation'}
+        response_data = self.memberCreate.createSubmit(data)
+        errorMessage = response_data[1]['ErrorMessage']
+        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句號')
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

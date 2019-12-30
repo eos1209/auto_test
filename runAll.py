@@ -5,11 +5,24 @@
 
 import time
 import unittest
-
+import os
 from base import HTMLTestReportCN
 
-loader = unittest.TestLoader()
-suite = loader.discover("./case/test_api")
+# 用例路径
+case_path = os.path.join(os.getcwd(), "case/test_api")
+
+
+def all_case():
+    discover = unittest.defaultTestLoader.discover(case_path,
+                                                   pattern = "test*.py",
+                                                   top_level_dir = None)
+    return discover
+
+
+#
+# loader = unittest.TestLoader()
+# suite = loader.discover("./case/test_api")
+
 
 now = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
 # 確定生成報告的路徑
@@ -26,7 +39,6 @@ setting = {
 runner = HTMLTestReportCN.HTMLTestRunner(**setting)
 
 # 運行測試用例
-runner.run(suite)
+runner.run(all_case())
 # 關閉文件，否則會無法生成文件
 fp.close()
-
