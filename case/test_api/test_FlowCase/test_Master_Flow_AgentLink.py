@@ -8,10 +8,8 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
-from data_config import master_config
 from selenium import webdriver
 from time import sleep
-from selenium.webdriver.common.by import By
 from data_config import portal_config
 
 
