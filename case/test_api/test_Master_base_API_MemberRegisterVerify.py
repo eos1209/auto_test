@@ -35,13 +35,15 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         self.driver.set_window_size(1900, 1020)
         self.driver.get("http://www.fnjtd.com/Register")
         self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
-        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys("QAtest" + common_config.now)  # 會員帳號
+        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(
+            "QAtest" + common_config.now)  # 會員帳號
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
-        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(portal_config.PortalCheckCode)  # 萬用碼
+        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
+            portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
-        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").click()
+        self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
         sleep(3)
         self.driver.close()
 
