@@ -1626,6 +1626,126 @@ class ActivityManagement(object):
 
 # 封锁名单管理
 
+class BlockListManagement(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def bankAccountGetList(self, data):
+        # 封鎖名單管理-取得銀行帳戶列表
+        path = '/BankAccountBlockManagement/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountGetGroupBank(self, data):
+        # 封鎖名單管理-取得銀行列表
+        path = '/BankAccountBlockManagement/GetGroupBank'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountExportExcel(self, data):
+        # 封鎖名單管理-匯出銀行封鎖名單Excel
+        path = '/BankAccountBlockManagement/ExportExcel'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountAddBankAccountBlockInfo(self, data):
+        # 封鎖名單管理-新增銀行帳戶封鎖名單
+        path = '/BankAccountBlockManagement/AddBankAccountBlockInfo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountDeleteBankBlocks(self, data):
+        # 封鎖名單管理-刪除銀行帳戶封鎖名單
+        path = '/BankAccountBlockManagement/DeleteBankBlocks'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountDownloadSampleExcel(self, data):
+        # 封鎖名單管理-下載銀行帳戶匯入範本
+        path = '/BankAccountBlockManagement/DownloadSampleExcel'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def bankAccountCheckImportExcel(self, data):
+        # 封鎖名單管理-檢查銀行帳戶匯入範本上傳
+        path = '/BankAccountBlockManagement/CheckImportExcel'
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
+
+    def bankAccountImportExcel(self, data):
+        # 封鎖名單管理-銀行帳戶匯入範本上傳
+        path = '/BankAccountBlockManagement/ImportExcel'
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
+
+    def ipGetList(self, data):
+        # 封鎖名單管理-取得IP列表
+        path = '/IPBlockManagement/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def ipExportExcel(self, data):
+        # 封鎖名單管理-匯出IP封鎖名單Excel
+        path = '/IPBlockManagement/ExportExcel'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def ipAddIPBlockInfo(self, data):
+        # 封鎖名單管理-新增IP封鎖名單
+        path = '/IPBlockManagement/AddIPBlockInfo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def ipDeleteIPBlocks(self, data):
+        # 封鎖名單管理-刪除IP封鎖名單
+        path = '/IPBlockManagement/DeleteIPBlocks'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def ipCheckImportExcel(self, data):
+        # 封鎖名單管理-檢查IP匯入範本上傳
+        path = '/IPBlockManagement/CheckImportExcel'
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
+
+    def ipImportExcel(self, data):
+        # 封鎖名單管理-IP匯入範本上傳
+        path = '/IPBlockManagement/ImportExcel'
+        self.response_data = self.__http.sendRequestForUploadFile(path, data)
+        return self.response_data
+
+    def getCountrySetting(self, data):
+        # 封鎖名單管理-取得國別阻擋名單
+        path = '/CountryBlockManagement/GetCountrySetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getWhiteListSetting(self, data):
+        # 封鎖名單管理-取得白名單IP名單
+        path = '/CountryBlockManagement/GetWhiteListSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateCountryBlockSetting(self, data):
+        # 封鎖名單管理-更新國別阻擋名單
+        path = '/CountryBlockManagement/UpdateCountryBlockSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def checkWhiteIpWhenAdd(self, data):
+        # 封鎖名單管理-檢查新增白名單IP
+        path = '/CountryBlockManagement/CheckWhiteIpWhenAdd'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateWhiteListSetting(self,data):
+        # 封鎖名單管理-更新白名單IP
+        path = '/CountryBlockManagement/UpdateWhiteListSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 
 # MyMine 金流设置
 class MyMine(object):
