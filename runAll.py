@@ -11,6 +11,8 @@ from base import HTMLTestReportCN
 # 用例路径
 case_path = os.path.join(os.getcwd(), "case/test_api")
 
+print(case_path)
+
 
 def all_case():
     discover = unittest.defaultTestLoader.discover(case_path,
