@@ -1354,6 +1354,122 @@ class SiteMail(object):
 
 
 # 站台系统值设置
+class SystemInfo(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def index(self, data):
+        # API Name =>站台系统值设置-取得站台系統值設置頁面
+        # body--
+        path = '/SystemInfo/Index'
+        self.response_data = self.__http.sendRequest('GET', path, data)
+        return self.response_data
+
+    def getMemberStates(self, data):
+        # API Name =>站台系统值设置-取得會員狀態
+        # body--
+        path = '/SystemInfo/GetMemberStates'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getAll(self, data):
+        # API Name =>站台系统值设置-取得站台系統值設置
+        # body--
+        path = '/SystemInfo/GetAll'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateAgentCustomerService(self, data):
+        # API Name =>站台系统值设置-代理管端系统客服
+        # body--
+        path = '/SystemInfo/UpdateAgentCustomerService'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateCaptchaTypeLogin(self, data):
+        # API Name =>站台系统值设置-更新會員登入驗證碼類型
+        # body--
+        path = '/SystemInfo/UpdateCaptchaTypeLogin'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalLoginFailTimesLimit(self, data):
+        # API Name =>站台系统值设置-更新密碼錯誤次數
+        # body--
+        path = '/SystemInfo/UpdatePortalLoginFailTimesLimit'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginRegionValidationEnable(self, data):
+        # API Name =>站台系统值设置-更新區域驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginRegionValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLockOtherRegion(self, data):
+        # API Name =>站台系统值设置-更新跨區驗證鎖頭
+        # body--
+        path = '/SystemInfo/UpdateLockOtherRegion'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginSmsValidationEnable(self, data):
+        # API Name =>站台系统值设置-更新簡訊驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginSmsValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginGoogleAuthenticatorEnable(self, data):
+        # API Name =>站台系统值设置-更新二次驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginGoogleAuthenticatorEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalNeedNeCaptcha(self, data):
+        # API Name =>站台系统值设置-更新會員登入圖片驗證
+        # body--
+        path = '/SystemInfo/UpdatePortalNeedNeCaptcha'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateCaptchaTypeRegister(self, data):
+        # API Name =>站台系统值设置-更新會員註冊驗證碼類型
+        # body--
+        path = '/SystemInfo/UpdateCaptchaTypeRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateRobotQuestionRegister(self, data):
+        # API Name =>站台系统值设置-更新問答驗證
+        # body--
+        path = '/SystemInfo/UpdateRobotQuestionRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalNeedNeCaptchaForRegister(self, data):
+        # API Name =>站台系统值设置-更新會員註冊圖片驗證
+        # body--
+        path = '/SystemInfo/UpdatePortalNeedNeCaptchaForRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateMemberNoBetEnable(self, data):
+        # API Name =>站台系统值设置 - 更新未投注會員管理
+        # body--
+        path = '/SystemInfo/UpdateMemberNoBetEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateMemberNoBetDayAndStatus(self, data):
+        # API Name =>站台系统值设置 - 更新未投注會員管理設定條件
+        # body--
+        path = '/SystemInfo/UpdateMemberNoBetDayAndStatus'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
 
 
 # 活动管理
@@ -1739,12 +1855,11 @@ class BlockListManagement(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def updateWhiteListSetting(self,data):
+    def updateWhiteListSetting(self, data):
         # 封鎖名單管理-更新白名單IP
         path = '/CountryBlockManagement/UpdateWhiteListSetting'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
-
 
 
 # MyMine 金流设置

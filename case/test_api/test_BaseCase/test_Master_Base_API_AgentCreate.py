@@ -117,7 +117,7 @@ class AgentCreateTest(unittest.TestCase):
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
-            "Name": 'QA_Test',  # 真實姓名
+            "Name": 'QAautomation',  # 真實姓名
             "Mobile": "987654312",  # 手機
             "Sex": "false",  # 性別 true = 男,false = 女
             "Email": "aa@qq.com",  # Email
