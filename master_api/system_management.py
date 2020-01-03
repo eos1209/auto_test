@@ -1348,6 +1348,166 @@ class SiteMail(object):
 
 
 # 前台网站管理
+class PortalManagement(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def getWebsiteList(self, data):
+        # 前台网站管理 - 取得前台網站管理列表
+        path = '/PortalManagement/GetWebsiteList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getPortalSettings(self, data):
+        # 前台网站管理 - 取得會員端設定
+        path = '/WebsiteSetting/GetPortalSettings'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateWebsite(self, data):
+        # 前台网站管理 - 更新站台
+        path = '/PortalManagement/UpdateWebsite'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    # 公告管理
+    class AnnouncementManagement:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+        def getAnnouncementList(self, data):
+            # 公告管理-取得公告列表
+            path = '/PortalManagement/GetAnnouncementList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def checkTutorialNeedWatch(self, data):
+            # 公告管理-
+            path = '/PortalManagement/CheckTutorialNeedWatch'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementSetting(self, data):
+            # 公告管理 - 取得公告管理設定
+            path = '/PortalManagement/GetAnnouncementSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def updateAnnouncementSetting(self, data):
+            # 公告管理 - 更新公告管理設定
+            path = '/PortalManagement/UpdateAnnouncementSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def addAnnouncement(self, data):
+            # 公告管理 - 新增公告
+            path = '/PortalManagement/AddAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementDetail(self, data):
+            # 公告管理 - 公告詳細資料
+            path = '/PortalManagement/GetAnnouncementDetail'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncement(self, data):
+            # 公告管理 - 修改公告
+            path = '/PortalManagement/ModifyAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncementEnable(self, data):
+            # 公告管理 - 更新是否啟用
+            path = '/PortalManagement/ModifyAnnouncementEnable'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def moveAnnouncementToDevice(self, data):
+            # 公告管理 - 移動到手機板
+            path = '/PortalManagement/MoveAnnouncementToDevice'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def moveAnnouncementToWebsite(self, data):
+            # 公告管理 - 移動到其他站台
+            path = '/PortalManagement/MoveAnnouncementToWebsite'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def copyAnnouncementToDevice(self, data):
+            # 公告管理 - 複製到手機板
+            path = '/PortalManagement/CopyAnnouncementToDevice'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def copyAnnouncementToWebsite(self, data):
+            # 公告管理 - 複製到其他站台
+            path = '/PortalManagement/CopyAnnouncementToWebsite'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def deleteAnnouncement(self, data):
+            # 公告管理 - 刪除公告
+            path = '/PortalManagement/DeleteAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncementSort(self, data):
+            # 公告管理 - 修改公告順序
+            path = '/PortalManagement/ModifyAnnouncementSort'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementPreviewList(self, data):
+            # 公告管理 - 預覽公告列表
+            path = '/PortalManagement/GetAnnouncementPreviewList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+    # 大圖輪播
+    class SlideShow:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 會員註冊
+    class Register:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 聯絡資訊
+    class SiteParameter:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 財務中心
+    class FinanceCenter:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 選單管理
+    class MobileMenu:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 優惠管理
+    class PromotionManage:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 主題設置
+    class MobileTheme:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
 
 
 # 子帐号管理

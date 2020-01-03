@@ -43,7 +43,7 @@ class AgentLink(unittest.TestCase):
         # print(agentLink)
         self.oldMemberCount = self.getOldMemberCount(agent)  # step 3: 取得代理商原本的代理會員數
         self.Portal_Register(agentLink)  # step 4: 前端註冊會員
-        self.Member_Verifty()  # step 5: 審核該會員
+        self.Member_Verify()  # step 5: 審核該會員
         self.ValidateAgentLink(agent)  # step 6: 驗證該代理是否有增加底下會員
 
     def getAgent(self):
@@ -86,7 +86,7 @@ class AgentLink(unittest.TestCase):
         sleep(3)
         self.driver.close()
 
-    def Member_Verifty(self):
+    def Member_Verify(self):
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         Id = getData[1]['Data'][0]['Id']
