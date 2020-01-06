@@ -1348,12 +1348,288 @@ class SiteMail(object):
 
 
 # 前台网站管理
+class PortalManagement(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def getWebsiteList(self, data):
+        # 前台网站管理 - 取得前台網站管理列表
+        path = '/PortalManagement/GetWebsiteList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getPortalSettings(self, data):
+        # 前台网站管理 - 取得會員端設定
+        path = '/WebsiteSetting/GetPortalSettings'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateWebsite(self, data):
+        # 前台网站管理 - 更新站台
+        path = '/PortalManagement/UpdateWebsite'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    # 公告管理
+    class AnnouncementManagement:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+        def getAnnouncementList(self, data):
+            # 公告管理-取得公告列表
+            path = '/PortalManagement/GetAnnouncementList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def checkTutorialNeedWatch(self, data):
+            # 公告管理-
+            path = '/PortalManagement/CheckTutorialNeedWatch'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementSetting(self, data):
+            # 公告管理 - 取得公告管理設定
+            path = '/PortalManagement/GetAnnouncementSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def updateAnnouncementSetting(self, data):
+            # 公告管理 - 更新公告管理設定
+            path = '/PortalManagement/UpdateAnnouncementSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def addAnnouncement(self, data):
+            # 公告管理 - 新增公告
+            path = '/PortalManagement/AddAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementDetail(self, data):
+            # 公告管理 - 公告詳細資料
+            path = '/PortalManagement/GetAnnouncementDetail'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncement(self, data):
+            # 公告管理 - 修改公告
+            path = '/PortalManagement/ModifyAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncementEnable(self, data):
+            # 公告管理 - 更新是否啟用
+            path = '/PortalManagement/ModifyAnnouncementEnable'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def moveAnnouncementToDevice(self, data):
+            # 公告管理 - 移動到手機板
+            path = '/PortalManagement/MoveAnnouncementToDevice'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def moveAnnouncementToWebsite(self, data):
+            # 公告管理 - 移動到其他站台
+            path = '/PortalManagement/MoveAnnouncementToWebsite'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def copyAnnouncementToDevice(self, data):
+            # 公告管理 - 複製到手機板
+            path = '/PortalManagement/CopyAnnouncementToDevice'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def copyAnnouncementToWebsite(self, data):
+            # 公告管理 - 複製到其他站台
+            path = '/PortalManagement/CopyAnnouncementToWebsite'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def deleteAnnouncement(self, data):
+            # 公告管理 - 刪除公告
+            path = '/PortalManagement/DeleteAnnouncement'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyAnnouncementSort(self, data):
+            # 公告管理 - 修改公告順序
+            path = '/PortalManagement/ModifyAnnouncementSort'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAnnouncementPreviewList(self, data):
+            # 公告管理 - 預覽公告列表
+            path = '/PortalManagement/GetAnnouncementPreviewList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+    # 大圖輪播
+    class SlideShow:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 會員註冊
+    class Register:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 聯絡資訊
+    class SiteParameter:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 財務中心
+    class FinanceCenter:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 選單管理
+    class MobileMenu:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 優惠管理
+    class PromotionManage:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+    # 主題設置
+    class MobileTheme:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
 
 
 # 子帐号管理
 
 
 # 站台系统值设置
+class SystemInfo(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def index(self, data):
+        # API Name =>站台系统值设置-取得站台系統值設置頁面
+        # body--
+        path = '/SystemInfo/Index'
+        self.response_data = self.__http.sendRequest('GET', path, data)
+        return self.response_data
+
+    def getMemberStates(self, data):
+        # API Name =>站台系统值设置-取得會員狀態
+        # body--
+        path = '/SystemInfo/GetMemberStates'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getAll(self, data):
+        # API Name =>站台系统值设置-取得站台系統值設置
+        # body--
+        path = '/SystemInfo/GetAll'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateAgentCustomerService(self, data):
+        # API Name =>站台系统值设置-代理管端系统客服
+        # body--
+        path = '/SystemInfo/UpdateAgentCustomerService'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateCaptchaTypeLogin(self, data):
+        # API Name =>站台系统值设置-更新會員登入驗證碼類型
+        # body--
+        path = '/SystemInfo/UpdateCaptchaTypeLogin'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalLoginFailTimesLimit(self, data):
+        # API Name =>站台系统值设置-更新密碼錯誤次數
+        # body--
+        path = '/SystemInfo/UpdatePortalLoginFailTimesLimit'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginRegionValidationEnable(self, data):
+        # API Name =>站台系统值设置-更新區域驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginRegionValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLockOtherRegion(self, data):
+        # API Name =>站台系统值设置-更新跨區驗證鎖頭
+        # body--
+        path = '/SystemInfo/UpdateLockOtherRegion'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginSmsValidationEnable(self, data):
+        # API Name =>站台系统值设置-更新簡訊驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginSmsValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLoginGoogleAuthenticatorEnable(self, data):
+        # API Name =>站台系统值设置-更新二次驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginGoogleAuthenticatorEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalNeedNeCaptcha(self, data):
+        # API Name =>站台系统值设置-更新會員登入圖片驗證
+        # body--
+        path = '/SystemInfo/UpdatePortalNeedNeCaptcha'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateCaptchaTypeRegister(self, data):
+        # API Name =>站台系统值设置-更新會員註冊驗證碼類型
+        # body--
+        path = '/SystemInfo/UpdateCaptchaTypeRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateRobotQuestionRegister(self, data):
+        # API Name =>站台系统值设置-更新問答驗證
+        # body--
+        path = '/SystemInfo/UpdateRobotQuestionRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updatePortalNeedNeCaptchaForRegister(self, data):
+        # API Name =>站台系统值设置-更新會員註冊圖片驗證
+        # body--
+        path = '/SystemInfo/UpdatePortalNeedNeCaptchaForRegister'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateMemberNoBetEnable(self, data):
+        # API Name =>站台系统值设置 - 更新未投注會員管理
+        # body--
+        path = '/SystemInfo/UpdateMemberNoBetEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateMemberNoBetDayAndStatus(self, data):
+        # API Name =>站台系统值设置 - 更新未投注會員管理設定條件
+        # body--
+        path = '/SystemInfo/UpdateMemberNoBetDayAndStatus'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
 
 
 # 活动管理
@@ -1739,12 +2015,11 @@ class BlockListManagement(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def updateWhiteListSetting(self,data):
+    def updateWhiteListSetting(self, data):
         # 封鎖名單管理-更新白名單IP
         path = '/CountryBlockManagement/UpdateWhiteListSetting'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
-
 
 
 # MyMine 金流设置

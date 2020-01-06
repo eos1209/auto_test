@@ -187,7 +187,7 @@ class BlockListManagementBaseTest(unittest.TestCase):
             "whiteListSettings": ["211.23.116.131", "118.163.212.115", "211.23.224.148", "59.125.28.220", "111.11.15.2",
                                   "113.141.163.16", "211.22.163.139"],
             "whiteListMemos": ["菲律宾代理ABIN办公室", "菲律宾代理ASA办公室", "", "业务使用", "", "陝西02", "MIS+Infra辦公室"]}
-        response_data = self.blockListManagement.checkWhiteIpWhenAdd(data)
+        response_data = self.blockListManagement.updateWhiteListSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

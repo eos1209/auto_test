@@ -111,3 +111,6 @@ class CommissionSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+
+if __name__ == '__main__':
+    unittest.main(testRunner = HTMLTestRunner())
