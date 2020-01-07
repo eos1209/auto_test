@@ -156,25 +156,10 @@ class GameHailManagementBaseTest(unittest.TestCase):
                 self.assertEqual(status_code, common_config.Status_Code)
 
     def test_GameHallManagement_relatedApi_status_13(self):
-        """驗證 娛樂城管理 - 進入後台回傳網址"""
-        # Step 1 : 取得娛樂城名單
-        getData = self.getGameHailList()
-        # Step 2:用迴圈方式走訪每個娛樂城進入後台
-        for i in range(len(getData['Id'])):
-            data = {"gameHallUrlText": getData['Text'][i]}
-            detailList = self.GameHailManagement.getGameHallDetail(data)
-            getIsable = detailList[1]['EnterBackofficeEnable']
-            if getIsable and True:
-                data = {"gameSupplierType": getData['Id'][i]}
-                response_data = self.GameHailManagement.getBackofficeUrl(data)
-                Url = response_data[1]
-                print(Url)
-
-    def test_GameHallManagement_relatedApi_status_14(self):
         """驗證 娛樂城管理 - 開啟/關閉狀態"""
         # Step 1 : 取得娛樂城名單
         getData = self.getGameHailList()
-        # Step 2:用迴圈方式走訪每個娛樂城進入後台
+        # Step 2:用迴圈方式走訪每個娛樂城開啟關閉
         for i in range(len(getData['Id'])):
             if (getData['Id'][i] == 67 or getData['Id'][i] == 78 or getData['Id'][i] == 34
                     or getData['Id'][i] == 39):
