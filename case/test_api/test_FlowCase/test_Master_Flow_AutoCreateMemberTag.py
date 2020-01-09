@@ -15,7 +15,7 @@ from base.CommonMethod import SetDelayTime
 
 
 class autoCreateMemberTag(unittest.TestCase):
-    """自動新增標籤惡意標籤-會員註冊在60秒內註冊完成+建立銀行帳號 狀態"""
+    """自動新增系统侦测-恶意注册標籤-會員註冊在60秒內註冊完成+建立銀行帳號 狀態"""
 
     # 驗證步驟
     # step 1:會員註冊
