@@ -290,7 +290,6 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_25(self):
         """會員詳細資料 -重設密碼 狀態"""
         getMemberId = self.GetMemberId()
-
         data = {'id': getMemberId}
         response_data = self.memberDetail.resetPassword(data)
         # print(response_data)

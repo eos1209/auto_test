@@ -126,11 +126,20 @@ class SystemInfoBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SystemInfo_relatedApi_status_16(self):
-        """驗證 站台系统值设置-更新未投注會員管理"""
+        """驗證 站台系统值设置-更新未投注會員管理狀態"""
         data = {"noBetDays": 120, "noBetStatusId": 4}
         response_data = self.SystemInfo.updateMemberNoBetDayAndStatus(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SystemInfo_relatedApi_status_17(self):
+        """驗證 站台系统值设置-更新郵件驗證"""
+        data = {"newValue": 'false'}
+        response_data = self.SystemInfo.updateLoginEmailValidationEnable(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+        data = {"newValue": 'True'}
+        self.SystemInfo.updateLoginEmailValidationEnable(data)
 
 
 if __name__ == '__main__':

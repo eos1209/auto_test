@@ -1631,6 +1631,13 @@ class SystemInfo(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def updateLoginEmailValidationEnable(self, data):
+        # API Name =>站台系统值设置 - 更新郵件驗證
+        # body--
+        path = '/SystemInfo/UpdateLoginEmailValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 活动管理
 class ActivityManagement(object):

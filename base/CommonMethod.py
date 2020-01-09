@@ -4,8 +4,10 @@
 '''
 
 import logging
-from time import sleep
 from data_config import common_config
+from selenium import webdriver
+from time import sleep
+from data_config import portal_config
 
 
 def get_logger():
@@ -25,7 +27,7 @@ def SetDelayTime():
 
 
 class UploadFile(object):
-
+    # 上傳檔案
     def __init__(self, path, upload_name, filename):
         self.path = common_config.file_Path + path  # 檔案路徑
         self.upload_name = upload_name  # 上傳欄位
@@ -43,3 +45,68 @@ class UploadFile(object):
 
     def Close_file(self):  # 檔案關閉-方法
         self.open_file.close()
+
+
+class PortalExecution(object):
+    # Portal端
+    def __init__(self):
+        self.chrome_Path = "D:\chromedriver.exe"
+        self.driver = webdriver.Chrome(self.chrome_Path)
+        self.windowSize = self.driver.set_window_size(1900, 1020)
+        self.link = self.driver.get(portal_config.Portal_address)
+
+    def Login(self, Account, Password):  # 登入
+        sleep(3)
+        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="login_account"]').send_keys(Account)  # 會員帳號
+        self.driver.find_element_by_xpath('//*[@id="login_password"]').send_keys(Password)  # 會員密碼
+        self.driver.find_element_by_xpath('//*[@id="check-code-wrapper"]/input').send_keys(
+            portal_config.PortalCheckCode)  # 萬用碼
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="login-box"]').click()
+        sleep(3)
+
+    def Register(self, Account):  # 註冊
+        sleep(3)
+        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+        sleep(3)
+        self.driver.find_element_by_xpath("//header[@id='header']/div/ul[2]/li[3]/a").click()
+        sleep(3)
+        self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
+        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
+        self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
+        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
+            portal_config.PortalCheckCode)  # 萬用碼
+        sleep(2)
+        self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/ button[2]').click()
+
+    def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
+        self.Login(Account, Password)
+        sleep(2)
+        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="account-nav"]/ul/li[2]/a').click()
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="inputProvince"]').send_keys('QATest')  # 省分
+        self.driver.find_element_by_xpath('//*[@id="inputCity"]').send_keys('QATest')  # 縣市
+        self.driver.find_element_by_xpath('//*[@id="inputAccount"]').send_keys(common_config.now)  # 銀行帳號
+        self.driver.find_element_by_xpath('//*[@id="account-panel"]/div[2]/form/div[5]/div/button').click()  # 提交
+
+    def ChangePassword(self, Account, Password):  # 修改密碼
+        self.Login(Account, Password)
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[1]/div/div/input').send_keys(
+            Password)  # 原始密碼
+        self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[2]/div/div/input').send_keys(
+            'a123456')  # 新密碼
+        self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[3]/div/div/input').send_keys(
+            'a123456')  # 確認新密碼
+        self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[4]/div/button[1]').click()  # 變更
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/ button[2]').click()
+        sleep(2)

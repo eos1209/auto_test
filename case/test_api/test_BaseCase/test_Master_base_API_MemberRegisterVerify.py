@@ -6,14 +6,13 @@
 import unittest
 from data_config import master_config
 from data_config import common_config
-from data_config import portal_config
 import random
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
-from selenium import webdriver
 from time import sleep
+from base.CommonMethod import PortalExecution
 
 
 class MemberRegisterVerifyTest(unittest.TestCase):
@@ -27,25 +26,6 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def tearDown(self):
         self.user.logout()
-
-    def PortalExecutionMemberRegister(self):
-        chrome_path = "D:\chromedriver.exe"
-        self.driver = webdriver.Chrome(chrome_path)
-        # self.driver = webdriver.Chrome()
-        self.driver.set_window_size(1900, 1020)
-        self.driver.get("http://www.fnjtd.com/Register")
-        self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
-        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(
-            "QAtest" + common_config.now)  # 會員帳號
-        self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
-        self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
-        self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
-        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
-            portal_config.PortalCheckCode)  # 萬用碼
-        sleep(2)
-        self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
-        sleep(3)
-        self.driver.close()
 
     def test_MemberRegisterVerify_baseApi_status_01(self):
         """驗證 會員註冊審核-取得各站台資訊"""
@@ -154,8 +134,9 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_14(self):
         """驗證 會員註冊審核-審核會員"""
-        self.PortalExecutionMemberRegister()  # 前端執行
-        sleep(1)
+        account = 'QATest' + common_config.now
+        self.portal = PortalExecution()
+        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         account = getData[1]['Data'][0]['SubmitAccount']
@@ -177,7 +158,9 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_16(self):
         """驗證 會員註冊審核-同意"""
-        self.PortalExecutionMemberRegister()  # 前端執行
+        account = 'QATest' + common_config.now
+        self.portal = PortalExecution()
+        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         Id = getData[1]['Data'][0]['Id']
@@ -200,7 +183,9 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_18(self):
         """驗證 會員註冊審核-拒絕"""
-        self.PortalExecutionMemberRegister()  # 前端執行
+        account = 'QATest' + common_config.now
+        self.portal = PortalExecution()
+        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         accountId = getData[1]['Data'][0]['Id']
