@@ -181,14 +181,14 @@ class BetRecords(object):
         return self.response_data
 
     def getIboParlaySubRawData(self, data):
-        # API Name =>投注记录查询-取得 Ibo 體育子/混合過關注單
+        # API Name =>投注记录查询-取得 Ibo 體育子/混合過關注單(CR 體育)
         # body--/{betId}
         path = '/BetRecord/GetIboParlaySubRawData'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def getImsParlaySubRawData(self, data):
-        # API Name =>投注记录查询-取得 Ims 體育子/混合過關注單
+        # API Name =>投注记录查询-取得 Ims 體育子/混合過關注單(IM 體育)
         # body--/{wagerId}
         path = '/BetRecord/GetImsParlaySubRawData'
         self.response_data = self.__http.sendRequest('POST', path, data)
