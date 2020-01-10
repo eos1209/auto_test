@@ -236,6 +236,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_21(self):
@@ -244,6 +246,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "2", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_22(self):
@@ -252,6 +256,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "3", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_23(self):

@@ -8,7 +8,7 @@ from data_config import common_config
 from selenium import webdriver
 from time import sleep
 from data_config import portal_config
-
+import time
 
 def get_logger():
     global logPath
@@ -94,7 +94,7 @@ class PortalExecution(object):
         sleep(2)
         self.driver.find_element_by_xpath('//*[@id="inputProvince"]').send_keys('QATest')  # 省分
         self.driver.find_element_by_xpath('//*[@id="inputCity"]').send_keys('QATest')  # 縣市
-        self.driver.find_element_by_xpath('//*[@id="inputAccount"]').send_keys(common_config.now)  # 銀行帳號
+        self.driver.find_element_by_xpath('//*[@id="inputAccount"]').send_keys(int(time.time()))  # 銀行帳號
         self.driver.find_element_by_xpath('//*[@id="account-panel"]/div[2]/form/div[5]/div/button').click()  # 提交
 
     def ChangePassword(self, Account, Password):  # 修改密碼

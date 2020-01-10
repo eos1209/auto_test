@@ -110,7 +110,7 @@ class MemberCreateTest(unittest.TestCase):
 
     def test_MemberCreate_baseApi_status_12(self):
         """會員新增 - 真實姓名混入非中英文 狀態"""
-        account = "QA_Test" + common_config.now
+        account = "QATest" + common_config.now
         agent = master_config.exist_agent
         data = {'Account': account,
                 'Agent': agent,
