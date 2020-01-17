@@ -49,6 +49,7 @@ class autoCreateMemberTag(unittest.TestCase):
         # Step3:會員登入建立銀行帳戶
         self.memberVerify.approve(data)
         self.portal.SetBankAccount(account, 'a123456')
+        SetDelayTime()
         data = {"MemberTagIds": "541", "connectionId": self.user.info()}
         response_data = self.searchMember.search(data)
         validateData = response_data[1]['PageData'][0]['Account']
@@ -56,11 +57,12 @@ class autoCreateMemberTag(unittest.TestCase):
 
     def test_autoCreateMemberTag_02(self):
         """驗證 Master新增會員->修改會員密碼->再登入"""
+        SetDelayTime()
         account = "QATags" + common_config.now
         agent = master_config.exist_agent
         data = {'Account': account,
                 'Agent': agent,
-                'memo': '@autoMemberTags-fromMobile'}
+                'memo': '@autoMemberTags-fromPortal'}
         self.memberCreate.createSubmit(data)
         data = {'Account': account,
                 'connectionId': self.user.info()}
@@ -71,6 +73,7 @@ class autoCreateMemberTag(unittest.TestCase):
         self.portal = PortalExecution()
         self.portal.ChangePassword(account, '123456')
         self.portal.SetBankAccount(account, 'a123456')
+        self.portal.close()
         data = {"MemberTagIds": "541", "connectionId": self.user.info()}
         response_data = self.searchMember.search(data)
         validateData = response_data[1]['PageData'][0]['Account']

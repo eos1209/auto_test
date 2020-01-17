@@ -10,6 +10,7 @@ from time import sleep
 from data_config import portal_config
 import time
 
+
 def get_logger():
     global logPath
     try:
@@ -71,7 +72,7 @@ class PortalExecution(object):
         sleep(3)
         self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
         sleep(3)
-        self.driver.find_element_by_xpath("//header[@id='header']/div/ul[2]/li[3]/a").click()
+        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
         self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
@@ -83,7 +84,7 @@ class PortalExecution(object):
         sleep(2)
         self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
         sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/ button[2]').click()
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/button[2]').click()
 
     def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
         self.Login(Account, Password)
@@ -108,5 +109,36 @@ class PortalExecution(object):
             'a123456')  # 確認新密碼
         self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[4]/div/button[1]').click()  # 變更
         sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/ button[2]').click()
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/div[3]/ button[2]').click()
         sleep(2)
+
+    def Trail(self):  # 試玩帳號註冊
+        sleep(3)
+        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="header"]/div[1]/div/ul/li[1]/a').click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input').send_keys(
+            int(time.time()))  # 手機號碼
+        self.driver.find_element_by_xpath(
+            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/div[1]/input').send_keys(
+            portal_config.PortalCheckCode)  # 驗證碼
+        sleep(2)
+        self.driver.find_element_by_xpath(
+            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/button[1]').click()  # 提交
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/button[2]').click()  # 確定
+
+    def Trail_Login(self, account, password):  # 試玩帳號登入
+        self.Trail()
+        sleep(2)
+        self.driver.find_element_by_xpath(
+            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input[1]').send_keys(account)  # 試玩帳號
+        self.driver.find_element_by_xpath(
+            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input[2]').send_keys(password)  # 試玩密碼
+        sleep(2)
+        self.driver.find_element_by_xpath(
+            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/button').click()  # 立即試玩
+
+    def close(self):
+        self.driver.close()

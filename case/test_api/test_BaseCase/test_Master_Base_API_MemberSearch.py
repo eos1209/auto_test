@@ -89,6 +89,15 @@ class MemberSearchBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_MemberSearch_relatedApi_status_10(self):
+        data = {"connectionId": self.user.info(), "pageIndex": 0, "search": {"advanceSearch": {
+            "memberTransactionRequests": [
+                {"beginTime": "2020/01/14 00:00:00", "endTime": "2020/01/15 23:59:59", "amountMin": -1,
+                 "amountMax": -10,
+                 "types": ["Payoff"], "amountIsPay": 'true'}]}, "pageIndex": 0}}
+        response_data = self.memberSearch.superSearch(data)
+        print(response_data[1])
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

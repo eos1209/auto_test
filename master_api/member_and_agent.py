@@ -91,6 +91,12 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def superSearch(self, data):
+        # 超級會員查詢 -20200116
+        path = '/Member/SuperSearch'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 會員標籤
 class MemberTags(object):
@@ -978,4 +984,64 @@ class MemberVerifyPage(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+
 # 试玩审核
+class Trial(object):
+    def __init__(self, http):
+        self.__http = http
+        self.user = User(self.__http)
+        self.response_data = {}
+
+    def list(self, data):
+        # 取得看板清單頁面
+        path = '/Trial/List'
+        self.response_data = self.__http.sendRequest('GET', path, data)
+        return self.response_data
+
+    def getMemberTrialSetting(self, data):
+        # 取得試玩審核設定
+        path = '/Trial/GetMemberTrialSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def load(self, data):
+        # 讀取試玩帳號資料
+        path = '/Trial/Load'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def createNew(self, data):
+        # 館端新增一組試玩
+        path = '/Trial/CreateNew'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def modifyAutoVerifyMemberTrial(self, data):
+        # 更新自動審核按鈕
+        path = '/Trial/ModifyAutoVerifyMemberTrial'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def modifyMemberTrialViewType(self, data):
+        # 試玩轉跳設定
+        path = '/Trial/ModifyMemberTrialViewType'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def modifyMemberTrialColumnType(self, data):
+        # 試玩申請欄位
+        path = '/Trial/ModifyMemberTrialColumnType'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def allow(self, data):
+        # 允許試玩帳號
+        path = '/Trial/Allow'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def deny(self, data):
+        #  拒絕試玩帳號
+        path = '/Trial/Deny'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
