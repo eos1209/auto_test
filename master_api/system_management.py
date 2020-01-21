@@ -1540,17 +1540,65 @@ class PortalManagement(object):
             self.__http = http
             self.response_data = {}
 
+        def GetSlideShowInfo(self, data):
+            # 取得大圖輪播資訊
+            path = '/PortalManagement/GetSlideShowInfo'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UploadSlideShowImageV2(self, data):
+            # 上傳圖片
+            path = '/PortalManagement/UploadSlideShowImageV2'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def SaveSlideShowChangesV2(self, data):
+            # 儲存圖片
+            path = '/PortalManagement/SaveSlideShowChangesV2'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 會員註冊
-    class Register:
+    class RegisterCopywriting:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
+
+        def GetRegisterCopywriting(self, data):
+            # 會員註冊 - 取得文案
+            path = '/PortalManagement/GetRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def ModifyRegisterCopywriting(self, data):
+            # 會員註冊 - 修改文案
+            path = '/PortalManagement/ModifyRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def CopyRegisterCopywriting(self, data):
+            # 會員註冊 - 複製其他網站
+            path = '/PortalManagement/CopyRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
 
     # 聯絡資訊
     class SiteParameter:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
+
+        def GetSiteParameter(self, data):
+            # 聯絡資訊 - 取得聯絡資訊
+            path = '/PortalManagement/GetSiteParameter'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UpdateSiteParameter(self, data):
+            # 聯絡資訊 - 更新聯絡資訊
+            path = '/PortalManagement/UpdateSiteParameter'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
 
     # 財務中心
     class FinanceCenter:
@@ -1702,6 +1750,13 @@ class SystemInfo(object):
         # API Name =>站台系统值设置 - 更新郵件驗證
         # body--
         path = '/SystemInfo/UpdateLoginEmailValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateGpkAuthenticator(self, data):
+        # API Name =>站台系统值设置 - 更新裝置驗證
+        # body--
+        path = '/SystemInfo/UpdateGpkAuthenticator'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

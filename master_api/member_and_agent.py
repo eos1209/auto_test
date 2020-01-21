@@ -438,6 +438,12 @@ class MemberDetail(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def updateMemberEmailLoginValidationLimit(self, data):
+        # 電子郵件發送信箱次數限制
+        path = '/Member/UpdateMemberEmailLoginValidationLimit'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 人工存款
 class MemberDeposit(object):

@@ -38,7 +38,12 @@ class UploadFile(object):
         if Type[0] == 'document':
             self.file_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'  # 上傳類型
         elif Type[0] == 'image':
-            self.file_type = 'image/jpeg'  # 上傳類型
+            if Type[1] == 'png':
+                self.file_type = 'image/png'  # 上傳類型
+            elif Type[1] == 'jpg':
+                self.file_type = 'image/jpeg'  # 上傳類型
+            elif Type[1] == 'gif':
+                self.file_type = 'image/gif'  # 上傳類型
 
     def Upload_file(self):  # 上傳檔案-方法
         data = {self.upload_name: (self.filename, self.open_file, self.file_type, {'Expires': '0'})}

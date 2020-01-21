@@ -168,6 +168,13 @@ class BetRecordBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_BetRecord_relatedApi_status_20(self):
+        """驗證 SABA(虛擬體育)-混合過關 狀態"""
+        data = {'parlaySportBetId': '67'}  # 注單號:5852950
+        response_data = self.betRecords.getSabaVirtualSportMixParlaySubTickets(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

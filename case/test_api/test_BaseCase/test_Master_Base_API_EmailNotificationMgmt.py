@@ -26,7 +26,8 @@ class EmailNotificationMgmtBaseTest(unittest.TestCase):
 
     def getId(self):
         response_data = self.emailNotificationMgmt.getList({})
-        Id = response_data[1][0]['Id']
+        num = len(response_data[1])-1
+        Id = response_data[1][num]['Id']
         return Id
 
     def test_EmailNotificationMgmt_relatedApi_status_01(self):
@@ -112,6 +113,7 @@ class EmailNotificationMgmtBaseTest(unittest.TestCase):
         """驗證 郵件商戶管理 - 刪除郵件商戶 狀態"""
         getId = self.getId()
         data = {"id": getId}
+        # print(getId)
         response_data = self.emailNotificationMgmt.deleteEmailMerchant(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
