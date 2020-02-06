@@ -451,6 +451,73 @@ class GroupThirdParty(object):
         return self.response_data
 
 
+# 郵件商戶管理
+class EmailNotificationMgmt(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def getList(self, data):
+        # 取得郵件商戶列表
+        path = '/EmailNotificationMgmt/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getServiceZone(self, data):
+        # 取得服務區
+        path = '/EmailNotificationMgmt/GetServiceZone'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getDetail(self, data):
+        # 取得詳細資料
+        path = '/EmailNotificationMgmt/GetDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateName(self, data):
+        # 更新商戶名字
+        path = '/EmailNotificationMgmt/UpdateName'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateSecret(self, data):
+        # 更新AccessKeySecret
+        path = '/EmailNotificationMgmt/UpdateSecret'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateState(self, data):
+        # 更新狀態
+        path = '/EmailNotificationMgmt/UpdateState'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateLevelSettingIds(self, data):
+        # 更新會員等級
+        path = '/EmailNotificationMgmt/UpdateLevelSettingIds'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateMemo(self, data):
+        # 更新備註
+        path = '/EmailNotificationMgmt/UpdateMemo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def addEmailMerchant(self, data):
+        # 新增郵件商戶
+        path = '/EmailNotificationMgmt/AddEmailMerchant'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def deleteEmailMerchant(self, data):
+        # 刪除郵件商戶
+        path = '/EmailNotificationMgmt/DeleteEmailMerchant'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 # 余额宝管理
 class Yuebao(object):
 
@@ -1473,17 +1540,65 @@ class PortalManagement(object):
             self.__http = http
             self.response_data = {}
 
+        def GetSlideShowInfo(self, data):
+            # 取得大圖輪播資訊
+            path = '/PortalManagement/GetSlideShowInfo'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UploadSlideShowImageV2(self, data):
+            # 上傳圖片
+            path = '/PortalManagement/UploadSlideShowImageV2'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def SaveSlideShowChangesV2(self, data):
+            # 儲存圖片
+            path = '/PortalManagement/SaveSlideShowChangesV2'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 會員註冊
-    class Register:
+    class RegisterCopywriting:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
+
+        def GetRegisterCopywriting(self, data):
+            # 會員註冊 - 取得文案
+            path = '/PortalManagement/GetRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def ModifyRegisterCopywriting(self, data):
+            # 會員註冊 - 修改文案
+            path = '/PortalManagement/ModifyRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def CopyRegisterCopywriting(self, data):
+            # 會員註冊 - 複製其他網站
+            path = '/PortalManagement/CopyRegisterCopywriting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
 
     # 聯絡資訊
     class SiteParameter:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
+
+        def GetSiteParameter(self, data):
+            # 聯絡資訊 - 取得聯絡資訊
+            path = '/PortalManagement/GetSiteParameter'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UpdateSiteParameter(self, data):
+            # 聯絡資訊 - 更新聯絡資訊
+            path = '/PortalManagement/UpdateSiteParameter'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
 
     # 財務中心
     class FinanceCenter:
@@ -1635,6 +1750,13 @@ class SystemInfo(object):
         # API Name =>站台系统值设置 - 更新郵件驗證
         # body--
         path = '/SystemInfo/UpdateLoginEmailValidationEnable'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def updateGpkAuthenticator(self, data):
+        # API Name =>站台系统值设置 - 更新裝置驗證
+        # body--
+        path = '/SystemInfo/UpdateGpkAuthenticator'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

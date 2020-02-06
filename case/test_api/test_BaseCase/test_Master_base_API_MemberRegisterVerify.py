@@ -146,6 +146,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         deny_id = getData[1]['Data'][0]['Id']  # 驗證完成後拒絕帳號
         data = {'Id': deny_id}  # 拒絕帶入id
         self.memberVerify.deny(data)  # 拒絕
+        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
         sleep(1)
 
@@ -169,6 +170,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         data = {'Id': Id, 'verifyAccount': verifyAccount}
         response_data = self.memberVerify.approve(data)
         status_code = response_data[0]
+        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberRegisterVerify_baseApi_status_17(self):
@@ -192,6 +194,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         data = {'Id': accountId}
         response_data = self.memberVerify.deny(data)
         status_code = response_data[0]
+        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
         sleep(1)
 

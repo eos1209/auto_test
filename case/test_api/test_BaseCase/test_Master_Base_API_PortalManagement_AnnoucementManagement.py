@@ -236,6 +236,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_21(self):
@@ -244,6 +246,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "2", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_22(self):
@@ -252,6 +256,8 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         data = {"Id": getId, "WebsiteId": "29", "Device": "3", "IsEnable": 'true'}
         response_data = self.AnnouncementManagement.modifyAnnouncementEnable(data)
         status_code = response_data[0]
+        data = {"Id": getId, "WebsiteId": "29", "Device": "1", "IsEnable": 'false'}
+        self.AnnouncementManagement.modifyAnnouncementEnable(data)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_23(self):
@@ -291,6 +297,13 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         response_data = self.AnnouncementManagement.moveAnnouncementToWebsite(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+        data = {"WebsiteId": "29", "Device": "3", "Title": "@QA_automation_horizontalMobile", "Sort": 1,
+                "Content":
+                    "<p>"
+                    "<img alt=\"\" src=\"https://www.itsfun.com.tw/cacheimg/84/ce/e2cecd886623d17eae7558a688ae.jpg\" />"
+                    "</p>\n",
+                "ForGuest": 'true', "ForMember": 'true'}
+        self.AnnouncementManagement.addAnnouncement(data)
 
     def test_AnnouncementManagement_relatedApi_status_27(self):
         """ 公告管理-電腦版複製公告到手機板 狀態"""
@@ -332,6 +345,13 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
 
     def test_AnnouncementManagement_relatedApi_status_31(self):
         """ 公告管理-橫向手機版改順序 狀態"""
+        data = {"WebsiteId": "29", "Device": "3", "Title": "@QA_automation_horizontalMobile", "Sort": 1,
+                "Content":
+                    "<p>"
+                    "<img alt=\"\" src=\"https://www.itsfun.com.tw/cacheimg/84/ce/e2cecd886623d17eae7558a688ae.jpg\" />"
+                    "</p>\n",
+                "ForGuest": 'true', "ForMember": 'true'}
+        self.AnnouncementManagement.addAnnouncement(data)
         getId = self.getId(3)
         data = {"Id": getId, "WebsiteId": "29", "Device": "3", "Sort": 2}
         response_data = self.AnnouncementManagement.modifyAnnouncementSort(data)
@@ -340,7 +360,7 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
 
     def test_AnnouncementManagement_relatedApi_status_32(self):
         """ 公告管理-刪除電腦版公告 狀態"""
-        getId = self.getId(2)
+        getId = self.getId(1)
         data = {"WebsiteId": "29", "Device": "1", "DeleteIds": [getId]}
         response_data = self.AnnouncementManagement.deleteAnnouncement(data)
         status_code = response_data[0]
@@ -356,6 +376,13 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
 
     def test_AnnouncementManagement_relatedApi_status_34(self):
         """ 公告管理-刪除橫向手機版公告 狀態"""
+        data = {"WebsiteId": "29", "Device": "3", "Title": "@QA_automation_horizontalMobile", "Sort": 1,
+                "Content":
+                    "<p>"
+                    "<img alt=\"\" src=\"https://www.itsfun.com.tw/cacheimg/84/ce/e2cecd886623d17eae7558a688ae.jpg\" />"
+                    "</p>\n",
+                "ForGuest": 'true', "ForMember": 'true'}
+        self.AnnouncementManagement.addAnnouncement(data)
         getId = self.getId(3)
         data = {"WebsiteId": "29", "Device": "3", "DeleteIds": [getId]}
         response_data = self.AnnouncementManagement.deleteAnnouncement(data)

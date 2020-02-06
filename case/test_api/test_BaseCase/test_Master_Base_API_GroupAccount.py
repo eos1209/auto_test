@@ -34,7 +34,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def get_QRcode_Url(self):
         # 取得商戶的上傳URL
-        self.upload = UploadFile('image/groupAccount.png',  # 檔案路徑
+        self.upload = UploadFile('image/png/groupAccount.png',  # 檔案路徑
                                  'qrCodeFile',  # 上傳欄位
                                  'groupAccount.png'  # 上傳檔名
                                  )  # 先實例上傳檔案物件
@@ -390,7 +390,7 @@ class GroupAccountBaseTest(unittest.TestCase):
 
     def test_GroupAccount_relatedApi_status_38(self):
         """驗證 公司入款帐户管理 - 更新圖片"""
-        self.upload = UploadFile('image/groupAccount_api.png',  # 檔案路徑
+        self.upload = UploadFile('image/png/groupAccount_api.png',  # 檔案路徑
                                  'qrCodeFile',  # 上傳欄位
                                  'groupAccount_api.png'  # 上傳檔名
                                  )  # 先實例上傳檔案物件

@@ -14,7 +14,7 @@ from parameterized import parameterized
 
 
 class CheckGameDetailUrl(unittest.TestCase):
-    """驗證外部注單連結"""
+    """驗證外部注單連結(當發生key Error:'Url')，表示該娛樂城小紅有問題"""
 
     def setUp(self):
         self.__http = HttpRequest()
@@ -95,7 +95,7 @@ class CheckGameDetailUrl(unittest.TestCase):
         self.actualResultStatue = response_data[0]
 
         # Step3 確認狀態是否為 200 並且有回傳值
-        if common_config.Status_Code == str(self.actualResultStatue) and (not response_data[1] is None):
+        if common_config.Status_Code == str(self.actualResultStatue) and (not response_data[1]['Url'] is None):
             flag_status1 = True
         else:
             flag_status1 = False

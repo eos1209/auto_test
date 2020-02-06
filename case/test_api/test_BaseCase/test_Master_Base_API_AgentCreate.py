@@ -392,7 +392,7 @@ class AgentCreateTest(unittest.TestCase):
 
     def test_AgentCreate_baseApi_status_23(self):
         """代理商新增 - 真實姓名混入非中英文 狀態"""
-        account = 'QA_Test' + common_config.now  # 代理帳號
+        account = 'QATest' + common_config.now  # 代理帳號
         parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級

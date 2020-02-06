@@ -72,7 +72,7 @@ class AgentLink(unittest.TestCase):
         sleep(3)
         self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
         sleep(3)
-        self.driver.find_element_by_xpath("//header[@id='header']/div/ul[2]/li[3]/a").click()
+        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(
             "QALink" + common_config.now)  # 會員帳號

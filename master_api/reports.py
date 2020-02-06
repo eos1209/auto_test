@@ -174,7 +174,7 @@ class BetRecords(object):
         return self.response_data
 
     def getImParlaySubRawData(self, data):
-        # API Name =>投注记录查询-取得 Im 體育子/混合過關注單
+        # API Name =>投注记录查询-取得 Im 體育子/混合過關注單(ESB 電競)
         # body--/{betId}
         path = '/BetRecord/GetImParlaySubRawData'
         self.response_data = self.__http.sendRequest('POST', path, data)
@@ -375,6 +375,24 @@ class GameSupplierTransaction(object):
 
 
 # 优惠钱包额度移转
+class WalletTransferRecord(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def search(self, data):
+        # API Name =>优惠钱包额度移转-搜尋
+        # body--
+        path = '/WalletTransferRecord/Search'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def export(self, data):
+        # API Name =>优惠钱包额度移转-匯出
+        # body--
+        path = '/WalletTransferRecord/Export'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
 
 
 # AG交易记录汇出

@@ -141,6 +141,15 @@ class SystemInfoBaseTest(unittest.TestCase):
         data = {"newValue": 'True'}
         self.SystemInfo.updateLoginEmailValidationEnable(data)
 
+    def test_SystemInfo_relatedApi_status_18(self):
+        """驗證 站台系统值设置-更新裝置驗證"""
+        data = {"newValue": 'True'}
+        response_data = self.SystemInfo.updateGpkAuthenticator(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+        data = {"newValue": 'False'}
+        self.SystemInfo.updateGpkAuthenticator(data)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

@@ -21,6 +21,7 @@ class autoCreateMemberTag(unittest.TestCase):
     # step 1:會員註冊
     # step 2:馬上登入然後去線上取款設定銀行帳戶
     # step 3:驗證是否有系统侦测-恶意注册的標籤自動新增在該會員詳細資料
+    # step 4:從會員歷史紀錄中驗證是否有這筆紀錄
 
     def setUp(self):
         self.__http = HttpRequest()
@@ -49,10 +50,16 @@ class autoCreateMemberTag(unittest.TestCase):
         # Step3:會員登入建立銀行帳戶
         self.memberVerify.approve(data)
         self.portal.SetBankAccount(account, 'a123456')
-        data = {"MemberTagIds": "541", "connectionId": self.user.info()}
-        response_data = self.searchMember.search(data)
-        validateData = response_data[1]['PageData'][0]['Account']
-        self.assertEqual(account, validateData)
+        SetDelayTime()
+        # step 4:從會員歷史紀錄中驗證是否有這筆紀錄
+        data = {"account": account}
+        getId = self.memberDetail.historyInit(data)
+        Id = getId[1]['MemberId']
+        data = {"id": Id, "take": 100, "skip": 0, "query": {}}
+        response_data = self.memberDetail.loadHistory(data)
+        memberHistory = response_data[1][0]['Content']
+        validateData = '新增标签【系统侦测-恶意注册】'
+        self.assertEqual(memberHistory, validateData)
 
     def test_autoCreateMemberTag_02(self):
         """驗證 Master新增會員->修改會員密碼->再登入"""
@@ -60,7 +67,7 @@ class autoCreateMemberTag(unittest.TestCase):
         agent = master_config.exist_agent
         data = {'Account': account,
                 'Agent': agent,
-                'memo': '@autoMemberTags-fromMobile'}
+                'memo': '@autoMemberTags-fromPortal'}
         self.memberCreate.createSubmit(data)
         data = {'Account': account,
                 'connectionId': self.user.info()}
@@ -69,12 +76,19 @@ class autoCreateMemberTag(unittest.TestCase):
         data = {'id': memberId}
         self.memberDetail.resetMoneyPassword(data)
         self.portal = PortalExecution()
+        # Step3:會員登入建立銀行帳戶
         self.portal.ChangePassword(account, '123456')
         self.portal.SetBankAccount(account, 'a123456')
-        data = {"MemberTagIds": "541", "connectionId": self.user.info()}
-        response_data = self.searchMember.search(data)
-        validateData = response_data[1]['PageData'][0]['Account']
-        self.assertEqual(account, validateData)
+        SetDelayTime()
+        # step 4:從會員歷史紀錄中驗證是否有這筆紀錄
+        data = {"account": account}
+        getId = self.memberDetail.historyInit(data)
+        Id = getId[1]['MemberId']
+        data = {"id": Id, "take": 100, "skip": 0, "query": {}}
+        response_data = self.memberDetail.loadHistory(data)
+        memberHistory = response_data[1][0]['Content']
+        validateData = '新增标签【系统侦测-恶意注册】'
+        self.assertEqual(memberHistory, validateData)
 
 
 if __name__ == '__main__':
