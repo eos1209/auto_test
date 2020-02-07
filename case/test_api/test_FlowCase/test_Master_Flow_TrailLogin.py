@@ -27,13 +27,14 @@ class TrailLogin(unittest.TestCase):
 
     def test_trailLogin(self):
         """試玩帳號登入"""
-        self.portal = PortalExecution()
-        Id = self.getId()
+        Id = self.getId()  # 取得ID
         data = {"id": Id}
         self.trail.allow(data)
-        account = self.get_trailAccount()
-        password = self.get_trailPassword()
-        self.portal.Trail_Login(account, password)  # 試玩登入
+        account = self.get_trailAccount()  # 取得帳號
+        password = self.get_trailPassword()  # 取得密碼
+        self.portal = PortalExecution()
+        validateData = self.portal.Trail_Login(account, password)  # 試玩登入並且取得登入成功後的試玩帳號
+        self.assertEqual(validateData, account)
 
     def getId(self):
         data = {"count": 100, "skip": 0}
