@@ -10,12 +10,15 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
+from base.CommonMethod import PortalExecution
+from data_config.system_config import systemSetting
 
 
 class ThirdPartyPaymentBaseTest(unittest.TestCase):
     """ 线上支付看板 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 參數設定
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.thirdPartyPayment = account_management.ThirdPartyPayment(self.__http)
@@ -23,6 +26,12 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def tearDown(self):
         self.user.logout()
+
+    def getId(self):
+        data = {"count": 25, "query": {"isDTPP": 'true', "search": 'null'}}
+        response_data = self.thirdPartyPayment.load_new(data)
+        getId = response_data[1]['Data'][0]['Id']
+        return getId
 
     def test_ThirdPartyPayment_relatedApi_status_01(self):
         """驗證 线上支付看板 - 取得頁面"""
@@ -75,6 +84,26 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
     #     response_data = self.statistics.getDetail(data)
     #     status_code = response_data[0]
     #     self.assertEqual(status_code, Config.Status_Code)
+
+    def test_ThirdPartyPayment_relatedApi_status_07(self):
+        """驗證 线上支付看板 - 拒絕 狀態"""
+        self.portal = PortalExecution()
+        self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        Id = self.getId()
+        data = {'id': Id}
+        response_data = self.thirdPartyPayment.cancel_dtpp_order(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_ThirdPartyPayment_relatedApi_status_08(self):
+        """驗證 线上支付看板 - 同意 狀態"""
+        self.portal = PortalExecution()
+        self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        Id = self.getId()
+        data = {'id': Id}
+        response_data = self.thirdPartyPayment.allow_dTPP_manual(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':

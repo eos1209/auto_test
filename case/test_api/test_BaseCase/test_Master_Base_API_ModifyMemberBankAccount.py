@@ -9,12 +9,14 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class MemberSearchModifyBankAccountTest(unittest.TestCase):
     """Master 會員- 更新修改銀行帳戶"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberSearchPage = member_and_agent.MemberSearch(self.__http)
@@ -25,7 +27,7 @@ class MemberSearchModifyBankAccountTest(unittest.TestCase):
 
     def test_Member_Modify_BankAccount_Is_Normal(self):
         """驗證-會員正常更新修改銀行帳戶"""
-        data = {"memberAccount": 'hsiang101',
+        data = {"memberAccount": self.config.test_Member_config(),
                 "GroupBankId": 3,
                 "Province": '江西省',
                 "City": '南昌市',
@@ -53,7 +55,7 @@ class MemberSearchModifyBankAccountTest(unittest.TestCase):
 
     def test_Member_Modify_BankAccount_Account_Ali_pay(self):
         """驗證-會員更新修改銀行帳戶-帳戶為空"""
-        data = {"memberAccount": "hsiang",
+        data = {"memberAccount": self.config.test_Member_config(),
                 "GroupBankId": 1,
                 "Province": "江西省",
                 "City": "南昌市",

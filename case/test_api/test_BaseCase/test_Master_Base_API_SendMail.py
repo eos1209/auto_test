@@ -8,16 +8,19 @@ import unittest
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import common_config
+from data_config.system_config import systemSetting
 from master_api import system_management
 from master_api.account_login import User
 from base.CommonMethod import UploadFile
 from data_config import master_config
+from base.CommonMethod import PortalExecution
 
 
 class SiteMailBaseTest(unittest.TestCase):
     """ 站內信 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 參數設定
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.siteMail = system_management.SiteMail(self.__http)
@@ -25,6 +28,11 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def tearDown(self):
         self.user.logout()
+
+    def test_SiteMail_relatedApi_status_00(self):
+        """驗證 站內信 - Portal端寄信 前置"""
+        self.portal = PortalExecution()
+        self.portal.SiteMail(self.config.test_Member_config(), self.config.test_Password_config())
 
     def test_SiteMail_relatedApi_status_01(self):
         """驗證 站內信 - 取得列表頁面"""
@@ -41,7 +49,7 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_03(self):
         """驗證 站內信(發送對象--單個會員)"""
         data = {"SendMailType": 1,
-                "MailRecievers": master_config.Account,
+                "MailRecievers": self.config.test_Member_config(),
                 "BatchParam": " ",
                 "SearchParam": " ",
                 "SuperSearchRequest": " ",
@@ -57,7 +65,7 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_04(self):
         """驗證 站內信(發送對象--多個會員)"""
         data = {"SendMailType": 1,
-                "MailRecievers": "hsiang, hsiang01, hsiang02, hsiang03,",
+                "MailRecievers": self.config.batch_Member_config(),
                 "BatchParam": " ",
                 "SearchParam": " ",
                 "SuperSearchRequest": " ",

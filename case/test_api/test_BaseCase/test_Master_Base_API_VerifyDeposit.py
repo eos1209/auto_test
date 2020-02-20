@@ -11,12 +11,14 @@ from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
 from base.CommonMethod import PortalExecution
+from data_config.system_config import systemSetting
 
 
 class VerifyDepositBaseTest(unittest.TestCase):
     """ 公司入款审核 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 參數設定
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.verify_deposit = account_management.VerifyDeposit(self.__http)
@@ -24,6 +26,13 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def tearDown(self):
         self.user.logout()
+
+    def Portal(self):  # 執行前端
+        self.portal = PortalExecution()
+        verifyDeposit = self.portal.verifyDeposit(self.config.test_Member_config(),
+                                                  self.config.test_Password_config()).split(' ')  # 切割Portal端的訂單號碼
+        # print(verifyDeposit[1])
+        return verifyDeposit[1]
 
     def test_VerifyDeposit_relatedApi_status_01(self):
         """驗證 公司入款审核 - 取得頁面"""
@@ -79,9 +88,7 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def test_VerifyDeposit_relatedApi_status_07(self):
         """驗證 公司入款审核 - 拒絕"""
-        self.portal = PortalExecution()
-        verifyDeposit = self.portal.verifyDeposit('QATags02040246', 'a123456').split(' ')  # 切割Portal端的訂單號碼
-        getId = verifyDeposit[1]
+        getId = self.Portal()
         data = {"count": 100,
                 "query":
                     {"search": None}
@@ -100,9 +107,7 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def test_VerifyDeposit_relatedApi_status_08(self):
         """驗證 公司入款审核 - 同意"""
-        self.portal = PortalExecution()
-        verifyDeposit = self.portal.verifyDeposit('QATags02040246', 'a123456').split(' ')  # 切割Portal端的訂單號碼
-        getId = verifyDeposit[1]
+        getId = self.Portal()
         data = {"count": 100,
                 "query":
                     {"search": None}

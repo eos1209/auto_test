@@ -7,17 +7,18 @@ import unittest
 
 from base.CommonMethod import SetDelayTime
 from data_config import common_config
-from data_config import master_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class MemberSearchBaseTest(unittest.TestCase):
     """会员查询 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberSearch = member_and_agent.MemberSearch(self.__http)
@@ -36,7 +37,7 @@ class MemberSearchBaseTest(unittest.TestCase):
         """驗證 会员查询 狀態"""
         # 因修改查詢頻率限制
         SetDelayTime()
-        data = {"Account": master_config.Account,
+        data = {"Account": self.config.test_Member_config(),
                 "connectionId": self.user.info()}
         response_data = self.memberSearch.search(data)
         status_code = response_data[0]
@@ -46,7 +47,7 @@ class MemberSearchBaseTest(unittest.TestCase):
         """驗證 会员查询 未帶 connectionId 狀態"""
         # 因修改查詢頻率限制
         SetDelayTime()
-        data = {"Account": master_config.Account}
+        data = {"Account": self.config.test_Member_config()}
         response_data = self.memberSearch.search(data)
         error_message = response_data[1]['ErrorMessage']
         self.assertEqual(error_message, "connectionId cannot be null.")
@@ -77,7 +78,7 @@ class MemberSearchBaseTest(unittest.TestCase):
 
     def test_MemberSearch_relatedApi_status_08(self):
         """驗證 匯出檔案 狀態"""
-        data = {"search": {"Account": master_config.Account}, "columns": [1, 2, 120], "connectionId": self.user.info()}
+        data = {"search": {"Account": self.config.test_Member_config()}, "columns": [1, 2], "connectionId": self.user.info()}
         response_data = self.memberSearch.exportMemberSearch(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -89,14 +90,14 @@ class MemberSearchBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_MemberSearch_relatedApi_status_10(self):
-        data = {"connectionId": self.user.info(), "pageIndex": 0, "search": {"advanceSearch": {
-            "memberTransactionRequests": [
-                {"beginTime": "2020/01/14 00:00:00", "endTime": "2020/01/15 23:59:59", "amountMin": -1,
-                 "amountMax": -10,
-                 "types": ["Payoff"], "amountIsPay": 'true'}]}, "pageIndex": 0}}
-        response_data = self.memberSearch.superSearch(data)
-        print(response_data[1])
+    # def test_MemberSearch_relatedApi_status_10(self): # 超級會員查詢
+    #     data = {"connectionId": self.user.info(), "pageIndex": 0, "search": {"advanceSearch": {
+    #         "memberTransactionRequests": [
+    #             {"beginTime": "2020/01/14 00:00:00", "endTime": "2020/01/15 23:59:59", "amountMin": -1,
+    #              "amountMax": -10,
+    #              "types": ["Payoff"], "amountIsPay": 'true'}]}, "pageIndex": 0}}
+    #     response_data = self.memberSearch.superSearch(data)
+    #     print(response_data[1])
 
 
 if __name__ == '__main__':

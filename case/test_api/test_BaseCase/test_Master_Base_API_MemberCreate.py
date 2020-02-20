@@ -9,12 +9,14 @@ from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
 from data_config import master_config
+from data_config.system_config import systemSetting
 
 
 class MemberCreateTest(unittest.TestCase):
     """新增會員 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberCreate = member_and_agent.MemberCreate(self.__http)
@@ -52,10 +54,10 @@ class MemberCreateTest(unittest.TestCase):
 
     def test_MemberCreate_baseApi_status_05(self):
         """驗證 欄位驗證中使用者已有帳號時失敗"""
-        data = {"account": master_config.Account}  # Config.exist_account = QATEST
+        data = {"account": self.config.test_Member_config()}  # Config.exist_account = QATEST
         response_data = self.memberCreate.checkAccountIsInUse(data)
         errorMessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
+        self.assertEqual(errorMessage, '帐号' + '"' + self.config.test_Member_config() + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_06(self):
         """ 驗證 預設會員密碼是否為123456"""
@@ -90,17 +92,17 @@ class MemberCreateTest(unittest.TestCase):
 
     def test_MemberCreate_baseApi_status_10(self):
         """驗證 提交表單中 已有帳號時失敗"""
-        data = {"Account": master_config.Account,
-                "Agent": master_config.exist_agent}
+        data = {"Account": self.config.test_Member_config(),
+                "Agent": self.config.agentLv4()}
         response_data = self.memberCreate.createSubmit(data)
         errorMessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errorMessage, '帐号' + '"' + master_config.Account + '"' + '已存在')  # 帳號"QATEST"已存在
+        self.assertEqual(errorMessage, '帐号' + '"' + self.config.test_Member_config() + '"' + '已存在')  # 帳號"QATEST"已存在
 
     def test_MemberCreate_baseApi_status_11(self):
         """驗證 使用者是否能夠新增"""
         # 帳號格式為: QA_Test月份+日期+分鐘+秒數 EX:QA_test10310501
         account = "QA_Test" + common_config.now
-        agent = master_config.exist_agent
+        agent = self.config.agentLv4()
         data = {'Account': account,
                 'Agent': agent,
                 'memo': '@QA_automation'}
@@ -111,7 +113,7 @@ class MemberCreateTest(unittest.TestCase):
     def test_MemberCreate_baseApi_status_12(self):
         """會員新增 - 真實姓名混入非中英文 狀態"""
         account = "QATest" + common_config.now
-        agent = master_config.exist_agent
+        agent = self.config.agentLv4()
         data = {'Account': account,
                 'Agent': agent,
                 'Name': account,

@@ -13,12 +13,14 @@ from master_api.account_login import User
 from base.CommonMethod import PortalExecution
 from master_api import member_and_agent
 from base.CommonMethod import SetDelayTime
+from data_config.system_config import systemSetting
 
 
 class VerifyWithdrawBaseTest(unittest.TestCase):
     """ 取款申请审核 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 參數設定
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)
@@ -34,6 +36,11 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.verifyWithdraw.load(data)
         getId = response_data[1]['Data'][0]['Id']
         return getId
+
+    def member_id(self):
+        data = {"connectionId": self.user.info(), "account": self.config.test_Member_config()}
+        response_data = self.memberDetail.getDetail(data)
+        return response_data[1]['Member']['Id']
 
     def test_VerifyWithdraw_relatedApi_status_01(self):
         """驗證 取款申请审核 - 取得頁面"""
@@ -84,40 +91,43 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.verifyWithdraw.load(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_VerifyWithdraw_relatedApi_status_07(self):
-        """驗證 取款申请审核 - 人工出款"""
-        data = {"id": 3152066}
+        data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = PortalExecution()
-        self.portal.verifyWithdraw('QATags02040246', 'a123456', getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_07(self):
+        """驗證 取款申请审核 - 人工出款"""
         Id = self.getId()
         data = {"id": Id}
         response_data = self.verifyWithdraw.allow(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_VerifyWithdraw_relatedApi_status_08(self):
-        """驗證 取款申请审核 - 退回"""
-        data = {"id": 3152066}
+        data = {"id":self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = PortalExecution()
-        self.portal.verifyWithdraw('QATags02040246', 'a123456', getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_08(self):
+        """驗證 取款申请审核 - 退回"""
         Id = self.getId()
         data = {"id": Id}
         response_data = self.verifyWithdraw.deny(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_VerifyWithdraw_relatedApi_status_09(self):
-        """驗證 取款申请审核 - 拒絕"""
-        data = {"id": 3152066}
+        data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = PortalExecution()
-        self.portal.verifyWithdraw('QATags02040246', 'a123456', getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_09(self):
+        """驗證 取款申请审核 - 拒絕"""
         Id = self.getId()
         data = {"id": Id}
         response_data = self.verifyWithdraw.reject(data)

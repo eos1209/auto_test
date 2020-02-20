@@ -29,7 +29,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
     '''
     def GetMemberLevelSettingId(self):
         getData = self.memberLevelSetting.getList({})
-        dataLength = len(getData[1]['Levels']) - 1  # 取得最後一筆資料
+        dataLength = len(getData[1]['Levels'])-1  # 取得最後一筆資料
         getMemberLevelSettingId = getData[1]['Levels'][dataLength]['Id']
         return getMemberLevelSettingId
 

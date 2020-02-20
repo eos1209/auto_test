@@ -11,37 +11,47 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api.account_login import User
 from master_api.system_management import PortalManagement
-
+from data_config.system_config import systemSetting
+from time import sleep
 
 class SlideShowBaseTest(unittest.TestCase):
     """ 大圖輪播 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.slideShow = PortalManagement.SlideShow(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
     def test_SlideShow_relatedApi_status_01(self):
         """ 大圖輪播 - 取得電腦版資訊 狀態"""
-        data = {"WebsiteId": "29", "Device": "1"}
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "1"}
         response_data = self.slideShow.GetSlideShowInfo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SlideShow_relatedApi_status_02(self):
         """ 大圖輪播 - 取得手機版資訊 狀態"""
-        data = {"WebsiteId": "29", "Device": "2"}
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "2"}
         response_data = self.slideShow.GetSlideShowInfo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SlideShow_relatedApi_status_03(self):
         """ 大圖輪播 - 取得橫向手機版資訊 狀態"""
-        data = {"WebsiteId": "29", "Device": "3"}
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "3"}
         response_data = self.slideShow.GetSlideShowInfo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -72,6 +82,7 @@ class SlideShowBaseTest(unittest.TestCase):
 
     def test_SlideShow_relatedApi_status_06(self):
         """ 大圖輪播 - 上傳gif圖檔 狀態"""
+        sleep(5)
         self.upload = UploadFile('image/gif/test_gif.gif',  # 檔案路徑
                                  'ImageFile',  # 上傳欄位
                                  'test_gif.gif'  # 上傳檔名
@@ -84,7 +95,7 @@ class SlideShowBaseTest(unittest.TestCase):
 
     def test_SlideShow_relatedApi_status_07(self):
         """ 大圖輪播 - 電腦版更新大圖輪播 狀態"""
-        data = {"currentWebsiteId": "29", "currentDevice": "1", "currentSlideShowItems": [
+        data = {"currentWebsiteId":self.getWebsiteId(), "currentDevice": "1", "currentSlideShowItems": [
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/88b73347665e41048daa90f5d8fa8140.jpg", "link": "",
              "sort": 0},
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/1848916a567847a88b3ed5d763acb701.jpg", "link": "",
@@ -101,7 +112,7 @@ class SlideShowBaseTest(unittest.TestCase):
 
     def test_SlideShow_relatedApi_status_08(self):
         """ 大圖輪播 - 手機版更新大圖輪播 狀態"""
-        data = {"currentWebsiteId": "29", "currentDevice": 2, "currentSlideShowItems": [
+        data = {"currentWebsiteId": self.getWebsiteId(), "currentDevice": 2, "currentSlideShowItems": [
             {"url": "/Cdn2Redirect/PortalManagement/Image/SlideShow/de0d274c32a44975b0cc60c1104513d2.png", "link": "",
              "sort": 0}], "copyToSlideShowItems": []}
         response_data = self.slideShow.SaveSlideShowChangesV2(data)
@@ -110,7 +121,7 @@ class SlideShowBaseTest(unittest.TestCase):
 
     def test_SlideShow_relatedApi_status_09(self):
         """ 大圖輪播 - 橫向手機版更新大圖輪播 狀態"""
-        data = {"currentWebsiteId": "29", "currentDevice": 3, "currentSlideShowItems": [
+        data = {"currentWebsiteId": self.getWebsiteId(), "currentDevice": 3, "currentSlideShowItems": [
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/c3e3294d56fb4bc3bdce68db3fb9f145.gif", "link": "",
              "sort": 0},
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/69d4ed6d057e40eda901a43451087541.jpg", "link": "",

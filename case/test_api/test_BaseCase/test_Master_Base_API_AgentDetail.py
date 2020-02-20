@@ -11,12 +11,14 @@ from master_api import member_and_agent
 from master_api.account_login import User
 import random
 from data_config import master_config
+from data_config.system_config import systemSetting
 
 
 class AgentDetailTest(unittest.TestCase):
     """代理商詳細資料 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.agentDetail = member_and_agent.AgentDetail(self.__http)
@@ -27,10 +29,31 @@ class AgentDetailTest(unittest.TestCase):
         self.user.logout()
 
     def GetAgentId(self):
-        data = {'account': master_config.exist_agent}
+        data = {'account': self.config.agentLv4()}
         response_data = self.agentDetail.get_detail(data)
         agentId = response_data[1]['Agent']['Id']
         return agentId
+
+    def getCommissionSettingId(self):
+        response_data = self.agentDetail.getAllCommissionSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.commissionSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getDiscountSettingId(self):
+        response_data = self.agentDetail.getAllDiscountSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.DiscountSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getMemberLevelId(self):
+        response_data = self.agentDetail.getAllMemberLevels({})
+        for i in range(len(response_data[1])):
+            if self.config.MemberLevelSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
 
     def test_AgentDetail_baseApi_status_01(self):
         """驗證 代理商詳細資料 - 頁面狀態"""
@@ -58,7 +81,7 @@ class AgentDetailTest(unittest.TestCase):
 
     def test_AgentDetail_baseApi_status_05(self):
         """驗證 代理商詳細資料 - 取得詳細資料"""
-        data = {'account': master_config.exist_agent}
+        data = {'account': self.config.agentLv4()}
         response_data = self.agentDetail.get_detail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -67,7 +90,6 @@ class AgentDetailTest(unittest.TestCase):
         """驗證 代理商詳細資料 - 停用代理商"""
         # Step1 取得代理商的 Agent Id(需從詳細資料中取得)
         agentId = self.GetAgentId()
-
         # Step2 將測試代理商狀態改為停用
         data = {'id': agentId}
         response_data = self.agentDetail.disable(data)
@@ -104,7 +126,7 @@ class AgentDetailTest(unittest.TestCase):
         agentId = self.GetAgentId()
         # Step2
         data = {"id": agentId,
-                "agentLink": "http://4444"}
+                "agentLink": "http://" + common_config.now}
         response_data = self.agentDetail.updateAgentLink(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -126,7 +148,7 @@ class AgentDetailTest(unittest.TestCase):
         agentId = self.GetAgentId()
         # Step2
         data = {'agentId': agentId,
-                'commissionSettingId': '37'}
+                'commissionSettingId': self.getCommissionSettingId()}
         response_data = self.agentDetail.updateCommissionSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -137,7 +159,7 @@ class AgentDetailTest(unittest.TestCase):
         agentId = self.GetAgentId()
         # Step2
         data = {'agentId': agentId,
-                'memberLevelSettingId': '21'}
+                'memberLevelSettingId': self.getMemberLevelId()}
         response_data = self.agentDetail.updateDefaultMemberLevelSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -148,14 +170,14 @@ class AgentDetailTest(unittest.TestCase):
         agentId = self.GetAgentId()
         # Step2
         data = {'agentId': agentId,
-                'discountSettingId': '137'}
+                'discountSettingId': self.getDiscountSettingId()}
         response_data = self.agentDetail.updateDefaultDiscountSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentDetail_baseApi_status_14(self):
         """驗證 代理商詳細資料 - 檢查更新代理商權限"""
-        data = {'account': master_config.exist_agent}
+        data = {'account': self.config.agentLv4()}
         response_data = self.agentDetail.checkUpdateAgentAuthority(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -183,7 +205,7 @@ class AgentDetailTest(unittest.TestCase):
         }
         response_data = self.agentDetail.updateAgentInfo(data)
         status_code = response_data[0]
-        data = {'account': master_config.exist_agent}
+        data = {'account': self.config.agentLv4()}
         response_data = self.agentDetail.get_detail(data)
         validateData = response_data[1]['Agent']['QQ']  # 驗證資料
         self.assertEqual(bool(status_code == common_config.Status_Code),
@@ -209,7 +231,7 @@ class AgentDetailTest(unittest.TestCase):
         bankId = random.randint(1, bank_Count)
         # Step2 更新銀行基本資料
         data = {
-            'agentAccount': master_config.exist_agent,
+            'agentAccount': self.config.agentLv4(),
             'GroupBankId': bankId,
             'Province': 'abc',
             'City': 'efg',
@@ -259,7 +281,7 @@ class AgentDetailTest(unittest.TestCase):
 
     def test_AgentDetail_baseApi_status_24(self):
         """驗證 代理商詳細資料 - 歷史紀錄資訊"""
-        data = {'account': master_config.exist_agent}
+        data = {'account': self.config.agentLv4()}
         response_data = self.agentDetail.historyInit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -425,6 +447,17 @@ class AgentDetailTest(unittest.TestCase):
         response_data = self.agentDetail.updateAgentInfo(data)
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '姓名只允许中英文，與全、半形英文句號')
+
+    # def test_AgentDetail_baseApi_status_36(self):
+    #     """驗證 代理商詳細資料 - 是否可以設定相同的代理鏈接"""
+    #     # Step1 取得代理商的 Agent Id(需從詳細資料中取得)
+    #     agentId = self.GetAgentId()
+    #     # Step2
+    #     data = {"id": agentId,
+    #             "agentLink": "http://4444"}
+    #     response_data = self.agentDetail.updateAgentLink(data)
+    #     validateData = response_data[1]['ErrorMessage']
+    #     self.assertEqual(validateData, '代理推广链结不可与 QA_Test11070110 相同')
 
 
 if __name__ == '__main__':

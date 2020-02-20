@@ -10,16 +10,34 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import system_management
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class PortalManagementBaseTest(unittest.TestCase):
     """ 前台網站管理列表 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.PortalManagement = system_management.PortalManagement(self.__http)
+        self.portalSetting = system_management.PortalSetting(self.__http)
         self.user.login()
+
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        print(response_data[1])
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
+    def getPortalSettingId(self):
+        response_data = self.portalSetting.getList({})
+        for i in range(len(response_data[1])):
+            if self.config.siteName_config() == response_data[1][i]['Name']:
+                Id = response_data[1][i]['Id']
+                return Id
 
     def tearDown(self):
         self.user.logout()
@@ -38,20 +56,20 @@ class PortalManagementBaseTest(unittest.TestCase):
 
     def test_PortalManagement_relatedApi_status_03(self):
         """驗證 前台網站管理列表 - 更新前台網站管理列表"""
-        data = {"Id": 29,
-                "Code": "AB005-01",
-                "Name": "AB005-01",
-                "Url": "http://www.fnjtd.com/",
-                "MobileUrl": "http://m2.fnjtd.com",
+        data = {"Id": self.getWebsiteId(),
+                "Code": self.config.siteName_config(),
+                "Name": self.config.siteName_config(),
+                "Url": self.config.Portal_config(),
+                "MobileUrl": self.config.Mobile_config(),
                 "Memo": "AB005611211",
-                "DefaultAgentAccount": "GPK_D",
+                "DefaultAgentAccount": self.config.agentLv4(),
                 "AnyTimeDiscountPromotionStatus": 'true',
-                "PortalSetting": {"Id": 0, "Name": "Default12"},
+                "PortalSetting": {"Id": self.getPortalSettingId(), "Name": "Default12"},
                 "MemberRegisterVerifySwitch": 'false',
-                "PortalSettingId": 0,
+                "PortalSettingId": self.getPortalSettingId(),
                 "PortalSettingName": "Default12",
                 "editable": 'false',
-                "oldValues": {"DefaultAgentAccount": "GPK_D"},
+                "oldValues": {"DefaultAgentAccount": self.config.agentLv4()},
                 "isProcessing": 'true'}
         response_data = self.PortalManagement.updateWebsite(data)
         status_code = response_data[0]

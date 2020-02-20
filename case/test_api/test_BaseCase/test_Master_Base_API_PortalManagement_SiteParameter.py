@@ -10,30 +10,40 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api.system_management import PortalManagement
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class SiteParameterBaseTest(unittest.TestCase):
     """ 聯絡資訊 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.siteParameter = PortalManagement.SiteParameter(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
     def test_ModifyRegisterCopywriting_relatedApi_status_01(self):
         """ 聯絡資訊 - 取得聯絡資訊 狀態"""
-        data = {"WebsiteId": "29"}
+        data = {"WebsiteId": self.getWebsiteId()}
         response_data = self.siteParameter.GetSiteParameter(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_ModifyRegisterCopywriting_relatedApi_status_02(self):
         """ 聯絡資訊 - 更新聯絡資訊 狀態"""
-        data = {"WebsiteId": "29",
+        data = {"WebsiteId": self.getWebsiteId(),
                 "Parameters": [{"Key": "Live800Link", "Value": "http://tw.yahoo.com", "Memo": "在线客服123"},
                                {"Key": "Live800LinkReview", "Value": "https://www.mobile01.com/", "Memo": "12test"},
                                {"Key": "Live800LinkComputer", "Value": "http://www.fnjtd.com/", "Memo": ""},

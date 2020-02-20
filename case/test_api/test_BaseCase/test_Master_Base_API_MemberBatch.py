@@ -12,19 +12,29 @@ from master_api.account_login import User
 from data_config import master_config
 import time
 from base.CommonMethod import UploadFile
+from data_config.system_config import systemSetting
 
 
 class MemberBatchBaseTest(unittest.TestCase):
     """會員批次 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
+        self.agentDetail = member_and_agent.AgentDetail(self.__http)
         self.memberBatch = member_and_agent.MemberBatch(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
+
+    def getDiscountSettingId(self):
+        response_data = self.agentDetail.getAllDiscountSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.DiscountSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
 
     def test_MemberBatch_relatedApi_status_01(self):
         """驗證 會員批次 - 匯入大量帳號 狀態"""
@@ -55,7 +65,7 @@ class MemberBatchBaseTest(unittest.TestCase):
 
     def test_MemberBatch_relatedApi_status_05(self):
         """驗證 會員批次 - 批次會員資料 狀態"""
-        data = {'search': {'Account': master_config.Account}, 'take': 3000, 'skip': 0,
+        data = {'search': {'Account': self.config.test_Member_config()}, 'take': 3000, 'skip': 0,
                 'isSuper': 'false'}
         response_data = self.memberBatch.getBatchData(data)
         status_code = response_data[0]
@@ -64,7 +74,7 @@ class MemberBatchBaseTest(unittest.TestCase):
     def test_MemberBatch_relatedApi_status_06(self):
         """驗證 會員批次 - 強制取回餘額寶 狀態"""
         data = {
-            'search': {'Account': master_config.Account},
+            'search': {'Account': self.config.test_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'}
         }
@@ -75,7 +85,7 @@ class MemberBatchBaseTest(unittest.TestCase):
     def test_MemberBatch_relatedApi_status_07(self):
         """驗證 會員批次 - 批次修改會員狀態 狀態"""
         data = {
-            'search': {'Account': master_config.batchAccount},
+            'search': {'Account': self.config.batch_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
             "newState": "1"
@@ -87,10 +97,10 @@ class MemberBatchBaseTest(unittest.TestCase):
     def test_MemberBatch_relatedApi_status_08(self):
         """驗證 會員批次 - 批次修改會員等級 狀態"""
         data = {
-            'search': {'Account': master_config.batchAccount},
+            'search': {'Account': self.config.batch_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
-            'levelId': 21
+            'levelId': self.getDiscountSettingId()
         }
         response_data = self.memberBatch.batchUpdateMemberLevel(data)
         status_code = response_data[0]
@@ -99,7 +109,7 @@ class MemberBatchBaseTest(unittest.TestCase):
     def test_MemberBatch_relatedApi_status_09(self):
         """驗證 會員批次 - 批次時時歸水歸零 狀態"""
         data = {
-            'search': {'Account': master_config.batchAccount},
+            'search': {'Account': self.config.batch_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
             'password': master_config.Master_Password
@@ -116,7 +126,7 @@ class MemberBatchBaseTest(unittest.TestCase):
 
         # Step2 使用批次人工存入
         data = {
-            'search': {'Account': master_config.batchAccount},
+            'search': {'Account': self.config.batch_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
             'depositParams': {
@@ -139,10 +149,10 @@ class MemberBatchBaseTest(unittest.TestCase):
         """驗證 會員批次 - 批次修改會員標籤 狀態"""
         # Step1 批次修改會員標籤
         data = {
-            'search': {'Account': master_config.batchAccount},
+            'search': {'Account': self.config.batch_Member_config()},
             'isSuper': 'false',
             'batchParam': {'isAll': 'true'},
-            'newTags': [master_config.batchMemberTags],
+            'newTags': [self.config.batchTag_config()],
             'addTagIds': [],
             'deleteTagIds': []
         }
@@ -155,7 +165,7 @@ class MemberBatchBaseTest(unittest.TestCase):
         self.memberTags = member_and_agent.MemberTags(self.__http)
         getMemberTagsData = self.memberTags.getTags({})
         for i in range(len(getMemberTagsData[1]['ReturnObject'])):
-            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == master_config.batchMemberTags:
+            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == self.config.batchTag_config():
                 self.getTagsId = getMemberTagsData[1]['ReturnObject'][i]['Id']
 
         data = {
@@ -167,6 +177,26 @@ class MemberBatchBaseTest(unittest.TestCase):
             'deleteTagIds': [self.getTagsId]
         }
         self.memberBatch.batchAddOrDeleteMemberTags(data)
+
+    def test_MemberBatch_relatedApi_status_12(self):
+        """驗證 會員批次 - 批次更新簡訊驗證 狀態"""
+        # Step1 批次修改簡訊驗證
+        data = {"search": {'Account': self.config.batch_Member_config()}, "isSuper": 'false',
+                "batchParam": {"isAll": 'true'},
+                "isEnable": 'false'}
+        response_data = self.memberBatch.batchUpdateMemberSmsValidation(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberBatch_relatedApi_status_13(self):
+        """驗證 會員批次 - 批次更新電子郵件驗證 狀態"""
+        # Step1 批次修改電子郵件驗證
+        data = {"search": {'Account': self.config.batch_Member_config()}, "isSuper": 'false',
+                "batchParam": {"isAll": 'true'},
+                "isEnable": 'false'}
+        response_data = self.memberBatch.batchUpdateMemberEmailValidation(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':
