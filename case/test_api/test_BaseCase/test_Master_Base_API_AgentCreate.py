@@ -11,22 +11,46 @@ from master_api import member_and_agent
 from master_api.account_login import User
 import random
 from data_config import master_config
+from data_config.system_config import systemSetting
 
 
 class AgentCreateTest(unittest.TestCase):
     """新增代理商 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.AgentCreate = member_and_agent.AgentCreate(self.__http)
         self.AgentSearch = member_and_agent.AgentSearch(self.__http)
+        self.AgentDetail = member_and_agent.AgentDetail(self.__http)
         self.MemberSearch = member_and_agent.MemberSearch(self.__http)
         self.MemberCreate = member_and_agent.MemberCreate(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
+
+    def getCommissionSettingId(self):
+        response_data = self.AgentDetail.getAllCommissionSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.commissionSetting_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getDiscountSettingId(self):
+        response_data = self.AgentDetail.getAllDiscountSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.DiscountSetting_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getMemberLevelId(self):
+        response_data = self.AgentDetail.getAllMemberLevels({})
+        for i in range(len(response_data[1])):
+            if self.config.MemberLevelSetting_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
 
     def test_AgentCreate_baseApi_status_01(self):
         """驗證 新增代理商 - 頁面狀態"""
@@ -78,21 +102,21 @@ class AgentCreateTest(unittest.TestCase):
 
     def test_AgentCreate_baseApi_status_09(self):
         """新增代理商 - 驗證代理帳號是否重複-連線"""
-        data = {"Account": master_config.exist_agent}
+        data = {"Account": self.config.agentLv4()}
         response_data = self.AgentCreate.check_agent_account(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AgentCreate_baseApi_status_10(self):
         """新增代理商 - 驗證代理帳號是否重複-ErrorMessage"""
-        data = {"Account": master_config.exist_agent}
+        data = {"Account": self.config.agentLv4()}
         response_data = self.AgentCreate.check_agent_account(data)
         errorMessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errorMessage, '帐号' + '"' + master_config.exist_agent + '"' + '已存在')  # 帳號"DS_a_player1"已存在
+        self.assertEqual(errorMessage, '帐号' + '"' + self.config.agentLv4() + '"' + '已存在')  # 帳號"DS_a_player1"已存在
 
     def test_AgentCreate_baseApi_status_11(self):
         """新增代理商 - 驗證代理是否存在-連線"""
-        data = {"level": 3, "account": master_config.exist_agent}
+        data = {"level": 3, "account": self.config.agentLv4()}
         response_data = self.AgentCreate.check_parent(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -108,12 +132,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_13(self):
         """新增代理商 - 驗證代理是否新增-代理"""
         account = 'QA_Test' + common_config.now  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -143,14 +167,14 @@ class AgentCreateTest(unittest.TestCase):
         account = 'QATest' + common_config.now + '2'  # 代理帳號
         level = random.randint(2, 3)
         if level == 2:
-            parent = master_config.exist_Lv1_agent
+            parent = self.config.agentLv2()
             Name = '股东'
         elif level == 3:
-            parent = master_config.exist_Lv2_agent
+            parent = self.config.agentLv3()
             Name = '总代理'
         data = {
             "agentLevel": {"Level": level, "Name": Name},
-            "commissionSettingId": "61",
+            "commissionSettingId": self.getCommissionSettingId(),
             "defaultDiscountSettingId": -1,  # -1代表隱藏
             "defaultMemberLevelSettingId": -1,  # -1代表隱藏
             "GroupBank": {"Id": 14, "Name": "北京银行", "Sort": 14, "AccountFormat": 2},
@@ -189,11 +213,11 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_16(self):
         """新增代理商 - 驗證QQ欄位是否可以輸入英文"""
         account = 'QATest' + common_config.now + '3'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId":self.getMemberLevelId(),  # 預設會員等級
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
             "QQ": "a123456",  # QQ
@@ -207,12 +231,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_17(self):
         """新增代理商 - 沒有銀行名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -238,12 +262,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_18(self):
         """新增代理商 - 沒有縣市名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -269,12 +293,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_19(self):
         """新增代理商 - 沒有省分名稱是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -300,12 +324,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_20(self):
         """新增代理商 - 沒有銀行帳戶是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -331,11 +355,11 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_21(self):
         """新增代理商 - 代理沒有會員等級設定是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()  # 代理總帳號:DS_1106_1458
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
             "defaultMemberLevelSettingId": "-1",  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
@@ -362,12 +386,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_22(self):
         """新增代理商 - 代理沒有返水設定是否能夠新增"""
         account = 'QATest' + common_config.now + '5'  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
             "defaultDiscountSettingId": "-1",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號
@@ -393,12 +417,12 @@ class AgentCreateTest(unittest.TestCase):
     def test_AgentCreate_baseApi_status_23(self):
         """代理商新增 - 真實姓名混入非中英文 狀態"""
         account = 'QATest' + common_config.now  # 代理帳號
-        parent = master_config.exist_Lv3_agent  # 代理總帳號:DS_1106_1458
+        parent = self.config.agentLv3()
         data = {
             "agentLevel": {"Level": 4, "Name": "代理"},  # 代理等級
-            "commissionSettingId": "61",  # 佣金設定
-            "defaultDiscountSettingId": "179",  # 預設返水設定
-            "defaultMemberLevelSettingId": "46",  # 預設會員等級
+            "commissionSettingId": self.getCommissionSettingId(),  # 佣金設定
+            "defaultDiscountSettingId": self.getDiscountSettingId(),  # 預設返水設定
+            "defaultMemberLevelSettingId": self.getMemberLevelId(),  # 預設會員等級
             "GroupBank": {"Id": 5, "Name": "光大银行", "Sort": 5, "AccountFormat": 2},  # 銀行資訊
             "parent": parent,  # 上層
             "Account": account,  # 代理商帳號

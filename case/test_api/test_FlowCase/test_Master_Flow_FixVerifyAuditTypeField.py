@@ -7,7 +7,7 @@ import time
 import unittest
 
 from parameterized import parameterized
-
+from data_config.system_config import systemSetting
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import master_config
@@ -19,6 +19,7 @@ class FixVerifyAuditTypeField(unittest.TestCase):
     """驗證存款類型於即時稽核顯示邏輯"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberSearch = member_and_agent.MemberSearch(self.__http)
@@ -45,7 +46,7 @@ class FixVerifyAuditTypeField(unittest.TestCase):
         response_data = self.memberDeposit.deposit_token({})
 
         # Step2 人工存入api 呼叫
-        data = {"AccountsString": master_config.Test_Account,
+        data = {"AccountsString": self.config.test_Member_config(),
                 "AmountString": "1",
                 "AuditType": audit_type,
                 "Audit": 0.01,
@@ -59,7 +60,7 @@ class FixVerifyAuditTypeField(unittest.TestCase):
         self.submit = self.memberDeposit.deposit_submit(data)
 
         # Step3 取得目前帳戶即時稽核詳細
-        data = {"account": master_config.Test_Account}
+        data = {"account": self.config.test_Member_config()}
         response_data = self.memberSearch.get_audit_detail(data)
         deposit_amount = response_data[1]['WithdrawAuditDataList'][0]['Amount']
         discount_amount = response_data[1]['WithdrawAuditDataList'][0]['Discount']

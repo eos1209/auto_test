@@ -10,19 +10,37 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
+from base.CommonMethod import PortalExecution
+from master_api import member_and_agent
+from base.CommonMethod import SetDelayTime
+from data_config.system_config import systemSetting
 
 
 class VerifyWithdrawBaseTest(unittest.TestCase):
     """ 取款申请审核 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 參數設定
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)
+        self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細資料
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
+
+    def getId(self):
+        SetDelayTime()
+        data = {"count": 100, "query": {"search": 'null'}}
+        response_data = self.verifyWithdraw.load(data)
+        getId = response_data[1]['Data'][0]['Id']
+        return getId
+
+    def member_id(self):
+        data = {"connectionId": self.user.info(), "account": self.config.test_Member_config()}
+        response_data = self.memberDetail.getDetail(data)
+        return response_data[1]['Member']['Id']
 
     def test_VerifyWithdraw_relatedApi_status_01(self):
         """驗證 取款申请审核 - 取得頁面"""
@@ -71,6 +89,114 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
                     {"search": None}
                 }
         response_data = self.verifyWithdraw.load(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+        data = {"id": self.member_id()}
+        response_data = self.memberDetail.resetMoneyPassword(data)
+        getMoneyPassword = response_data[1]['MoneyPassword']
+        self.portal = PortalExecution()
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_07(self):
+        """驗證 取款申请审核 - 人工出款"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.allow(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+        data = {"id":self.member_id()}
+        response_data = self.memberDetail.resetMoneyPassword(data)
+        getMoneyPassword = response_data[1]['MoneyPassword']
+        self.portal = PortalExecution()
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_08(self):
+        """驗證 取款申请审核 - 退回"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.deny(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+        data = {"id": self.member_id()}
+        response_data = self.memberDetail.resetMoneyPassword(data)
+        getMoneyPassword = response_data[1]['MoneyPassword']
+        self.portal = PortalExecution()
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+
+    def test_VerifyWithdraw_relatedApi_status_09(self):
+        """驗證 取款申请审核 - 拒絕"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.reject(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_10(self):
+        """取款申请审核-取得搜尋取款申请條件框頁面 狀態"""
+        response_data = self.verifyWithdraw.detailDialog({})
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_11(self):
+        """取款申请审核-取得取款審核申請詳細資料 狀態"""
+        Id = self.getId()
+        data = {"id": Id, "connectionId": self.user.info()}
+        response_data = self.verifyWithdraw.getDetail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_12(self):
+        """取款申请审核-取得可使用代付列表 狀態"""
+        response_data = self.verifyWithdraw.getUseList({})
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_13(self):
+        """取款申请审核-檢視代付歷程 狀態"""
+        Id = self.getId()
+        data = {"withdrawApplicationId": Id}
+        response_data = self.verifyWithdraw.getHistories(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_14(self):
+        """取款申请审核-更新交易紀錄的前台備注 狀態"""
+        Id = self.getId()
+        data = {"id": Id, "portalMemo": "@QA_automation"}
+        response_data = self.verifyWithdraw.updatePortalMemo(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_15(self):
+        """取款申请审核-更新交易紀錄備注 狀態"""
+        Id = self.getId()
+        data = {"id": Id, "Memo": "@QA_automation"}
+        response_data = self.verifyWithdraw.updateMemo(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_16(self):
+        """取款申请审核-取得稽核明細頁面"""
+        response_data = self.verifyWithdraw.auditDetail({})
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_17(self):
+        """取款申请审核-取得稽核明細詳細資料 狀態"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.getAuditDetail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_18(self):
+        """取款申请审核-結束檢視 狀態"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.exitReadWithdraw(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

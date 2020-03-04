@@ -321,6 +321,20 @@ class VerifyWithdraw(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def getUseList(self, data):
+        # API Name =>取款申请审核-取得可使用代付列表
+        # body--
+        path = '/ThirdPartyPayout/GetUseList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getHistories(self, data):
+        # API Name =>取款申请审核-檢視代付歷程
+        # body--
+        path = '/ThirdPartyPayout/GetHistories'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 余额宝看板
 class YuebaoBoard(object):

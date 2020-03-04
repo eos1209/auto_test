@@ -10,12 +10,14 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import reports
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class ContributionBaseTest(unittest.TestCase):
     """貢獻金查詢 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.contribution = reports.Contribution(self.__http)
@@ -49,7 +51,7 @@ class ContributionBaseTest(unittest.TestCase):
         """驗證 取得詳情 狀態"""
         data = {"date": common_config.TodayDate,
                 "halfYear": "false",
-                "gameSupplier": 41}
+                "gameSupplier": self.config.Contribution_gameSupplier()}
         response_data = self.contribution.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -59,7 +61,7 @@ class ContributionBaseTest(unittest.TestCase):
         data = {
             "date": common_config.TodayDate,
             "halfYear": 'false',
-            "gameSupplier": 41
+            "gameSupplier": self.config.Contribution_gameSupplier()
         }
         response_data = self.contribution.getGameSupplierDetail(data)
         status_code = response_data[0]
@@ -79,7 +81,7 @@ class ContributionBaseTest(unittest.TestCase):
     def test_Contribution_relatedApi_status_07(self):
         """驗證 取得娛樂城獎池彩金清單 狀態"""
         data = {
-            "gameSupplier": 41,
+            "gameSupplier": self.config.Contribution_gameSupplier(),
             "pageSize": 20,
             "pageIndex": 0,
             "halfYear": 'true',
@@ -92,7 +94,7 @@ class ContributionBaseTest(unittest.TestCase):
     def test_Contribution_relatedApi_status_08(self):
         """驗證 取得遊戲獎池彩金清單 狀態"""
         data = {
-            "gameSupplier": 41,
+            "gameSupplier": self.config.Contribution_gameSupplier(),
             "gameTypeId": 8280,
             "pageSize": 20,
             "pageIndex": 0,

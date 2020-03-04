@@ -10,12 +10,14 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import account_management
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class MemberTransactionBaseTest(unittest.TestCase):
     """交易記錄查詢 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberTransaction = account_management.MemberTransaction(self.__http)
@@ -28,13 +30,13 @@ class MemberTransactionBaseTest(unittest.TestCase):
         # 取得單筆交易Id(交易單號) - 單一會員紀錄
         if mode == 1:
             # 撈全部
-            searchData = {"Account": master_config.Account,
+            searchData = {"Account": self.config.test_Member_config(),
                           "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual", "Bonus", "Discount",
                                     "Payoff", "AnyTimeDiscount", "Yuebao", "Other"]}
             return self.memberTransaction.search(searchData)
         elif mode == 2:
             # 實際存提資料
-            searchData = {"Account": master_config.Account,
+            searchData = {"Account": self.config.test_Member_config(),
                           "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual"]
                           }
             return self.memberTransaction.search(searchData)
@@ -88,7 +90,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_06(self):
         """驗證 更新實際存提狀態 2019/12/03"""
-        searchData = {"Account": master_config.Account,
+        searchData = {"Account": self.config.test_Member_config(),
                       "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual"]}  # 篩選有實際存提的資料
         search = self.memberTransaction.search(searchData)
         data = {"id": search[1]['PageData'][0]['Id'],
@@ -100,7 +102,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
 
     def test_MemberTransaction_baseApi_status_07(self):
         """驗證 匯出狀態"""
-        data = {"Account": master_config.Account,
+        data = {"Account": self.config.test_Member_config(),
                 "TimeBegin": common_config.BeginDate,
                 "Types": ["Account",
                           "ThirdPartyPayment",

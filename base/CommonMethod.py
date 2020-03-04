@@ -5,10 +5,18 @@
 
 import logging
 from data_config import common_config
+from data_config.system_config import systemSetting
 from selenium import webdriver
+from selenium.webdriver.common.touch_actions import TouchActions
 from time import sleep
 from data_config import portal_config
 import time
+from master_api.system_management import PortalManagement
+from master_api.account_login import User
+from base.httpRequest import HttpRequest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def get_logger():
@@ -53,18 +61,43 @@ class UploadFile(object):
         self.open_file.close()
 
 
+class IsAnnouncementList(object):  # 判斷前台管理後端的公告是否有開啟，減少因為公告關係而讓案例發生錯誤
+    def __init__(self):
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.AnnouncementManagement = PortalManagement.AnnouncementManagement(self.__http)
+        self.user.login()
+
+    def IsEnable(self):
+        data = {"WebsiteId": "29", "Device": "1"}
+        response_data = self.AnnouncementManagement.getAnnouncementList(data)
+        for i in range(len(response_data[1]['List'])):
+            if bool(response_data[1]['List'][i]['IsEnable'] == True):  # 檢查 Portal端的公告設定狀態
+                return 'true'
+
+        return 'false'
+
+    def logout(self):
+        self.user.logout()
+
+
 class PortalExecution(object):
     # Portal端
     def __init__(self):
+        self.config = systemSetting()  # 參數設定
         self.chrome_Path = "D:\chromedriver.exe"
         self.driver = webdriver.Chrome(self.chrome_Path)
-        self.windowSize = self.driver.set_window_size(1900, 1020)
-        self.link = self.driver.get(portal_config.Portal_address)
+        self.windowSize = self.driver.maximize_window()
+        self.link = self.driver.get(self.config.Portal_config())
+        self.IsEnableAnnouncementList = IsAnnouncementList()  # 公告判斷
 
     def Login(self, Account, Password):  # 登入
         sleep(3)
-        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        sleep(3)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(3)
+        self.IsEnableAnnouncementList.logout()
         self.driver.find_element_by_xpath('//*[@id="login_account"]').send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath('//*[@id="login_password"]').send_keys(Password)  # 會員密碼
         self.driver.find_element_by_xpath('//*[@id="check-code-wrapper"]/input').send_keys(
@@ -73,35 +106,55 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath('//*[@id="login-box"]').click()
         sleep(3)
 
+    def Login_Fail(self, Account, Password):
+        self.Login(Account, Password)
+        try:
+            WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "btn-confirm")))
+            self.driver.find_element_by_class_name('btn-confirm').click()
+        finally:
+            self.driver.quit()
+
     def Register(self, Account):  # 註冊
         sleep(3)
-        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        sleep(3)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(3)
         self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
-        self.driver.find_element_by_id("parentAccount").send_keys("QA_Test11070110")
+        self.driver.find_element_by_id("parentAccount").send_keys(
+            "QA_Test11070110")  # 05:QA_Test11070110 06:DS_ag_01106
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
+        self.driver.find_element_by_class_name('btn-click').click() # 其他選項
+        sleep(1)
+        self.driver.find_element_by_xpath('//*[@id="fieldset-more-option"]/div[1]/div[1]/input').send_keys(
+            'QATest')  # 真實姓名
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
         self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
         sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/button[2]').click()
+        self.driver.find_element_by_class_name('btn-confirm').click()
+        self.driver.quit()
 
     def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
         self.Login(Account, Password)
         sleep(2)
-        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        sleep(2)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(1)
         self.driver.find_element_by_xpath('//*[@id="account-nav"]/ul/li[2]/a').click()
         sleep(2)
         self.driver.find_element_by_xpath('//*[@id="inputProvince"]').send_keys('QATest')  # 省分
         self.driver.find_element_by_xpath('//*[@id="inputCity"]').send_keys('QATest')  # 縣市
         self.driver.find_element_by_xpath('//*[@id="inputAccount"]').send_keys(int(time.time()))  # 銀行帳號
         self.driver.find_element_by_xpath('//*[@id="account-panel"]/div[2]/form/div[5]/div/button').click()  # 提交
+        self.driver.quit()
 
     def ChangePassword(self, Account, Password):  # 修改密碼
         self.Login(Account, Password)
@@ -114,36 +167,156 @@ class PortalExecution(object):
             'a123456')  # 確認新密碼
         self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[4]/div/button[1]').click()  # 變更
         sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/div[3]/ button[2]').click()
+        self.driver.find_element_by_class_name('btn-confirm').click()
         sleep(2)
+        self.driver.quit()
 
     def Trail(self):  # 試玩帳號註冊
         sleep(3)
-        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        sleep(3)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(3)
         self.driver.find_element_by_xpath('//*[@id="header"]/div[1]/div/ul/li[1]/a').click()
         sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input').send_keys(
-            int(time.time()))  # 手機號碼
-        self.driver.find_element_by_xpath(
-            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/div[1]/input').send_keys(
-            portal_config.PortalCheckCode)  # 驗證碼
+        self.driver.find_element_by_class_name('mobile').send_keys(int(time.time()))  # 手機號碼
+        self.driver.find_element_by_name('checkCode').send_keys(portal_config.PortalCheckCode)  # 驗證碼
         sleep(2)
-        self.driver.find_element_by_xpath(
-            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/button[1]').click()  # 提交
+        self.driver.find_element_by_class_name('modal-nt-apply').click()  # 提交
         sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[14]/div/div/div[3]/button[2]').click()  # 確定
+        self.driver.find_element_by_class_name('btn-confirm').click()  # 確定
 
     def Trail_Login(self, account, password):  # 試玩帳號登入
         self.Trail()
         sleep(2)
-        self.driver.find_element_by_xpath(
-            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input[1]').send_keys(account)  # 試玩帳號
-        self.driver.find_element_by_xpath(
-            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/input[2]').send_keys(password)  # 試玩密碼
+        self.driver.find_element_by_name('username').send_keys(account)  # 試玩帳號
+        self.driver.find_element_by_name('password').send_keys(password)  # 試玩密碼
+        sleep(2)
+        self.driver.find_element_by_class_name('modal-nt-login').click()
+        sleep(2)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(2)
+        trailAccount = self.driver.find_element_by_class_name('account').text
+        self.driver.quit()
+        return trailAccount
+
+    def resetMoneyPassword(self, account, password, MoneyPassword):  # 變更取款密碼
+        newpassword = '123456'
+        self.Login(account, password)
+        sleep(2)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(2)
+        self.IsEnableAnnouncementList.logout()
+        self.driver.find_element_by_xpath('//*[@id="account-nav"]/ul/li[5]/a').click()
         sleep(2)
         self.driver.find_element_by_xpath(
-            '//*[@id="ng-app"]/body/div[13]/div/div/div/div/div[2]/form/button').click()  # 立即試玩
+            '//*[@id="change-money-pwd"]/div[2]/div/div/form/div[1]/div/div/input').send_keys(MoneyPassword)
+        self.driver.find_element_by_xpath(
+            '//*[@id="change-money-pwd"]/div[2]/div/div/form/div[2]/div/div/input').send_keys(newpassword)
+        self.driver.find_element_by_xpath(
+            '//*[@id="change-money-pwd"]/div[2]/div/div/form/div[3]/div/div/input').send_keys(newpassword)
+        self.driver.find_element_by_xpath(
+            '//*[@id="change-money-pwd"]/div[2]/div/div/form/div[4]/div/button[1]').click()
+        sleep(1)
+        self.driver.find_element_by_class_name('btn-confirm').click()
+        self.driver.quit()
 
-    def close(self):
-        self.driver.close()
+    def verifyWithdraw(self, account, password, MoneyPassword):  # 線上取款  ---PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.Login(account, password)
+        sleep(2)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="account-nav"]/ul/li[2]/a').click()
+        sleep(2)
+        self.driver.find_element_by_name('amount').send_keys('1')
+        self.driver.find_element_by_id('money-pwd-input').send_keys(MoneyPassword)
+        self.driver.find_element_by_class_name('btn-submit').click()
+        sleep(2)
+        self.driver.find_element_by_class_name('btn-confirm').click()
+        self.driver.quit()
+
+    def verifyDeposit(self, account, password):  # 公司入款 - 微信支付
+        self.Login(account, password)
+        sleep(1)
+        self.driver.get(self.config.Portal_config() + '/CompanyDeposit/NewIndex')
+        sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/ul/li[2]').click()
+        sleep(1)
+        self.driver.find_element_by_xpath(
+            '/html/body/div[2]/div[2]/div/div[1]/div[1]/form/div[3]/div/div[1]/div/input').click()
+        sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/form/div[4]/button').click()
+        self.driver.find_element_by_xpath('//*[@id="amount"]').send_keys('5')
+        self.driver.find_element_by_xpath('//*[@id="depositName"]').send_keys('QA_automation')
+        sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[2]/form/div/button[2]').click()
+        sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[3]/button[1]').click()
+        sleep(2)
+        verifyDepositId = self.driver.find_element_by_xpath(
+            '/html/body/div[2]/div[2]/div/div[1]/div[3]/div[1]/div[2]/ul/li[5]').text
+        self.driver.quit()
+        return verifyDepositId  # 訂單號
+
+    def ThirdPartyPayment(self, account, password):  # 線上支付
+        self.Login(account, password)
+        sleep(1)
+        self.driver.get(self.config.Portal_config() + '/Payment?type=UnionScanPayment')  # 方案C:銀聯條碼支付
+        sleep(5)
+        self.driver.find_element_by_name('amount').send_keys('1')
+        sleep(5)
+        self.driver.find_element_by_xpath('*//form/div[3]/button').click()
+        sleep(2)
+        self.driver.quit()
+
+    def SiteMail(self, account, password):  # 站內信件
+        self.Login(account, password)
+        sleep(1)
+        self.driver.get(self.config.Portal_config() + '/SiteMail')
+        sleep(2)
+        self.driver.find_element_by_class_name('btn-primary').click()
+        sleep(5)
+        self.driver.find_element_by_name('subject').send_keys('@auto_SiteMail_ByPortal')
+        sleep(10)
+        self.driver.find_element_by_class_name('cke_button__horizontalrule_icon').click()
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/form/div[2]/button[2]').click()
+        sleep(1)
+        self.driver.find_element_by_class_name('btn-confirm').click()
+        sleep(2)
+        self.driver.quit()
+
+
+class mobileExecution(object):
+    # Mobile端
+    def __init__(self):
+        self.config = systemSetting()  # 參數設定
+        self.chrome_Path = "D:\chromedriver.exe"
+        option = webdriver.ChromeOptions()
+        mobile_emulation = {"deviceName": "iPhone X"}
+        option.add_experimental_option('mobileEmulation', mobile_emulation)
+        self.driver = webdriver.Chrome(self.chrome_Path, chrome_options = option)
+        self.windowSize = self.driver.maximize_window()
+        self.link = self.driver.get(self.config.Mobile_config())
+
+    def mobile_Login_Fail(self, Account, Password):  # 登入失敗
+        self.driver.get(self.config.Mobile_config() + '/#!/POrigin/Login')
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="login_account"]').send_keys(Account)  # 會員帳號
+        self.driver.find_element_by_xpath('//*[@id="login_password"]').send_keys(Password)  # 會員密碼
+        self.driver.find_element_by_xpath('//*[@id="check-code-wrapper"]/input').send_keys(
+            portal_config.PortalCheckCode)  # 萬用碼
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button').click()  # 登入
+        try:
+            WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "btn-confirm")))
+            self.driver.find_element_by_class_name('btn-confirm').click()
+        finally:
+            self.driver.quit()

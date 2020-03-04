@@ -60,7 +60,7 @@ class CheckGameDetailUrl(unittest.TestCase):
         # ("Verify_BetDetailUrl_SabaHorse", 'SabaHorse'),
         # ("Verify_BetDetailUrl_SabaLiveCasino", 'SabaLiveCasino'),
         # 2019/5/29 新增
-        ("Verify_BetDetailUrl_BfLottery", 'BfLottery'),
+        # ("Verify_BetDetailUrl_BfLottery", 'BfLottery'),
         ("Verify_BetDetailUrl_DhBoard", 'DhBoard'),
         ("Verify_BetDetailUrl_DtBoard", 'DtBoard'),
         ("Verify_BetDetailUrl_EBetReal", 'EBetReal'),
@@ -70,6 +70,8 @@ class CheckGameDetailUrl(unittest.TestCase):
         ("Verify_BetDetailUrl_Sunbet2Real", 'Sunbet2Real'),
         ("Verify_BetDetailUrl_SunbetReal", 'SunbetReal'),
         ("Verify_BetDetailUrl_LtLottery", 'LtLottery'),
+        ("Verify_BetDetailUrl_Im2Slot", 'Im2Slot'),
+        ("Verify_BetDetailUrl_Im2Board", 'Im2Board'),
         # 下架
         # ("Verify_BetDetailUrl_Mg3Real", 'Mg3Real'),
         # ("Verify_BetDetailUrl_Mg3Slot", 'Mg3Slot'),

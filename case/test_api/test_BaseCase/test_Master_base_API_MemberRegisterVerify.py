@@ -13,12 +13,14 @@ from master_api import member_and_agent
 from master_api.account_login import User
 from time import sleep
 from base.CommonMethod import PortalExecution
+from data_config.system_config import systemSetting
 
 
 class MemberRegisterVerifyTest(unittest.TestCase):
     """會員註冊審核 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)
@@ -117,7 +119,7 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_12(self):
         """驗證 會員註冊審核-新增代理商項目"""
-        data = {'item': master_config.exist_agent}
+        data = {'item': self.config.agentLv4()}
         response_data = self.memberVerify.createAgentItem(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -131,12 +133,12 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.deleteAgentItem(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+        account = 'QATest' + common_config.now # 14 test前置作業
+        self.portal = PortalExecution()
+        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_14(self):
         """驗證 會員註冊審核-審核會員"""
-        account = 'QATest' + common_config.now
-        self.portal = PortalExecution()
-        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         account = getData[1]['Data'][0]['SubmitAccount']
@@ -146,7 +148,6 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         deny_id = getData[1]['Data'][0]['Id']  # 驗證完成後拒絕帳號
         data = {'Id': deny_id}  # 拒絕帶入id
         self.memberVerify.deny(data)  # 拒絕
-        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
         sleep(1)
 
@@ -156,12 +157,12 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.getHistoryList(listData)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+        account = 'QATest' + common_config.now # 16 test前置作業
+        self.portal = PortalExecution()
+        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_16(self):
         """驗證 會員註冊審核-同意"""
-        account = 'QATest' + common_config.now
-        self.portal = PortalExecution()
-        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         Id = getData[1]['Data'][0]['Id']
@@ -170,7 +171,6 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         data = {'Id': Id, 'verifyAccount': verifyAccount}
         response_data = self.memberVerify.approve(data)
         status_code = response_data[0]
-        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberRegisterVerify_baseApi_status_17(self):
@@ -182,19 +182,18 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.updateMemo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+        account = 'QATest' + common_config.now # 18前置作業
+        self.portal = PortalExecution()
+        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_18(self):
         """驗證 會員註冊審核-拒絕"""
-        account = 'QATest' + common_config.now
-        self.portal = PortalExecution()
-        self.portal.Register(account)
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         accountId = getData[1]['Data'][0]['Id']
         data = {'Id': accountId}
         response_data = self.memberVerify.deny(data)
         status_code = response_data[0]
-        self.portal.close()
         self.assertEqual(status_code, common_config.Status_Code)
         sleep(1)
 

@@ -97,6 +97,18 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def getSearchCount(self, data):
+        # 取得總筆數
+        path = '/Member/GetSearchCount'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getSearchSumBalance(self, data):
+        # 取得總金額
+        path = '/Member/GetSearchSumBalance'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 會員標籤
 class MemberTags(object):
@@ -193,6 +205,18 @@ class MemberBatch(object):
     def batchAddOrDeleteMemberTags(self, data):
         # 批次修改標籤
         path = '/MemberTag/BatchAddOrDeleteMemberTags'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def batchUpdateMemberSmsValidation(self, data):
+        # 批次修改簡訊驗證
+        path = '/Member/BatchUpdateMemberSmsValidation'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def batchUpdateMemberEmailValidation(self, data):
+        # 批次修改電子郵件驗證
+        path = '/Member/BatchUpdateMemberEmailValidation'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

@@ -10,19 +10,23 @@ from base.CommonMethod import SetDelayTime
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
+from master_api import system_management
 from master_api.account_login import User
+from data_config.system_config import systemSetting
 
 
 class MemberDetailBaseTest(unittest.TestCase):
     """會員詳細資料 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberDetail = member_and_agent.MemberDetail(self.__http)
         self.searchMember = member_and_agent.MemberSearch(self.__http)
         self.deposit = member_and_agent.MemberDeposit(self.__http)
         self.withDraw = member_and_agent.MemberWithdraw(self.__http)
+        self.AgentDetail = member_and_agent.AgentDetail(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -30,7 +34,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     # 取得會員的 MemberId
     def GetMemberId(self):
-        data = {'Account': master_config.Account,
+        data = {'Account': self.config.MasterMember(),
                 'connectionId': self.user.info()}
         response_data = self.searchMember.search(data)
         memberId = response_data[1]['PageData'][0]['Id']
@@ -38,9 +42,23 @@ class MemberDetailBaseTest(unittest.TestCase):
         # time.sleep(3)
         return memberId
 
+    def getDiscountSetting2(self):
+        response_data = self.AgentDetail.getAllDiscountSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.DiscountSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getMemberLevelId(self):
+        response_data = self.AgentDetail.getAllMemberLevels({})
+        for i in range(len(response_data[1])):
+            if self.config.MemberLevelSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
     # 取得會員詳細資料
     def GetMemberDetail(self):
-        data = {'connectionId': self.user.info(), 'account': master_config.Account}
+        data = {'connectionId': self.user.info(), 'account': self.config.MasterMember()}
         response_data = self.memberDetail.getDetail(data)
         memberDetail = response_data[1]
         return memberDetail
@@ -48,7 +66,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def depositSubmitAudit(self):
         depositToken = self.deposit.deposit_token({})
         data = {
-            'AccountsString': master_config.Account,
+            'AccountsString':self.config.MasterMember(),
             'Type': 4,
             'AuditType': 'Deposit',
             'DepositToken': depositToken[1],
@@ -82,7 +100,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_02(self):
         """會員詳細資料 - 取得會員詳細資料 狀態"""
-        data = {'connectionId': self.user.info(), 'account': master_config.Account}
+        data = {'connectionId': self.user.info(), 'account': self.config.test_Member_config()}
         response_data = self.memberDetail.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -114,7 +132,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_06(self):
         """會員詳細資料 - 更新會員等級 狀態"""
         getMemberId = self.GetMemberId()
-        data = {'memberId': getMemberId, 'levelId': 21}
+        data = {'memberId': getMemberId, 'levelId': self.getMemberLevelId()}
         response_data = self.memberDetail.updateMemberLevel(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -122,7 +140,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_07(self):
         """會員詳細資料 - 更新返水等級 狀態"""
         getMemberId = self.GetMemberId()
-        data = {'memberId': getMemberId, 'settingId': 137}
+        data = {'memberId': getMemberId, 'settingId': self.getDiscountSetting2()}
         response_data = self.memberDetail.updateDiscountSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -135,7 +153,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_09(self):
         """會員詳細資料 - 取得會員基本資料 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.test_Member_config()}
         response_data = self.memberDetail.getMemberInfo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -168,7 +186,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_12(self):
         """會員詳細資料 - 取得銀行資料 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.getBankAccount(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -183,7 +201,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_14(self):
         """會員詳細資料 - 更新銀行資料 狀態"""
         data = {
-            'memberAccount': master_config.Account,
+            'memberAccount': self.config.MasterMember(),
             'GroupBankId': 1,
             'Province': 'fffff',
             'City': 'fffff',
@@ -246,7 +264,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_20(self):
         """會員詳細資料 -取得稽核詳細資料  狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.getAuditDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -259,7 +277,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_22(self):
         """會員詳細資料 -取得會員稽核列表資料 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.getDepositList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -268,7 +286,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_23(self):
         """會員詳細資料 -更新稽核資料 狀態"""
         self.depositSubmitAudit()
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         getMemberId = self.GetMemberId()
         depositData = self.memberDetail.getDepositList(data)
         amountAudit = int(time.time())  # 修改金額為現在時間戳
@@ -282,7 +300,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_24(self):
         """會員詳細資料 -清除稽核 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.clearAudit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -336,7 +354,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_31(self):
         """會員詳細資料 -取得代理 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.getAgents(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -344,8 +362,8 @@ class MemberDetailBaseTest(unittest.TestCase):
     def test_MemberDetail_relatedApi_status_32(self):
         """會員詳細資料 -更換代理 狀態"""
         data = {
-            'memberAccount': master_config.Account,
-            'newAgentAccount': master_config.exist_agent
+            'memberAccount': self.config.MasterMember(),
+            'newAgentAccount': self.config.agentLv4()
         }
         response_data = self.memberDetail.changeAgentSubmit(data)
         status_code = response_data[0]
@@ -359,7 +377,7 @@ class MemberDetailBaseTest(unittest.TestCase):
 
     def test_MemberDetail_relatedApi_status_34(self):
         """會員詳細資料 -會員歷史紀錄 狀態"""
-        data = {'account': master_config.Account}
+        data = {'account': self.config.MasterMember()}
         response_data = self.memberDetail.historyInit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

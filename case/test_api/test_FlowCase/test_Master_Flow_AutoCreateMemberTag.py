@@ -12,6 +12,7 @@ from master_api.account_login import User
 from data_config import master_config
 from base.CommonMethod import PortalExecution
 from base.CommonMethod import SetDelayTime
+from data_config.system_config import systemSetting
 
 
 class autoCreateMemberTag(unittest.TestCase):
@@ -24,6 +25,7 @@ class autoCreateMemberTag(unittest.TestCase):
     # step 4:從會員歷史紀錄中驗證是否有這筆紀錄
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.memberCreate = member_and_agent.MemberCreate(self.__http)
@@ -64,7 +66,7 @@ class autoCreateMemberTag(unittest.TestCase):
     def test_autoCreateMemberTag_02(self):
         """驗證 Master新增會員->修改會員密碼->再登入"""
         account = "QATags" + common_config.now
-        agent = master_config.exist_agent
+        agent = self.config.agentLv4()
         data = {'Account': account,
                 'Agent': agent,
                 'memo': '@autoMemberTags-fromPortal'}
