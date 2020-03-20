@@ -9,6 +9,8 @@ from data_config.system_config import systemSetting
 from selenium import webdriver
 from selenium.webdriver.common.touch_actions import TouchActions
 from time import sleep
+from master_api import reports
+from master_api import Home
 from data_config import portal_config
 import time
 from master_api.system_management import PortalManagement
@@ -17,6 +19,7 @@ from base.httpRequest import HttpRequest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import os
 
 
 def get_logger():
@@ -35,10 +38,55 @@ def SetDelayTime():
     sleep(common_config.DelayTime)
 
 
+class system_config_Setting(object):
+    # 抓取所有的接口分類/Home底下、返水等級、會員等級
+    def __init__(self):
+        self.config = systemSetting()  # 系統參數
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.user.login()
+        self.home = Home.Home(self.__http)
+
+    def getDiscountSettingId(self):  # 返水設定
+        response_data = self.home.getAllDiscountSettings({})
+        for i in range(len(response_data[1])):
+            if self.config.DiscountSetting_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
+
+    def getMemberLevelId(self):  # 會員等級
+        level = self.home.getAllMemberLevels({})
+        for i in range(len(level[1])):
+            if self.config.MemberLevelSetting_config() == level[1][i]['Text']:
+                Id = level[1][i]['Value']
+                return Id
+
+
+class GameHallType(object):
+    # 活動類娛樂城種類
+    def __init__(self):
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.user.login()
+        self.betRecord = reports.BetRecords(self.__http)
+
+    def GameCategories(self):
+        # 取得娛樂城種類
+        gameCategories = []
+        response_data = self.betRecord.getSupplierCategories({})
+        categories = len(response_data[1])
+        print(categories)  # 總共娛樂城數量
+        for i in range(categories):
+            for j in range(len(response_data[1][i]['Categories'])):
+                gameCategories.append(response_data[1][i]['Categories'][j]['PropertyName'])
+        return gameCategories
+
+
 class UploadFile(object):
     # 上傳檔案
     def __init__(self, path, upload_name, filename):
-        self.path = common_config.file_Path + path  # 檔案路徑
+        file_path = 'D:/automation_test_project/test_data/' + path  # 檔案路徑
+        self.path = os.path.abspath(file_path)
         self.upload_name = upload_name  # 上傳欄位
         self.filename = filename  # 上傳檔名
         self.open_file = open(self.path, 'rb')  # 開啟檔案
@@ -63,13 +111,22 @@ class UploadFile(object):
 
 class IsAnnouncementList(object):  # 判斷前台管理後端的公告是否有開啟，減少因為公告關係而讓案例發生錯誤
     def __init__(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
         self.AnnouncementManagement = PortalManagement.AnnouncementManagement(self.__http)
         self.user.login()
 
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
     def IsEnable(self):
-        data = {"WebsiteId": "29", "Device": "1"}
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "1"}
         response_data = self.AnnouncementManagement.getAnnouncementList(data)
         for i in range(len(response_data[1]['List'])):
             if bool(response_data[1]['List'][i]['IsEnable'] == True):  # 檢查 Portal端的公告設定狀態
@@ -85,7 +142,8 @@ class PortalExecution(object):
     # Portal端
     def __init__(self):
         self.config = systemSetting()  # 參數設定
-        self.chrome_Path = "D:\chromedriver.exe"
+        path = "D:/chromedriver.exe"
+        self.chrome_Path = os.path.abspath(path)
         self.driver = webdriver.Chrome(self.chrome_Path)
         self.windowSize = self.driver.maximize_window()
         self.link = self.driver.get(self.config.Portal_config())
@@ -123,27 +181,25 @@ class PortalExecution(object):
             sleep(3)
         self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
-        self.driver.find_element_by_id("parentAccount").send_keys(
-            "QA_Test11070110")  # 05:QA_Test11070110 06:DS_ag_01106
+        self.driver.find_element_by_class_name('btn-click').click()  # 其他選項
+        sleep(2)
+        self.driver.find_element_by_id("parentAccount").send_keys(self.config.agentLv4())
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
-        self.driver.find_element_by_class_name('btn-click').click() # 其他選項
         sleep(1)
-        self.driver.find_element_by_xpath('//*[@id="fieldset-more-option"]/div[1]/div[1]/input').send_keys(
-            'QATest')  # 真實姓名
+        self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
         self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
         sleep(3)
         self.driver.find_element_by_class_name('btn-confirm').click()
-        self.driver.quit()
 
     def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
         self.Login(Account, Password)
-        sleep(2)
+        sleep(7)
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -158,7 +214,7 @@ class PortalExecution(object):
 
     def ChangePassword(self, Account, Password):  # 修改密碼
         self.Login(Account, Password)
-        sleep(2)
+        sleep(7)
         self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[1]/div/div/input').send_keys(
             Password)  # 原始密碼
         self.driver.find_element_by_xpath('//*[@id="change-pwd"]/div[2]/form/div[2]/div/div/input').send_keys(
@@ -169,7 +225,6 @@ class PortalExecution(object):
         sleep(2)
         self.driver.find_element_by_class_name('btn-confirm').click()
         sleep(2)
-        self.driver.quit()
 
     def Trail(self):  # 試玩帳號註冊
         sleep(3)
@@ -205,7 +260,7 @@ class PortalExecution(object):
     def resetMoneyPassword(self, account, password, MoneyPassword):  # 變更取款密碼
         newpassword = '123456'
         self.Login(account, password)
-        sleep(2)
+        sleep(7)
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -227,7 +282,7 @@ class PortalExecution(object):
 
     def verifyWithdraw(self, account, password, MoneyPassword):  # 線上取款  ---PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
         self.Login(account, password)
-        sleep(2)
+        sleep(7)
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -237,7 +292,7 @@ class PortalExecution(object):
         self.driver.find_element_by_name('amount').send_keys('1')
         self.driver.find_element_by_id('money-pwd-input').send_keys(MoneyPassword)
         self.driver.find_element_by_class_name('btn-submit').click()
-        sleep(2)
+        sleep(5)
         self.driver.find_element_by_class_name('btn-confirm').click()
         self.driver.quit()
 
@@ -267,7 +322,7 @@ class PortalExecution(object):
     def ThirdPartyPayment(self, account, password):  # 線上支付
         self.Login(account, password)
         sleep(1)
-        self.driver.get(self.config.Portal_config() + '/Payment?type=UnionScanPayment')  # 方案C:銀聯條碼支付
+        self.driver.get(self.config.Portal_config() + self.config.verifyDeposit())  # 方案C:銀聯條碼支付
         sleep(5)
         self.driver.find_element_by_name('amount').send_keys('1')
         sleep(5)
@@ -292,31 +347,42 @@ class PortalExecution(object):
         sleep(2)
         self.driver.quit()
 
-
-class mobileExecution(object):
-    # Mobile端
-    def __init__(self):
-        self.config = systemSetting()  # 參數設定
-        self.chrome_Path = "D:\chromedriver.exe"
-        option = webdriver.ChromeOptions()
-        mobile_emulation = {"deviceName": "iPhone X"}
-        option.add_experimental_option('mobileEmulation', mobile_emulation)
-        self.driver = webdriver.Chrome(self.chrome_Path, chrome_options = option)
-        self.windowSize = self.driver.maximize_window()
-        self.link = self.driver.get(self.config.Mobile_config())
-
-    def mobile_Login_Fail(self, Account, Password):  # 登入失敗
-        self.driver.get(self.config.Mobile_config() + '/#!/POrigin/Login')
+    def AgentLink(self, link, Account):
+        self.driver.get(link)
+        sleep(7)
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="login_account"]').send_keys(Account)  # 會員帳號
-        self.driver.find_element_by_xpath('//*[@id="login_password"]').send_keys(Password)  # 會員密碼
-        self.driver.find_element_by_xpath('//*[@id="check-code-wrapper"]/input').send_keys(
+        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
+        self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
+        self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
+        sleep(1)
+        self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
+        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button').click()  # 登入
-        try:
-            WebDriverWait(self.driver, 20).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "btn-confirm")))
-            self.driver.find_element_by_class_name('btn-confirm').click()
-        finally:
-            self.driver.quit()
+        self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
+        sleep(3)
+        self.driver.find_element_by_class_name('btn-confirm').click()
+        self.driver.quit()
+
+    def NewLuckyWheel(self, account, password):
+        self.Login(account, password)
+        self.driver.get(self.config.Portal_config() + '/NewLuckyWheel')
+        sleep(1)
+        for i in range(5):
+            self.driver.find_element_by_class_name('arrow').click()
+            try:
+                WebDriverWait(self.driver, 30).until(
+                    EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div/button')))
+                self.driver.find_element_by_xpath('/html/body/div[3]/div/div/button').click()
+            except:
+                result = 'Fail'
+                return result
+        self.driver.quit()
+        result = 'Success'
+        return result

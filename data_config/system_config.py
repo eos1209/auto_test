@@ -6,11 +6,13 @@
 """ 整理系統參數 """
 # 1.讀取已填寫完成的資料分別帶入
 import xlrd
+import os
 
 
 class systemSetting(object):
     def __init__(self):
         path = "D:/automation_test_project/test_data/document/system_config.xlsx"
+        # self.path = os.path.abspath(path)
         self.file = xlrd.open_workbook(path)
         self.sheet = self.file.sheet_by_index(0)  # 0:05 1:06
 
@@ -132,4 +134,12 @@ class systemSetting(object):
 
     def MasterMember(self):
         data = self.sheet.cell_value(30, 1)
+        return data
+
+    def NewLuckyWheel(self):
+        data = self.sheet.cell_value(31, 1)
+        return data
+
+    def verifyDeposit(self):
+        data = self.sheet.cell_value(32, 1)
         return data

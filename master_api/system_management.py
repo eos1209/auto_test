@@ -1777,6 +1777,12 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def getAllStatus(self, data):
+            # 取得紅包狀態
+            path = '/RedEnvelopeManagement/GetAllStatus'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
         def get_detail(self, data):
             # API Name =>红包派送-詳細資料
             # body--
@@ -1788,6 +1794,24 @@ class ActivityManagement(object):
             # 紅包匯入 - 1205
             path = '/RedEnvelopeManagement/AddRedEnvelope'
             self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def updateMemo(self, data):
+            # 更新備註
+            path = '/RedEnvelopeManagement/UpdateMemo'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def suspendActivity(self, data):
+            # 立即中止紅包
+            path = '/RedEnvelopeManagement/SuspendActivity'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def revoke(self, data):
+            # 紅包沖銷
+            path = '/RedEnvelopeManagement/Revoke'
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
     # 限时优惠
@@ -2025,6 +2049,126 @@ class ActivityManagement(object):
             # API Name =>时来运转-取得列表資料
             # body--
             path = '/NewLuckyWheel/GetList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getImage(self, data):
+            # 取得入口圖片
+            path = '/ActivityManagement/GetImage'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def uploadImages(self, data):
+            # 更新入口圖片
+            path = '/ActivityManagement/UploadImage'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def updateEntranceImage(self, data):
+            # 更新活動入口設定
+            path = '/ActivityManagement/UpdateEntranceImage'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getPortalUrl(self, data):
+            # 預覽Portal
+            path = '/LuckyWheelManagement/GetPortalUrl'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getAllLuckyWheelTimeList(self, data):
+            # 取得全時來運轉時間列表
+            path = '/NewLuckyWheel/GetAllLuckyWheelTimeList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getRewardTypeList(self, data):
+            # 取得獎勵列表
+            path = '/NewLuckyWheel/GetRewardTypeList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def uploadRewardImage(self, data):
+            # 上傳獎項圖片
+            path = 'NewLuckyWheel/UploadRewardImage'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def create(self, data):
+            # 新增時來運轉
+            path = '/NewLuckyWheel/Create'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getDetail(self, data):
+            # 取得時來運轉詳細資料
+            path = '/NewLuckyWheel/GetDetail'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyLuckyWheelInfo(self, data):
+            # 修改時來運轉資料
+            path = '/NewLuckyWheel/ModifyLuckyWheelInfo'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def luckyWheelOff(self, data):
+            # 立即下架
+            path = '/NewLuckyWheel/LuckyWheelOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def joinMemberDetailList(self, data):
+            # 剩餘抽獎次數名單
+            path = '/NewLuckyWheel/JoinMemberDetailList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def exportMemberLuckyDrawCount(self, data):
+            # 匯出剩餘抽獎次數名單
+            path = '/NewLuckyWheel/ExportMemberLuckyDrawCount'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getNewLuckyWheelName(self, data):
+            # 取得時來運轉的名字
+            path = '/NewLuckyWheel/GetNewLuckyWheelName'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def get_RewardTypeList(self, data):
+            # 取得時來運轉得獎狀態
+            path = '/NewLuckyWheel/GetRewardTypeList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getRewardRecords(self, data):
+            # 取得時來運轉得獎名單
+            path = '/NewLuckyWheel/GetRewardRecords'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getCalculationCount(self, data):
+            # 取得時來運轉得獎總計
+            path = '/NewLuckyWheel/GetCalculationCount'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getRewardStatistics(self, data):
+            # 取得時來運轉得獎統計
+            path = '/NewLuckyWheel/GetRewardStatistics'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def sendRewards(self, data):
+            #  派發獎品
+            path = '/NewLuckyWheel/SendRewards'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def manualSupply(self, data):
+            # 添加次數
+            path = '/NewLuckyWheel/ManualSupply'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 

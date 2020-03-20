@@ -54,6 +54,13 @@ class GameHallgetBackofficeUrl(unittest.TestCase):
         validateData = 'http://gpkapiqt.ying036.com/home/ApiLogin'
         self.assertEqual(validateData, response_data[1]['Url'][:41])
 
+    def test_VR_Link(self):
+        """VR進入後台驗證"""
+        data = {"gameSupplierType": 50}
+        response_data = self.GameHailManagement.getBackofficeUrl(data)
+        validateData = 'http://vrbetbiz.com/'
+        self.assertEqual(validateData, response_data[1]['Url'])
+
     def test_GPK2_Link(self):
         """GPK2進入後台驗證"""
         data = {"gameSupplierType": 59}
@@ -67,6 +74,8 @@ class GameHallgetBackofficeUrl(unittest.TestCase):
         response_data = self.GameHailManagement.getBackofficeUrl(data)
         validateData = 'https://api.fhll.online/admin/autoLogin.html'
         self.assertEqual(validateData, response_data[1]['Url'][:44])
+
+
 
 
 if __name__ == '__main__':

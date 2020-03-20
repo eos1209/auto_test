@@ -21,11 +21,19 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)
-        self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細資料
-        self.user.login()
+        # self.__http = HttpRequest()
+        # self.user = User(self.__http)
+        # self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)
+        # self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細資料
+        # self.user.login()
+
+    @classmethod
+    def Master_login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.verifyWithdraw = account_management.VerifyWithdraw(cls.__http)
+        cls.memberDetail = member_and_agent.MemberDetail(cls.__http)  # 會員詳細資料
+        cls.user.login()
 
     def tearDown(self):
         self.user.logout()
@@ -44,6 +52,7 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
 
     def test_VerifyWithdraw_relatedApi_status_01(self):
         """驗證 取款申请审核 - 取得頁面"""
+        VerifyWithdrawBaseTest.Master_login()  # Master登入
         response_data = self.verifyWithdraw.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -91,43 +100,46 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.verifyWithdraw.load(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_VerifyWithdraw_relatedApi_status_07(self):
+        """驗證 取款申请审核 - 人工出款"""
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = PortalExecution()
         self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
                                    getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
-
-    def test_VerifyWithdraw_relatedApi_status_07(self):
-        """驗證 取款申请审核 - 人工出款"""
+        VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
         response_data = self.verifyWithdraw.allow(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        data = {"id":self.member_id()}
-        response_data = self.memberDetail.resetMoneyPassword(data)
-        getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
-        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
 
     def test_VerifyWithdraw_relatedApi_status_08(self):
         """驗證 取款申请审核 - 退回"""
-        Id = self.getId()
-        data = {"id": Id}
-        response_data = self.verifyWithdraw.deny(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = PortalExecution()
         self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
                                    getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        VerifyWithdrawBaseTest.Master_login()
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.deny(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_VerifyWithdraw_relatedApi_status_09(self):
         """驗證 取款申请审核 - 拒絕"""
+        data = {"id": self.member_id()}
+        response_data = self.memberDetail.resetMoneyPassword(data)
+        getMoneyPassword = response_data[1]['MoneyPassword']
+        self.portal = PortalExecution()
+        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
         response_data = self.verifyWithdraw.reject(data)

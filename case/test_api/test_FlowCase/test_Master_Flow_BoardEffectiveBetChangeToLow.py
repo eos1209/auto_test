@@ -43,6 +43,9 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
         ("Verify_EffectiveBetChangeToLow_LegBoard", 'LegBoard', 7, 8),  # LEG 乐棋牌
         ("Verify_EffectiveBetChangeToLow_GmgBoard", 'GmgBoard', 4, 5),  # GMG 光明棋牌
         ("Verify_EffectiveBetChangeToLow_Im2Board", 'Im2Board', 7, 8),  # IM 棋牌
+        ("Verify_EffectiveBetChangeToLow_JlBoard", 'JlBoard', 5, 10),  # JL 棋牌
+        ("Verify_EffectiveBetChangeToLow_BspBoard", 'BspBoard', 7, 9),  # BSP 棋牌
+        # ("Verify_EffectiveBetChangeToLow_YgBoard", 'YgBoard', 7, 8),  # YG 棋牌
 
         # 尚未對接完成
         # ("Verify_SaBoard", 'SaBoard', '', 1, 6),

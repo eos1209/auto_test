@@ -61,7 +61,7 @@ class PortalManagementBaseTest(unittest.TestCase):
                 "Name": self.config.siteName_config(),
                 "Url": self.config.Portal_config(),
                 "MobileUrl": self.config.Mobile_config(),
-                "Memo": "AB005611211",
+                "Memo": "AB005-01資料勿亂動",
                 "DefaultAgentAccount": self.config.agentLv4(),
                 "AnyTimeDiscountPromotionStatus": 'true',
                 "PortalSetting": {"Id": self.getPortalSettingId(), "Name": "Default12"},

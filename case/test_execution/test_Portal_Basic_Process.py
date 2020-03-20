@@ -12,8 +12,9 @@
 # from data_config import portal_config
 # from data_config import common_config
 # from data_config import master_config
-# from base.CommonMethod import mobileExecution
+# # from base.CommonMethod import mobileExecution
 # from data_config.system_config import systemSetting
+# import time
 #
 #
 # class test_Portal_Basic_Process(unittest.TestCase):
@@ -31,6 +32,14 @@
 #         self.memberCreate = member_and_agent.MemberCreate(self.__http)
 #         self.searchMember = member_and_agent.MemberSearch(self.__http)  # 會員搜尋
 #         self.trail = member_and_agent.Trial(self.__http)
+#
+#     def GetMemberId(self):
+#         data = {'Account': self.config.test_Member_config(),
+#                 'connectionId': self.user.info()}
+#         response_data = self.searchMember.search(data)
+#         memberId = response_data[1]['PageData'][0]['Id']
+#         time.sleep(3)
+#         return memberId
 #
 #     def test_Login(self):
 #         """Portal登入"""
@@ -77,7 +86,7 @@
 #
 #     def test_resetMoneyPassword(self):
 #         """Portal 變更取款密碼"""
-#         data = {"id": self.config.MemberId_config()}  # 05 : 3152066 06: 1041445
+#         data = {"id": self.GetMemberId()}  # 05 : 3152066 06: 1041445
 #         response_data = self.memberDetail.resetMoneyPassword(data)
 #         getMoneyPassword = response_data[1]['MoneyPassword']
 #         self.portal = PortalExecution()
@@ -86,7 +95,7 @@
 #
 #     def test_verifyWithdraw(self):
 #         """Portal 線上取款"""
-#         data = {"id": self.config.MemberId_config()}  # 05 : 3152066 06: 1041445
+#         data = {"id": self.GetMemberId()}
 #         response_data = self.memberDetail.resetMoneyPassword(data)
 #         getMoneyPassword = response_data[1]['MoneyPassword']
 #         self.portal = PortalExecution()
@@ -139,8 +148,8 @@
 #         self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
 #
 #     def test_Login_Fail(self):
-#         self.mobile = mobileExecution()
-#         self.mobile.mobile_Login_Fail(self.config.test_Member_config(), '5464646546')
+#         self.mobile = PortalExecution()
+#         self.mobile.Login_Fail(self.config.test_Member_config(), '5464646546')
 #
 #     def test_30(self):
 #         for i in range(30):
@@ -149,3 +158,7 @@
 #     def test_SiteMail(self):
 #         self.portal = PortalExecution()
 #         self.portal.SiteMail(self.config.test_Member_config(), self.config.test_Password_config())
+#
+#     def test_redEnvelope(self):
+#         self.mobile = mobileExecution()
+#         self.mobile.mobile_RedEnvelope(self.config.test_Member_config(), self.config.test_Password_config())

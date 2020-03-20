@@ -30,29 +30,31 @@ class batchMemberSmsValidationTest(unittest.TestCase):
         self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細
         self.searchMember = member_and_agent.MemberSearch(self.__http)  # 會員搜尋
         self.memberTags = member_and_agent.MemberTags(self.__http)  # 會員標籤
+        self.agentDetail = member_and_agent.AgentDetail(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
-    def GetLastMemberTags(self):
-        getMemberTagsData = self.memberTags.getTags({})
-        for i in range(len(getMemberTagsData[1]['ReturnObject'])):
-            if getMemberTagsData[1]['ReturnObject'][i]['Name'] == self.config.singleTag_config():
-                getTagsId = getMemberTagsData[1]['ReturnObject'][i]['Id']
-                return getTagsId
+    def getMemberLevelId(self):
+        response_data = self.agentDetail.getAllMemberLevels({})
+        for i in range(len(response_data[1])):
+            if self.config.MemberLevelSetting_2_config() == response_data[1][i]['Text']:
+                Id = response_data[1][i]['Value']
+                return Id
 
     def test_MemberSmsValidation(self):
+        """簡訊驗證批次 - 驗證"""
         # 簡訊驗證開啟
         # step 1:先以會員等級QA_Test搜尋作為批次資料
         # step 2:批次執行簡訊驗證
-        data = {"search": {"MemberTagIds": self.GetLastMemberTags()}, "isSuper": 'false',
+        data = {"search": {"MemberLevelSettingIds": [self.getMemberLevelId()]}, "isSuper": 'false',
                 "batchParam": {"isAll": 'true'},
                 "isEnable": 'true'}
         print(self.memberBatch.batchUpdateMemberSmsValidation(data))
         # step 3:驗證-1:走訪每一位該等級會員是否確實簡訊驗證符合動作
         # step 4:驗證-2:走訪每一位該等級會員的會員歷史紀錄確定要有該開關紀錄
-        data = {"MemberTagIds": self.GetLastMemberTags()}
+        data = {"MemberLevelSettingIds": [self.getMemberLevelId()]}
         response_data = self.searchMember.getSearchCount(data)  # 計算總筆數
         memberTotal = response_data[1]['ReturnObject']
         print(memberTotal)
@@ -60,11 +62,11 @@ class batchMemberSmsValidationTest(unittest.TestCase):
             memberPageCount = memberTotal / 10
         else:
             memberPageCount = (memberTotal / 10) + 1
-        for page in range(int(memberPageCount)):
-            data = {"MemberTagIds": self.GetLastMemberTags(), "pageIndex": page,
+        for page in range(2):
+            data = {"MemberLevelSettingIds": [self.getMemberLevelId()], "pageIndex": page,
                     "connectionId": self.user.info()}
             response_data = self.searchMember.search(data)
-            for count in range(len(response_data[1]['PageData'])):
+            for count in range(10):
                 Id = response_data[1]['PageData'][count]['Id']
                 Name = response_data[1]['PageData'][count]['Account']
                 validateMemberDetail = self.MemberDetail(Name)

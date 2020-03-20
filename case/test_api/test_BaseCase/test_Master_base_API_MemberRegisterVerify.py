@@ -4,7 +4,6 @@
 '''
 
 import unittest
-from data_config import master_config
 from data_config import common_config
 import random
 from base.HTMLTestReportCN import HTMLTestRunner
@@ -21,16 +20,30 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 系統參數
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)
-        self.user.login()
+        # self.__http = HttpRequest()
+        # self.user = User(self.__http)
+        # self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)
+        # self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
+    @classmethod
+    def Master_login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.memberVerify = member_and_agent.MemberVerifyPage(cls.__http)
+        cls.user.login()
+
+    @classmethod
+    def Portal(cls):
+        account = 'QATest' + common_config.now
+        cls.portal = PortalExecution()
+        cls.portal.Register(account)
+
     def test_MemberRegisterVerify_baseApi_status_01(self):
         """驗證 會員註冊審核-取得各站台資訊"""
+        MemberRegisterVerifyTest.Master_login()  # 登入
         response_data = self.memberVerify.getSetting({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -133,12 +146,11 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.deleteAgentItem(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        account = 'QATest' + common_config.now # 14 test前置作業
-        self.portal = PortalExecution()
-        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_14(self):
         """驗證 會員註冊審核-審核會員"""
+        MemberRegisterVerifyTest.Portal()
+        MemberRegisterVerifyTest.Master_login()  # 登入
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         account = getData[1]['Data'][0]['SubmitAccount']
@@ -157,12 +169,11 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.getHistoryList(listData)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        account = 'QATest' + common_config.now # 16 test前置作業
-        self.portal = PortalExecution()
-        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_16(self):
         """驗證 會員註冊審核-同意"""
+        MemberRegisterVerifyTest.Portal()
+        MemberRegisterVerifyTest.Master_login()  # 登入
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         Id = getData[1]['Data'][0]['Id']
@@ -182,12 +193,11 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         response_data = self.memberVerify.updateMemo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-        account = 'QATest' + common_config.now # 18前置作業
-        self.portal = PortalExecution()
-        self.portal.Register(account)
 
     def test_MemberRegisterVerify_baseApi_status_18(self):
         """驗證 會員註冊審核-拒絕"""
+        MemberRegisterVerifyTest.Portal()
+        MemberRegisterVerifyTest.Master_login()  # 登入
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
         accountId = getData[1]['Data'][0]['Id']
