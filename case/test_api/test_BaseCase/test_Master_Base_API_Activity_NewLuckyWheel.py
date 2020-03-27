@@ -15,13 +15,14 @@ from data_config.system_config import systemSetting
 from base.CommonMethod import UploadFile
 from base.CommonMethod import GameHallType
 from base.CommonMethod import PortalExecution
+from time import sleep
 from datetime import datetime, timedelta
 from base.CommonMethod import system_config_Setting
 
 
 class NewLuckyWheelBaseTest(unittest.TestCase):
     """ 时来运转 - 相關 API 調用狀態"""
-    # 目前只有6個可以使用，尚未改善完成
+
     def setUp(self):
         self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
@@ -45,25 +46,27 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                      "uploadImgErrorMessage": "", "TypeDescription": "再来一次", "Probability": 10},
                     {"status": 2, "RewardType": "2", "RewardTitle": "B", "RewardName": "2nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖金", "Price": 1, "Audit": 1, "Stock": 11,
-                     "Probability": 10},
+                     "Probability": 50},
                     {"status": 2, "RewardType": "3", "RewardTitle": "C", "RewardName": "3nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖品", "Stock": 1, "Probability": 10},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
+                    {"status": 2, "RewardType": "2", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 50, "TypeDescription": "谢谢参与"}],
+                    {"status": 2, "RewardType": "2", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1}],
                 "RewardCount": mode,
                 "BeginTime": BeginTime,
-                "DailyOpenTimes": [{"OpenTimeStart": 0, "OpenTimeEnd": 23}],
+                "DailyOpenTimes": [],
                 "LotterySettings": [{"DepositAmount": 1,
                                      "GameCategories": self.gameHall.GameCategories(),
                                      "categoriesText": "(全选)",
                                      "CommissionAmount": 1,
                                      "LotteryCount": 1, "isInsert": 'true'}
                                     ],
-                "Name": "QA_test",
+                "Name": 'QA_test',
                 "EndTime": EndTime,
                 "EntranceVisible": 'true',
                 "LotteryBaseCount": 5,
@@ -79,24 +82,29 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                      "uploadImgErrorMessage": "", "TypeDescription": "再来一次", "Probability": 10},
                     {"status": 2, "RewardType": "2", "RewardTitle": "B", "RewardName": "2nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖金", "Price": 1, "Audit": 1, "Stock": 11,
-                     "Probability": 10},
+                     "Probability": 30},
                     {"status": 2, "RewardType": "3", "RewardTitle": "C", "RewardName": "3nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖品", "Stock": 1, "Probability": 10},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 20, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 20, "TypeDescription": "谢谢参与"}
+                    {"status": 2, "RewardType": "2", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1}
                 ],
 
                 "RewardCount": mode,
                 "BeginTime": BeginTime,
-                "DailyOpenTimes": [{"OpenTimeStart": 0, "OpenTimeEnd": 22}],
+                "DailyOpenTimes": [],
                 "LotterySettings": [{"DepositAmount": 1,
                                      "GameCategories": self.gameHall.GameCategories(),
                                      "categoriesText": "(全选)",
@@ -108,7 +116,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                 "EntranceVisible": 'true',
                 "LotteryBaseCount": 5,
                 "DepositType": 1,
-                "MemberLevelIds": [self.config.MemberLevelSetting_config()],
+                "MemberLevelIds": [self.system.getMemberLevelId()],
                 "Description": "<p>@QA_automation</p>\n"
             }
             return data
@@ -122,24 +130,31 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                      "Probability": 10},
                     {"status": 2, "RewardType": "3", "RewardTitle": "C", "RewardName": "3nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖品", "Stock": 1, "Probability": 10},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "I", "RewardName": "9th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "J", "RewardName": "10th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"}
+                    {"status": 2, "RewardType": "2", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "I", "RewardName": "9th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "J", "RewardName": "10th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1}
                 ],
                 "RewardCount": mode,
                 "BeginTime": BeginTime,
-                "DailyOpenTimes": [{"OpenTimeStart": 0, "OpenTimeEnd": 22}],
+                "DailyOpenTimes": [],
                 "LotterySettings": [{"DepositAmount": 1,
                                      "GameCategories": self.gameHall.GameCategories(),
                                      "categoriesText": "(全选)",
@@ -151,7 +166,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                 "EntranceVisible": 'true',
                 "LotteryBaseCount": 5,
                 "DepositType": 1,
-                "MemberLevelIds": [self.config.MemberLevelSetting_config()],
+                "MemberLevelIds": [self.system.getMemberLevelId()],
                 "Description": "<p>@QA_automation</p>\n"
             }
             return data
@@ -159,35 +174,44 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
             data = {
                 "RewardInfoList": [
                     {"status": 2, "RewardType": "1", "RewardTitle": "A", "RewardName": "1st", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "TypeDescription": "再来一次", "Probability": 10},
+                     "uploadImgErrorMessage": "", "TypeDescription": "再来一次", "Probability": 1},
                     {"status": 2, "RewardType": "2", "RewardTitle": "B", "RewardName": "2nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖金", "Price": 1, "Audit": 1, "Stock": 11,
-                     "Probability": 10},
+                     "Probability": 19},
                     {"status": 2, "RewardType": "3", "RewardTitle": "C", "RewardName": "3nd", "ImageUrl": '',
                      "uploadImgErrorMessage": "", "TypeDescription": "奖品", "Stock": 1, "Probability": 10},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 20, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "I", "RewardName": "9th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "J", "RewardName": "10th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "K", "RewardName": "11th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 3, "TypeDescription": "谢谢参与"},
-                    {"status": 2, "RewardType": "0", "RewardTitle": "L", "RewardName": "12th", "ImageUrl": '',
-                     "uploadImgErrorMessage": "", "Probability": 2, "TypeDescription": "谢谢参与"}
+                    {"status": 2, "RewardType": "2", "RewardTitle": "D", "RewardName": "4th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "E", "RewardName": "5th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "F", "RewardName": "6th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 10, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "G", "RewardName": "7th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 20, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "H", "RewardName": "8th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "I", "RewardName": "9th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "J", "RewardName": "10th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 5, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "K", "RewardName": "11th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 3, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1},
+                    {"status": 2, "RewardType": "2", "RewardTitle": "L", "RewardName": "12th", "ImageUrl": '',
+                     "uploadImgErrorMessage": "", "Probability": 2, "TypeDescription": "奖金", "Stock": 1, "Price": 1,
+                     "Audit": 1}
                 ],
 
                 "RewardCount": mode,
                 "BeginTime": BeginTime,
-                "DailyOpenTimes": [{"OpenTimeStart": 0, "OpenTimeEnd": 22}],
+                "DailyOpenTimes": [],
                 "LotterySettings": [{"DepositAmount": 1,
                                      "GameCategories": self.gameHall.GameCategories(),
                                      "categoriesText": "(全选)",
@@ -199,13 +223,14 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
                 "EntranceVisible": 'true',
                 "LotteryBaseCount": 5,
                 "DepositType": 1,
-                "MemberLevelIds": [self.config.MemberLevelSetting_config()],
+                "IsShowRewardRecord": 'true',
+                "MemberLevelIds": [self.system.getMemberLevelId()],
                 "Description": "<p>@QA_automation</p>\n"
             }
             return data
 
     def getLuckyWheelId(self):
-        data = {"skip": 0, "take": 100, "search": {"AllState": False, "Status": [0,1]}}
+        data = {"skip": 0, "take": 100, "search": {"AllState": False, "Status": [0, 1]}}
         response_data = self.newLuckyWheel.getList(data)
         for i in range(len(response_data[1]['ReturnObject'])):
             if response_data[1]['ReturnObject'][i]['Name'] == 'QA_test':
@@ -270,7 +295,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_08(self):
         """驗證 时来运转 - 新增時來運轉"""
-        data = self.create_NewLuckyWheel_mode(6)
+        data = self.create_NewLuckyWheel_mode(self.config.NewLuckyWheel())
         # print(data)
         response_data = self.newLuckyWheel.create(data)
         status_code = response_data[0]
@@ -305,6 +330,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_11(self):
         """驗證 时来运转 - Portal時來運轉 狀態"""
+        sleep(30)
         self.portal = PortalExecution()
         validateData = self.portal.NewLuckyWheel(self.config.test_Member_config(), self.config.test_Password_config())
         self.assertEqual(validateData, 'Success')
@@ -328,7 +354,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def test_NewLuckyWheelBaseTest_relatedApi_status_14(self):
         """驗證 时来运转 - 添加次數 狀態"""
         Id = self.getLuckyWheelId()
-        data = {"luckyWheelId": Id, "accounts": self.config.test_Member_config(), "count": 1}
+        data = {"luckyWheelId": Id, "accounts": self.config.test_Member_config(), "count": 10}
         response_data = self.newLuckyWheel.manualSupply(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -379,6 +405,14 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_20(self):
+        """驗證 时来运转 - 中獎人名單開關 狀態"""
+        Id = self.getLuckyWheelId()
+        data = {"luckyWheelId": Id, "isShow": 'true'}
+        response_data = self.newLuckyWheel.modifyShowRewardRecord(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_NewLuckyWheelBaseTest_relatedApi_status_21(self):
         """驗證 时来运转 - 立即下架 狀態"""
         Id = self.getLuckyWheelId()
         data = {"luckyWheelId": Id}

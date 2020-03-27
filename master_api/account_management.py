@@ -335,6 +335,13 @@ class VerifyWithdraw(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def getViewers(self, data):
+        # API Name =>取款申请审核-檢視代付歷程
+        # body--
+        path = '/VerifyWithdraw/GetViewers'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 余额宝看板
 class YuebaoBoard(object):

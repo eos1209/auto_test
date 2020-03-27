@@ -52,7 +52,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                 "search": {},
                 'connectionId': self.user.info()}
         response_data = self.redEnvelopeManagement.getList(data)
-        return response_data[1][0]['Id']
+        return response_data[1]['ReturnObject'][0]['Id']
 
     def end_redEnvelope(self):  # 先沖銷紅包
         data = {"take": 100,
@@ -61,8 +61,9 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                 'connectionId': self.user.info()}
         response_data = self.redEnvelopeManagement.getList(data)
         for i in range(len(response_data[1])):
-            if response_data[1][i]['Name'] == 'QA_automation_redEnvelope' and response_data[1][i]['Status'] == 2:
-                data = {"Id": response_data[1][i]['Id']}
+            if response_data[1]['ReturnObject'][i]['Name'] == 'QA_automation_redEnvelope' and \
+                    response_data[1]['ReturnObject'][i]['Status'] == 2:
+                data = {"Id": response_data[1]['ReturnObject'][i]['Id']}
                 self.redEnvelopeManagement.suspendActivity(data)
 
     @classmethod
@@ -104,7 +105,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                                  )  # 先實例上傳檔案物件
         startTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
         endTime = (datetime.now() + timedelta(hours = +11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
-        data = {'Name': (None, 'QA_NoExistMember'),
+        data = {'Name': (None, 'QA_automation_redEnvelope'),
                 'Password': (None, master_config.Master_Password),
                 'StartTime': (None, startTime),  # 有其他參數上傳用這種mode
                 'EndTime': (None, endTime), 'Description': (None, 'QA_automation'),
@@ -134,19 +135,19 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
 
     def test_RedEnvelopeManagement_relatedApi_status_07(self):
         """紅包派送 - 沖銷紅包 狀態 """
-        # # step 1:先沖銷自動化測試產生的紅包
-        # self.end_redEnvelope()
-        # # step 2:匯入紅包->手機領取->驗證紅包
-        # self.red_RedEnvelope_create()  # 匯入紅包
-        # RedEnvelopeManagementBaseTest.mobile()  # 手機端領取紅包
+        # step 1:先沖銷自動化測試產生的紅包
+        self.end_redEnvelope()
+        # step 2:匯入紅包->手機領取->驗證紅包
+        self.red_RedEnvelope_create()  # 匯入紅包
+        RedEnvelopeManagementBaseTest.mobile()  # 手機端領取紅包
         Id = self.getId()  # 取得ID
         data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",
                 "Password": master_config.Master_Password}
         self.redEnvelopeManagement.revoke(data)
-        # data = {"id": Id}
-        # response_data = self.redEnvelopeManagement.get_detail(data)
-        # revoke_member_count = 1  # 預計會員沖銷人數1人
-        # self.assertEqual(revoke_member_count, response_data[1]['ReturnObject']['MemberCount'], '會員領錯紅包，請先將紅包都結束')
+        data = {"id": Id}
+        response_data = self.redEnvelopeManagement.get_detail(data)
+        revoke_member_count = 1  # 預計會員沖銷人數1人
+        self.assertEqual(revoke_member_count, response_data[1]['ReturnObject']['MemberCount'], '會員領錯紅包，請先將紅包都結束')
 
 
 if __name__ == '__main__':

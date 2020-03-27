@@ -212,6 +212,15 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_VerifyWithdraw_relatedApi_status_19(self):
+        """取款申请审核-取得檢視者 狀態"""
+        Id = self.getId()
+        data = {"id": Id}
+        response_data = self.verifyWithdraw.getViewers(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

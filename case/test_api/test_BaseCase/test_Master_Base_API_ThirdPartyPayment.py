@@ -19,10 +19,6 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        # self.__http = HttpRequest()
-        # self.user = User(self.__http)
-        # self.thirdPartyPayment = account_management.ThirdPartyPayment(self.__http)
-        # self.user.login()
 
     def tearDown(self):
         self.user.logout()

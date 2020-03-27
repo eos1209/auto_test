@@ -42,21 +42,28 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
                 return Id
 
     def getId(self, mode):
-        data = {"WebsiteId": self.getWebsiteId(), "Device": mode}  # 05:29 06:1
+        data = {"WebsiteId": self.getWebsiteId(), "Device": mode}
         response_data = self.AnnouncementManagement.getAnnouncementList(data)
         Id = response_data[1]['List'][0]['Id']
         return Id
 
+    def updateMarqueeContent(self, mode):
+        data = {"WebsiteId": self.getWebsiteId(), "Device": mode}
+        response_data = self.AnnouncementManagement.getMarqueeContent(data)
+        content = response_data[1]['ReturnObject']
+        data = {"WebsiteId": self.getWebsiteId(), "Device": mode, 'Content': content}
+        return data
+
     def test_AnnouncementManagement_relatedApi_status_01(self):
         """ 公告管理-取得電腦版公告列表 狀態"""
-        data = {"WebsiteId": self.getWebsiteId(), "Device": "1"}  # 05:29 06:1
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "1"}
         response_data = self.AnnouncementManagement.getAnnouncementList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_02(self):
         """ 公告管理-取得直向手機版公告列表 狀態"""
-        data = {"WebsiteId": self.getWebsiteId(), "Device": "2"}  # 05:29 06:1
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "2"}
         response_data = self.AnnouncementManagement.getAnnouncementList(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -414,6 +421,48 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         """ 公告管理-預覽公告 狀態"""
         data = {"WebsiteId": self.getWebsiteId(), "PreviewMode": 1}
         response_data = self.AnnouncementManagement.getAnnouncementPreviewList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_36(self):
+        """ 公告管理-取得電腦版跑馬燈內容 狀態"""
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "1"}
+        response_data = self.AnnouncementManagement.getMarqueeContent(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_37(self):
+        """ 公告管理-取得手機版跑馬燈內容 狀態"""
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "2"}
+        response_data = self.AnnouncementManagement.getMarqueeContent(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_38(self):
+        """ 公告管理-取得橫向手機版跑馬燈內容 狀態"""
+        data = {"WebsiteId": self.getWebsiteId(), "Device": "3"}
+        response_data = self.AnnouncementManagement.getMarqueeContent(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_39(self):
+        """ 公告管理-更新電腦版跑馬燈內容 狀態"""
+        data = self.updateMarqueeContent(1)
+        response_data = self.AnnouncementManagement.updateMarqueeContent(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_40(self):
+        """ 公告管理-更新手機版跑馬燈內容 狀態"""
+        data = self.updateMarqueeContent(2)
+        response_data = self.AnnouncementManagement.updateMarqueeContent(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_AnnouncementManagement_relatedApi_status_41(self):
+        """ 公告管理-更新橫向手機版跑馬燈內容 狀態"""
+        data = self.updateMarqueeContent(3)
+        response_data = self.AnnouncementManagement.updateMarqueeContent(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

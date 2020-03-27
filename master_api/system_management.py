@@ -659,13 +659,6 @@ class PortalSetting(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def updateMarquee(self, data):
-        # API Name =>会员端设定-取得會員端設定-修改跑馬燈內容
-        # body--/{id}/{args}
-        path = '/PortalSetting/UpdateMarquee'
-        self.response_data = self.__http.sendRequest('POST', path, data)
-        return self.response_data
-
     def updateRegisterSetting(self, data):
         # API Name =>会员端设定-會員注冊設定更新
         # body--/{id}/{args}
@@ -1534,6 +1527,18 @@ class PortalManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def getMarqueeContent(self, data):
+            # 公告管理 - 取得跑馬燈內容
+            path = '/PortalManagement/GetMarqueeContent'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def updateMarqueeContent(self, data):
+            # 公告管理 - 取得跑馬燈內容
+            path = '/PortalManagement/UpdateMarqueeContent'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 大圖輪播
     class SlideShow:
         def __init__(self, http):
@@ -2038,6 +2043,62 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def getConditionType(self, data):
+            # API Name =>任务挑战-任務類型
+            # body--
+            path = '/MissionReward/GetConditionType'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def uploadImage(self, data):
+            # API Name =>任务挑战-上傳圖片
+            # body--
+            path = '/MissionReward/UploadImage'
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
+            return self.response_data
+
+        def create(self, data):
+            # API Name =>任务挑战-新增任務挑戰
+            # body--
+            path = '/MissionReward/Create'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getDetail(self, data):
+            # API Name =>任务挑战-任務挑戰詳細
+            # body--
+            path = '/MissionReward/GetDetail'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def updateReceiveBonusLimitTime(self, data):
+            # API Name =>任务挑战-更新領獎時間
+            # body--
+            path = '/MissionReward/UpdateReceiveBonusLimitTime'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getEventName(self, data):
+            # API Name =>任务挑战- 取得活動名稱
+            # body--
+            path = '/MissionReward/GetEventName'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def getJoinList(self, data):
+            # API Name =>任务挑战-取得參與名單
+            # body--
+            path = '/MissionReward/GetJoinList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def eventOff(self, data):
+            # API Name =>任务挑战-立即下架
+            # body--
+            path = '/MissionReward/EventOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 时来运转
     class NewLuckyWheel:
 
@@ -2169,6 +2230,12 @@ class ActivityManagement(object):
         def manualSupply(self, data):
             # 添加次數
             path = '/NewLuckyWheel/ManualSupply'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def modifyShowRewardRecord(self, data):
+            # 中獎人名單開關
+            path = '/NewLuckyWheel/ModifyShowRewardRecord'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 

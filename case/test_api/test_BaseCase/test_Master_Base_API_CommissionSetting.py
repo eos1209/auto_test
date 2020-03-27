@@ -105,6 +105,7 @@ class CommissionSettingBaseTest(unittest.TestCase):
         """驗證 佣金設定 - 刪除佣金設定"""
         # Step 1 取得ID
         getId = self.getId()
+        print(getId)
         data = {"id": getId}
         response_data = self.CommissionSetting.delete(data)
         # print(response_data[1])

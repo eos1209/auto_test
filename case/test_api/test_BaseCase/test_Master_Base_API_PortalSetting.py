@@ -116,15 +116,6 @@ class PortalSettingBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_PortalSetting_relatedApi_status_11(self):
-        """驗證 會員端管理 - 更新跑馬燈"""
-        # step1 取得會員端設定Id
-        settingId = self.getPortalSettingId()
-        data = {'id': settingId, 'args': 'QA'}
-        response_data = self.PortalSetting.updateMarquee(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
-
-    def test_PortalSetting_relatedApi_status_12(self):
         """驗證 會員端管理 - 更新取款提示訊息"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
@@ -133,7 +124,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_PortalSetting_relatedApi_status_13(self):
+    def test_PortalSetting_relatedApi_status_12(self):
         """驗證 會員端管理 - 更新會員註冊設定"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
@@ -155,7 +146,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_PortalSetting_relatedApi_status_14(self):
+    def test_PortalSetting_relatedApi_status_13(self):
         """驗證 會員端管理 - 更新代理商註冊設定"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
@@ -181,7 +172,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_PortalSetting_relatedApi_status_15(self):
+    def test_PortalSetting_relatedApi_status_14(self):
         """驗證 會員端管理 - 更新備註"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
@@ -191,7 +182,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_PortalSetting_relatedApi_status_16(self):
+    def test_PortalSetting_relatedApi_status_15(self):
         """驗證 會員端管理 - 刪除"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()

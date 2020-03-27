@@ -151,6 +151,7 @@ class PortalExecution(object):
 
     def Login(self, Account, Password):  # 登入
         sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -175,6 +176,7 @@ class PortalExecution(object):
 
     def Register(self, Account):  # 註冊
         sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -200,6 +202,7 @@ class PortalExecution(object):
     def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
         self.Login(Account, Password)
         sleep(7)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -228,6 +231,7 @@ class PortalExecution(object):
 
     def Trail(self):  # 試玩帳號註冊
         sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -261,6 +265,7 @@ class PortalExecution(object):
         newpassword = '123456'
         self.Login(account, password)
         sleep(7)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -283,6 +288,7 @@ class PortalExecution(object):
     def verifyWithdraw(self, account, password, MoneyPassword):  # 線上取款  ---PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
         self.Login(account, password)
         sleep(7)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -328,7 +334,7 @@ class PortalExecution(object):
         sleep(5)
         self.driver.find_element_by_xpath('*//form/div[3]/button').click()
         sleep(2)
-        self.driver.quit()
+        # self.driver.quit()
 
     def SiteMail(self, account, password):  # 站內信件
         self.Login(account, password)
@@ -386,3 +392,12 @@ class PortalExecution(object):
         self.driver.quit()
         result = 'Success'
         return result
+
+    def MissionReward(self):
+        self.driver.get(self.config.Portal_config() + '/MissionReward')
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div/div[3]/ul/li/span').click()
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[4]/div/div/div[3]/button[2]').click()
+        sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[3]/div/div/div[3]/button[2]').click()

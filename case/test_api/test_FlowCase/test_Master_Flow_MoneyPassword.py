@@ -18,13 +18,6 @@ class MoneyPassword(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        # self.__http = HttpRequest()
-        # self.user = User(self.__http)
-        # self.memberCreate = member_and_agent.MemberCreate(self.__http)
-        # self.user.login()
-        # self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細資料
-        # self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)  # 取款審核
-        # self.memberTransaction = account_management.MemberTransaction(self.__http)  # 交易紀錄
 
     @classmethod
     def Master_login(cls):
