@@ -8,11 +8,7 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
-from selenium import webdriver
-from time import sleep
-from data_config import portal_config
-from master_api.system_management import PortalManagement
-from base.CommonMethod import IsAnnouncementList
+from base.CommonMethod import PortalExecution
 
 
 class AgentLink(unittest.TestCase):
@@ -26,27 +22,33 @@ class AgentLink(unittest.TestCase):
     # step 5: 審核該會員
     # step 6: 驗證該代理是否有增加底下會員
     def setUp(self):
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.AgentSearch = member_and_agent.AgentSearch(self.__http)  # 搜尋代理商
-        self.AgentDetail = member_and_agent.AgentDetail(self.__http)  # 代理商詳細資料
-        self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)  # 會員註冊審核
-        self.AnnouncementManagement = PortalManagement.AnnouncementManagement(self.__http)
-        self.user.login()
-        self.IsEnableAnnouncementList = IsAnnouncementList()  # 公告判斷
         self.oldMemberCount = 0
 
     def tearDown(self):
         self.user.logout()
 
+    @classmethod
+    def Master_Login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.AgentSearch = member_and_agent.AgentSearch(cls.__http)  # 搜尋代理商
+        cls.AgentDetail = member_and_agent.AgentDetail(cls.__http)  # 代理商詳細資料
+        cls.memberVerify = member_and_agent.MemberVerifyPage(cls.__http)  # 會員註冊審核
+        cls.user.login()
+
     def test_AgentLink(self):
         """驗證 預設代理推廣鏈接是否有新增一位會員"""
+        AgentLink.Master_Login()
         agent = self.getAgent()  # step 1: 先搜尋找出一位代理商
         # print(agent)
         agentLink = self.getAgentLink(agent)  # step 2: 取得該代理的預設推廣鏈接
-        # # print(agentLink)
+        # print(agentLink)
         self.oldMemberCount = self.getOldMemberCount(agent)  # step 3: 取得代理商原本的代理會員數
-        self.Portal_Register(agentLink)  # step 4: 前端註冊會員
+
+        self.portal = PortalExecution()
+        Account = 'QA_Link' + common_config.now
+        self.portal.AgentLink(agentLink, Account)  # step 4: 前端註冊會員
+        AgentLink.Master_Login()
         self.Member_Verify()  # step 5: 審核該會員
         self.ValidateAgentLink(agent)  # step 6: 驗證該代理是否有增加底下會員
 
@@ -64,32 +66,9 @@ class AgentLink(unittest.TestCase):
 
     def getOldMemberCount(self, agent):
         data = {"account": agent}
-        response_data = self.AgentDetail.get_detail(data)
-        getOldMemberCount = response_data[1]['Agent']['MemberCount']
+        response_data = self.AgentDetail.getAgentLayerDetail(data)
+        getOldMemberCount = response_data[1]['AgentLayerInfo']['MemberCount']
         return getOldMemberCount
-
-    def Portal_Register(self, link):
-        chrome_path = "D:\chromedriver.exe"
-        self.driver = webdriver.Chrome(chrome_path)
-        self.driver.set_window_size(1900, 1020)
-        self.driver.get(link)
-        sleep(3)
-        # if validateIsEnable == 'true':  # 判斷公告是否有開啟
-        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
-        sleep(3)
-        self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(
-            "QALink" + common_config.now)  # 會員帳號
-        self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
-        self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
-        self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
-        self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
-            portal_config.PortalCheckCode)  # 萬用碼
-        sleep(2)
-        self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
-        sleep(3)
-        self.driver.close()
 
     def Member_Verify(self):
         listData = {'take': 100, 'search': {}}
@@ -102,10 +81,11 @@ class AgentLink(unittest.TestCase):
         data = {'id': Id, 'newMemo': '@QA_AgentLinkTest'}
         self.memberVerify.updateMemo(data)
 
-    def ValidateAgentLink(self, agentId):
-        data = {"account": agentId}
-        response_data = self.AgentDetail.get_detail(data)
-        memberCount = response_data[1]['Agent']['MemberCount']
+    def ValidateAgentLink(self, agent):
+        data = {"account": agent}
+        response_data = self.AgentDetail.getAgentLayerDetail(data)
+        # print(response_data[1])
+        memberCount = response_data[1]['AgentLayerInfo']['MemberCount']
         validateData = self.oldMemberCount + 1  # 驗證資料
         # print(validateData)
         self.assertEqual(memberCount, validateData)

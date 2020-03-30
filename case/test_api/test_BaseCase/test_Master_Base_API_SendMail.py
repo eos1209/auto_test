@@ -12,7 +12,7 @@ from data_config.system_config import systemSetting
 from master_api import system_management
 from master_api.account_login import User
 from base.CommonMethod import UploadFile
-from data_config import master_config
+from base.CommonMethod import system_config_Setting
 from base.CommonMethod import PortalExecution
 
 
@@ -21,33 +21,45 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.siteMail = system_management.SiteMail(self.__http)
-        self.user.login()
+        # self.__http = HttpRequest()
+        # self.user = User(self.__http)
+        # self.siteMail = system_management.SiteMail(self.__http)
+        # self.user.login()
 
     def tearDown(self):
         self.user.logout()
 
-    def test_SiteMail_relatedApi_status_00(self):
+    @classmethod
+    def Master_login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.siteMail = system_management.SiteMail(cls.__http)
+        cls.user.login()
+
+    @classmethod
+    def Portal(cls):
         """驗證 站內信 - Portal端寄信 前置"""
-        self.portal = PortalExecution()
-        self.portal.SiteMail(self.config.test_Member_config(), self.config.test_Password_config())
+        cls.config = systemSetting()  # 參數設定
+        cls.portal = PortalExecution()
+        cls.portal.SiteMail(cls.config.test_Member_config(), cls.config.test_Password_config())
 
     def test_SiteMail_relatedApi_status_01(self):
         """驗證 站內信 - 取得列表頁面"""
+        SiteMailBaseTest.Master_login()  # 登入
         response_data = self.siteMail.list({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SiteMail_relatedApi_status_02(self):
         """驗證 站內信 - 取得發送信件頁面"""
+        SiteMailBaseTest.Master_login()  # 登入
         response_data = self.siteMail.send({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SiteMail_relatedApi_status_03(self):
         """驗證 站內信(發送對象--單個會員)"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"SendMailType": 1,
                 "MailRecievers": self.config.test_Member_config(),
                 "BatchParam": " ",
@@ -64,6 +76,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_04(self):
         """驗證 站內信(發送對象--多個會員)"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"SendMailType": 1,
                 "MailRecievers": self.config.batch_Member_config(),
                 "BatchParam": " ",
@@ -84,6 +97,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_05(self):
         """驗證 站內信(發送對象--全站)"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"SendMailType": 4,
                 "MailRecievers": " ",
                 "BatchParam": " ",
@@ -107,13 +121,16 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_06(self):
         """驗證 站內信(發送對象--批次-會員等級)"""
+        self.system = system_config_Setting()
+        Id = self.system.getMemberLevelId()
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"SendMailType": 2,
                 "MailRecievers": " ",
                 "BatchParam": {
                     "isAll": "true"
                 },
                 "SearchParam": {
-                    "MemberLevelSettingIds": ["14"]
+                    "MemberLevelSettingIds": [Id]
                 },
                 "SuperSearchRequest": " ",
                 "IsSuper": "false",
@@ -134,6 +151,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_07(self):
         """驗證 站內信(發送對象--匯入檔案)"""
+        SiteMailBaseTest.Master_login()  # 登入
         self.upload = UploadFile('document/Email_Import.xlsx', 'excelFile', 'Email_Import.xlsx')
         data = self.upload.Upload_file()
         response_data = self.siteMail.uploadCustomExcel(data)
@@ -156,6 +174,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_08(self):
         """驗證 上傳檔案是否成功"""
+        SiteMailBaseTest.Master_login()  # 登入
         self.upload = UploadFile('document/Email_Import.xlsx', 'excelFile', 'Email_Import.xlsx')
         data = self.upload.Upload_file()
         response_data = self.siteMail.uploadCustomExcel(data)
@@ -192,6 +211,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_10(self):
         """驗證 站內信 - 取得全站會員數量"""
+        SiteMailBaseTest.Master_login()  # 登入
         response_data = self.siteMail.getAllSiteMemberCount({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -199,6 +219,7 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_11(self):
         """驗證 站內信 - 刪除寄件匣"""
         # step 1 取得寄件匣Id
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getSentboxList(data)
         getId = response_data[1]['SentboxMailList'][0]['Id']
@@ -210,6 +231,8 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_12(self):
         """驗證 站內信 - 刪除收件匣"""
         # step 1 取得收件匣Id
+        SiteMailBaseTest.Portal()  # 前端寄信
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
@@ -222,6 +245,7 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_13(self):
         """驗證 站內信 - 取得信件詳細資料"""
         # step 1 取得收件匣Id
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
@@ -233,6 +257,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_14(self):
         """驗證 站內信 - 收件匣未讀信件數"""
+        SiteMailBaseTest.Master_login()  # 登入
         response_data = self.siteMail.getUnreadCount({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -240,6 +265,7 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_15(self):
         """驗證 站內信 - 收件匣未讀/已讀信件"""
         # step 1 取得收件匣Id
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
@@ -253,6 +279,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_16(self):
         """驗證 站內信 - 取得收件匣列表"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getInboxList(data)
@@ -261,6 +288,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_17(self):
         """驗證 站內信 - 取得寄件匣列表"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getSentboxList(data)
         status_code = response_data[0]
@@ -268,6 +296,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_18(self):
         """驗證 站內信 - 以日為期間搜尋列表"""
+        SiteMailBaseTest.Master_login()  # 登入
         response_data = self.siteMail.getSearchMailDateList({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -303,6 +332,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_20(self):
         """驗證 站內信 - 促銷匣列表"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"PromotionboxPublishDate": "1", "PromotionboxUnpublishDate": "1"},
                 "PublishDateOrderBy": 0, "UnpublishDateOrderBy": 'null', "PageIndex": 'null'}
         response_data = self.siteMail.announcement_GetList(data)
@@ -311,6 +341,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_21(self):
         """驗證 站內信 - 寄促銷信"""
+        SiteMailBaseTest.Master_login()  # 登入
         data = {"Subject": "@QA_automation", "MailBody": "<p>12333333333</p>\n", "PublishDate": common_config.FirstDay,
                 "UnpublishDate": common_config.EndDay}
         response_data = self.siteMail.announcement_SendMail(data)
@@ -319,6 +350,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_22(self):
         """驗證 站內信 - 刪除促銷信"""
+        SiteMailBaseTest.Master_login()  # 登入
         # step 1: 取得促銷匣信件Id
         data = {"Size": 30, "SearchParam": {"PromotionboxPublishDate": "1", "PromotionboxUnpublishDate": "1"},
                 "PublishDateOrderBy": 0, "UnpublishDateOrderBy": 'null', "PageIndex": 'null'}
@@ -331,6 +363,7 @@ class SiteMailBaseTest(unittest.TestCase):
 
     def test_SiteMail_relatedApi_status_23(self):
         """驗證 站內信 - 取得收件人名單"""
+        SiteMailBaseTest.Master_login()  # 登入
         # step 1 取得寄件匣Id
         data = {"Size": 30, "SearchParam": {"SentboxDate": "1"}, "SendDateOrderBy": 0, "LastId": 'null'}
         response_data = self.siteMail.getSentboxList(data)

@@ -448,6 +448,13 @@ class AgentDetailTest(unittest.TestCase):
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '姓名只允许中英文，與全、半形英文句號')
 
+    def test_AgentDetail_baseApi_status_36(self):
+        """驗證 代理商詳細資料 - 讀取代理資料"""
+        data = {'account': self.config.agentLv1()}
+        response_data = self.agentDetail.getAgentLayerDetail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
     # def test_AgentDetail_baseApi_status_36(self):
     #     """驗證 代理商詳細資料 - 是否可以設定相同的代理鏈接"""
     #     # Step1 取得代理商的 Agent Id(需從詳細資料中取得)

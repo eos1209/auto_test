@@ -18,18 +18,22 @@ class MoneyPassword(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.memberCreate = member_and_agent.MemberCreate(self.__http)
-        self.user.login()
-        self.memberDetail = member_and_agent.MemberDetail(self.__http)  # 會員詳細資料
-        self.verifyWithdraw = account_management.VerifyWithdraw(self.__http)  # 取款審核
-        self.memberTransaction = account_management.MemberTransaction(self.__http)  # 交易紀錄
+
+    @classmethod
+    def Master_login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.memberCreate = member_and_agent.MemberCreate(cls.__http)
+        cls.user.login()
+        cls.memberDetail = member_and_agent.MemberDetail(cls.__http)  # 會員詳細資料
+        cls.verifyWithdraw = account_management.VerifyWithdraw(cls.__http)  # 取款審核
+        cls.memberTransaction = account_management.MemberTransaction(cls.__http)  # 交易紀錄
 
     def tearDown(self):
         self.user.logout()
 
     def member_id(self):
+        MoneyPassword.Master_login()
         data = {"connectionId": self.user.info(), "account": self.config.test_Member_config()}
         response_data = self.memberDetail.getDetail(data)
         return response_data[1]['Member']['Id']
@@ -51,6 +55,19 @@ class MoneyPassword(unittest.TestCase):
         self.portal_verifyWithdraw = PortalExecution()
         self.portal_verifyWithdraw.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
                                                   '123456')  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        MoneyPassword.Master_login()
+        data = {"count": 100, "query": {"search": 'null'}}
+        response_data = self.verifyWithdraw.load(data)
+        getId = response_data[1]['Data'][0]['Id']
+        data = {"id": getId}
+        self.verifyWithdraw.deny(data)
+        data = {"Account": self.config.test_Member_config(), "Types": ["OnlineWithdraw"]}
+        response_data = self.memberTransaction.search(data)
+        getData = response_data[1]['PageData'][0]['Memo']
+        getValidateData = getData.split("'")
+        validateData = getValidateData[1].split('/')
+        # print(validateData)
+        self.assertEqual(str(validateData[2]), str(getId))
 
     def test_MoneyPassword_02(self):
         """驗證 取款密碼提款流程 - 線上取款"""
@@ -65,8 +82,7 @@ class MoneyPassword(unittest.TestCase):
         self.portal = PortalExecution()
         self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
                                    getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
-
-    def test_verifyWithdraw(self):
+        MoneyPassword.Master_login()
         data = {"count": 100, "query": {"search": 'null'}}
         response_data = self.verifyWithdraw.load(data)
         getId = response_data[1]['Data'][0]['Id']

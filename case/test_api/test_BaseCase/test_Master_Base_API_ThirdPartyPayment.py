@@ -19,13 +19,22 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 參數設定
-        self.__http = HttpRequest()
-        self.user = User(self.__http)
-        self.thirdPartyPayment = account_management.ThirdPartyPayment(self.__http)
-        self.user.login()
 
     def tearDown(self):
         self.user.logout()
+
+    @classmethod
+    def Master_login(cls):
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.thirdPartyPayment = account_management.ThirdPartyPayment(cls.__http)
+        cls.user.login()
+
+    @classmethod
+    def ThirdPartyPayment(cls):
+        cls.config = systemSetting()
+        cls.portal = PortalExecution()
+        cls.portal.ThirdPartyPayment(cls.config.test_Member_config(), cls.config.test_Password_config())
 
     def getId(self):
         data = {"count": 25, "query": {"isDTPP": 'true', "search": 'null'}}
@@ -35,6 +44,7 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_01(self):
         """驗證 线上支付看板 - 取得頁面"""
+        ThirdPartyPaymentBaseTest.Master_login()
         response_data = self.thirdPartyPayment.get_index_page({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -87,8 +97,8 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_07(self):
         """驗證 线上支付看板 - 拒絕 狀態"""
-        self.portal = PortalExecution()
-        self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        ThirdPartyPaymentBaseTest.ThirdPartyPayment()
+        ThirdPartyPaymentBaseTest.Master_login()
         Id = self.getId()
         data = {'id': Id}
         response_data = self.thirdPartyPayment.cancel_dtpp_order(data)
@@ -97,8 +107,8 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_08(self):
         """驗證 线上支付看板 - 同意 狀態"""
-        self.portal = PortalExecution()
-        self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        ThirdPartyPaymentBaseTest.ThirdPartyPayment()
+        ThirdPartyPaymentBaseTest.Master_login()
         Id = self.getId()
         data = {'id': Id}
         response_data = self.thirdPartyPayment.allow_dTPP_manual(data)

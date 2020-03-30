@@ -97,6 +97,12 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def getColumnForSuperSearch(self, data):
+        # 取得超級會員顯示欄位
+        path = '/Member/getColumnForSuperSearch'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
     def getSearchCount(self, data):
         # 取得總筆數
         path = '/Member/GetSearchCount'
@@ -118,7 +124,7 @@ class MemberTags(object):
         self.response_data = {}
 
     def getTags(self, data):
-        # 取得會員標籤
+        # 取得標籤
         path = '/MemberTag/GetTags'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
@@ -132,6 +138,12 @@ class MemberTags(object):
     def removeMamberTag(self, data):
         # 刪除會員標籤
         path = '/MemberTag/RemoveMamberTag'  # 這是正確可執行的
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getMemberTags(self, data):
+        # 取得會員標籤
+        path = '/MemberTag/GetMemberTags'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -217,6 +229,18 @@ class MemberBatch(object):
     def batchUpdateMemberEmailValidation(self, data):
         # 批次修改電子郵件驗證
         path = '/Member/BatchUpdateMemberEmailValidation'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def batchDisableMemberGoogleAuthenticator(self, data):
+        # 批次停用二次驗證
+        path = '/Member/BatchDisableMemberGoogleAuthenticator'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def batchDisableMemberGpkAuthenticator(self, data):
+        # 批次停用二次驗證
+        path = '/Member/BatchDisableMemberGpkAuthenticator'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -751,6 +775,12 @@ class AgentDetail(object):
     def loadHistory(self, data):
         # 讀取歷史紀錄
         path = '/Agent/LoadHistory'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def getAgentLayerDetail(self, data):
+        # 讀取代理資料
+        path = '/Agent/GetAgentLayerDetail'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

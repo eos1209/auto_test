@@ -10,7 +10,7 @@ import time
 import calendar
 
 # 延遲時間
-DelayTime = 4
+DelayTime = 8
 
 # 狀態碼
 Status_Code = '200'
@@ -35,5 +35,3 @@ WagersTimeBegin = (date.today().replace(day = 1) - timedelta(1)).replace(day = 1
 """使用現在時間當流水編碼，格式為:月份+日期+分+秒"""
 now = time.strftime("%m%d%M%S", time.localtime())
 
-# 上傳檔案絕對路徑-專案存放位址，檔案路徑另外一半在程式裡
-file_Path = 'D:/automation_test_project/test_data/'

@@ -198,6 +198,24 @@ class MemberBatchBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_MemberBatch_relatedApi_status_14(self):
+        """驗證 會員批次 - 批次停用二次驗證 狀態"""
+        data = {"search": {'Account': self.config.batch_Member_config()}, "isSuper": 'false',
+                "batchParam": {"isAll": 'true'},
+                "isEnable": 'false'}
+        response_data = self.memberBatch.batchDisableMemberGoogleAuthenticator(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberBatch_relatedApi_status_15(self):
+        """驗證 會員批次 - 批次停用裝置驗證 狀態"""
+        data = {"search": {'Account': self.config.batch_Member_config()}, "isSuper": 'false',
+                "batchParam": {"isAll": 'true'},
+                "isEnable": 'false'}
+        response_data = self.memberBatch.batchDisableMemberGpkAuthenticator(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

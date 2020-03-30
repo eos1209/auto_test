@@ -5,12 +5,12 @@
 
 import unittest
 from data_config import common_config
-from data_config import master_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import account_management
 from master_api.account_login import User
 from data_config.system_config import systemSetting
+from base.CommonMethod import SetDelayTime
 
 
 class MemberTransactionBaseTest(unittest.TestCase):
@@ -72,6 +72,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
         ]}
         response_data = self.memberTransaction.search(data)
         status_code = response_data[0]
+        SetDelayTime()
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberTransaction_baseApi_status_04(self):
@@ -93,6 +94,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
         searchData = {"Account": self.config.test_Member_config(),
                       "Types": ["Account", "ThirdPartyPayment", "OnlineWithdraw", "Manual"]}  # 篩選有實際存提的資料
         search = self.memberTransaction.search(searchData)
+        SetDelayTime()
         data = {"id": search[1]['PageData'][0]['Id'],
                 "isReal": True}
         response_data = self.memberTransaction.updateIsReal(data)
@@ -123,6 +125,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
         searchData = self.searchDataId(2)
         print(searchData[1])
         # Step 2
+        SetDelayTime()
         data = {"id": searchData[1]['PageData'][0]['Id']}
         response_data = self.memberTransaction.getDetail(data)
         print(response_data[1])
@@ -131,6 +134,7 @@ class MemberTransactionBaseTest(unittest.TestCase):
     def test_MemberTransaction_baseApi_status_09(self):
         """驗證 時返明細狀態 - 2019/12/03"""
         searchData = self.searchDataId(3)
+        SetDelayTime()
         data = {"id": searchData[1]['PageData'][0]['Id']}
         response_data = self.memberTransaction.getAnytimeDiscountDetail(data)
         status_code = response_data[0]

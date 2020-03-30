@@ -30,9 +30,10 @@ class MemberTagsTest(unittest.TestCase):
 
     def test_MemberTags_relatedApi_status_02(self):
         """會員標籤 - 新增標籤 狀態"""
+        TagsId = self.GetLastMemberTags()
         data = {
-            'newTag': 'QA_automation',
-            'memberTagId': '',
+            'newTag': self.config.singleTag_config(),
+            'memberTagId': TagsId,
             'account': self.config.test_Member_config()
         }
         response_data = self.memberTags.addMemberTag(data)
