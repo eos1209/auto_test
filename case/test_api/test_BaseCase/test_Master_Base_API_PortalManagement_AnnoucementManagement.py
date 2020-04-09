@@ -466,6 +466,18 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_AnnouncementManagement_relatedApi_status_42(self):
+        """ 公告管理-更新公告設定 狀態"""
+        WebsiteId = self.getWebsiteId()
+        data = {"WebsiteId": WebsiteId, "Device": "1", "UpdateAnnouncementSettingList": [
+            {"SettingType": 1, "PopupWhenChangedEnable": 'true', "PopupFrequencyEnable": 'true', "PopupHeader": "公告",
+             "PopupWhenRefreshPage": 'true', "NeedSynchronize": 'true'},
+            {"SettingType": 2, "PopupWhenChangedEnable": 'true', "PopupFrequencyEnable": 'true', "PopupHeader": 'null',
+             "PopupWhenRefreshPage": 'true', "NeedSynchronize": 'true'}]}
+        response_data = self.AnnouncementManagement.updateAnnouncementSetting(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

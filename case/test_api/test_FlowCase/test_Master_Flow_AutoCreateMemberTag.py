@@ -56,7 +56,8 @@ class autoCreateMemberTag(unittest.TestCase):
         data = {'Id': Id, 'verifyAccount': verifyAccount}  # 審核通過該會員
         # Step3:會員登入建立銀行帳戶
         self.memberVerify.approve(data)
-        self.portal.SetBankAccount(account, 'a123456')
+        self.portal_setBank = PortalExecution()
+        self.portal_setBank.SetBankAccount(account, 'a123456')
         SetDelayTime()
         # step 4:從會員歷史紀錄中驗證是否有這筆紀錄+取得該會員的標籤
         autoCreateMemberTag.Master_login()  # 登入

@@ -143,3 +143,7 @@ class systemSetting(object):
     def verifyDeposit(self):
         data = self.sheet.cell_value(32, 1)
         return data
+
+    def LuckyWheel(self):
+        data = self.sheet.cell_value(33, 1)
+        return data

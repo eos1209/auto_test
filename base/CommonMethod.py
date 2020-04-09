@@ -61,6 +61,13 @@ class system_config_Setting(object):
                 Id = level[1][i]['Value']
                 return Id
 
+    def getMemberLevelId_2(self):  # 會員等級_2
+        level = self.home.getAllMemberLevels({})
+        for i in range(len(level[1])):
+            if self.config.MemberLevelSetting_2_config() == level[1][i]['Text']:
+                Id = level[1][i]['Value']
+                return Id
+
 
 class GameHallType(object):
     # 活動類娛樂城種類
@@ -198,6 +205,7 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath("//*[@id='btn-submit']").click()
         sleep(3)
         self.driver.find_element_by_class_name('btn-confirm').click()
+        self.driver.quit()
 
     def SetBankAccount(self, Account, Password):  # 設定銀行帳戶
         self.Login(Account, Password)
@@ -253,6 +261,7 @@ class PortalExecution(object):
         sleep(2)
         self.driver.find_element_by_class_name('modal-nt-login').click()
         sleep(2)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -356,6 +365,7 @@ class PortalExecution(object):
     def AgentLink(self, link, Account):
         self.driver.get(link)
         sleep(7)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
         validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
         if validateIsEnable == 'true':  # 判斷公告是否有開啟
             self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
@@ -368,6 +378,7 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
         sleep(1)
         self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
+        sleep(2)
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)
@@ -376,12 +387,12 @@ class PortalExecution(object):
         self.driver.find_element_by_class_name('btn-confirm').click()
         self.driver.quit()
 
-    def NewLuckyWheel(self, account, password):
+    def NewLuckyWheel(self, account, password):  # 時來運轉
         self.Login(account, password)
         self.driver.get(self.config.Portal_config() + '/NewLuckyWheel')
         sleep(1)
         for i in range(5):
-            self.driver.find_element_by_class_name('arrow').click()
+            self.driver.find_element_by_class_name('arrow').click()  # 開始旋轉
             try:
                 WebDriverWait(self.driver, 30).until(
                     EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div/button')))
@@ -401,3 +412,24 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[4]/div/div/div[3]/button[2]').click()
         sleep(2)
         self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[3]/div/div/div[3]/button[2]').click()
+
+    def LuckyWheel(self, account, password, serialNumber):  # 幸運輪盤
+        self.Login(account, password)
+        sleep(5)
+        self.driver.get(self.config.Portal_config() + '/LuckyWheel')
+        sleep(5)
+        self.driver.find_element_by_class_name('ng-pristine').send_keys(serialNumber)
+        self.driver.find_element_by_class_name('enterbtn').click()
+        sleep(1)
+        for i in range(5):
+            self.driver.find_element_by_class_name('roulette-arrow-image').click()
+            try:
+                WebDriverWait(self.driver, 30).until(
+                    EC.presence_of_element_located((By.XPATH, '//*[@id="ng-app"]/body/div[3]/div/div/div/button')))
+                self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[3]/div/div/div/button').click()
+            except:
+                result = 'Fail'
+                return result
+        self.driver.quit()
+        result = 'Success'
+        return result
