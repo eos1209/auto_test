@@ -1854,6 +1854,19 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def Create(self, data):
+            # API Name =>限时优惠-新增活動
+            # body--
+            path = '/TimeLimitedEvent/Create'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return  self.response_data
+
+        def eventOff(self, data):
+            # 立刻下架
+            path = '/TimeLimitedEvent/EventOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 幸运转盘
     class LuckyWheelManagement:
 

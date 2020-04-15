@@ -37,8 +37,8 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def create_NewLuckyWheel_mode(self, mode):  # 讀取系統檔案來決定獎品數量
         self.system = system_config_Setting()
         self.gameHall = GameHallType()
-        BeginTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")
-        EndTime = (datetime.now() + timedelta(hours = -11)).strftime("%Y/%m/%d %H:%M:%S")
+        BeginTime = (datetime.now() + timedelta(hours=-12)).strftime("%Y/%m/%d %H:%M:%S")
+        EndTime = (datetime.now() + timedelta(hours=-11)).strftime("%Y/%m/%d %H:%M:%S")
         if mode == 6:
             data = {
                 "RewardInfoList": [
@@ -232,6 +232,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def getLuckyWheelId(self):
         data = {"skip": 0, "take": 100, "search": {"AllState": False, "Status": [0, 1]}}
         response_data = self.newLuckyWheel.getList(data)
+        print(response_data)
         for i in range(len(response_data[1]['ReturnObject'])):
             if response_data[1]['ReturnObject'][i]['Name'] == 'QA_test':
                 Id = response_data[1]['ReturnObject'][i]['Id']
@@ -296,7 +297,6 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def test_NewLuckyWheelBaseTest_relatedApi_status_08(self):
         """驗證 时来运转 - 新增時來運轉"""
         data = self.create_NewLuckyWheel_mode(self.config.NewLuckyWheel())
-        # print(data)
         response_data = self.newLuckyWheel.create(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -422,4 +422,4 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())
