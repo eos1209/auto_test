@@ -27,21 +27,21 @@ class VerifyValueDifferenceForDeposit(unittest.TestCase):
         self.user.logout()
 
     @parameterized.expand([
-        ("Verify_deposit_none_manual", "None", 4),
-        ("Verify_deposit_none_bonus", "None", 5),
-        ("Verify_deposit_none_discount", "None", 6),
-        ("Verify_deposit_none_reissuePayOff", "None", 7),
-        ("Verify_deposit_none_other", "None", 99),
-        ("Verify_deposit_deposit_manual", "Deposit", 4),
-        ("Verify_deposit_deposit_bonus", "Deposit", 5),
-        ("Verify_deposit_deposit_discount", "Deposit", 6),
-        ("Verify_deposit_deposit_reissuePayOff", "Deposit", 7),
-        ("Verify_deposit_deposit_other", "Deposit", 99),
-        ("Verify_deposit_discount_manual", "Discount", 4),
-        ("Verify_deposit_discount_bonus", "Discount", 5),
-        ("Verify_deposit_discount_discount", "Discount", 6),
-        ("Verify_deposit_discount_reissuePayOff", "Discount", 7),
-        ("Verify_deposit_discount_other", "Discount", 99),
+        ("驗證存款_無手動", "None", 4), # Verify_deposit_none_manual
+        ("驗證存款_無獎金", "None", 5), # Verify_deposit_none_bonus
+        ("驗證存款_無折扣", "None", 6), # Verify_deposit_none_discount
+        ("驗證存款_無重發送付款", "None", 7), # Verify_deposit_none_reissuePayOff
+        ("驗證存款_無其他", "None", 99), # Verify_deposit_none_other
+        ("驗證存款_手動", "Deposit", 4), # Verify_deposit_deposit_manual
+        ("驗證存款_獎金", "Deposit", 5), # Verify_deposit_deposit_bonus
+        ("驗證存款_折扣", "Deposit", 6), # Verify_deposit_deposit_discount
+        ("驗證存款_重新發出付款", "Deposit", 7), # Verify_deposit_deposit_reissuePayOff
+        ("驗證存款_其他折扣", "Deposit", 99), # Verify_deposit_deposit_other
+        ("驗證存款_折扣手冊", "Discount", 4), # Verify_deposit_discount_manual
+        ("驗證存款_折扣獎金", "Discount", 5), # Verify_deposit_discount_bonus
+        ("驗證存款_折扣", "Discount", 6), # Verify_deposit_discount_discount
+        ("驗證存款_折扣重新發行支付", "Discount", 7), # Verify_deposit_discount_reissuePayOff
+        ("驗證存款_其他折扣", "Discount", 99), # Verify_deposit_discount_other
     ])
     def testCase(self, name, audit_type, select_type):
         # 測試案例名稱、稽核方式、类型

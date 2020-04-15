@@ -52,9 +52,9 @@ class DepositImportBaseTest(unittest.TestCase):
         """優惠匯入 - 優惠匯入-立刻 狀態"""
         # ReserveTime = (datetime.now() + timedelta(hours = 1)).strftime("%Y/%m/%d %H:%M:%S")  # 設定一個小時後開始進行優惠匯入
         # print(ReserveTime)
-        self.upload = UploadFile('document/depositImport-D-7.xlsx',  # 檔案路徑
+        self.upload = UploadFile('document/depositImport-A.xlsx',  # 檔案路徑
                                  'Filebase',  # 上傳欄位
-                                 'depositImport-D-9.xlsx'  # 上傳檔名
+                                 'depositImport-A.xlsx'  # 上傳檔名
                                  )
         data = {'password': (None, master_config.Master_Password),  # 有其他參數上傳用這種mode
                 self.upload.upload_name: (

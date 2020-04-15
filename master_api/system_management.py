@@ -1854,6 +1854,19 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def Create(self, data):
+            # API Name =>限时优惠-新增活動
+            # body--
+            path = '/TimeLimitedEvent/Create'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return  self.response_data
+
+        def eventOff(self, data):
+            # 立刻下架
+            path = '/TimeLimitedEvent/EventOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 幸运转盘
     class LuckyWheelManagement:
 
@@ -1872,14 +1885,25 @@ class ActivityManagement(object):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/Detail'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('GET', path, data)
+            return self.response_data
+
+        def getImage(self, data):
+            # 取得入口圖片
+            path = '/ActivityManagement/GetImage'
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def createAndModify(self, data):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/CreateAndModify'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('GET', path, data)
+            return self.response_data
+
+        def getEventTimeList(self, data):
+            path = '/LuckyWheelManagement/GetEventTimeList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def preview(self, data):
@@ -1893,42 +1917,42 @@ class ActivityManagement(object):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/RewardRecord'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('GET', path, data)
             return self.response_data
 
         def serialNumber(self, data):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/SerialNumber'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('GET', path, data)
             return self.response_data
 
         def getEventList(self, data):
-            # API Name =>活动管理-
+            # API Name =>活动管理- 取得幸運輪盤活動列表
             # body--/{filters}
             path = '/LuckyWheelManagement/GetEventList'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def uploadRewardImage(self, data):
-            # API Name =>活动管理-
+            # API Name =>活动管理- 上傳幸運輪盤獎項圖片
             # body--/{imageFile}
             path = '/LuckyWheelManagement/UploadRewardImage'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequestForUploadFile(path, data)
             return self.response_data
 
         def createNewEvent(self, data):
             # API Name =>活动管理-
             # body--/{request}
             path = '/LuckyWheelManagement/CreateNewEvent'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def getEventDetail(self, data):
             # API Name =>活动管理-
             # body--/{eventID}
             path = '/LuckyWheelManagement/GetEventDetail'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def deleteEvent(self, data):
@@ -1949,35 +1973,35 @@ class ActivityManagement(object):
             # API Name =>活动管理-
             # body--/{request}
             path = '/LuckyWheelManagement/GetRewardRecord'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def getRewardStatistics(self, data):
             # API Name =>活动管理-
             # body--/{eventID}
             path = '/LuckyWheelManagement/GetRewardStatistics'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def createSerialNumber(self, data):
             # API Name =>活动管理-
             # body--/{request}
             path = '/LuckyWheelManagement/CreateSerialNumber'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def getSerialNumberList(self, data):
             # API Name =>活动管理-
             # body--/{eventID}
             path = '/LuckyWheelManagement/GetSerialNumberList'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def sendRewards(self, data):
             # API Name =>活动管理-
             # body--/{eventID}/{recordIDs}
             path = '/LuckyWheelManagement/SendRewards'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def getEventTypeList(self, data):
@@ -1991,7 +2015,7 @@ class ActivityManagement(object):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/GetRewardTypeList'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def getRuleTypeList(self, data):
@@ -2005,7 +2029,7 @@ class ActivityManagement(object):
             # API Name =>活动管理-
             # body--
             path = '/LuckyWheelManagement/GetPortalUrl'
-            self.response_data = self.__http.sendRequest('', path, data)
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def checkEventDateTimeDuplicated(self, data):
@@ -2013,6 +2037,18 @@ class ActivityManagement(object):
             # body--/{request}
             path = '/LuckyWheelManagement/CheckEventDateTimeDuplicated'
             self.response_data = self.__http.sendRequest('', path, data)
+            return self.response_data
+
+        def exportExcel(self, data):
+            # 匯出序號管理名單
+            path = '/LuckyWheelManagement/ExportExcel'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def eventOff(self, data):
+            # 立即下架
+            path = '/LuckyWheelManagement/EventOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
     # 签到奖励
