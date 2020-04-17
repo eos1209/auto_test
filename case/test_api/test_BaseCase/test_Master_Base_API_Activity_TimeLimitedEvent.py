@@ -90,11 +90,11 @@ class TimeLimitedEventBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)  # 驗證回傳200碼
 
     def test_TimeLimitedEvent_relatedApi_status_02(self):
-        """驗證 限时优惠 - 取得活動名稱"""
-        Id = self.getTimeLimitdEventId()
-        data = {"id": Id}
-        response_data = self.timeLimitedEvent.getEventName(data)
+        """驗證 限时优惠 - 新增限時優惠"""
+        data = self.create_NewTimeLimitdEvent()
+        response_data = self.timeLimitedEvent.Create(data)
         status_code = response_data[0]
+        print(status_code)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_TimeLimitedEvent_relatedApi_status_03(self):
@@ -114,14 +114,14 @@ class TimeLimitedEventBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_TimeLimitedEvent_relatedApi_status_05(self):
-        """驗證 限时优惠 - 新增限時優惠"""
-        data = self.create_NewTimeLimitdEvent()
-        response_data = self.timeLimitedEvent.Create(data)
+        """驗證 限时优惠 - 取得活動名稱"""
+        Id = self.getTimeLimitdEventId()
+        data = {"id": Id}
+        response_data = self.timeLimitedEvent.getEventName(data)
         status_code = response_data[0]
-        print(status_code)
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_TimeLimitedEvent_relatedApi_status_0(self):
+    def test_TimeLimitedEvent_relatedApi_status_06(self):
         """驗證 限時優惠 - 立即下架 狀態"""
         Id = self.getTimeLimitdEventId()
         data = {"eventID": Id}
