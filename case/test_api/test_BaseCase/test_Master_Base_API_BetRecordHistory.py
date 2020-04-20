@@ -13,6 +13,7 @@ import datetime
 import re
 from data_config.system_config import systemSetting
 
+
 class BetRecordHistoryBaseTest(unittest.TestCase):
     """ 歷史投注紀錄查詢 - 相關 API 調用狀態"""
 
