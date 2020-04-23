@@ -1629,6 +1629,12 @@ class PortalManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def UpdateFinanceCenterSubCategory(self, data):
+            # 財務中心 修改推廣圖標文字狀態
+            path = '/FinanceCenter/UpdateFinanceCenterSubCategory'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 選單管理
     class MobileMenu:
         def __init__(self, http):
