@@ -330,7 +330,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_11(self):
         """驗證 时来运转 - Portal時來運轉 狀態"""
-        sleep(35)
+        sleep(30)
         self.portal = PortalExecution()
         validateData = self.portal.NewLuckyWheel(self.config.test_Member_config(), self.config.test_Password_config())
         self.assertEqual(validateData, 'Success')

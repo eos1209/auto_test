@@ -1,0 +1,478 @@
+'''
+@Created by loka
+@Date : 2020/01/20
+'''
+
+import unittest
+
+from base.HTMLTestReportCN import HTMLTestRunner
+from base.httpRequest import HttpRequest
+from data_config import common_config
+from master_api.system_management import PortalManagement
+from master_api.account_login import User
+from data_config.system_config import systemSetting
+
+
+class SiteParameterBaseTest(unittest.TestCase):
+    """ 選單管理 - 相關 API 調用狀態"""
+
+    def setUp(self):
+        self.config = systemSetting()  # 系統參數
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.siteParameter = PortalManagement.MobileMenu(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
+        self.user.login()
+
+    # 登出
+    def tearDown(self):
+        self.user.logout()
+
+    # 取站台ID
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
+    def test_BeforeLoggingIn_relatedApi_status_01(self):
+        """ 選單管理 - 取得選單管理登入前 狀態"""
+        data = {"WebsiteId": self.getWebsiteId(), "device": "2"}
+        response_data = self.siteParameter.GetList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_BeforeLogin_relatedApi_status_02(self):
+        """ 選單管理 - 取得選單管理登入前_詳細 狀態 """
+        data = {"device": "2"}
+        response_data = self.siteParameter.GetDefaultList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_BeforeLoggingIn_Horizontal_relatedApi_status_03(self):
+        """ 選單管理 - 取得選單管理登入前_橫向 狀態"""
+        data = {"WebsiteId": self.getWebsiteId(), "device": "3"}
+        response_data = self.siteParameter.GetList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_BeforeLogin_relatedApi_Horizontal_status_04(self):
+        """ 選單管理 - 取得選單管理登入前_橫向詳細 狀態 """
+        data = {"device": "3"}
+        response_data = self.siteParameter.GetDefaultList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_CopyMenu_relatedApi_status_05(self):
+        """  選單管理 - 複制功能_直向到橫向 狀態"""
+        data = {"FromWebSiteId": self.getWebsiteId(), "CopyWebSiteIds": [], "FromDevice": 2, "ToDevice": 3}
+        response_data = self.siteParameter.CopyMenu(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_CopyMenu_relatedApi_status_06(self):
+        """  選單管理 - 複制功能_橫向到直向 狀態"""
+        data = {"FromWebSiteId": self.getWebsiteId(), "CopyWebSiteIds": [], "FromDevice": 3, "ToDevice": 2}
+        response_data = self.siteParameter.CopyMenu(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    # def test_UpdateList_relatedApi_status_07(self, true=None, false=None, null=None):
+    #     """ 選單管理 - 新增項目 狀態"""
+    #
+    #     # data = {"WebsiteId": self.getWebsiteId(),
+    #     #         "UpdateList": [
+    #     #             {"Id": 2996, "MenuStatus": 2, "Sort": 1, "ActionType": 15, "ActionContent": "/Yuebao",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fal fa-piggy-bank fa-flip-horizontal", "NameTw": "餘額寶", "NameCn": "余额宝",
+    #     #              "NameEn": "Yuebao",
+    #     #              "NameTh": "หยูบาว", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999914, "Description": "(余额宝)", "IsDisabled": false, "termId": 14, "site": 29,
+    #     #              "actionTypeLangKey": "MEMBER_Yuebao",
+    #     #              "bak": {"Id": 2996, "MenuStatus": 2, "Sort": 1, "ActionType": 15, "ActionContent": "/Yuebao",
+    #     #                      "IconType": 1, "IconName": "fal fa-piggy-bank fa-flip-horizontal", "NameTw": "餘額寶",
+    #     #                      "NameCn": "余额宝", "NameEn": "Yuebao", "NameTh": "หยูบาว", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999914,
+    #     #                      "Description": "(余额宝)",
+    #     #                      "IsDisabled": false, "termId": 14, "site": 29, "actionTypeLangKey": "MEMBER_Yuebao"}},
+    #     #             {"Id": 2984, "MenuStatus": 2, "Sort": 2, "ActionType": 9, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-envelope", "NameTw": "站內信件", "NameCn": "站内信件", "NameEn": "Site Mail",
+    #     #              "NameTh": "จดหมายสถานี", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999902, "Description": "(站內信)", "IsDisabled": false, "termId": 15, "site": 29,
+    #     #              "actionTypeLangKey": "MENU_InternalMessageManagement",
+    #     #              "bak": {"Id": 2984, "MenuStatus": 2, "Sort": 2, "ActionType": 9, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-envelope", "NameTw": "站內信件", "NameCn": "站内信件", "NameEn": "Site Mail",
+    #     #                      "NameTh": "จดหมายสถานี", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999902, "Description": "(站內信)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 15, "site": 29, "actionTypeLangKey": "MENU_InternalMessageManagement"}},
+    #     #             {"Id": 2983, "MenuStatus": 2, "Sort": 3, "ActionType": 2, "ActionContent": "/", "IconType": 1,
+    #     #              "IconName": "fas fa-home", "NameTw": "回首頁", "NameCn": "回首页", "NameEn": "Home",
+    #     #              "NameTh": "หน้าแรก",
+    #     #              "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999901,
+    #     #              "Description": "(回首页)", "IsDisabled": false, "termId": 16, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_BackToHome",
+    #     #              "bak": {"Id": 2983, "MenuStatus": 2, "Sort": 3, "ActionType": 2, "ActionContent": "/",
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-home", "NameTw": "回首頁", "NameCn": "回首页", "NameEn": "Home",
+    #     #                      "NameTh": "หน้าแรก",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999901, "Description": "(回首页)", "IsDisabled": false, "termId": 16,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_BackToHome"}},
+    #     #             {"Id": 2985, "MenuStatus": 2, "Sort": 4, "ActionType": 3, "ActionContent": "/Announcement",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fas fa-bullhorn", "NameTw": "最新公告", "NameCn": "最新公告", "NameEn": "Announcement",
+    #     #              "NameTh": "การประกาศ", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999903, "Description": "(最新公告)", "IsDisabled": false, "termId": 17, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Announcement",
+    #     #              "bak": {"Id": 2985, "MenuStatus": 2, "Sort": 4, "ActionType": 3, "ActionContent": "/Announcement",
+    #     #                      "IconType": 1, "IconName": "fas fa-bullhorn", "NameTw": "最新公告", "NameCn": "最新公告",
+    #     #                      "NameEn": "Announcement", "NameTh": "การประกาศ", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999903,
+    #     #                      "Description": "(最新公告)",
+    #     #                      "IsDisabled": false, "termId": 17, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_Announcement"}},
+    #     #             {"Id": 2986, "MenuStatus": 2, "Sort": 5, "ActionType": 10,
+    #     #              "ActionContent": "/Account/ChangePassword",
+    #     #              "IconType": 1, "IconName": "fas fa-key", "NameTw": "修改密碼", "NameCn": "修改密码",
+    #     #              "NameEn": "Change Password",
+    #     #              "NameTh": "เปลี่ยนรหัสลับ", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999904, "Description": "(修改密码)", "IsDisabled": false, "termId": 18, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_ChangePassword",
+    #     #              "bak": {"Id": 2986, "MenuStatus": 2, "Sort": 5, "ActionType": 10,
+    #     #                      "ActionContent": "/Account/ChangePassword", "IconType": 1, "IconName": "fas fa-key",
+    #     #                      "NameTw": "修改密碼", "NameCn": "修改密码", "NameEn": "Change Password",
+    #     #                      "NameTh": "เปลี่ยนรหัสลับ",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999904, "Description": "(修改密码)", "IsDisabled": false, "termId": 18,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_ChangePassword"}},
+    #     #             {"Id": 2987, "MenuStatus": 2, "Sort": 6, "ActionType": 11,
+    #     #              "ActionContent": "/Account/ChangeMoneyPassword",
+    #     #              "IconType": 1, "IconName": "fas fa-money-check-alt", "NameTw": "修改取款密碼", "NameCn": "修改取款密码",
+    #     #              "NameEn": "Change Money Password", "NameTh": "เปลี่ยนรหัสผ่านเงิน", "IsShow": true,
+    #     #              "IsFixed": false,
+    #     #              "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999905, "Description": "(修改取款密码)",
+    #     #              "IsDisabled": false, "termId": 19, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_ChangeMoneyPassword",
+    #     #              "bak": {"Id": 2987, "MenuStatus": 2, "Sort": 6, "ActionType": 11,
+    #     #                      "ActionContent": "/Account/ChangeMoneyPassword", "IconType": 1,
+    #     #                      "IconName": "fas fa-money-check-alt", "NameTw": "修改取款密碼", "NameCn": "修改取款密码",
+    #     #                      "NameEn": "Change Money Password", "NameTh": "เปลี่ยนรหัสผ่านเงิน", "IsShow": true,
+    #     #                      "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999905,
+    #     #                      "Description": "(修改取款密码)", "IsDisabled": false, "termId": 19, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_ChangeMoneyPassword"}},
+    #     #             {"Id": 2988, "MenuStatus": 2, "Sort": 7, "ActionType": 12, "ActionContent": "/BetRecord",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fas fa-history", "NameTw": "投注紀錄", "NameCn": "投注记录", "NameEn": "BetRecord",
+    #     #              "NameTh": "รายการเดิมพัน", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999906, "Description": "(投注记录)", "IsDisabled": false, "termId": 20, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_BetRecord",
+    #     #              "bak": {"Id": 2988, "MenuStatus": 2, "Sort": 7, "ActionType": 12, "ActionContent": "/BetRecord",
+    #     #                      "IconType": 1, "IconName": "fas fa-history", "NameTw": "投注紀錄", "NameCn": "投注记录",
+    #     #                      "NameEn": "BetRecord", "NameTh": "รายการเดิมพัน", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999906,
+    #     #                      "Description": "(投注记录)",
+    #     #                      "IsDisabled": false, "termId": 20, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_BetRecord"}},
+    #     #             {"Id": 2989, "MenuStatus": 2, "Sort": 8, "ActionType": 4, "ActionContent": "Live800Link",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fab fa-whatsapp", "NameTw": "在線客服", "NameCn": "在线客服", "NameEn": "Customer Service",
+    #     #              "NameTh": "บริการลูกค้า", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999907, "Description": "(在线客服)", "IsDisabled": false, "termId": 21, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_CustomerService",
+    #     #              "bak": {"Id": 2989, "MenuStatus": 2, "Sort": 8, "ActionType": 4, "ActionContent": "Live800Link",
+    #     #                      "IconType": 1, "IconName": "fab fa-whatsapp", "NameTw": "在線客服", "NameCn": "在线客服",
+    #     #                      "NameEn": "Customer Service", "NameTh": "บริการลูกค้า", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999907,
+    #     #                      "Description": "(在线客服)",
+    #     #                      "IsDisabled": false, "termId": 21, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_CustomerService"}},
+    #     #             {"Id": 2990, "MenuStatus": 2, "Sort": 9, "ActionType": 5, "ActionContent": "QQ", "IconType": 1,
+    #     #              "IconName": "fab fa-qq", "NameTw": "QQ", "NameCn": "QQ", "NameEn": "QQ", "NameTh": "QQ",
+    #     #              "IsShow": true,
+    #     #              "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999908,
+    #     #              "Description": "(QQ)", "IsDisabled": false, "termId": 22, "site": 29,
+    #     #              "actionTypeLangKey": "PORTALSETTING_QQ",
+    #     #              "bak": {"Id": 2990, "MenuStatus": 2, "Sort": 9, "ActionType": 5, "ActionContent": "QQ",
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fab fa-qq", "NameTw": "QQ", "NameCn": "QQ", "NameEn": "QQ", "NameTh": "QQ",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999908, "Description": "(QQ)", "IsDisabled": false, "termId": 22,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "PORTALSETTING_QQ"}},
+    #     #             {"Id": 2991, "MenuStatus": 2, "Sort": 10, "ActionType": 6,
+    #     #              "ActionContent": "AgentAccountRegistration",
+    #     #              "IconType": 1, "IconName": "fas fa-address-card", "NameTw": "代理註冊", "NameCn": "代理注册",
+    #     #              "NameEn": "Agent Account Registration", "NameTh": "การลงทะเบียนบัญชีตัวแทน", "IsShow": true,
+    #     #              "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999909,
+    #     #              "Description": "(代理注册)", "IsDisabled": false, "termId": 23, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_AgentAccountRegistration",
+    #     #              "bak": {"Id": 2991, "MenuStatus": 2, "Sort": 10, "ActionType": 6,
+    #     #                      "ActionContent": "AgentAccountRegistration", "IconType": 1,
+    #     #                      "IconName": "fas fa-address-card",
+    #     #                      "NameTw": "代理註冊", "NameCn": "代理注册", "NameEn": "Agent Account Registration",
+    #     #                      "NameTh": "การลงทะเบียนบัญชีตัวแทน", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999909, "Description": "(代理注册)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 23, "site": 29, "actionTypeLangKey": "MobileMenu_AgentAccountRegistration"}},
+    #     #             {"Id": 2992, "MenuStatus": 2, "Sort": 11, "ActionType": 7, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-language", "NameTw": null, "NameCn": "语言", "NameEn": null, "NameTh": null,
+    #     #              "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999910,
+    #     #              "Description": "(语言)", "IsDisabled": false, "termId": 24, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Language",
+    #     #              "bak": {"Id": 2992, "MenuStatus": 2, "Sort": 11, "ActionType": 7, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-language", "NameTw": null, "NameCn": "语言", "NameEn": null,
+    #     #                      "NameTh": null,
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999910, "Description": "(语言)", "IsDisabled": false, "termId": 24,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_Language"}},
+    #     #             {"Id": 2993, "MenuStatus": 2, "Sort": 12, "ActionType": 13, "ActionContent": "/Account/SignOut",
+    #     #              "IconType": 1, "IconName": "fas fa-sign-out-alt", "NameTw": "登出", "NameCn": "登出",
+    #     #              "NameEn": "SignOut",
+    #     #              "NameTh": "ลงชื่อออก", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999911, "Description": "(登出)", "IsDisabled": false, "termId": 25, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Logout",
+    #     #              "bak": {"Id": 2993, "MenuStatus": 2, "Sort": 12, "ActionType": 13,
+    #     #                      "ActionContent": "/Account/SignOut",
+    #     #                      "IconType": 1, "IconName": "fas fa-sign-out-alt", "NameTw": "登出", "NameCn": "登出",
+    #     #                      "NameEn": "SignOut", "NameTh": "ลงชื่อออก", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999911, "Description": "(登出)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 25, "site": 29, "actionTypeLangKey": "MobileMenu_Logout"}},
+    #     #             {"Id": 2994, "MenuStatus": 2, "Sort": 13, "ActionType": 8, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-desktop", "NameTw": "回電腦版", "NameCn": "回电脑版", "NameEn": "Change To Desktop",
+    #     #              "NameTh": "เปลี่ยนเป็นเดสก์ท็อป", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01", "RelationKey": 889999912, "Description": "(回电脑版)", "IsDisabled": false,
+    #     #              "termId": 26, "site": 29, "actionTypeLangKey": "MobileMenu_ChangeToDesktop",
+    #     #              "bak": {"Id": 2994, "MenuStatus": 2, "Sort": 13, "ActionType": 8, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-desktop", "NameTw": "回電腦版", "NameCn": "回电脑版",
+    #     #                      "NameEn": "Change To Desktop",
+    #     #                      "NameTh": "เปลี่ยนเป็นเดสก์ท็อป", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999912, "Description": "(回电脑版)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 26, "site": 29, "actionTypeLangKey": "MobileMenu_ChangeToDesktop"}},
+    #     #             {"Id": -28, "MenuStatus": 2, "Sort": 14, "ActionType": 1, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-adjust", "NameTw": "# 登入前", "NameCn": "測試新增", "NameEn": "# 登入前",
+    #     #              "NameTh": "# 登入前",
+    #     #              "IsShow": true, "IsFixed": false, "WebsiteCode": "AB005-01", "RelationKey": -1,
+    #     #              "IsDisabled": false,
+    #     #              "termId": 28, "site": 29, "bak": {}},
+    #     #             {"Id": 2966, "MenuStatus": 1, "Sort": 1, "ActionType": 2, "ActionContent": "/", "IconType": 1,
+    #     #              "IconName": "fas fa-home", "NameTw": "回首頁", "NameCn": "回首页", "NameEn": "Home",
+    #     #              "NameTh": "หน้าแรก",
+    #     #              "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999901,
+    #     #              "Description": "(回首页)", "IsDisabled": false, "termId": 1, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_BackToHome",
+    #     #              "bak": {"Id": 2966, "MenuStatus": 1, "Sort": 1, "ActionType": 2, "ActionContent": "/",
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-home", "NameTw": "回首頁", "NameCn": "回首页", "NameEn": "Home",
+    #     #                      "NameTh": "หน้าแรก",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999901, "Description": "(回首页)", "IsDisabled": false, "termId": 1,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_BackToHome"}},
+    #     #             {"Id": 2968, "MenuStatus": 1, "Sort": 2, "ActionType": 3, "ActionContent": "/Announcement",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fas fa-bullhorn", "NameTw": "最新公告", "NameCn": "最新公告", "NameEn": "Announcement",
+    #     #              "NameTh": "การประกาศ", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999903, "Description": "(最新公告)", "IsDisabled": false, "termId": 2, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Announcement",
+    #     #              "bak": {"Id": 2968, "MenuStatus": 1, "Sort": 2, "ActionType": 3, "ActionContent": "/Announcement",
+    #     #                      "IconType": 1, "IconName": "fas fa-bullhorn", "NameTw": "最新公告", "NameCn": "最新公告",
+    #     #                      "NameEn": "Announcement", "NameTh": "การประกาศ", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999903,
+    #     #                      "Description": "(最新公告)",
+    #     #                      "IsDisabled": false, "termId": 2, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_Announcement"}},
+    #     #             {"Id": 2972, "MenuStatus": 1, "Sort": 3, "ActionType": 4, "ActionContent": "Live800Link",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fab fa-whatsapp", "NameTw": "在線客服", "NameCn": "在线客服", "NameEn": "Customer Service",
+    #     #              "NameTh": "บริการลูกค้า", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999907, "Description": "(在线客服)", "IsDisabled": false, "termId": 3, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_CustomerService",
+    #     #              "bak": {"Id": 2972, "MenuStatus": 1, "Sort": 3, "ActionType": 4, "ActionContent": "Live800Link",
+    #     #                      "IconType": 1, "IconName": "fab fa-whatsapp", "NameTw": "在線客服", "NameCn": "在线客服",
+    #     #                      "NameEn": "Customer Service", "NameTh": "บริการลูกค้า", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999907,
+    #     #                      "Description": "(在线客服)",
+    #     #                      "IsDisabled": false, "termId": 3, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_CustomerService"}},
+    #     #             {"Id": 2973, "MenuStatus": 1, "Sort": 4, "ActionType": 5, "ActionContent": "QQ", "IconType": 1,
+    #     #              "IconName": "fab fa-qq", "NameTw": "QQ", "NameCn": "QQ", "NameEn": "QQ", "NameTh": "QQ",
+    #     #              "IsShow": true,
+    #     #              "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999908,
+    #     #              "Description": "(QQ)", "IsDisabled": false, "termId": 4, "site": 29,
+    #     #              "actionTypeLangKey": "PORTALSETTING_QQ",
+    #     #              "bak": {"Id": 2973, "MenuStatus": 1, "Sort": 4, "ActionType": 5, "ActionContent": "QQ",
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fab fa-qq", "NameTw": "QQ", "NameCn": "QQ", "NameEn": "QQ", "NameTh": "QQ",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999908, "Description": "(QQ)", "IsDisabled": false, "termId": 4,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "PORTALSETTING_QQ"}},
+    #     #             {"Id": 2974, "MenuStatus": 1, "Sort": 5, "ActionType": 6,
+    #     #              "ActionContent": "AgentAccountRegistration",
+    #     #              "IconType": 1, "IconName": "fas fa-address-card", "NameTw": "代理註冊", "NameCn": "代理注册",
+    #     #              "NameEn": "Agent Account Registration", "NameTh": "การลงทะเบียนบัญชีตัวแทน", "IsShow": true,
+    #     #              "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999909,
+    #     #              "Description": "(代理注册)", "IsDisabled": false, "termId": 5, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_AgentAccountRegistration",
+    #     #              "bak": {"Id": 2974, "MenuStatus": 1, "Sort": 5, "ActionType": 6,
+    #     #                      "ActionContent": "AgentAccountRegistration", "IconType": 1,
+    #     #                      "IconName": "fas fa-address-card",
+    #     #                      "NameTw": "代理註冊", "NameCn": "代理注册", "NameEn": "Agent Account Registration",
+    #     #                      "NameTh": "การลงทะเบียนบัญชีตัวแทน", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999909, "Description": "(代理注册)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 5, "site": 29, "actionTypeLangKey": "MobileMenu_AgentAccountRegistration"}},
+    #     #             {"Id": 2975, "MenuStatus": 1, "Sort": 6, "ActionType": 7, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-language", "NameTw": null, "NameCn": "语言", "NameEn": null, "NameTh": null,
+    #     #              "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999910,
+    #     #              "Description": "(语言)", "IsDisabled": false, "termId": 6, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Language",
+    #     #              "bak": {"Id": 2975, "MenuStatus": 1, "Sort": 6, "ActionType": 7, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-language", "NameTw": null, "NameCn": "语言", "NameEn": null,
+    #     #                      "NameTh": null,
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999910, "Description": "(语言)", "IsDisabled": false, "termId": 6,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_Language"}},
+    #     #             {"Id": 2977, "MenuStatus": 1, "Sort": 7, "ActionType": 8, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-desktop", "NameTw": "回電腦版", "NameCn": "回电脑版", "NameEn": "Change To Desktop",
+    #     #              "NameTh": "เปลี่ยนเป็นเดสก์ท็อป", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01", "RelationKey": 889999912, "Description": "(回电脑版)", "IsDisabled": false,
+    #     #              "termId": 7, "site": 29, "actionTypeLangKey": "MobileMenu_ChangeToDesktop",
+    #     #              "bak": {"Id": 2977, "MenuStatus": 1, "Sort": 7, "ActionType": 8, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-desktop", "NameTw": "回電腦版", "NameCn": "回电脑版",
+    #     #                      "NameEn": "Change To Desktop",
+    #     #                      "NameTh": "เปลี่ยนเป็นเดสก์ท็อป", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999912, "Description": "(回电脑版)",
+    #     #                      "IsDisabled": false,
+    #     #                      "termId": 7, "site": 29, "actionTypeLangKey": "MobileMenu_ChangeToDesktop"}},
+    #     #             {"Id": -30, "MenuStatus": 1, "Sort": 8, "ActionType": 1, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-adjust", "NameTw": "# 登入前", "NameCn": "測試新增", "NameEn": "# 登入前",
+    #     #              "NameTh": "# 登入前",
+    #     #              "IsShow": true, "IsFixed": false, "WebsiteCode": "AB005-01", "RelationKey": -1,
+    #     #              "IsDisabled": false,
+    #     #              "termId": 30, "site": 29, "bak": {}},
+    #     #             {"Id": 2979, "MenuStatus": 1, "Sort": 255, "ActionType": 15, "ActionContent": "/Yuebao",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fal fa-piggy-bank fa-flip-horizontal", "NameTw": "餘額寶", "NameCn": "余额宝",
+    #     #              "NameEn": "Yuebao",
+    #     #              "NameTh": "หยูบาว", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999914, "Description": "(余额宝)", "IsDisabled": true, "termId": 8, "site": 29,
+    #     #              "actionTypeLangKey": "MEMBER_Yuebao",
+    #     #              "bak": {"Id": 2979, "MenuStatus": 1, "Sort": 255, "ActionType": 15, "ActionContent": "/Yuebao",
+    #     #                      "IconType": 1, "IconName": "fal fa-piggy-bank fa-flip-horizontal", "NameTw": "餘額寶",
+    #     #                      "NameCn": "余额宝", "NameEn": "Yuebao", "NameTh": "หยูบาว", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999914,
+    #     #                      "Description": "(余额宝)",
+    #     #                      "IsDisabled": true, "termId": 8, "site": 29, "actionTypeLangKey": "MEMBER_Yuebao"}},
+    #     #             {"Id": 2967, "MenuStatus": 1, "Sort": 255, "ActionType": 9, "ActionContent": null, "IconType": 1,
+    #     #              "IconName": "fas fa-envelope", "NameTw": "站內信件", "NameCn": "站内信件", "NameEn": "Site Mail",
+    #     #              "NameTh": "จดหมายสถานี", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999902, "Description": "(站內信)", "IsDisabled": true, "termId": 9, "site": 29,
+    #     #              "actionTypeLangKey": "MENU_InternalMessageManagement",
+    #     #              "bak": {"Id": 2967, "MenuStatus": 1, "Sort": 255, "ActionType": 9, "ActionContent": null,
+    #     #                      "IconType": 1,
+    #     #                      "IconName": "fas fa-envelope", "NameTw": "站內信件", "NameCn": "站内信件", "NameEn": "Site Mail",
+    #     #                      "NameTh": "จดหมายสถานี", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999902, "Description": "(站內信)",
+    #     #                      "IsDisabled": true,
+    #     #                      "termId": 9, "site": 29, "actionTypeLangKey": "MENU_InternalMessageManagement"}},
+    #     #             {"Id": 2976, "MenuStatus": 1, "Sort": 255, "ActionType": 13, "ActionContent": "/Account/SignOut",
+    #     #              "IconType": 1, "IconName": "fas fa-sign-out-alt", "NameTw": "登出", "NameCn": "登出",
+    #     #              "NameEn": "SignOut",
+    #     #              "NameTh": "ลงชื่อออก", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999911, "Description": "(登出)", "IsDisabled": true, "termId": 10, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_Logout",
+    #     #              "bak": {"Id": 2976, "MenuStatus": 1, "Sort": 255, "ActionType": 13,
+    #     #                      "ActionContent": "/Account/SignOut",
+    #     #                      "IconType": 1, "IconName": "fas fa-sign-out-alt", "NameTw": "登出", "NameCn": "登出",
+    #     #                      "NameEn": "SignOut", "NameTh": "ลงชื่อออก", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null,
+    #     #                      "WebsiteCode": "AB005-01", "RelationKey": 889999911, "Description": "(登出)",
+    #     #                      "IsDisabled": true,
+    #     #                      "termId": 10, "site": 29, "actionTypeLangKey": "MobileMenu_Logout"}},
+    #     #             {"Id": 2969, "MenuStatus": 1, "Sort": 255, "ActionType": 10,
+    #     #              "ActionContent": "/Account/ChangePassword",
+    #     #              "IconType": 1, "IconName": "fas fa-key", "NameTw": "修改密碼", "NameCn": "修改密码",
+    #     #              "NameEn": "Change Password",
+    #     #              "NameTh": "เปลี่ยนรหัสลับ", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999904, "Description": "(修改密码)", "IsDisabled": true, "termId": 11, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_ChangePassword",
+    #     #              "bak": {"Id": 2969, "MenuStatus": 1, "Sort": 255, "ActionType": 10,
+    #     #                      "ActionContent": "/Account/ChangePassword", "IconType": 1, "IconName": "fas fa-key",
+    #     #                      "NameTw": "修改密碼", "NameCn": "修改密码", "NameEn": "Change Password",
+    #     #                      "NameTh": "เปลี่ยนรหัสลับ",
+    #     #                      "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #                      "RelationKey": 889999904, "Description": "(修改密码)", "IsDisabled": true, "termId": 11,
+    #     #                      "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_ChangePassword"}},
+    #     #             {"Id": 2970, "MenuStatus": 1, "Sort": 255, "ActionType": 11,
+    #     #              "ActionContent": "/Account/ChangeMoneyPassword", "IconType": 1,
+    #     #              "IconName": "fas fa-money-check-alt",
+    #     #              "NameTw": "修改取款密碼", "NameCn": "修改取款密码", "NameEn": "Change Money Password",
+    #     #              "NameTh": "เปลี่ยนรหัสผ่านเงิน",
+    #     #              "IsShow": true, "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999905,
+    #     #              "Description": "(修改取款密码)", "IsDisabled": true, "termId": 12, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_ChangeMoneyPassword",
+    #     #              "bak": {"Id": 2970, "MenuStatus": 1, "Sort": 255, "ActionType": 11,
+    #     #                      "ActionContent": "/Account/ChangeMoneyPassword", "IconType": 1,
+    #     #                      "IconName": "fas fa-money-check-alt", "NameTw": "修改取款密碼", "NameCn": "修改取款密码",
+    #     #                      "NameEn": "Change Money Password", "NameTh": "เปลี่ยนรหัสผ่านเงิน", "IsShow": true,
+    #     #                      "IsFixed": false, "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999905,
+    #     #                      "Description": "(修改取款密码)", "IsDisabled": true, "termId": 12, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_ChangeMoneyPassword"}},
+    #     #             {"Id": 2971, "MenuStatus": 1, "Sort": 255, "ActionType": 12, "ActionContent": "/BetRecord",
+    #     #              "IconType": 1,
+    #     #              "IconName": "fas fa-history", "NameTw": "投注紀錄", "NameCn": "投注记录", "NameEn": "BetRecord",
+    #     #              "NameTh": "รายการเดิมพัน", "IsShow": true, "IsFixed": false, "IconColor": null,
+    #     #              "WebsiteCode": "AB005-01",
+    #     #              "RelationKey": 889999906, "Description": "(投注记录)", "IsDisabled": true, "termId": 13, "site": 29,
+    #     #              "actionTypeLangKey": "MobileMenu_BetRecord",
+    #     #              "bak": {"Id": 2971, "MenuStatus": 1, "Sort": 255, "ActionType": 12, "ActionContent": "/BetRecord",
+    #     #                      "IconType": 1, "IconName": "fas fa-history", "NameTw": "投注紀錄", "NameCn": "投注记录",
+    #     #                      "NameEn": "BetRecord", "NameTh": "รายการเดิมพัน", "IsShow": true, "IsFixed": false,
+    #     #                      "IconColor": null, "WebsiteCode": "AB005-01", "RelationKey": 889999906,
+    #     #                      "Description": "(投注记录)",
+    #     #                      "IsDisabled": true, "termId": 13, "site": 29,
+    #     #                      "actionTypeLangKey": "MobileMenu_BetRecord"}}],
+    #     #         "Device": 2
+    #     #         }
+    #     data = {}
+    #     response_data = self.siteParameter.UpdateList(data)
+    #     status_code = response_data[0]
+    #     self.assertEqual(status_code, common_config.Status_Code)
+
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HTMLTestRunner())

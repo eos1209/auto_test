@@ -1611,17 +1611,71 @@ class PortalManagement(object):
             self.__http = http
             self.response_data = {}
 
+        def GetFinanceCenterSubCategory(self, data):
+            # 財務中心 取得分類列表狀態
+            path = '/FinanceCenter/GetFinanceCenterSubCategory'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def GetOnlinePaymentDirectSetting(self, data):
+            # 財務中心 取得裝置種類狀態
+            path = '/FinanceCenter/GetOnlinePaymentDirectSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def GetFinanceCenterDetailSetting(self, data):
+            # 財務中心 取得詳細資料列表狀態
+            path = '/FinanceCenter/GetFinanceCenterDetailSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 選單管理
     class MobileMenu:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
 
+        def GetList(self, data):
+            # 選單管理 取得登入前列表狀態
+            path = '/MobileMenuManagement/GetList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def GetDefaultList(self, data):
+            # 選單管理 取得登入前列表狀態
+            path = '/MobileMenuManagement/GetDefaultList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UpdateList(self, data):
+            # 選單管理 新增項目功能
+            path = '/MobileMenuManagement/UpdateList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def CopyMenu(self, data):
+            # 選單管理 複制功能
+            path = '/MobileMenuManagement/CopyMenu'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
     # 優惠管理
     class PromotionManage:
         def __init__(self, http):
             self.__http = http
             self.response_data = {}
+
+        def GetPromotions(self, data):
+            # 優惠管理 取得列表狀態、複制子子分類
+            path = '/PromotionManagement/GetPromotions'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def Submit(self, data):
+            # 優惠管理 新增/移除：大分類、子分類、子子分類功能
+            path = '/PromotionManagement/Submit'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
 
     # 主題設置
     class MobileTheme:
@@ -1859,7 +1913,7 @@ class ActivityManagement(object):
             # body--
             path = '/TimeLimitedEvent/Create'
             self.response_data = self.__http.sendRequest('POST', path, data)
-            return  self.response_data
+            return self.response_data
 
         def eventOff(self, data):
             # 立刻下架
