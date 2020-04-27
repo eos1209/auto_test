@@ -14,7 +14,7 @@ class systemSetting(object):
         path = "D:/automation_test_project/test_data/document/system_config.xlsx"
         # self.path = os.path.abspath(path)
         self.file = xlrd.open_workbook(path)
-        self.sheet = self.file.sheet_by_index(0)  # 0:05 1:06
+        self.sheet = self.file.sheet_by_index(2)  # 0:05環境 1:06環境 2:07環境
 
     def Portal_config(self):  # Portal網址設定
         data = self.sheet.cell_value(1, 1)
@@ -147,6 +147,11 @@ class systemSetting(object):
     def LuckyWheel(self):
         data = self.sheet.cell_value(33, 1)
         return data
+
     def NewTimeLimitedEvent(self):
         data = self.sheet.cell_value(34, 1)
+        return data
+
+    def report_title(self):  # 報表標題
+        data = self.sheet.cell_value(35, 1)
         return data

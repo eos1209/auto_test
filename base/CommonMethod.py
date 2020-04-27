@@ -107,6 +107,8 @@ class UploadFile(object):
                 self.file_type = 'image/jpeg'  # 上傳類型
             elif Type[1] == 'gif':
                 self.file_type = 'image/gif'  # 上傳類型
+            elif Type[1] == 'ico':
+                self.file_type = 'image/ico'  # 上傳類型
 
     def Upload_file(self):  # 上傳檔案-方法
         data = {self.upload_name: (self.filename, self.open_file, self.file_type, {'Expires': '0'})}
