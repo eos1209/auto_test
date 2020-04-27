@@ -1689,6 +1689,42 @@ class PortalManagement(object):
             self.__http = http
             self.response_data = {}
 
+        def GetMobileThemeDomain(self, data):
+            # 主題設置 - 取得手機主題域
+            path = '/MobileThemeManagement/GetMobileThemeDomain'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def GetMobileTheme(self, data):
+            # 主題設置 - 取得手機主題
+            path = '/MobileThemeManagement/GetMobileTheme'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def AddColor(self, data):
+            # 主題設置 - 另存色系主題名稱
+            path = '/MobileThemeManagement/AddColor'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UpdateColorName(self, data):
+            # 主題設置 - 修改色系主題名稱
+            path = 'MobileThemeManagement/UpdateColorName'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+    # 網站版面
+    class PortalManagement:
+        def __init__(self, http):
+            self.__http = http
+            self.response_data = {}
+
+        def GetProductSetting(self, data):
+            # 網站版面 - 獲取產品設置
+            path = '/PortalManagement/GetProductSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
 
 # 子帐号管理
 

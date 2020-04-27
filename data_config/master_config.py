@@ -4,9 +4,12 @@
 '''
 
 # 測試帳密 For AB005
-Master_Account = 'QAautomation'
-Master_Password = '123456'
+# Master_Account = 'QAautomation'
+# Master_Password = '123456'
 
+# 測試帳密 For AB007
+Master_Account = 'DS'
+Master_Password = 'a123456'
 
 # 測試環境 For AB005 Master Headers
 Get_Mater_Headers = {'X-Requested-With': "XMLHttpRequest"}
