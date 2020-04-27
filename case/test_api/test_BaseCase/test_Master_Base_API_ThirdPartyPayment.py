@@ -12,13 +12,19 @@ from master_api import account_management
 from master_api.account_login import User
 from base.CommonMethod import PortalExecution
 from data_config.system_config import systemSetting
+from master_api.system_management import PortalManagement
 
 
 class ThirdPartyPaymentBaseTest(unittest.TestCase):
     """ 线上支付看板 - 相關 API 調用狀態"""
 
     def setUp(self):
-        self.config = systemSetting()  # 參數設定
+        self.config = systemSetting()  # 系統參數
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.siteParameter = account_management.ThirdPartyPayment(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
+        self.user.login()
 
     def tearDown(self):
         self.user.logout()
@@ -51,20 +57,23 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_02(self):
         """驗證 线上支付看板 - 取得列表資料"""
-        data = {"count": 100,
-                "query":
-                    {"search": None}
+
+        data = {"count": "25",
+                "query": {"isDTPP": "true",
+                          "search": "null"
+                          }
                 }
-        response_data = self.thirdPartyPayment.load_new(data)
+        response_data = self.siteParameter.load_new(data)
         status_code = response_data[0]
-        self.get_verify_deposit_id = response_data[1]['Data'][0]['Id']
+        # self.get_verify_deposit_id = response_data[1]['Data'][0]['Id'] # 暫時拿掉
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_ThirdPartyPayment_relatedApi_status_03(self):
         """驗證 线上支付看板 - 匯出"""
-        data = {"isDTPP": True,
-                "search": None}
-        response_data = self.thirdPartyPayment.export(data)
+        data = {"isDTPP": "true",
+                "search": "null"
+                }
+        response_data = self.siteParameter.export(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -117,4 +126,4 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

@@ -36,6 +36,30 @@ class SiteParameterBaseTest(unittest.TestCase):
                 Id = response_data[1]['ReturnObject'][i]['Id']
                 return Id
 
+    def getThemeId(self):
+        ID = self.getWebsiteId()
+        data = {"WebSiteId": ID,
+                "IsHorizontal": "false"
+                }
+        response_data = self.siteParameter.GetMobileTheme(data)
+        print(response_data[1]['ReturnObject']['ThemeList'][0])
+        ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ThemeId']
+        return ThemeId
+
+    def getMobileThemeSettingId(self):
+        ID = self.getWebsiteId()
+        data = {"WebSiteId": ID,
+                "IsHorizontal": "false"
+                }
+        response_data = self.siteParameter.GetMobileTheme(data)
+        for i in range(len(response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'])):
+            ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i]['MobileThemeSettingId']
+        return ThemeId
+
+    def test_getID(self):
+     xx =  self.getMobileThemeSettingId()
+     print(xx)
+
     def test_BeforeLoggingIn_relatedApi_status_01(self):
         """ 主題設置 - 獲取主題設置獲取手機域名 直向&橫向 狀態"""
         ID = self.getWebsiteId()
@@ -62,62 +86,80 @@ class SiteParameterBaseTest(unittest.TestCase):
             status_code = response_data[0]
             self.assertEqual(status_code, common_config.Status_Code)
 
-    # def test_AddColor_relatedApi_status_03(self):
-    #     """ 主題設置 - 另存色系tag 直向&橫向 狀態"""
-    #     ID = self.getWebsiteId()
-    #     data = {
-    #         "WebsiteId": ID,
-    #         "ColorName": "極緻黑9453",
-    #         "NewColorCode": {
-    #             "--login-bg": "#1C1717",
-    #             "--login-color": "#ff3682",
-    #             "--login-input-bg": "#ff8929",
-    #             "--login-input-color": "#fff",
-    #             "--login-btn-bg": "#ff3c6d",
-    #             "--login-btn-color": "#fff",
-    #             "--header-bg-top": "#fff",
-    #             "--header-bg-bottom": "#d5d5d6",
-    #             "--header-domain-color": "#1C1717",
-    #             "--header-domain-color2": "#e83347",
-    #             "--btn01-bg": "#ec692e",
-    #             "--btn01-color": "#fff",
-    #             "--btn02-bg": "#df3070",
-    #             "--btn02-color": "#fff",
-    #             "--news-bg": "#ea073f",
-    #             "--news-color": "#fff",
-    #             "--lobby-bg": "#fff",
-    #             "--lobby-color": "#ea073f",
-    #             "--lobby-color2": "#1C1717",
-    #             "--game-bg": "#ea073f",
-    #             "--game-color": "#fff",
-    #             "--footer-bg-top": "#1C1717",
-    #             "--footer-bg-bottom": "#cacacc",
-    #             "--footer-color": "#1C1717",
-    #             "--footer-line": "#ddd",
-    #             "--profile-bg": "#fff",
-    #             "--profile-color": "#ea073f",
-    #             "--nav-bg": "#ea073f",
-    #             "--nav-color": "#fff",
-    #             "--nav-color2": "#f6527a",
-    #             "--page-title-bg": "#5a158c",
-    #             "--page-title-color": "#fff",
-    #             "--content-bg": "#fff",
-    #             "--content-color": "#000",
-    #             "--content-color2": "#fe0095",
-    #             "--promo-btn-bg": "#df3070",
-    #             "--promo-btn-color": "#fff",
-    #             "--promo-title-bg": "#ea073f",
-    #             "--promo-title-color": "#fff",
-    #             "--promo-content-bg": "#fff",
-    #             "--promo-content-color": "#5a158c"
-    #         },
-    #         "ThemeId": "1",
-    #         "IsHorizontal": "false"
-    #     }
-    #     response_data = self.siteParameter.AddColor(data)
-    #     status_code = response_data[0]
-    #     self.assertEqual(status_code, common_config.Status_Code)
-    #
+    def test_AddColor_relatedApi_status_03(self):
+        """ 主題設置 - 另存色系tag 直向&橫向 狀態"""
+        ID = self.getWebsiteId()
+        data = {
+            "WebsiteId": ID,
+            "ColorName": "極緻66",
+            "NewColorCode": {
+                "--login-bg": "#1C1717",
+                "--login-color": "#ff3682",
+                "--login-input-bg": "#ff8929",
+                "--login-input-color": "#fff",
+                "--login-btn-bg": "#ff3c6d",
+                "--login-btn-color": "#fff",
+                "--header-bg-top": "#fff",
+                "--header-bg-bottom": "#d5d5d6",
+                "--header-domain-color": "#1C1717",
+                "--header-domain-color2": "#e83347",
+                "--btn01-bg": "#ec692e",
+                "--btn01-color": "#fff",
+                "--btn02-bg": "#df3070",
+                "--btn02-color": "#fff",
+                "--news-bg": "#ea073f",
+                "--news-color": "#fff",
+                "--lobby-bg": "#fff",
+                "--lobby-color": "#ea073f",
+                "--lobby-color2": "#1C1717",
+                "--game-bg": "#ea073f",
+                "--game-color": "#fff",
+                "--footer-bg-top": "#1C1717",
+                "--footer-bg-bottom": "#cacacc",
+                "--footer-color": "#1C1717",
+                "--footer-line": "#ddd",
+                "--profile-bg": "#fff",
+                "--profile-color": "#ea073f",
+                "--nav-bg": "#ea073f",
+                "--nav-color": "#fff",
+                "--nav-color2": "#f6527a",
+                "--page-title-bg": "#5a158c",
+                "--page-title-color": "#fff",
+                "--content-bg": "#fff",
+                "--content-color": "#000",
+                "--content-color2": "#fe0095",
+                "--promo-btn-bg": "#df3070",
+                "--promo-btn-color": "#fff",
+                "--promo-title-bg": "#ea073f",
+                "--promo-title-color": "#fff",
+                "--promo-content-bg": "#fff",
+                "--promo-content-color": "#5a158c"
+            },
+            "ThemeId": "1",
+            "IsHorizontal": "false"
+        }
+        response_data = self.siteParameter.AddColor(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SaveMobileTheme_relatedApi_status_04(self):
+        """ 主題設置 - 更換預設版型 - 更換A版 直向 狀態"""
+        ID = self.getWebsiteId()
+        ThemeId = self.getThemeId()
+        data = {
+            "WebsiteId": ID,  # 站台id
+            "ThemeId": ThemeId,  # 預設版型id
+            "MobileThemeSettingId": 1,  # 色系 id
+            "ColorCode": "null",
+            "DefaultThemeTypeId": 2,
+            "DefaultMobileThemeSettingId": 2,
+            "IsHorizontal": "false"
+        }
+        response_data = self.siteParameter.SaveMobileTheme(data)
+        print(response_data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
     # def test_UpdateColorName_relatedApi_status_04(self):
     #     """ 主題設置 - 修改色系tag名稱 直向&橫向 狀態"""
     #     ID = self.getWebsiteId()
