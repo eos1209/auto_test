@@ -159,12 +159,12 @@ class PortalExecution(object):
         self.IsEnableAnnouncementList = IsAnnouncementList()  # 公告判斷
 
     def Login(self, Account, Password):  # 登入
-        # sleep(3)
-        # self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
-        # validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
-        # if validateIsEnable == 'true':  # 判斷公告是否有開啟
-        #     self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
-        #     sleep(3)
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
+        validateIsEnable = self.IsEnableAnnouncementList.IsEnable()
+        if validateIsEnable == 'true':  # 判斷公告是否有開啟
+            self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+            sleep(3)
         self.IsEnableAnnouncementList.logout()
         self.driver.find_element_by_xpath('//*[@id="login_account"]').send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath('//*[@id="login_password"]').send_keys(Password)  # 會員密碼

@@ -13,6 +13,7 @@ from master_api.account_login import User
 from time import sleep
 from base.CommonMethod import PortalExecution
 from data_config.system_config import systemSetting
+from master_api.system_management import PortalManagement
 
 
 class MemberRegisterVerifyTest(unittest.TestCase):
@@ -28,12 +29,33 @@ class MemberRegisterVerifyTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
     @classmethod
     def Master_login(cls):
         cls.__http = HttpRequest()
         cls.user = User(cls.__http)
         cls.memberVerify = member_and_agent.MemberVerifyPage(cls.__http)
         cls.user.login()
+
+    @classmethod
+    def getWebsiteId(cls):
+        cls.config = systemSetting()
+        cls.__http = HttpRequest()
+        cls.user = User(cls.__http)
+        cls.AnnouncementManagement = PortalManagement.AnnouncementManagement(cls.__http)
+        cls.PortalManagement = PortalManagement(cls.__http)
+        cls.user.login()
+        response_data = cls.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if cls.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
 
     @classmethod
     def Portal(cls):
@@ -87,10 +109,11 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def test_MemberRegisterVerify_baseApi_status_07(self):
         """驗證 會員註冊審核-更新會員註冊審核開關"""
-        data = {'webSiteId': 29, 'status': 'false'}  # 29為AB005
+        Id = MemberRegisterVerifyTest.getWebsiteId()
+        data = {'webSiteId': Id, 'status': 'false'}  # 29為AB005
         response_data = self.memberVerify.updateWebSiteMemberRegisterVerifySwitch(data)
         status_code = response_data[0]
-        trueData = {'webSiteId': 29, 'status': 'true'}
+        trueData = {'webSiteId': Id, 'status': 'true'}
         self.memberVerify.updateWebSiteMemberRegisterVerifySwitch(trueData)
         self.assertEqual(status_code, common_config.Status_Code)
 

@@ -7,6 +7,7 @@ import time
 import unittest
 import os
 from base import HTMLTestReportCN
+from data_config.system_config import systemSetting
 
 # 用例路径
 case_path = os.path.join(os.getcwd(), "case/test_api")
@@ -25,6 +26,7 @@ def all_case():
 # loader = unittest.TestLoader()
 # suite = loader.discover("./case/test_api")
 
+title = systemSetting()  # 報表選擇站台標題
 
 now = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
 # 確定生成報告的路徑
@@ -33,7 +35,7 @@ fp = open(filePath, 'wb')
 # 設定
 setting = {
     "stream": fp,
-    "title": 'API[AB005]-自動化測試報告',
+    "title": 'API[' + title.report_title() + ']-自動化測試報告',
     # description=None
     "tester": '格明 - QA Team'
 }

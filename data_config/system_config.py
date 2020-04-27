@@ -147,6 +147,11 @@ class systemSetting(object):
     def LuckyWheel(self):
         data = self.sheet.cell_value(33, 1)
         return data
+
     def NewTimeLimitedEvent(self):
         data = self.sheet.cell_value(34, 1)
+        return data
+
+    def report_title(self):  # 報表標題
+        data = self.sheet.cell_value(35, 1)
         return data

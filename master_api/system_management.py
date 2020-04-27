@@ -1725,6 +1725,11 @@ class PortalManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def SaveProductSetting(self, data):
+            path = '/PortalManagement/SaveProductSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
 
 # 子帐号管理
 

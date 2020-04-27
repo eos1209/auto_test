@@ -36,11 +36,6 @@ class SiteParameterBaseTest(unittest.TestCase):
                 Id = response_data[1]['ReturnObject'][i]['Id']
                 return Id
 
-    # 取種類列表
-    def getType(self, Hdata):
-        response_data = self.siteParameter.GetFinanceCenterSubCategory(Hdata)
-        return response_data
-
     def test_GetProductSetting_relatedApi_status_01(self):
         """ 網站版面 - 取得網站版面獲取產品設置 電腦&直向&橫向 狀態"""
         ID = self.getWebsiteId()
@@ -84,5 +79,6 @@ class SiteParameterBaseTest(unittest.TestCase):
     #         status_code = response_data[0]
     #         self.assertEqual(status_code, common_config.Status_Code)
 
+
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())
