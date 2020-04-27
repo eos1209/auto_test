@@ -46,19 +46,19 @@ class SiteParameterBaseTest(unittest.TestCase):
         ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ThemeId']
         return ThemeId
 
-    def getMobileThemeSettingId(self):
-        ID = self.getWebsiteId()
-        data = {"WebSiteId": ID,
-                "IsHorizontal": "false"
-                }
-        response_data = self.siteParameter.GetMobileTheme(data)
-        for i in range(len(response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'])):
-            ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i]['MobileThemeSettingId']
-        return ThemeId
-
-    def test_getID(self):
-     xx =  self.getMobileThemeSettingId()
-     print(xx)
+    # def getMobileThemeSettingId(self):
+    #     ID = self.getWebsiteId()
+    #     data = {"WebSiteId": ID,
+    #             "IsHorizontal": "false"
+    #             }
+    #     response_data = self.siteParameter.GetMobileTheme(data)
+    #     for i in range(len(response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'])):
+    #         ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i]['MobileThemeSettingId']
+    #     return ThemeId
+    #
+    # def test_getID(self):
+    #  xx =  self.getMobileThemeSettingId()
+    #  print(xx)
 
     def test_BeforeLoggingIn_relatedApi_status_01(self):
         """ 主題設置 - 獲取主題設置獲取手機域名 直向&橫向 狀態"""
@@ -156,7 +156,6 @@ class SiteParameterBaseTest(unittest.TestCase):
             "IsHorizontal": "false"
         }
         response_data = self.siteParameter.SaveMobileTheme(data)
-        print(response_data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
