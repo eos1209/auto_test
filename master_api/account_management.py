@@ -358,21 +358,21 @@ class YuebaoBoard(object):
         return self.response_data
 
     def list(self, data):
-        # API Name =>余额宝看板-
+        # API Name =>余额宝看板-取得列表
         # body--/{search}/{minTime}/{pageSize}
         path = '/YuebaoBoard/List'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def summary(self, data):
-        # API Name =>余额宝看板-
+        # API Name =>余额宝看板-取得概要
         # body--/{search}
         path = '/YuebaoBoard/Summary'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def detail(self, data):
-        # API Name =>余额宝看板-
+        # API Name =>余额宝看板-詳細頁面
         # body--/{id}/{transferId}
         path = '/YuebaoBoard/Detail'
         self.response_data = self.__http.sendRequest('POST', path, data)

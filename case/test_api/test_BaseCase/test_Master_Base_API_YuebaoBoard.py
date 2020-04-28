@@ -14,7 +14,7 @@ import time
 
 
 class YuebaoBoardBaseTest(unittest.TestCase):
-    """ 余额宝 - 相關 API 調用狀態"""
+    """ 余额宝看板 - 相關 API 調用狀態"""
 
     def setUp(self):
         self.__http = HttpRequest()
