@@ -191,10 +191,10 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         Type = response_data[1]['ReturnObject'][0]['Value']  # 新金流Id
         typeValue = response_data[1]['ReturnObject'][0]['TypeValue']  # 新金流Id
         data = {"id": groupThirdPartyId, "args": {
-                "Settings": [{"key": "Account", "value": "11333"},
-                             {"key": "Password", "value": "33"},
-                             {"key": "Gateway", "value": "http://tw"}],
-                "Type": Type, "TypeValue": typeValue}}
+            "Settings": [{"key": "Account", "value": "11333"},
+                         {"key": "Password", "value": "33"},
+                         {"key": "Gateway", "value": "http://tw"}],
+            "Type": Type, "TypeValue": typeValue}}
         response_data = self.groupThirdParty.updateDTPPMerchantData(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -272,6 +272,20 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_SetDtppSortingMode_relatedApi_status_26(self):
+        """驗證 线上支付商户管理 - 前台顯示順序改為 自訂 狀態"""
+        data = {"mode": "1"}
+        response_data = self.groupThirdParty.SetDtppSortingMode(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SetDtppSortingMode_relatedApi_status_27(self):
+        """驗證 线上支付商户管理 - 前台顯示順序改為 隨機 狀態"""
+        data = {"mode": "2"}
+        response_data = self.groupThirdParty.SetDtppSortingMode(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

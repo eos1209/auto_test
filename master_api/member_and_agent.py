@@ -577,11 +577,11 @@ class AgentSearch(object):
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def get_all_level(self, data):
-        # 取得所有代理層級
-        path = '/Agent/GetAllLevel'
-        self.response_data = self.__http.sendRequest('POST', path, data)
-        return self.response_data
+    # def get_all_level(self, data):
+    #     # 取得所有代理層級
+    #     path = '/Agent/GetAllLevel'
+    #     self.response_data = self.__http.sendRequest('POST', path, data)
+    #     return self.response_data
 
     def get_all_member_levels(self, data):
         # 取得所有會員層級
@@ -707,7 +707,7 @@ class AgentDetail(object):
         return self.response_data
 
     def checkUpdateAgentAuthority(self, data):
-        # 檢查更新代理商權限
+        # 檢查更新代理商權限 - 取得修改銀行帳戶資訊
         path = '/Agent/CheckUpdateAgentAuthority'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data

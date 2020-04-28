@@ -450,6 +450,13 @@ class GroupThirdParty(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def SetDtppSortingMode(self, data):
+        # API Name =>线上支付看板-自訂排序
+        # body--/{query}/{maxId}
+        path = '/GroupThirdParty/SetDtppSortingMode'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 郵件商戶管理
 class EmailNotificationMgmt(object):
@@ -1717,7 +1724,7 @@ class PortalManagement(object):
             # 主題設置 - 修改值向手機預設版本
             path = '/MobileThemeManagement/SaveMobileTheme'
             self.response_data = self.__http.sendRequest('POST', path, data)
-            return  self.response_data
+            return self.response_data
 
     # 網站版面
     class PortalManagement:

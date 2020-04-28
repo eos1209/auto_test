@@ -355,7 +355,7 @@ class PortalExecution(object):
         self.driver.find_element_by_class_name('btn-primary').click()
         sleep(5)
         self.driver.find_element_by_name('subject').send_keys('@auto_SiteMail_ByPortal')
-        sleep(10)
+        sleep(5)
         self.driver.find_element_by_class_name('cke_button__horizontalrule_icon').click()
         sleep(2)
         self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/form/div[2]/button[2]').click()
