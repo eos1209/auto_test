@@ -27,9 +27,10 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
     '''
     @方法：取得會員等級的最後一筆 id
     '''
+
     def GetMemberLevelSettingId(self):
         getData = self.memberLevelSetting.getList({})
-        dataLength = len(getData[1]['Levels'])-1  # 取得最後一筆資料
+        dataLength = len(getData[1]['Levels']) - 1  # 取得最後一筆資料
         getMemberLevelSettingId = getData[1]['Levels'][dataLength]['Id']
         return getMemberLevelSettingId
 
@@ -69,7 +70,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
 
     def test_Member_Level_Setting_relatedApi_status_06(self):
         """驗證 会员等级管理 - 新增等級"""
-        data = {"Name": "API 測試",
+        data = {"Name": "API 測試Level",
                 "GroupDepositMin": 1,
                 "GroupDepositMax": 100,
                 "WalletDepositMin": 1,
@@ -86,7 +87,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
                 "WalletWithdrawFeeType": "Discount",
                 "WalletWithdrawFreeFeeHours": 24,
                 "WalletWithdrawFreeFeeTimes": 3,
-                "Memo": "測試",
+                "Memo": "測試Level",
                 "MemberLevelSettingGroupAccountDiscounts": [{"Amount": 10,
                                                              "Percent": 20,
                                                              "AuditTimes": 2,
@@ -113,7 +114,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
                                  "FeeMax": 2},
                 "AlipayWithdrawEnable": True,
                 "ExternalPayment": {"IsEnabled": True,
-                                    "Title": "API 測試",
+                                    "Title": "API 測試Level",
                                     "Url": "http://www.google.com",
                                     "Description": "23"}}
         response_data = self.memberLevelSetting.createSubmit(data)
@@ -148,7 +149,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         memberLevelSettingId = self.GetMemberLevelSettingId()
         # Step2
         data = {"id": memberLevelSettingId,
-                "Name": "API 測試",
+                "Name": "API 測試Level",
                 "GroupDepositMin": 2,
                 "GroupDepositMax": 100,
                 "WalletDepositMin": 1,
@@ -165,7 +166,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
                 "WalletWithdrawFeeType": "Discount",
                 "WalletWithdrawFreeFeeHours": 24,
                 "WalletWithdrawFreeFeeTimes": 3,
-                "Memo": "測試",
+                "Memo": "測試Level",
                 "MemberLevelSettingGroupAccountDiscounts": [{"Amount": 10,
                                                              "Percent": 20,
                                                              "AuditTimes": 2,
@@ -192,7 +193,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
                                  "FeeMax": 2},
                 "AlipayWithdrawEnable": True,
                 "ExternalPayment": {"IsEnabled": True,
-                                    "Title": "API 測試",
+                                    "Title": "API 測試Level",
                                     "Url": "http://www.google.com",
                                     "Description": "23"}}
         response_data = self.memberLevelSetting.update(data)
@@ -238,7 +239,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         # Step2
         data = {"id": memberLevelSettingId}
         response_data = self.memberLevelSetting.getDetail(data)
-        self.assertEqual(response_data[1]['Detail']['Name'], 'API 測試')
+        self.assertEqual(response_data[1]['Detail']['Name'], 'API 測試Level')
 
     def test_Member_Level_Setting_relatedApi_status_15(self):
         """驗證 会员等级管理 - 刪除等級"""
@@ -252,4 +253,4 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

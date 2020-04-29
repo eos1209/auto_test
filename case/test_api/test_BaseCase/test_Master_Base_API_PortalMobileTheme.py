@@ -36,29 +36,25 @@ class SiteParameterBaseTest(unittest.TestCase):
                 Id = response_data[1]['ReturnObject'][i]['Id']
                 return Id
 
-    def getThemeId(self):
-        ID = self.getWebsiteId()
+    def getThemeId(self, ID, databool):
         data = {"WebSiteId": ID,
-                "IsHorizontal": "false"
+                "IsHorizontal": databool
                 }
         response_data = self.siteParameter.GetMobileTheme(data)
-        print(response_data[1]['ReturnObject']['ThemeList'][0])
         ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ThemeId']
         return ThemeId
 
-    # def getMobileThemeSettingId(self):
-    #     ID = self.getWebsiteId()
-    #     data = {"WebSiteId": ID,
-    #             "IsHorizontal": "false"
-    #             }
-    #     response_data = self.siteParameter.GetMobileTheme(data)
-    #     for i in range(len(response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'])):
-    #         ThemeId = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i]['MobileThemeSettingId']
-    #     return ThemeId
-    #
-    # def test_getID(self):
-    #  xx =  self.getMobileThemeSettingId()
-    #  print(xx)
+    def getMobileThemeSettingId(self, ID, databool):
+        data = {"WebSiteId": ID,
+                "IsHorizontal": databool
+                }
+        index = {"ThemeId": "", "ThemeName": ""}
+        response_data = self.siteParameter.GetMobileTheme(data)
+        for i in range(len(response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'])):
+            index["ThemeId"] = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i][
+                'MobileThemeSettingId']
+            index["ThemeName"] = response_data[1]['ReturnObject']['ThemeList'][0]['ColorCollection'][i]['Name']
+        return index
 
     def test_BeforeLoggingIn_relatedApi_status_01(self):
         """ 主題設置 - 獲取主題設置獲取手機域名 直向&橫向 狀態"""
@@ -69,8 +65,6 @@ class SiteParameterBaseTest(unittest.TestCase):
                     "IsHorizontal": i
                     }
             response_data = self.siteParameter.GetMobileTheme(data)
-            print(response_data[0])
-            print(response_data[1])
             status_code = response_data[0]
             self.assertEqual(status_code, common_config.Status_Code)
 
@@ -87,11 +81,12 @@ class SiteParameterBaseTest(unittest.TestCase):
             self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AddColor_relatedApi_status_03(self):
-        """ 主題設置 - 另存色系tag 直向&橫向 狀態"""
+        """ 主題設置 - 新增另存色系tag 直向 狀態"""
         ID = self.getWebsiteId()
+        ThemeId = self.getThemeId(ID, "false")
         data = {
             "WebsiteId": ID,
-            "ColorName": "極緻66",
+            "ColorName": "極緻黑",
             "NewColorCode": {
                 "--login-bg": "#1C1717",
                 "--login-color": "#ff3682",
@@ -135,23 +130,105 @@ class SiteParameterBaseTest(unittest.TestCase):
                 "--promo-content-bg": "#fff",
                 "--promo-content-color": "#5a158c"
             },
-            "ThemeId": "1",
+            "ThemeId": ThemeId,
             "IsHorizontal": "false"
         }
         response_data = self.siteParameter.AddColor(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_SaveMobileTheme_relatedApi_status_04(self):
-        """ 主題設置 - 更換預設版型 - 更換A版 直向 狀態"""
+    def test_AddColor_relatedApi_status_04(self):
+        """ 主題設置 - 新增另存色系tag 橫向 狀態"""
         ID = self.getWebsiteId()
-        ThemeId = self.getThemeId()
+        ThemeId = self.getThemeId(ID, "true")
+        data = {"WebsiteId": ID,
+                "ColorName": "極緻黑橫向版",
+                "NewColorCode": {"--primary-bg": "#18204e",
+                                 "--primary-light-bg": "#18204e",
+                                 "--primary-dark-bg": "#3a4278",
+                                 "--primary-border": "#8e8bdc",
+                                 "--table-border": "#334192",
+                                 "--table-bg": "#13193d",
+                                 "--text-color": "#fff",
+                                 "--light-text-color": "#ff0",
+                                 "--light-color": "#afbdff",
+                                 "--title-top-bg": "#5e6ebc",
+                                 "--title-bottom-bg": "#212c6d",
+                                 "--btn01-top-bg": "#fffdf8",
+                                 "--btn01-bottom-bg": "#d57d00",
+                                 "--btn01-border": "#fff100",
+                                 "--btn01-text-border": "#c37700",
+                                 "--btn02-top-bg": "#b9e2f4",
+                                 "--btn02-bottom-bg": "#8a77d5",
+                                 "--btn02-border": "#e8c8f7",
+                                 "--btn02-text-border": "#7261b4"},
+                "ThemeId": ThemeId,
+                "IsHorizontal": "true"}
+        response_data = self.siteParameter.AddColor(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_UpdateColorName_relatedApi_status_05(self):
+        """ 主題設置 - 修改色系tag名稱 直向 狀態"""
+        ID = self.getWebsiteId()
+        nemu = self.getMobileThemeSettingId(ID, "false")
+        data = {"MobileThemeSettingId": nemu["ThemeId"],
+                "NewName": nemu["ThemeName"] + "1",
+                "IsHorizontal": "false"
+                }
+        response_data = self.siteParameter.UpdateColorName(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_UpdateColorName_relatedApi_status_06(self):
+        """ 主題設置 - 修改色系tag名稱 橫向 狀態"""
+        ID = self.getWebsiteId()
+        nemu = self.getMobileThemeSettingId(ID, "true")
+        nemu["ThemeName"] = "咖啡色"
+        data = {"MobileThemeSettingId": nemu["ThemeId"],
+                "NewName": nemu["ThemeName"],
+                "IsHorizontal": "true"
+                }
+        response_data = self.siteParameter.UpdateColorName(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_DeleteColor_relatedApi_status_07(self):
+        """ 主題設置 - 刪除色系tag名稱 直向 狀態"""
+        ID = self.getWebsiteId()
+        ThemeId = self.getThemeId(ID, "false")
+        nemu = self.getMobileThemeSettingId(ID, "false")
+        data = {"WebsiteId": ID,
+                "MobileThemeSettingId": nemu["ThemeId"],
+                "ThemeId": ThemeId,
+                "IsHorizontal": "false"}
+        response_data = self.siteParameter.DeleteColor(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_DeleteColor_relatedApi_status_08(self):
+        """ 主題設置 - 刪除色系tag名稱 橫向 狀態"""
+        ID = self.getWebsiteId()
+        ThemeId = self.getThemeId(ID, "true")
+        nemu = self.getMobileThemeSettingId(ID, "true")
+        data = {"WebsiteId": ID,
+                "MobileThemeSettingId": nemu["ThemeId"],
+                "ThemeId": ThemeId,
+                "IsHorizontal": "true"}
+        response_data = self.siteParameter.DeleteColor(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SaveMobileTheme_relatedApi_status_09(self):
+        """ 主題設置 - 更換預設版型 - 切換A版 直向 狀態"""
+        ID = self.getWebsiteId()
+        ThemeId = self.getThemeId(ID, "false")
         data = {
             "WebsiteId": ID,  # 站台id
             "ThemeId": ThemeId,  # 預設版型id
             "MobileThemeSettingId": 1,  # 色系 id
             "ColorCode": "null",
-            "DefaultThemeTypeId": 2,
+            "DefaultThemeTypeId": 2,  # 1: 預設，2: A版
             "DefaultMobileThemeSettingId": 2,
             "IsHorizontal": "false"
         }
@@ -159,16 +236,56 @@ class SiteParameterBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    # def test_UpdateColorName_relatedApi_status_04(self):
-    #     """ 主題設置 - 修改色系tag名稱 直向&橫向 狀態"""
-    #     ID = self.getWebsiteId()
-    #     data = {"MobileThemeSettingId": "22",
-    #             "NewName": "極緻黑666",
-    #             "IsHorizontal": "false"
-    #             }
-    #     response_data = self.siteParameter.UpdateColorName(data)
-    #     status_code = response_data[0]
-    #     self.assertEqual(status_code, common_config.Status_Code)
+    def test_SaveMobileTheme_relatedApi_status_10(self):
+        """ 主題設置 - 更換預設版型 - 切換預設版 直向 狀態"""
+        ID = self.getWebsiteId()
+        ThemeId = self.getThemeId(ID, "false")
+        data = {
+            "WebsiteId": ID,  # 站台id
+            "ThemeId": ThemeId,  # 預設版型id
+            "MobileThemeSettingId": 1,  # 色系 id
+            "ColorCode": "null",
+            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultMobileThemeSettingId": 1,
+            "IsHorizontal": "false"
+        }
+        response_data = self.siteParameter.SaveMobileTheme(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SaveMobileTheme_relatedApi_status_11(self):
+        """ 主題設置 - 更換版型 - 切換A版 直向 狀態"""
+        ID = self.getWebsiteId()
+        data = {
+            "WebsiteId": ID,  # 站台id
+            "ThemeId": 2,  # 預設版型id
+            "MobileThemeSettingId": 2,  # 色系 id
+            "ColorCode": "null",
+            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultMobileThemeSettingId": 1,
+            "IsHorizontal": "false"
+        }
+        response_data = self.siteParameter.SaveMobileTheme(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_SaveMobileTheme_relatedApi_status_12(self):
+        """ 主題設置 - 更換版型 - 切換預設 直向 狀態"""
+        ID = self.getWebsiteId()
+        data = {
+            "WebsiteId": ID,  # 站台id
+            "ThemeId": 1,  # 預設版型id
+            "MobileThemeSettingId": 1,  # 色系 id
+            "ColorCode": "null",
+            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultMobileThemeSettingId": 1,
+            "IsHorizontal": "false"
+        }
+        response_data = self.siteParameter.SaveMobileTheme(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+
 
 
 if __name__ == '__main__':
