@@ -36,6 +36,7 @@ class YuebaoBoardBaseTest(unittest.TestCase):
         data = {"pageSize": 100,
                 "search": {}}
         response_data = self.yuebaoBoard.list(data)
+
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

@@ -1716,13 +1716,19 @@ class PortalManagement(object):
 
         def UpdateColorName(self, data):
             # 主題設置 - 修改色系主題名稱
-            path = 'MobileThemeManagement/UpdateColorName'
+            path = '/MobileThemeManagement/UpdateColorName'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def SaveMobileTheme(self, data):
             # 主題設置 - 修改值向手機預設版本
             path = '/MobileThemeManagement/SaveMobileTheme'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def DeleteColor(self, data):
+            # 主題設置 - 刪除色系Tag名稱
+            path = '/MobileThemeManagement/DeleteColor'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
