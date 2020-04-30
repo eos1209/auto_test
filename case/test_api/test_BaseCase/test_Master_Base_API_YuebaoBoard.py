@@ -25,6 +25,16 @@ class YuebaoBoardBaseTest(unittest.TestCase):
     def tearDown(self):
         self.user.logout()
 
+    def IdList(self):
+        IDs = {'Id': '', 'OuterId': ''}
+        data = {"pageSize": 5,
+                "search": {}}
+        response_data = self.yuebaoBoard.list(data)
+        for i in range(len(response_data[1]['ReturnObject']['BoardListItems'])):
+            IDs['Id'] = response_data[1]['ReturnObject']['BoardListItems'][i]['Id']
+            IDs['OuterId'] = response_data[1]['ReturnObject']['BoardListItems'][i]['OuterId']
+        return IDs
+
     def test_YuebaoBoard_relatedApi_status_01(self):
         """驗證 余额宝 - 取得看板頁面"""
         response_data = self.yuebaoBoard.index({})
@@ -61,6 +71,16 @@ class YuebaoBoardBaseTest(unittest.TestCase):
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '请带入搜寻条件')
 
+    def test_YuebaoBoard_relatedApi_status_06(self):
+        """驗證 餘額寶看板 - 余额宝看板明细"""
+        IDs = self.IdList()
+        data = {"outerId": IDs['OuterId'],
+                "id": IDs['Id']
+                }
+        response_data = self.yuebaoBoard.detail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

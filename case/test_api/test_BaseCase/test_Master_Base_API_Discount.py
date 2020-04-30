@@ -38,6 +38,14 @@ class DiscountBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_discount_relatedApi_status_03(self):
+        """驗證 返水計算 - 清除Temp 狀態"""
+        data = {}
+        response_data = self.discount.ClearTemp(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())
