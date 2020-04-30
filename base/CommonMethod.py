@@ -341,7 +341,7 @@ class PortalExecution(object):
         sleep(1)
         self.driver.get(self.config.Portal_config() + self.config.verifyDeposit())  # 方案C:銀聯條碼支付
         sleep(5)
-        self.driver.find_element_by_name('amount').send_keys('1')
+        self.driver.find_element_by_name('amount').send_keys('10')
         sleep(5)
         self.driver.find_element_by_xpath('*//form/div[3]/button').click()
         sleep(2)
@@ -358,12 +358,11 @@ class PortalExecution(object):
         sleep(5)
         self.driver.find_element_by_class_name('cke_button__horizontalrule_icon').click()
         sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[13]/div/div/form/div[2]/button[2]').click()
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[12]/div/div/form/div[2]/button[2]').click()
         sleep(1)
         self.driver.find_element_by_class_name('btn-confirm').click()
         sleep(2)
         self.driver.quit()
-
     def AgentLink(self, link, Account):
         self.driver.get(link)
         sleep(7)

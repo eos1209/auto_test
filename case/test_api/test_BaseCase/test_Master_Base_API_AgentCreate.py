@@ -90,7 +90,7 @@ class AgentCreateTest(unittest.TestCase):
 
     def test_AgentCreate_baseApi_status_07(self):
         """驗證 新增代理商 - 是否取得所有會員等級"""
-        response_data = self.AgentSearch.get_all_level({})
+        response_data = self.AgentSearch.getAllLevel({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

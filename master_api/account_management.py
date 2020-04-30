@@ -596,6 +596,13 @@ class Discount(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def ClearTemp(self, data):
+        # API Name =>返水计算-清除Temp
+        # body--/{}
+        path = '/Discount/ClearTemp'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 佣金计算
 class CommissionService(object):
