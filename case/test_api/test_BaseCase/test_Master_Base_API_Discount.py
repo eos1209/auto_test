@@ -8,21 +8,54 @@ import unittest
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
+from data_config.system_config import systemSetting
 from master_api import account_management
 from master_api.account_login import User
+from base.TimeClass import get_yesterday as yesterday
+from master_api.account_login import User
+from master_api.system_management import PortalManagement
 
 
 class DiscountBaseTest(unittest.TestCase):
     """ 返水计算 - 相關 API 調用狀態"""
 
     def setUp(self):
+        self.config = systemSetting()  # 系統參數
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.discount = account_management.Discount(self.__http)
+        self.PortalManagement = PortalManagement(self.__http)
         self.user.login()
 
     def tearDown(self):
         self.user.logout()
+
+    # 取站台ID
+    def getWebsiteId(self):
+        response_data = self.PortalManagement.getWebsiteList({})
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if self.config.siteName_config() == response_data[1]['ReturnObject'][i]['Name']:
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                return Id
+
+    def getTempId(self):
+        data = {"dateBegin": str(yesterday()),
+                "dateEnd": str(yesterday()),
+                "take": 500,
+                "skip": 0
+                }
+        response_data = self.discount.calculate(data)
+        return response_data[1]['TempId']
+
+    def getHistoryID(self):
+        data = {"take": 100, "skip": 0}
+        HID = {'Id': '', 'Name': ''}
+        response_data = self.discount.loadHistory(data)
+        for i in range(len(response_data[1])):
+            HID['Id'] = response_data[1][i]['Id']
+            HID['Name'] = response_data[1][i]['Name']
+        return HID
+
 
     def test_discount_relatedApi_status_01(self):
         """驗證 返水计算 - 取得頁面"""
@@ -45,7 +78,88 @@ class DiscountBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_discount_relatedApi_status_04(self):
+        """驗證 - 返水計算 - 計算 狀態"""
+        data = {"dateBegin": str(yesterday()),
+                "dateEnd": str(yesterday()),
+                "take": 500,
+                "skip": 0
+                }
+        response_data = self.discount.calculate(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_05(self):
+        """驗證 - 返水計算 - 匯出計算明細 狀態"""
+        ID = self.getTempId()
+        data = {"id": ID}
+        response_data = self.discount.exportTemp(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_06(self):
+        """驗證 - 返水計算 - 取得記錄 狀態"""
+        ID = self.getHistoryID()
+        data = {"id": ID['Id']}
+        response_data = self.discount.getRecord(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_07(self):
+        """驗證 - 返水計算 - 取得詳細記錄 狀態"""
+        HID = self.getHistoryID()
+        data = {"id": HID['Id'],
+                "connectionId": self.user.info()
+                }
+        response_data = self.discount.getRecordDetail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_08(self):
+        """驗證 - 返水計算 - 取得記錄樣版 狀態"""
+        data = {}
+        response_data = self.discount.detail(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_09(self):
+        """返水计算-取得返水發放已沖銷資訊"""
+        HID = self.getHistoryID()
+        data = {"id": HID['Id']}
+        response_data = self.discount.getRevokedRecordSummary(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_10(self):
+        """驗證 - 返水計算 - 取得返水發放沖銷詳細記錄 狀態"""
+        HID = self.getHistoryID()
+        data = {"id": HID['Id'],
+                "connectionId": self.user.info()
+                }
+        response_data = self.discount.getRevokedRecordData(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_11(self):
+        """驗證 - 返水計算 - 匯出(發送明細) 狀態"""
+        HID = self.getHistoryID()
+        data = {"id": HID['Id'],
+                "connectionId": self.user.info()
+                }
+        response_data = self.discount.export(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_discount_relatedApi_status_12(self):
+        """驗證 - 返水計算 - 返水發送明細 修改名稱 """
+        HID = self.getHistoryID()
+        data = {"id": HID['Id'],
+                "name": HID['Name'] + "1"
+                }
+        response_data = self.discount.updateDiscountRecordName(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())
