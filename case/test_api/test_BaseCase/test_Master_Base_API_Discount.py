@@ -135,9 +135,8 @@ class DiscountBaseTest(unittest.TestCase):
     def test_discount_relatedApi_status_10(self):
         """驗證 - 返水計算 - 取得返水發放沖銷詳細記錄 狀態"""
         HID = self.getHistoryID()
-        CID = self.user.info()
         data = {"id": HID['Id'],
-                "connectionId": CID
+                "connectionId": self.user.info()
                 }
         response_data = self.discount.getRevokedRecordData(data)
         status_code = response_data[0]
@@ -146,9 +145,8 @@ class DiscountBaseTest(unittest.TestCase):
     def test_discount_relatedApi_status_11(self):
         """驗證 - 返水計算 - 匯出(發送明細) 狀態"""
         HID = self.getHistoryID()
-        CID = self.user.info()
         data = {"id": HID['Id'],
-                "connectionId": CID
+                "connectionId": self.user.info()
                 }
         response_data = self.discount.export(data)
         status_code = response_data[0]
