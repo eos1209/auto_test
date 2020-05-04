@@ -42,7 +42,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_MG_Html5", 'Mg2Html5', '$ ', 100, 6),
         ("Verify_Pt_Real", 'Pt2Real', '$ ', 1, 7),
         ("Verify_Pt_Slot", 'Pt2Slot', '$ ', 1, 7),
-        ("Verify_3Sing_Sport", 'SingSport', '$ ', 1, 5),
+        ("Verify_3Sing_Sport", 'SingSport', '$ ', 1, 12),
         ("Verify_R8_Slot", 'GnsSlot', '$ ', 1, 4),
         ("Verify_PP_Slot", 'PrgSlot', '$ ', 1, 5),
         ("Verify_SG_Slot", 'SgSlot', '$ ', 1, 5),
@@ -125,6 +125,25 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_LEG_Board", 'LegBoard', '', 1, 7),
         ("Verify_LEG_Fish", 'LegFish', '', 1, 7),
         ("Verify_PG2_Slot", 'Pg2Slot', '', 1, 7),
+        # 2020/05/04 更新娛樂城清單
+        ("Verify_LB_Lottery", 'LbLottery', '', 1, 9),
+        ("Verify_Gmg_Board", 'GmgBoard', '', 1, 5),
+        ("Verify_Fbg_Slot", 'FbgSlot', '', 1, 4),
+        ("Verify_Ll_Lottery", 'LlLottery', '', 1, 3),
+        ("Verify_Im2_Slot", 'Im2Slot', '', 1, 7),
+        ("Verify_Im2_Board", 'Im2Board', '', 1, 7),
+        # SY
+        ("Verify_Jl_Board", 'JlBoard', '', 1, 5),
+        ("Verify_Jl_Fish", 'JlFish', '', 1, 5),
+        ("Verify_Bsp_Slot", 'BspSlot', '', 1, 7),
+        ("Verify_Bsp_Board", 'BspBoard', '', 1, 7),
+        ("Verify_Bsp_Fish", 'BspFish', '', 1, 7),
+        ("Verify_Yg_Slot", 'YgSlot', '', 1, 6),
+        ("Verify_Yg_Board", 'YgBoard', '', 1, 6),
+        ("Verify_Yg_Fish", 'YgFish', '', 1, 6),
+        ("Verify_Icg_Slot", 'IcgSlot', '', 1, 3),
+        ("Verify_Icg_Fish", 'IcgFish', '', 1, 3),
+        #
         # 下架
         # ("Verify_Pt3Real", 'Pt3Real', '', 1, 7),
         # ("Verify_Pt3Slot", 'Pt3Slot', '', 1, 7),
@@ -143,8 +162,11 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         def Val(value):
             value = value.lstrip(cut_off_characters)  # 切割$字號
             value = value.replace(',', '')  # 千位數會有,號 直接替換掉
-            bet_value = Decimal(value).quantize(Decimal('0.00')) / proportion
-            return bet_value
+            try:
+                bet_value = Decimal(value).quantize(Decimal('0.00')) / proportion
+                return bet_value
+            except:
+                print('發生錯誤，注單Id為' + str(self.betRecordId) + '請排查')
 
         self.verifyBetAmountSameOriginalAmount(game_type, data_location, Amo, Val)
 
@@ -167,7 +189,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         # Step2 抓取詳細頁面資料
         data = {"Id": self.betRecordId}
         response_data = self.betRecord.getDetail(data)
-        self.betAmount = response_data[1]['BetAmount']
+        self.betAmount = response_data[1]['BetAmount']  # 投注額
 
         # Step3 抓取原始注單資料
         data = {"Id": self.betRecordId}

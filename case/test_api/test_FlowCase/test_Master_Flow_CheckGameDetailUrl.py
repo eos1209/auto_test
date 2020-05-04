@@ -69,7 +69,7 @@ class CheckGameDetailUrl(unittest.TestCase):
         ("Verify_BetDetailUrl_RedTigerSlot", 'RedTigerSlot'),
         ("Verify_BetDetailUrl_Sunbet2Real", 'Sunbet2Real'),
         ("Verify_BetDetailUrl_SunbetReal", 'SunbetReal'),
-        ("Verify_BetDetailUrl_LtLottery", 'LtLottery'),
+        ("Verify_BetDetailUrl_LlLottery", 'LlLottery'),
         ("Verify_BetDetailUrl_Im2Slot", 'Im2Slot'),
         ("Verify_BetDetailUrl_Im2Board", 'Im2Board'),
         ("Verify_BetDetailUrl_JlFish", 'JlFish'),
@@ -80,6 +80,8 @@ class CheckGameDetailUrl(unittest.TestCase):
         ("Verify_BetDetailUrl_YgFish", 'YgFish'),
         ("Verify_BetDetailUrl_YgBoard", 'YgBoard'),
         ("Verify_BetDetailUrl_YgSlot", 'YgSlot'),
+        ("Verify_BetDetailUrl_IcgSlot", 'IcgSlot'),
+        ("Verify_BetDetailUrl_IcgFish", 'IcgFish'),
         # 下架
         # ("Verify_BetDetailUrl_Mg3Real", 'Mg3Real'),
         # ("Verify_BetDetailUrl_Mg3Slot", 'Mg3Slot'),
