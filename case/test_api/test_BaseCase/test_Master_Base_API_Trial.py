@@ -4,7 +4,7 @@
 '''
 
 import unittest
-
+from time import sleep
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
@@ -89,6 +89,8 @@ class TrailBaseTest(unittest.TestCase):
         self.portal.Trail()  # 前端註冊
         Id = self.getId()
         data = {"id": Id}
+        print(Id)
+        sleep(2)
         response_data = self.trail.allow(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
