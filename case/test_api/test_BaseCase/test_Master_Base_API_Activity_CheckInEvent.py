@@ -35,6 +35,30 @@ class CheckInEventBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    # def test_CheckInEvent_Get_List_Data(self):
+    #     """驗證 签到奖励 - 新增簽到獎勵"""
+    #     data = {
+    #         "BeginTime": "2020/05/01 00:02:47",
+    #         "EventSettings": [
+    #         ],
+    #         "CheckType": 2,
+    #         "IsSupplement": 'true',
+    #         "SupplementSetting": {
+    #             "SettlementType": 1,
+    #             "DepositTotalCount": 1,
+    #             "DepositTotalAmount": 1
+    #         },
+    #         "Name": "22",
+    #         "EndTime": "2020/08/31 23:59:59",
+    #         "DailyCheckMoney": 1,
+    #         "MemberLevelSettings": [
+    #             62]
+    #     }
+    #     response_data = self.checkInEvent.Create(data)
+    #     print(response_data[1])
+    #     status_code = response_data[0]
+    #     self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

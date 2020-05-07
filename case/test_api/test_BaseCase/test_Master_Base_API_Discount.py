@@ -49,13 +49,11 @@ class DiscountBaseTest(unittest.TestCase):
 
     def getHistoryID(self):
         data = {"take": 100, "skip": 0}
-        HID = {'Id': '', 'Name': ''}
         response_data = self.discount.loadHistory(data)
         for i in range(len(response_data[1])):
-            HID['Id'] = response_data[1][i]['Id']
-            HID['Name'] = response_data[1][i]['Name']
-        return HID
-
+            Id = response_data[1][i]['Id']
+            Name = response_data[1][i]['Name']
+        return Id, Name
 
     def test_discount_relatedApi_status_01(self):
         """驗證 返水计算 - 取得頁面"""
@@ -99,16 +97,15 @@ class DiscountBaseTest(unittest.TestCase):
 
     def test_discount_relatedApi_status_06(self):
         """驗證 - 返水計算 - 取得記錄 狀態"""
-        ID = self.getHistoryID()
-        data = {"id": ID['Id']}
+        # data = {"id": ID['Id']}
+        data = {"id": self.getHistoryID()[0]}
         response_data = self.discount.getRecord(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_discount_relatedApi_status_07(self):
         """驗證 - 返水計算 - 取得詳細記錄 狀態"""
-        HID = self.getHistoryID()
-        data = {"id": HID['Id'],
+        data = {"id": self.getHistoryID()[0],
                 "connectionId": self.user.info()
                 }
         response_data = self.discount.getRecordDetail(data)
@@ -124,16 +121,14 @@ class DiscountBaseTest(unittest.TestCase):
 
     def test_discount_relatedApi_status_09(self):
         """返水计算-取得返水發放已沖銷資訊"""
-        HID = self.getHistoryID()
-        data = {"id": HID['Id']}
+        data = {"id": self.getHistoryID()[0]}
         response_data = self.discount.getRevokedRecordSummary(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_discount_relatedApi_status_10(self):
         """驗證 - 返水計算 - 取得返水發放沖銷詳細記錄 狀態"""
-        HID = self.getHistoryID()
-        data = {"id": HID['Id'],
+        data = {"id": self.getHistoryID()[0],
                 "connectionId": self.user.info()
                 }
         response_data = self.discount.getRevokedRecordData(data)
@@ -142,8 +137,7 @@ class DiscountBaseTest(unittest.TestCase):
 
     def test_discount_relatedApi_status_11(self):
         """驗證 - 返水計算 - 匯出(發送明細) 狀態"""
-        HID = self.getHistoryID()
-        data = {"id": HID['Id'],
+        data = {"id": self.getHistoryID()[0],
                 "connectionId": self.user.info()
                 }
         response_data = self.discount.export(data)
@@ -152,9 +146,8 @@ class DiscountBaseTest(unittest.TestCase):
 
     def test_discount_relatedApi_status_12(self):
         """驗證 - 返水計算 - 返水發送明細 修改名稱 """
-        HID = self.getHistoryID()
-        data = {"id": HID['Id'],
-                "name": HID['Name'] + "1"
+        data = {"id": self.getHistoryID()[0],
+                "name": self.getHistoryID()[1] + "1"
                 }
         response_data = self.discount.updateDiscountRecordName(data)
         status_code = response_data[0]
