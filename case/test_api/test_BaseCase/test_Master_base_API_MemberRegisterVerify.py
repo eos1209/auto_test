@@ -63,6 +63,12 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         cls.portal = PortalExecution()
         cls.portal.Register(account)
 
+    def test_MemberRegisterVerify_baseApi_status(self):
+        """驗證 會員註冊"""
+        self.Portal()
+
+
+
     def test_MemberRegisterVerify_baseApi_status_01(self):
         """驗證 會員註冊審核-取得各站台資訊"""
         MemberRegisterVerifyTest.Master_login()  # 登入
