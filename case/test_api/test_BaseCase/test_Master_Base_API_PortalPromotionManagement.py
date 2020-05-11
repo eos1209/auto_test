@@ -14,7 +14,7 @@ from master_api.account_login import User
 from data_config.system_config import systemSetting
 
 
-class SiteParameterBaseTest(unittest.TestCase):
+class PromotionManagementBaseTest(unittest.TestCase):
     """ 優惠管理 - 相關 API 調用狀態"""
 
     def setUp(self):

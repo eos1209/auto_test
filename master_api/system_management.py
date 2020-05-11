@@ -458,6 +458,78 @@ class GroupThirdParty(object):
         return self.response_data
 
 
+# 代付商戶管理
+class PayoutMerchantManagement(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def GetList(self):
+        # API Name =>代付商戶管理 - 取得代付商戶列表
+        # body--/{}
+        data = {}
+        path = '/ThirdPartyPayout/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetDetail(self, data):
+        # API Name =>代付商戶管理 - 取得代付商戶詳細資料
+        # body--/{id}
+        path = '/ThirdPartyPayout/GetDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetApiList(self):
+        # API Name =>代付商戶管理 - 取得代付商戶API列表
+        # body--/{}
+        data = {}
+        path = '/ThirdPartyPayout/GetApiList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMerchantName(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶名稱資料
+        # body--//{id}/{name}
+        path = '/ThirdPartyPayout/UpdateMerchantName'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMerchantTotalLimit(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶出款金額
+        # body--//{id}/{name}
+        path = '/ThirdPartyPayout/UpdateMerchantTotalLimit'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateStatus(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶狀態
+        # body--//{id}/{name}
+        path = '/ThirdPartyPayout/UpdateStatus'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateAvailableMinutes(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶有效分鐘數
+        # body--//{id}/{name}
+        path = '/ThirdPartyPayout/UpdateAvailableMinutes'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def Create(self, data):
+        # API Name =>代付商戶管理 - 新增代付商戶
+        # body--//{id}/{name}
+        path = '/ThirdPartyPayout/Create'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def Delete(self, data):
+        # API Name =>代付商戶管理 - 刪除代付商戶
+        # body--//{id}
+        path = '/ThirdPartyPayout/Delete'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 # 郵件商戶管理
 class EmailNotificationMgmt(object):
     def __init__(self, http):
@@ -2182,6 +2254,11 @@ class ActivityManagement(object):
             # API Name =>签到奖励-取得列表資料
             # body--
             path = '/CheckInOffer/LoadNew'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def Create(self, data):
+            path = '/CheckInOffer/Create'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 

@@ -4,6 +4,7 @@
 '''
 
 import xlrd
+import openpyxl
 
 
 class ReadExcel(object):
