@@ -50,7 +50,8 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         data = {"take": 100,
                 "skip": 0,
                 "search": {},
-                'connectionId': self.user.info()}
+                'connectionId': self.user.info()
+                }
         response_data = self.redEnvelopeManagement.getList(data)
         return response_data[1]['ReturnObject'][0]['Id']
 

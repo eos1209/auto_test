@@ -496,7 +496,7 @@ class PayoutMerchantManagement(object):
 
     def UpdateMerchantTotalLimit(self, data):
         # API Name =>代付商戶管理 - 修改代付商戶出款金額
-        # body--//{id}/{name}
+        # body--///{id}/{totalPayoutLimit}
         path = '/ThirdPartyPayout/UpdateMerchantTotalLimit'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
@@ -526,6 +526,62 @@ class PayoutMerchantManagement(object):
         # API Name =>代付商戶管理 - 刪除代付商戶
         # body--//{id}
         path = '/ThirdPartyPayout/Delete'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateCondition(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶禁止使用狀態
+        # body--//{id}/{updateCondition}
+        path = '/ThirdPartyPayout/UpdateCondition'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMerchantData(self, data):
+        # API Name =>代付商戶管理 - 修改代付商戶資料
+        # body--///{id}/{updateMerchantData}
+        path = '/ThirdPartyPayout/UpdateMerchantData'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateCurrentSumToZero(self, data):
+        # API Name =>代付商戶管理 - 代付商戶目前累計歸0
+        # body--///{id}
+        path = '/ThirdPartyPayout/UpdateCurrentSumToZero'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMemberLevelSetting(self, data):
+        # API Name =>代付商戶管理 - 代付商戶會員等級
+        # body--////{id}/{memberLevelSettings}
+        path = '/ThirdPartyPayout/UpdateMemberLevelSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateDispensingBankSetting(self, data):
+        # API Name =>代付商戶管理 - 代付商戶出款銀行
+        # body--////{id}/{memberbank}
+        path = '/ThirdPartyPayout/UpdateDispensingBankSetting'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMerchantLimitRange(self, data):
+        # API Name =>代付商戶管理 - 代付商戶出款限額
+        # body--///{id}/{payoutLimitStart}/{payoutLimitEnd}
+        path = '/ThirdPartyPayout/UpdateMerchantLimitRange'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMemo(self, data):
+        # API Name =>代付商戶管理 - 代付商戶備註
+        # body--///{id}/{memo}
+        path = '/ThirdPartyPayout/UpdateMemo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateAutoPayoutSwitch(self, data):
+        # API Name =>代付商戶管理 - 代付商戶自动出款设置
+        # body--///{id}/{isOpen}
+        path = '/ThirdPartyPayout/UpdateAutoPayoutSwitch'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -2252,15 +2308,46 @@ class ActivityManagement(object):
 
         def loadNew(self, data):
             # API Name =>签到奖励-取得列表資料
-            # body--
+            # body--{take}/{skip}/{query}/{connectionId}
             path = '/CheckInOffer/LoadNew'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
         def Create(self, data):
+            # API Name =>签到奖励-取得列表資料
+            # body--
             path = '/CheckInOffer/Create'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
+
+        def GetEventTimeList(self, data):
+            # API Name =>签到奖励-取得活動列表時間
+            # body--{}
+            path = '/CheckInOffer/GetEventTimeList'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def EventOff(self, data):
+            # API Name =>签到奖励-活動下架
+            # body--{}
+            path = '/CheckinOffer/EventOff'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def UploadImage(self, data):
+            # API Name =>签到奖励-活動圖片
+            # body--{}
+            path = '/CheckInOffer/UploadImage'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def AllAvailableMemberLevelSetting(self, data):
+            # API Name =>签到奖励-取得所有可用的會員級別設置
+            # body--{}
+            path = '/CheckInOffer/AllAvailableMemberLevelSetting'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
 
     # 任务挑战
     class MissionReward:
