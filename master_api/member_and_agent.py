@@ -97,6 +97,11 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def GetSuperSearchSumBalance(self, data):
+        # 獲取超級搜索總餘額
+        path = '/Member/GetSuperSearchSumBalance'
+        self.response_data = self.__http.sendRequest('POST')
+
     def getColumnForSuperSearch(self, data):
         # 取得超級會員顯示欄位
         path = '/Member/getColumnForSuperSearch'

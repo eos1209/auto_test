@@ -2348,6 +2348,20 @@ class ActivityManagement(object):
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
 
+        def GetDetail(self, data):
+            # API Name =>签到奖励-取得所有可用的會員級別設置
+            # body--/{ID}
+            path = '/CheckInOffer/GetDetail'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
+        def Update(self, data):
+            # API Name =>签到奖励-修改未開始活動
+            # body--/{ID}
+            path = '/CheckInOffer/Update'
+            self.response_data = self.__http.sendRequest('POST', path, data)
+            return self.response_data
+
 
     # 任务挑战
     class MissionReward:

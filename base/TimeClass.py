@@ -22,8 +22,21 @@ def get_first_day():
     # 求該月第一天
     first_day = datetime.date(time.year, time.month, 1)
     days_num = calendar.monthrange(first_day.year, first_day.month)[1]  # 獲取一個月有多少天
-    first_day_of_next_month = first_day + datetime.timedelta(days=days_num-1)  # 當月的最後一天只需要days_num-1即可
-    return str(first_day), str(first_day_of_next_month)
+    first_day_of_month = first_day + datetime.timedelta(days=days_num - 1)  # 當月的最後一天只需要days_num-1即可
+    return str(first_day), str(first_day_of_month)
+
+
+def get_next_first_day():
+    """ 下個月的第一天 到 最後一天"""
+    time = datetime.datetime.now()  # 年，月，日
+    # 求該月第一天
+    first_day = datetime.date(time.year, time.month, 1)
+    days_num = calendar.monthrange(first_day.year, first_day.month)[1]  # 獲取一個月有多少天
+    first_day_of_next_month = first_day + datetime.timedelta(days=days_num)  # 當月的最後一天只需要days_num-1即可
+    xx = calendar.monthrange(first_day_of_next_month.year, first_day_of_next_month.month)[1]  # 獲取一個月有多少天
+    first_day_of_month = first_day_of_next_month + datetime.timedelta(days=xx - 1)  # 當月的最後一天只需要days_num-1即可
+
+    return str(first_day_of_next_month), str(first_day_of_month)
 
 # time = datetime.datetime.now()  # 年，月，日
 # # 求該月第一天
