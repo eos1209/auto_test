@@ -22,6 +22,11 @@ def get_todaynow():
     nows = time.strftime("%Y/%m/%d %H:%M", time.localtime())
     return nows
 
+def get_todaynow_Y():
+    # 格式化成2016-03-20 11:45形式
+    nows = time.strftime("%Y%m%d", time.localtime())
+    return nows
+
 
 def get_first_day():
     """ 當月的第一天 到 最後一天"""

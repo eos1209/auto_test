@@ -121,6 +121,12 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def ExportForSuperSearch(self, data):
+        # 超級會員 - 匯出檔案
+        path = '/Member/ExportForSuperSearch'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 會員標籤
 class MemberTags(object):
