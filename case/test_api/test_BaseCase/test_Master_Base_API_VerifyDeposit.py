@@ -10,9 +10,8 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
-from base.CommonMethod import PortalExecution
-from base.CommonMethod import SetDelayTime
 from data_config.system_config import systemSetting
+from base.CommonMethod import Portal_test
 
 
 class VerifyDepositBaseTest(unittest.TestCase):
@@ -32,15 +31,6 @@ class VerifyDepositBaseTest(unittest.TestCase):
         cls.user = User(cls.__http)
         cls.verify_deposit = account_management.VerifyDeposit(cls.__http)
         cls.user.login()
-
-    @classmethod
-    def Portal(cls):  # 執行前端
-        cls.config = systemSetting()  # 參數設定
-        cls.portal = PortalExecution()
-        verifyDeposit = cls.portal.verifyDeposit(cls.config.test_Member_config(),
-                                                 cls.config.test_Password_config()).split(' ')  # 切割Portal端的訂單號碼
-        # print(verifyDeposit[1])
-        return verifyDeposit[1]
 
     def test_VerifyDeposit_relatedApi_status_01(self):
         """驗證 公司入款审核 - 取得頁面"""
@@ -101,7 +91,9 @@ class VerifyDepositBaseTest(unittest.TestCase):
 
     def test_VerifyDeposit_relatedApi_status_07(self):
         """驗證 公司入款审核 - 拒絕"""
-        getId = VerifyDepositBaseTest.Portal()
+        # getId = VerifyDepositBaseTest.Portal()
+        self.portal = Portal_test()
+        self.portal.CompanyDeposit(self.config.test_Member_config(), self.config.test_Password_config())
         VerifyDepositBaseTest.Master_login()
         data = {"count": 100,
                 "query":
@@ -109,19 +101,15 @@ class VerifyDepositBaseTest(unittest.TestCase):
                 }
         response_data = self.verify_deposit.get_load_data(data)
         self.get_verify_deposit_id = response_data[1]['Data'][0]['Id']
-        if int(getId) == int(self.get_verify_deposit_id):
-            data = {"id": getId}
-            response_data = self.verify_deposit.order_deny(data)
-            status_code = response_data[0]
-            self.assertEqual(status_code, common_config.Status_Code)
-        else:
-            print(self.get_verify_deposit_id)
-            print(getId)
-            self.assertNotEqual(getId, self.get_verify_deposit_id, '前後端公司入款訂單號不相同')
+        data = {"id": self.get_verify_deposit_id}
+        response_data = self.verify_deposit.order_deny(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
     def test_VerifyDeposit_relatedApi_status_08(self):
         """驗證 公司入款审核 - 同意"""
-        getId = VerifyDepositBaseTest.Portal()
+        self.portal = Portal_test()
+        self.portal.CompanyDeposit(self.config.test_Member_config(), self.config.test_Password_config())
         VerifyDepositBaseTest.Master_login()
         data = {"count": 100,
                 "query":
@@ -129,15 +117,10 @@ class VerifyDepositBaseTest(unittest.TestCase):
                 }
         response_data = self.verify_deposit.get_load_data(data)
         self.get_verify_deposit_id = response_data[1]['Data'][0]['Id']
-        if int(getId) == int(self.get_verify_deposit_id):
-            data = {"id": getId}
-            response_data = self.verify_deposit.order_allow(data)
-            status_code = response_data[0]
-            self.assertEqual(status_code, common_config.Status_Code)
-        else:
-            print(self.get_verify_deposit_id)
-            print(getId)
-            self.assertNotEqual(getId, self.get_verify_deposit_id, '前後端公司入款訂單號不相同')
+        data = {"id": self.get_verify_deposit_id}
+        response_data = self.verify_deposit.order_allow(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':

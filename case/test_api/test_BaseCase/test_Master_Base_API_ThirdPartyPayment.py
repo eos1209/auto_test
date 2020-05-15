@@ -10,9 +10,8 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
-from base.CommonMethod import PortalExecution
 from data_config.system_config import systemSetting
-from master_api.system_management import PortalManagement
+from base.CommonMethod import Portal_test
 
 
 class ThirdPartyPaymentBaseTest(unittest.TestCase):
@@ -23,7 +22,6 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.siteParameter = account_management.ThirdPartyPayment(self.__http)
-        self.PortalManagement = PortalManagement(self.__http)
         self.user.login()
 
     def tearDown(self):
@@ -35,12 +33,6 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
         cls.user = User(cls.__http)
         cls.thirdPartyPayment = account_management.ThirdPartyPayment(cls.__http)
         cls.user.login()
-
-    @classmethod
-    def ThirdPartyPayment(cls):
-        cls.config = systemSetting()
-        cls.portal = PortalExecution()
-        cls.portal.ThirdPartyPayment(cls.config.test_Member_config(), cls.config.test_Password_config())
 
     def getId(self):
         data = {"count": 25, "query": {"isDTPP": 'true', "search": 'null'}}
@@ -106,7 +98,9 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_07(self):
         """驗證 线上支付看板 - 拒絕 狀態"""
-        ThirdPartyPaymentBaseTest.ThirdPartyPayment()
+        self.portal = Portal_test()
+        self.portal.OnlineDeposit_Create_V2(self.config.test_Member_config(), self.config.test_Password_config())
+        self.portal.OnlineDeposit_Send_V2(self.config.test_Member_config(), self.config.test_Password_config())
         ThirdPartyPaymentBaseTest.Master_login()
         Id = self.getId()
         data = {'id': Id}
@@ -116,8 +110,9 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayment_relatedApi_status_08(self):
         """驗證 线上支付看板 - 同意 狀態"""
-        ThirdPartyPaymentBaseTest.ThirdPartyPayment()
-        ThirdPartyPaymentBaseTest.Master_login()
+        self.portal = Portal_test()
+        self.portal.OnlineDeposit_Create_V2(self.config.test_Member_config(), self.config.test_Password_config())
+        self.portal.OnlineDeposit_Send_V2(self.config.test_Member_config(), self.config.test_Password_config())
         Id = self.getId()
         data = {'id': Id}
         response_data = self.thirdPartyPayment.allow_dTPP_manual(data)
@@ -126,4 +121,4 @@ class ThirdPartyPaymentBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

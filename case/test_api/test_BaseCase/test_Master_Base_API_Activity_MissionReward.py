@@ -16,7 +16,7 @@ from master_api.account_login import User
 from master_api.system_management import ActivityManagement
 from base.CommonMethod import PortalExecution
 from master_api import account_management
-
+from base.CommonMethod import Portal_test
 
 class MissionRewardBaseTest(unittest.TestCase):
     """ 任务挑战 - 相關 API 調用狀態"""
@@ -140,8 +140,11 @@ class MissionRewardBaseTest(unittest.TestCase):
 
     def test_MissionReward__relatedApi_status_09(self):
         """驗證 任务挑战 - Portal任務挑戰 狀態"""
-        self.portal = PortalExecution()
-        self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        # self.portal = PortalExecution()
+        # self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
+        self.portal = Portal_test()
+        self.portal.OnlineDeposit_Create_V2(self.config.test_Member_config(),self.config.test_Password_config())
+        self.portal.OnlineDeposit_Send_V2(self.config.test_Member_config(), self.config.test_Password_config())
         MissionRewardBaseTest.Master_login()  # 線上支付看板-同意
         data = {"count": 25, "query": {"isDTPP": 'true', "search": 'null'}}
         response_data = self.thirdPartyPayment.load_new(data)

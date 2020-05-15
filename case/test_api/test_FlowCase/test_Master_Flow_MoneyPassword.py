@@ -8,9 +8,9 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
-from base.CommonMethod import PortalExecution
 from master_api import account_management
 from data_config.system_config import systemSetting
+from base.CommonMethod import Portal_test
 
 
 class MoneyPassword(unittest.TestCase):
@@ -49,12 +49,10 @@ class MoneyPassword(unittest.TestCase):
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
+        self.portal = Portal_test()
         self.portal.resetMoneyPassword(self.config.test_Member_config(), self.config.test_Password_config(),
                                        getMoneyPassword)
-        self.portal_verifyWithdraw = PortalExecution()
-        self.portal_verifyWithdraw.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                                  '123456')  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal.verifyDraw(self.config.test_Member_config(), self.config.test_Password_config(), '123456')
         MoneyPassword.Master_login()
         data = {"count": 100, "query": {"search": 'null'}}
         response_data = self.verifyWithdraw.load(data)
@@ -79,9 +77,8 @@ class MoneyPassword(unittest.TestCase):
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
-        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal = Portal_test()
+        self.portal.verifyDraw(self.config.test_Member_config(), self.config.test_Password_config(), getMoneyPassword)
         MoneyPassword.Master_login()
         data = {"count": 100, "query": {"search": 'null'}}
         response_data = self.verifyWithdraw.load(data)
