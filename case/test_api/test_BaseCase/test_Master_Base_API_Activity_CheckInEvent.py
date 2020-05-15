@@ -13,7 +13,7 @@ from data_config import common_config
 
 
 class CheckInEventBaseTest(unittest.TestCase):
-    """ 签到奖励 - 相關 API 調用狀態"""
+    """ 签到奖励 - 相關 API 調用狀態-2"""
 
     def setUp(self):
         self.__http = HttpRequest()
