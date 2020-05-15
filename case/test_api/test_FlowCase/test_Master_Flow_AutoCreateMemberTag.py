@@ -12,6 +12,7 @@ from master_api.account_login import User
 from base.CommonMethod import PortalExecution
 from base.CommonMethod import SetDelayTime
 from data_config.system_config import systemSetting
+from base.CommonMethod import Portal_test
 
 
 class autoCreateMemberTag(unittest.TestCase):
@@ -45,8 +46,9 @@ class autoCreateMemberTag(unittest.TestCase):
         # Step1: Portal端註冊
         validateTags = ''
         account = 'QA_tags' + common_config.now
-        self.portal = PortalExecution()
-        self.portal.Register(account)
+        # self.portal = PortalExecution()
+        self.portal = Portal_test()
+        self.portal.register(account)
         autoCreateMemberTag.Master_login()  # 登入
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)
@@ -56,8 +58,8 @@ class autoCreateMemberTag(unittest.TestCase):
         data = {'Id': Id, 'verifyAccount': verifyAccount}  # 審核通過該會員
         # Step3:會員登入建立銀行帳戶
         self.memberVerify.approve(data)
-        self.portal_setBank = PortalExecution()
-        self.portal_setBank.SetBankAccount(account, 'a123456')
+        self.portal_setBank = Portal_test()
+        self.portal_setBank.setBankAccount(account, 'a123456')
         SetDelayTime()
         # step 4:從會員歷史紀錄中驗證是否有這筆紀錄+取得該會員的標籤
         autoCreateMemberTag.Master_login()  # 登入
@@ -94,10 +96,10 @@ class autoCreateMemberTag(unittest.TestCase):
         memberId = response_data[1]['PageData'][0]['Id']
         data = {'id': memberId}
         self.memberDetail.resetMoneyPassword(data)
-        self.portal = PortalExecution()
+        self.portal = Portal_test()
         # Step3:會員登入建立銀行帳戶
-        self.portal.ChangePassword(account, '123456')
-        self.portal.SetBankAccount(account, 'a123456')
+        self.portal.changePassword(account, '123456')
+        self.portal.setBankAccount(account, 'a123456')
         # step 4:從會員歷史紀錄中驗證是否有這筆紀錄+取得該會員的標籤
         autoCreateMemberTag.Master_login()  # 登入
         data = {"account": account}

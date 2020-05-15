@@ -97,6 +97,12 @@ class MemberSearch(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def GetSuperSearchSumBalance(self, data):
+        # 獲取超級搜索總餘額
+        path = '/Member/GetSuperSearchSumBalance'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
     def getColumnForSuperSearch(self, data):
         # 取得超級會員顯示欄位
         path = '/Member/getColumnForSuperSearch'
@@ -112,6 +118,12 @@ class MemberSearch(object):
     def getSearchSumBalance(self, data):
         # 取得總金額
         path = '/Member/GetSearchSumBalance'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def ExportForSuperSearch(self, data):
+        # 超級會員 - 匯出檔案
+        path = '/Member/ExportForSuperSearch'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -489,6 +501,20 @@ class MemberDetail(object):
     def updateMemberEmailLoginValidationLimit(self, data):
         # 電子郵件發送信箱次數限制
         path = '/Member/UpdateMemberEmailLoginValidationLimit'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UnsuspendLogin(self, data):
+        # API Name =>會員詳細資料 - 解除暫停登入
+        # body--////{memberId}
+        path = '/Member/UnsuspendLogin'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMaliciouslyLoginEnable(self, data):
+        # API Name =>會員詳細資料 - 恶意登入机制
+        # body--////{memberId}
+        path = '/Member/UpdateMaliciouslyLoginEnable'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 

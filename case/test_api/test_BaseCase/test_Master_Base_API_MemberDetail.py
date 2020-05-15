@@ -66,7 +66,7 @@ class MemberDetailBaseTest(unittest.TestCase):
     def depositSubmitAudit(self):
         depositToken = self.deposit.deposit_token({})
         data = {
-            'AccountsString':self.config.MasterMember(),
+            'AccountsString': self.config.MasterMember(),
             'Type': 4,
             'AuditType': 'Deposit',
             'DepositToken': depositToken[1],
@@ -415,6 +415,35 @@ class MemberDetailBaseTest(unittest.TestCase):
         errorMessage = response_data[1]['ErrorMessage']
         self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句號')
 
+    def test_MemberDetail_relatedApi_status_38(self):
+        """會員詳細資料 - 解除暫停登入狀態"""
+        getMemberId = self.GetMemberId()
+        data = {"memberId": getMemberId}
+        response_data = self.memberDetail.UnsuspendLogin(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_MemberDetail_relatedApi_status_39(self):
+        """驗證 會員詳細資料 - 解除暫停登入狀態 - 開 狀態"""
+        data = {"memberId": self.GetMemberId(),
+                "status": 'true'
+                }
+        try:
+            response_data = self.memberDetail.UpdateMaliciouslyLoginEnable(data)
+            status_code = response_data[0]
+            self.assertEqual(status_code, common_config.Status_Code)
+        except:
+            print("發生錯誤：" + status_code[1])
+
+    def test_MemberDetail_relatedApi_status_40(self):
+        """驗證 會員詳細資料 - 解除暫停登入狀態 - 關 狀態"""
+        data = {"memberId": self.GetMemberId(),
+                "status": 'false'
+                }
+        response_data = self.memberDetail.UpdateMaliciouslyLoginEnable(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

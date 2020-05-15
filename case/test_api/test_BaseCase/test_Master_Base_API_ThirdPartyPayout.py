@@ -32,14 +32,15 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
 
     def getApilist(self):
         items = self.siteParameter.GetApiList()
+        print(items[1])
         for i in range(len(items[1]['ReturnObject'])):
             if items[1]['ReturnObject'][i]['Name'] == 'TestPayout':
                 Name = items[1]['ReturnObject'][i]['Name']
-                Api_id = items[1]['ReturnObject'][i]['Api_id']
+                Api_id = items[1]['ReturnObject'][i]['ApiId']
                 break
             else:
                 Name = items[1]['ReturnObject'][i]['Name']
-                Api_id = items[1]['ReturnObject'][i]['Api_id']
+                Api_id = items[1]['ReturnObject'][i]['ApiId']
         return Name, Api_id
 
     def getPayLists(self):

@@ -3,9 +3,40 @@
 @Date : 2018/12/10
 '''
 import requests
-
+from requests.cookies import RequestsCookieJar
 from data_config import master_config
 from data_config.system_config import systemSetting
+
+
+def send_get_Portal_request(path, payload, Headers, cookies):
+    config = systemSetting()
+    base_url = config.Portal_config() + path
+    r = requests.get(base_url, params = payload, headers = Headers, cookies = cookies)
+    status_code = r.status_code  # 獲取返回狀態碼
+    response_text = r.text
+    return str(status_code), response_text, r.cookies  # 返回響應碼，内容
+
+
+def send_post_Portal_request(path, payload, Headers, cookies):
+    config = systemSetting()
+    base_url = config.Portal_config() + path
+    r = requests.post(base_url, json = payload, headers = Headers, cookies = cookies)
+    status_code = r.status_code  # 獲取返回狀態碼
+    response_text = r.json()
+    return str(status_code), response_text, r.cookies  # 返回響應碼，内容
+
+
+def cookie_process(cookie_jar):  # 處理登入後的cookie
+    cookie = requests.utils.dict_from_cookiejar(cookie_jar)
+    return cookie
+
+
+def add_cookie(login_cookie, get_cookie):  # 上一頁假的RequestVerificationToken必須加在新的cookie一起回傳
+    set_RequestVerificationToken_value = get_cookie['__RequestVerificationToken']
+    set_request = requests.cookies.RequestsCookieJar()
+    set_request.set('__RequestVerificationToken', set_RequestVerificationToken_value)
+    login_cookie.update(set_request)
+    return login_cookie
 
 
 class HttpRequest(object):

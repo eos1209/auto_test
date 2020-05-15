@@ -10,7 +10,7 @@ from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from master_api import member_and_agent
 from master_api.account_login import User
-from base.CommonMethod import PortalExecution
+from base.CommonMethod import Portal_test
 
 
 class TrailBaseTest(unittest.TestCase):
@@ -85,8 +85,8 @@ class TrailBaseTest(unittest.TestCase):
 
     def test_Trail_baseApi_status_08(self):
         """驗證 試玩審核 - 允許試玩帳號"""
-        self.portal = PortalExecution()
-        self.portal.Trail()  # 前端註冊
+        self.portal = Portal_test()
+        self.portal.Trail()
         Id = self.getId()
         data = {"id": Id}
         print(Id)
@@ -97,8 +97,8 @@ class TrailBaseTest(unittest.TestCase):
 
     def test_Trail_baseApi_status_09(self):
         """驗證 試玩審核 - 拒絕試玩帳號"""
-        self.portal = PortalExecution()
-        self.portal.Trail()  # 前端註冊
+        self.portal = Portal_test()
+        self.portal.Trail()
         Id = self.getId()
         data = {"id": Id}
         response_data = self.trail.deny(data)

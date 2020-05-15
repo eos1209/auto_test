@@ -13,7 +13,7 @@ from master_api import system_management
 from master_api.account_login import User
 from base.CommonMethod import UploadFile
 from base.CommonMethod import system_config_Setting
-from base.CommonMethod import PortalExecution
+from base.CommonMethod import Portal_test
 
 
 class SiteMailBaseTest(unittest.TestCase):
@@ -35,13 +35,6 @@ class SiteMailBaseTest(unittest.TestCase):
         cls.user = User(cls.__http)
         cls.siteMail = system_management.SiteMail(cls.__http)
         cls.user.login()
-
-    @classmethod
-    def Portal(cls):
-        """驗證 站內信 - Portal端寄信 前置"""
-        cls.config = systemSetting()  # 參數設定
-        cls.portal = PortalExecution()
-        cls.portal.SiteMail(cls.config.test_Member_config(), cls.config.test_Password_config())
 
     def test_SiteMail_relatedApi_status_01(self):
         """驗證 站內信 - 取得列表頁面"""
@@ -231,7 +224,8 @@ class SiteMailBaseTest(unittest.TestCase):
     def test_SiteMail_relatedApi_status_12(self):
         """驗證 站內信 - 刪除收件匣"""
         # step 1 取得收件匣Id
-        SiteMailBaseTest.Portal()  # 前端寄信
+        self.portal = Portal_test()
+        self.portal.siteMail(self.config.test_Member_config(), self.config.test_Password_config())
         SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},
                 "SendDateOrderBy": 0, "LastId": 'null'}

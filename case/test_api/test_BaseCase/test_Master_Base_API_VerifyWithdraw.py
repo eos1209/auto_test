@@ -10,11 +10,10 @@ from base.httpRequest import HttpRequest
 from data_config import common_config
 from master_api import account_management
 from master_api.account_login import User
-from base.CommonMethod import PortalExecution
 from master_api import member_and_agent
 from base.CommonMethod import SetDelayTime
 from data_config.system_config import systemSetting
-
+from base.CommonMethod import Portal_test
 
 class VerifyWithdrawBaseTest(unittest.TestCase):
     """ 取款申请审核 - 相關 API 調用狀態"""
@@ -106,9 +105,8 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
-        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal = Portal_test()
+        self.portal.verifyDraw(getMoneyPassword)
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
@@ -121,9 +119,8 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
-        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal = Portal_test()
+        self.portal.verifyDraw(getMoneyPassword)# PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
@@ -136,9 +133,8 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         data = {"id": self.member_id()}
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
-        self.portal = PortalExecution()
-        self.portal.verifyWithdraw(self.config.test_Member_config(), self.config.test_Password_config(),
-                                   getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal = Portal_test()
+        self.portal.verifyDraw(getMoneyPassword)
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
