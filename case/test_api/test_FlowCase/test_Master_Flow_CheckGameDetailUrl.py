@@ -97,24 +97,26 @@ class CheckGameDetailUrl(unittest.TestCase):
                 "connectionId": self.user.info()}
         response_data = self.betRecord.search(data)
         # 判斷注單是否有資料存在
-        self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
-        self.betRecordId = response_data[1]['PageData'][0]['Id']
+        try:
+            self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
+            self.betRecordId = response_data[1]['PageData'][0]['Id']
+            # Step2 用注單ID 找到BetDetailUrl
+            data = {"id": self.betRecordId,
+                    "rawDataType": game_type}
+            response_data = self.betRecord.getBetDetailUrl(data)
+            self.actualResultStatue = response_data[0]
 
-        # Step2 用注單ID 找到BetDetailUrl
-        data = {"id": self.betRecordId,
-                "rawDataType": game_type}
-        response_data = self.betRecord.getBetDetailUrl(data)
-        self.actualResultStatue = response_data[0]
+            # Step3 確認狀態是否為 200 並且有回傳值
+            if common_config.Status_Code == str(self.actualResultStatue) and (not response_data[1]['Url'] is None):
+                flag_status1 = True
+            else:
+                flag_status1 = False
 
-        # Step3 確認狀態是否為 200 並且有回傳值
-        if common_config.Status_Code == str(self.actualResultStatue) and (not response_data[1]['Url'] is None):
-            flag_status1 = True
-        else:
-            flag_status1 = False
-
-        # Step4 驗證
-        self.assertEqual(flag_status1, True)
+            # Step4 驗證
+            self.assertEqual(flag_status1, True)
+        except:
+            print(game_type + "目前查詢區間無資料，請產生測試注單!!")
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

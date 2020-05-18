@@ -26,7 +26,7 @@ class SearchGameNumber(unittest.TestCase):
         self.user.logout()
 
     @parameterized.expand([
-        ("verify_bureau_number_query_AG", 'AgBr', 2),
+        # ("verify_bureau_number_query_AG", 'AgBr', 2), # AG 暫時注解！
         ("verify_bureau_number_query_CQ9", 'Cq9Slot', 1),
         ("verify_bureau_number_query_PNG", 'PngSlot', 4),
         ("verify_bureau_number_query_GPK", 'Rg2Slot', 2),
