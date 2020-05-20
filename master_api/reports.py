@@ -75,12 +75,12 @@ class BetRecords(object):
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def queryAdvanced(self, data):
-        # API Name =>投注记录查询-取得進階搜尋頁面
-        # body--
-        path = '/BetRecord/QueryAdvanced'
-        self.response_data = self.__http.sendRequest('GET', path, data)
-        return self.response_data
+    # def queryAdvanced(self, data):
+    #     # API Name =>投注记录查询-取得進階搜尋頁面，20200520應該是被移除
+    #     # body--
+    #     path = '/BetRecord/QueryAdvanced'
+    #     self.response_data = self.__http.sendRequest('GET', path, data)
+    #     return self.response_data
 
     def getSupplierCategories(self, data):
         # API Name =>投注记录查询-取得各娛樂城，以及所屬的遊戲類型
