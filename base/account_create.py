@@ -4,14 +4,14 @@ from openpyxl import load_workbook
 
 # Create same type xlsl file
 def CreateFile():
-    for i in range(31,51):
+    for i in range(31, 51):
         wb = load_workbook('./AccountCreate/AccountExaple.xlsx')
         wb.save(f'./AccountCreate/Accounttest{i}.xlsx')
 
 
 def WriteData():
-    account = 'QA_YT'
-    nums_start = 3000000
+    account = 'QA_jo'
+    nums_start = 2000000
     One_time_num = 200000
 
     for times in range(15, 35):
@@ -19,7 +19,7 @@ def WriteData():
         wb = load_workbook(save_path)
         ws = wb.active
 
-        for index,num in enumerate(range(nums_start, nums_start + One_time_num),1):
+        for index, num in enumerate(range(nums_start, nums_start + One_time_num), 1):
             ws[f'A{index+1}'] = 'QAfourmillionA'
             ws[f'B{index+1}'] = 'QAfourmillionB'
             ws[f'C{index+1}'] = 'QAfourmillionC'

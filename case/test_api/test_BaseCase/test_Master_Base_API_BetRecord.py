@@ -13,6 +13,7 @@ from master_api import reports
 from master_api.account_login import User
 from data_config.system_config import systemSetting
 
+
 class BetRecordBaseTest(unittest.TestCase):
     """投注記錄查詢 - 相關 API 調用狀態"""
 
@@ -31,6 +32,7 @@ class BetRecordBaseTest(unittest.TestCase):
         response_data = self.betRecords.search(data)
         Id = response_data[1]['PageData'][0]['Id']
         return Id
+
     # 混合過關注單會有錯誤
     def test_BetRecord_relatedApi_status_01(self):
         """驗證 SABA體育-混合過關 狀態"""
@@ -55,7 +57,7 @@ class BetRecordBaseTest(unittest.TestCase):
 
     def test_BetRecord_relatedApi_status_04(self):
         """驗證 3Sing體育-混合過關 狀態"""
-        data = {"rawDataId":self.config.SingParlaySubRawData()}  # 注單號:5852343
+        data = {"rawDataId": self.config.SingParlaySubRawData()}  # 注單號:5852343
         response_data = self.betRecords.getSingParlaySubRawData(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -178,4 +180,4 @@ class BetRecordBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

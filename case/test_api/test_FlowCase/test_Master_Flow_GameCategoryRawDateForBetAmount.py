@@ -33,10 +33,10 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_SABA_Sport", 'SabaSport', '$ ', 1, 10),
         ("Verify_SABA_Number", 'SabaNumber', '$ ', 1, 5),
         ("Verify_SABA_VirtualSport", 'SabaVirtualSport', '$ ', 1, 10),
-        ("Verify_AG_Br", 'AgBr', '$ ', 1, 5),
-        ("Verify_AG_Ebr", 'AgEbr', '$ ', 1, 10),
+        # ("Verify_AG_Br", 'AgBr', '$ ', 1, 5),
+        # ("Verify_AG_Ebr", 'AgEbr', '$ ', 1, 10),
         # ("Verify_AG_Hsr", 'AgHsr', '$ ', 1, 6),
-        ("Verify_AG_YoPlay", 'AgYoPlay', '$ ', 1, 7),
+        # ("Verify_AG_YoPlay", 'AgYoPlay', '$ ', 1, 7),
         ("Verify_MG_Real", 'Mg2Real', '$ ', 100, 6),
         ("Verify_MG_Slot", 'Mg2Slot', '$ ', 100, 6),
         ("Verify_MG_Html5", 'Mg2Html5', '$ ', 100, 6),
@@ -143,6 +143,8 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_Yg_Fish", 'YgFish', '', 1, 6),
         ("Verify_Icg_Slot", 'IcgSlot', '', 1, 3),
         ("Verify_Icg_Fish", 'IcgFish', '', 1, 3),
+        # 2020/05/18 新增娛樂城清單
+        ("Verify_LEBO_Real", 'LeboReal', '', 1, 4)
         #
         # 下架
         # ("Verify_Pt3Real", 'Pt3Real', '', 1, 7),

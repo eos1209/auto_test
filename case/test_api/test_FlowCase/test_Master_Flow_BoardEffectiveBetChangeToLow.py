@@ -48,7 +48,7 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
         # ("Verify_EffectiveBetChangeToLow_YgBoard", 'YgBoard', 7, 8),  # YG 棋牌
 
         # 尚未對接完成
-        # ("Verify_SaBoard", 'SaBoard', '', 1, 6),
+        # ("Verify_SaBoard", 'SaBoard', '', 1, 6), # SA前台目前沒有棋牌類，暫時不對接
         # 停止合作
         # ("Verify_effective_bet_change_to_low_Mw2Board", 'Mw2Board', 7, 3),  # MW 棋牌
     ])
@@ -61,38 +61,41 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
                 "connectionId": self.user.info()}
         response_data = self.betRecord.search(data)
         # 判斷注單是否有資料存在
-        self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
-        self.betRecordId = response_data[1]['PageData'][0]['Id']
+        try:
+            self.assertNotEqual([], response_data[1]['PageData'], '目前查詢區間無資料，請產生測試注單!!')
+            self.betRecordId = response_data[1]['PageData'][0]['Id']
 
-        # Step2
-        data = {"Id": self.betRecordId}
-        response_data = self.betRecord.getDetail(data)
-        self.commissionAble = Decimal(response_data[1]['Commissionable']).quantize(Decimal('0.00'))
-        # print("有效投注:" + str(self.commissionAble))
+            # Step2
+            data = {"Id": self.betRecordId}
+            response_data = self.betRecord.getDetail(data)
+            self.commissionAble = Decimal(response_data[1]['Commissionable']).quantize(Decimal('0.00'))
+            # print("有效投注:" + str(self.commissionAble))
 
-        # Step3
-        data = {"Id": self.betRecordId}
-        response_data = self.betRecord.getRawData(data)
-        bet_amount = Decimal(response_data[1]['List'][bet_amount_location]['Value']).quantize(Decimal('0.00'))
-        payoff = Decimal(response_data[1]['List'][payoff_location]['Value']).quantize(Decimal('0.00'))
+            # Step3
+            data = {"Id": self.betRecordId}
+            response_data = self.betRecord.getRawData(data)
+            bet_amount = Decimal(response_data[1]['List'][bet_amount_location]['Value']).quantize(Decimal('0.00'))
+            payoff = Decimal(response_data[1]['List'][payoff_location]['Value']).quantize(Decimal('0.00'))
 
-        if game_type == 'FsBoard' or game_type == 'TogBoard':
-            if payoff > bet_amount:
-                payoff = payoff - bet_amount
+            if game_type == 'FsBoard' or game_type == 'TogBoard':
+                if payoff > bet_amount:
+                    payoff = payoff - bet_amount
+                else:
+                    payoff = -bet_amount
             else:
-                payoff = -bet_amount
-        else:
-            payoff = payoff
+                payoff = payoff
 
-        # print("投注额:" + str(bet_amount))
-        # print("派彩:" + str(payoff))
+            # print("投注额:" + str(bet_amount))
+            # print("派彩:" + str(payoff))
 
-        # Step4
-        if bet_amount > abs(payoff):
-            check_value = abs(payoff)
-        else:
-            check_value = bet_amount
-        self.assertEqual(str(self.commissionAble), str(check_value))
+            # Step4
+            if bet_amount > abs(payoff):
+                check_value = abs(payoff)
+            else:
+                check_value = bet_amount
+            self.assertEqual(str(self.commissionAble), str(check_value))
+        except:
+            print(game_type + "目前查詢區間無資料，請產生測試注單!!")
 
 
 if __name__ == '__main__':

@@ -458,6 +458,41 @@ class GroupThirdParty(object):
         return self.response_data
 
 
+# 會員流失預測
+class RetentionListUsers(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response = {}
+
+    def GetComputeTime(self, data):
+        # API Name =>會員流失預測 - 獲取計算時間
+        # body--/{}
+        path = '/RetentionListUsers/GetComputeTime'
+        self.response = self.__http.sendRequest('POST', path, data)
+        return self.response
+
+    def GetList(self, data):
+        # API Name =>會員流失預測 - 取得列表
+        # body--/{pageIndex}/{pageSize}
+        path = '/RetentionListUsers/GetList'
+        self.response = self.__http.sendRequest('POST', path, data)
+        return self.response
+
+    def GetDetail(self, data):
+        # API Name =>會員流失預測 - 取得詳細列表
+        # body--/{memberId}
+        path = '/RetentionListUsers/GetDetail'
+        self.response = self.__http.sendRequest('POST', path, data)
+        return self.response
+
+    def Export(self, data):
+        # API Name =>會員流失預測 - 匯出檔案
+        # body--/{}
+        path = '/RetentionListUsers/Export'
+        self.response = self.__http.sendRequest('POST', path, data)
+        return self.response
+
+
 # 代付商戶管理
 class PayoutMerchantManagement(object):
     def __init__(self, http):
@@ -2361,7 +2396,6 @@ class ActivityManagement(object):
             path = '/CheckInOffer/Update'
             self.response_data = self.__http.sendRequest('POST', path, data)
             return self.response_data
-
 
     # 任务挑战
     class MissionReward:
