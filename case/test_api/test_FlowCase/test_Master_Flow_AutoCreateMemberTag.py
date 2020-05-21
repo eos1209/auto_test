@@ -46,9 +46,9 @@ class autoCreateMemberTag(unittest.TestCase):
         # Step1: Portal端註冊
         validateTags = ''
         account = 'QA_tags' + common_config.now
-        # self.portal = PortalExecution()
+        self.portal_ui = PortalExecution()
         self.portal = Portal_test()
-        self.portal.register(account)
+        self.portal_ui.Register(account)
         autoCreateMemberTag.Master_login()  # 登入
         listData = {'take': 100, 'search': {}}
         getData = self.memberVerify.getList(listData)

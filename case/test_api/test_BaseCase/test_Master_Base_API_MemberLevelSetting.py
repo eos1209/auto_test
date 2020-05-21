@@ -56,12 +56,6 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_Member_Level_Setting_relatedApi_status_04(self):
-        """驗證 会员等级管理 - 取得電子錢包狀態"""
-        response_data = self.memberLevelSetting.getWalletRemmitanceEnabled({})
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
-
     def test_Member_Level_Setting_relatedApi_status_05(self):
         """驗證 会员等级管理 - 新增等級頁面"""
         response_data = self.memberLevelSetting.create({})

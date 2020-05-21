@@ -15,6 +15,7 @@ from base.CommonMethod import SetDelayTime
 from data_config.system_config import systemSetting
 from base.CommonMethod import Portal_test
 
+
 class VerifyWithdrawBaseTest(unittest.TestCase):
     """ 取款申请审核 - 相關 API 調用狀態"""
 
@@ -106,7 +107,7 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = Portal_test()
-        self.portal.verifyDraw(getMoneyPassword)
+        self.portal.verifyDraw(self.config.test_Member_config(), self.config.test_Password_config(), getMoneyPassword)
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
@@ -120,7 +121,8 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = Portal_test()
-        self.portal.verifyDraw(getMoneyPassword)# PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
+        self.portal.verifyDraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                               getMoneyPassword)  # PS:該登入會員必須先設定好銀行帳戶+支付寶帳戶
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
@@ -134,7 +136,8 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.memberDetail.resetMoneyPassword(data)
         getMoneyPassword = response_data[1]['MoneyPassword']
         self.portal = Portal_test()
-        self.portal.verifyDraw(getMoneyPassword)
+        self.portal.verifyDraw(self.config.test_Member_config(), self.config.test_Password_config(),
+                               getMoneyPassword)
         VerifyWithdrawBaseTest.Master_login()
         Id = self.getId()
         data = {"id": Id}
@@ -215,7 +218,6 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.verifyWithdraw.getViewers(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
-
 
 
 if __name__ == '__main__':

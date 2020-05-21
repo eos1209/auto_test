@@ -45,13 +45,6 @@ class MemberLevelSetting(object):
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
-    def getWalletRemmitanceEnabled(self, data):
-        # API Name =>会员等级管理-啟用電子錢包
-        # body--
-        path = '/MemberLevelSetting/GetWalletRemmitanceEnabled'
-        self.response_data = self.__http.sendRequest('POST', path, data)
-        return self.response_data
-
     def createSubmit(self, data):
         # API Name =>会员等级管理-新增等級
         # body--/{createParams}

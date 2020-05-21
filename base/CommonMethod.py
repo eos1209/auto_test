@@ -147,15 +147,6 @@ class Portal_test:
         data = {"oldPassword": Password, "newPassword": "a123456"}
         self.portal.portal_changePassword(data, cookie)
 
-    def register(self, Account):
-        getImg = self.portal.get_register_image()
-        Img = getImg[1]["value"]  # 取得驗證碼
-        print(Img)
-        data = {"GroupBank": 'null', "Account": Account, "Password": "a123456", "Name": "QAautomation",
-                "checkCode": portal_config.PortalCheckCode,
-                "checkCodeEncrypt": Img, "BankName": 'null'}
-        self.portal.portal_register(data)
-
     def setBankAccount(self, Account, Password):  # 設定銀行帳號
         cookie = self.login(Account, Password)
         data = {"BankName": {"Id": 1, "Name": "农业银行", "Sort": 1, "AccountFormat": 2}, "Province": "vvvvvvv",
@@ -215,6 +206,7 @@ class PortalExecution(object):
         sleep(3)
 
     def Register(self, Account):  # 註冊
+        self.driver.get(self.config.Portal_config() + '/Register')
         self.driver.find_element_by_id("parentAccount").send_keys(self.config.agentLv4())
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
@@ -230,8 +222,26 @@ class PortalExecution(object):
         self.driver.find_element_by_class_name('btn-confirm').click()
         self.driver.quit()
 
-    def Trail_Login(self, account, password):  # 試玩帳號登入
+    def Trail(self):  # 試玩帳號註冊
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
+        self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//*[@id="header"]/div[1]/div/ul/li[1]/a').click()
+        sleep(3)
+        self.driver.find_element_by_class_name('mobile').send_keys(int(time.time()))  # 手機號碼
+        self.driver.find_element_by_name('checkCode').send_keys(portal_config.PortalCheckCode)  # 驗證碼
+        sleep(2)
+        self.driver.find_element_by_class_name('modal-nt-apply').click()  # 提交
+        sleep(2)
+        self.driver.find_element_by_class_name('btn-confirm').click()  # 確定
 
+    def Trail_Login(self, account, password):  # 試玩帳號登入
+        self.Trail()
+        sleep(2)
+        self.driver.find_element_by_name('username').send_keys(account)  # 試玩帳號
+        self.driver.find_element_by_name('password').send_keys(password)  # 試玩密碼
+        sleep(2)
         trailAccount = self.driver.find_element_by_class_name('account').text
         self.driver.quit()
         return trailAccount
