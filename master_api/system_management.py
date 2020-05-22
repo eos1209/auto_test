@@ -77,7 +77,7 @@ class MemberLevelSetting(object):
         # API Name =>会员等级管理-取得該等級會員數
         # body--/{id}
         path = '/MemberLevelSetting/GetDetailMemberCount'
-        self.response_data = self.__http.sendRequest('', path, data)
+        self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
     def update(self, data):

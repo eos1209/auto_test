@@ -48,11 +48,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
 
     def test_Member_Level_Setting_relatedApi_status_03(self):
         """驗證 会员等级管理 - 取得各等級的會員數"""
-        # Step1
-        memberLevelSettingId = self.GetMemberLevelSettingId()
-        # Step2
-        data = {"id": memberLevelSettingId}
-        response_data = self.memberLevelSetting.getMemberCount(data)
+        response_data = self.memberLevelSetting.getMemberCount({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -242,6 +238,26 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         # Step2
         data = {"id": memberLevelSettingId}
         response_data = self.memberLevelSetting.delete(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_Member_Level_Setting_relatedApi_status_16(self):
+        """驗證 会员等级管理 - 取得各等級的參加活動數量"""
+        # Step1
+        memberLevelSettingId = self.GetMemberLevelSettingId()
+        # Step2
+        data = {"id": memberLevelSettingId}
+        response_data = self.memberLevelSetting.getEventList(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_Member_Level_Setting_relatedApi_status_17(self):
+        """驗證 会员等级管理 - 取得該等級會員數"""
+        # Step1
+        memberLevelSettingId = self.GetMemberLevelSettingId()
+        # Step2
+        data = {"id": memberLevelSettingId}
+        response_data = self.memberLevelSetting.getDetailMemberCount(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

@@ -80,6 +80,12 @@ class StatisticsBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_Statistics_relatedApi_status_07(self):
+        """驗證 統計報表 - 更新狀態"""
+        response_data = self.statistics.UpdateStatus({})
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
     # def test_Statistics_relatedApi_status_07(self):
     #     """驗證 統計報表 - 重新導向 FTP Site"""
     #     response_data = self.statistics.getToManualExportFileFTP()
@@ -88,4 +94,4 @@ class StatisticsBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())
