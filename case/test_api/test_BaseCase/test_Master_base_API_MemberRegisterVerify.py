@@ -21,8 +21,8 @@ class MemberRegisterVerifyTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 系統參數
-        # self.__http = HttpRequest()
-        # self.user = User(self.__http)
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
         # self.memberVerify = member_and_agent.MemberVerifyPage(self.__http)
         # self.user.login()
 
@@ -63,9 +63,9 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         cls.portal = PortalExecution()
         cls.portal.Register(account)
 
-    def test_MemberRegisterVerify_baseApi_status(self):
-        """驗證 會員註冊"""
-        self.Portal()
+    # def test_MemberRegisterVerify_baseApi_status(self):
+    #     """驗證 會員註冊"""
+    #     self.Portal()
 
 
 

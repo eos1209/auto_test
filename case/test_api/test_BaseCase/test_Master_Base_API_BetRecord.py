@@ -8,7 +8,6 @@ import unittest
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import common_config
-from data_config import master_config
 from master_api import reports
 from master_api.account_login import User
 from data_config.system_config import systemSetting
