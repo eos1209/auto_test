@@ -26,6 +26,15 @@ def send_post_Portal_request(path, payload, Headers, cookies):
     return str(status_code), response_text, r.cookies  # 返回響應碼，内容
 
 
+def send_error_post_Portal_request(path, payload, Headers, cookies):
+    config = systemSetting()
+    base_url = config.Portal_config() + path
+    r = requests.post(base_url, json = payload, headers = Headers, cookies = cookies, allow_redirects = False)
+    status_code = r.status_code  # 獲取返回狀態碼
+    response_text = r.text
+    return str(status_code), response_text, r.cookies  # 返回響應碼，内容
+
+
 def cookie_process(cookie_jar):  # 處理登入後的cookie
     cookie = requests.utils.dict_from_cookiejar(cookie_jar)
     return cookie

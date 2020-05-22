@@ -47,20 +47,16 @@ class batchMemberEmailValidationTest(unittest.TestCase):
         """電子郵件驗證批次 - 驗證"""
         # step 1:先以會員惡意註冊標籤作為批次資料
         # step 2:批次執行簡訊驗證
-        data = {"search": {"MemberLevelSettingIds": [self.getMemberLevelId()]}, "isSuper": 'false',
+        data = {"search": {"MemberLevelSettingIds": [self.getMemberLevelId()],
+                           'MemberTagIds': self.config.singleTag_config()}, "isSuper": 'false',
                 "batchParam": {"isAll": 'true'},
                 "isEnable": 'false'}  # 改搜尋
         self.memberBatch.batchUpdateMemberEmailValidation(data)
         # step 3:驗證-1:走訪每一位該等級會員是否確實電子郵件驗證符合動作
         # step 4:驗證-2:走訪每一位該等級會員的會員歷史紀錄確定要有該開關紀錄
-        data = {"MemberLevelSettingIds": [self.getMemberLevelId()]}  # 改搜尋
-        response_data = self.searchMember.getSearchCount(data)  # 計算總筆數
-        memberTotal = response_data[1]['ReturnObject']
-        print(memberTotal)
-        if memberTotal % 10 == 0:  # 判斷是否為整數
-            memberPageCount = memberTotal / 10
-        else:
-            memberPageCount = (memberTotal / 10) + 1
+        data = {"MemberLevelSettingIds": [self.getMemberLevelId()],
+                'MemberTagIds': self.config.singleTag_config()}  # 改搜尋
+        self.searchMember.getSearchCount(data)  # 計算總筆數
         for page in range(1):
             data = {"MemberLevelSettingIds": [self.getMemberLevelId()], "pageIndex": page,
                     "connectionId": self.user.info()}  # 改搜尋
@@ -71,10 +67,10 @@ class batchMemberEmailValidationTest(unittest.TestCase):
                 validateMemberDetail = self.MemberDetail(Name)
                 validateMemberHistory = self.MemberHistory(Id)
                 if bool(str(validateMemberDetail) != validateMemberHistory):
-                    self.assertNotEqual('會員詳細:' + str(validateMemberDetail), '會員歷史紀錄' + validateMemberHistory,
+                    self.assertNotEqual('會員詳細:' + validateMemberDetail, '會員歷史紀錄' + validateMemberHistory,
                                         '發生錯誤，兩者狀況不一')
                 else:
-                    self.assertEqual(validateMemberDetail, validateMemberHistory)
+                    self.assertEqual(str(validateMemberDetail), str(validateMemberHistory))
             SetDelayTime()
 
     def MemberDetail(self, Name):
