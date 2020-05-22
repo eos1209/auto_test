@@ -1,6 +1,6 @@
 '''
 @Created by loka
-@Date : 2020/01/07
+@Date : 2020/05/22
 '''
 
 import unittest
@@ -73,6 +73,25 @@ class test_kindCategories(unittest.TestCase):
     def advance_SingSport_BetIdDetail_validate(self, data, betId):
         response_data = self.betRecords.advancedLoadV2(data)
         response_betId = response_data[1]['Data'][0]['TransactionId']
+        print(response_betId)
+        if response_betId == betId:
+            return 0
+        else:
+            return 1
+
+    def advance_PrgSlot_BetIdDetail_validate(self, data, betId):
+        response_data = self.betRecords.advancedLoadV2(data)
+        response_betId = response_data[1]['Data'][0]['BetId']
+        betId = betId + 'B'
+        print(response_betId)
+        if response_betId == betId:
+            return 0
+        else:
+            return 1
+
+    def advance_Pt2Slot_BetIdDetail_validate(self, data, betId):
+        response_data = self.betRecords.advancedLoadV2(data)
+        response_betId = response_data[1]['Data'][0]['GameCode']
         print(response_betId)
         if response_betId == betId:
             return 0
@@ -230,7 +249,7 @@ class test_kindCategories(unittest.TestCase):
                         == advance_data_result == advance_export_result == gameTypeName_search_result), True)
 
     def test_Slot_BetRecord_AllProcess_3(self):
-        #  取得電子廳所有注單流程
+        """取得電子廳所有注單流程"""
         global RawWagersId
         game_list = self.game_type(3)
         for i in range(len(game_list)):
@@ -278,7 +297,7 @@ class test_kindCategories(unittest.TestCase):
                         == advance_export_result == gameTypeName_search_result), True)
 
     def test_Board_BetRecord_AllProcess_4(self):
-        # 取得棋牌廳所有注單流程
+        """取得棋牌廳所有注單流程"""
         global RawWagersId
         game_list = self.game_type(4)
         for i in range(len(game_list)):
@@ -324,7 +343,7 @@ class test_kindCategories(unittest.TestCase):
                         == advance_export_result == gameTypeName_search_result), True)
 
     def test_Fish_BetRecord_AllProcess_5(self):
-        # 取得捕魚廳所有住單流程
+        """取得捕魚廳所有住單流程"""
         global RawWagersId
         game_list = self.game_type(5)
         for i in range(len(game_list)):
@@ -374,7 +393,7 @@ class test_kindCategories(unittest.TestCase):
                         == advance_data_result == advance_export_result == gameTypeName_search_result), True)
 
     def test_Round_RM_search(self):
-        # 測試局號搜尋
+        """個案處理-RM棋牌局號查詢驗證"""
         global RoundId
         gameCategories = 'DhBoard'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -402,7 +421,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_Round_Rg2LotteryBeauty_search(self):
-        # 測試局號搜尋
+        """個案處理-GPK視訊彩票局號查詢驗證"""
         global RoundId
         gameCategories = 'Rg2LotteryBeauty'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -430,7 +449,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_Round_Rg2Slot_search(self):
-        # 測試局號搜尋
+        """個案處理-GPK電子局號查詢驗證"""
         global RoundId
         gameCategories = 'Rg2Slot'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -458,7 +477,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_Round_Rg2Fish_search(self):
-        # 測試局號搜尋
+        """個案處理-GPK捕魚局號查詢驗證"""
         global RoundId
         gameCategories = 'Rg2Fish'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -486,7 +505,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_Round_Rg2Real_search(self):
-        # 測試局號搜尋
+        """個案處理-GPK真人局號查詢驗證"""
         global RoundId
         gameCategories = 'Rg2Real'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -514,7 +533,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_Round_PngSlot_search(self):
-        # 測試局號搜尋
+        """個案處理-Png電子局號查詢驗證"""
         global RoundId
         gameCategories = 'PngSlot'
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -542,7 +561,7 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(round_data_result, 0)
 
     def test_3Sing_process(self):
-        # 個案處理 3sing
+        """個案處理-3Sing體育查詢驗證"""
         global RawWagersId
         gameCategories = 'SingSport'  # 取得所有娛樂廳種類
         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
@@ -584,52 +603,91 @@ class test_kindCategories(unittest.TestCase):
             self.assertEqual(bool(rawWagers_search_result == export_data_result == advance_data_result
                                   == advance_export_result == gameTypeName_search_result), True)
 
-#     def test_pp_slot_porcess(self):
-#         global RawWagersId
-#         gameCategories = 'SingSport'  # 取得所有娛樂廳種類
-#         search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
-#                        "connectionId": self.user.info()}
-#         response_data = self.betRecords.search(search_data)  # 查詢
-#         if not response_data[1]['PageData']:
-#             print(str(gameCategories) + '沒有注單')
-#             pass
-#         else:
-#             print(gameCategories + '將進行這些驗證')
-#             get_betRecord_Id = response_data[1]['PageData'][0]['Id']  # 注單Id
-#             get_Game_type = response_data[1]['PageData'][0]['GameType']  # 遊戲名稱
-#             betRecord_detail = {"id": get_betRecord_Id}
-#             response_data = self.betRecords.getRawData(betRecord_detail)  # 注單原始資料
-#             for i in range(len(response_data[1]['List'])):
-#                 if response_data[1]['List'][i]['Name'] == '交易标号':
-#                     RawWagersId = response_data[1]['List'][i]['Value']  # 注單號
-#                 # print(RawWagersId)
-#             rawWagers_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
-#                                 "RawWagersId": RawWagersId, "connectionId": self.user.info()}
-#             rawWagers_search_result = self.get_BetIdDetail_validate(rawWagers_search)
-#             export_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories]}
-#             export_data_result = self.export_file_validate(export_data)
-#             advance_data = {
-#                 "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
-#                                  "GameCategories": [gameCategories]}, "pageSize": 100}
-#             advance_data_result = self.advance_SingSport_BetIdDetail_validate(advance_data, RawWagersId)
-#             advance_export_data = {
-#                 "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
-#                                  "GameCategories": [gameCategories]}, "category": gameCategories}
-#             advance_export_result = self.advance_export_file_validate(advance_export_data)
-#             gameTypeName_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
-#                                    "GameTypeName": get_Game_type, "GameTypeNameIsLike": 'false',
-#                                    "connectionId": self.user.info()}
-#             gameTypeName_search_result = self.game_Type_Name_search(gameTypeName_search,
-#                                                                     get_Game_type)  # 遊戲名稱查詢
-#             print(rawWagers_search_result, export_data_result, advance_data_result, advance_export_result,
-#                   gameTypeName_search_result)
-#             self.assertEqual(bool(rawWagers_search_result == export_data_result == advance_data_result
-#                                   == advance_export_result == gameTypeName_search_result), True)
-#
-#
-# # 個案處理 PP
-#
-#
-# def test_pt_slot_process(self):
-#     pass
-# # 個案處理 Pt
+    def test_pt_slot_process(self):
+        """個案處理-Pt電子查詢驗證"""
+        global RawWagersId
+        gameCategories = 'Pt2Slot'  # 取得所有娛樂廳種類
+        search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                       "connectionId": self.user.info()}
+        response_data = self.betRecords.search(search_data)  # 查詢
+        if not response_data[1]['PageData']:
+            print(str(gameCategories) + '沒有注單')
+            pass
+        else:
+            print(gameCategories + '將進行這些驗證')
+            get_betRecord_Id = response_data[1]['PageData'][0]['Id']  # 注單Id
+            get_Game_type = response_data[1]['PageData'][0]['GameType']  # 遊戲名稱
+            betRecord_detail = {"id": get_betRecord_Id}
+            response_data = self.betRecords.getRawData(betRecord_detail)  # 注單原始資料
+            for i in range(len(response_data[1]['List'])):
+                if response_data[1]['List'][i]['Name'] == '游戏代碼':
+                    RawWagersId = response_data[1]['List'][i]['Value']  # 注單號
+                    # print(RawWagersId)
+            rawWagers_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                                "RawWagersId": RawWagersId, "connectionId": self.user.info()}
+            rawWagers_search_result = self.get_BetIdDetail_validate(rawWagers_search)
+            export_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories]}
+            export_data_result = self.export_file_validate(export_data)
+            advance_data = {
+                "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
+                                 "GameCategories": [gameCategories]}, "pageSize": 100}
+            advance_data_result = self.advance_Pt2Slot_BetIdDetail_validate(advance_data, RawWagersId)
+            advance_export_data = {
+                "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
+                                 "GameCategories": [gameCategories]}, "category": gameCategories}
+            advance_export_result = self.advance_export_file_validate(advance_export_data)
+            gameTypeName_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                                   "GameTypeName": get_Game_type, "GameTypeNameIsLike": 'false',
+                                   "connectionId": self.user.info()}
+            gameTypeName_search_result = self.game_Type_Name_search(gameTypeName_search,
+                                                                    get_Game_type)  # 遊戲名稱查詢
+            print(rawWagers_search_result, export_data_result, advance_data_result, advance_export_result,
+                  gameTypeName_search_result)
+            self.assertEqual(bool(rawWagers_search_result == export_data_result == advance_data_result
+                                  == advance_export_result == gameTypeName_search_result), True)
+
+    def test_pp_slot_process(self):
+        """個案處理-PP電子查詢驗證"""
+        global RawWagersId
+        gameCategories = 'PrgSlot'  # 取得所有娛樂廳種類
+        search_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                       "connectionId": self.user.info()}
+        response_data = self.betRecords.search(search_data)  # 查詢
+        if not response_data[1]['PageData']:
+            print(str(gameCategories) + '沒有注單')
+            pass
+        else:
+            print(gameCategories + '將進行這些驗證')
+            get_betRecord_Id = response_data[1]['PageData'][0]['Id']  # 注單Id
+            get_Game_type = response_data[1]['PageData'][0]['GameType']  # 遊戲名稱
+            betRecord_detail = {"id": get_betRecord_Id}
+            response_data = self.betRecords.getRawData(betRecord_detail)  # 注單原始資料
+            for i in range(len(response_data[1]['List'])):
+                if response_data[1]['List'][i]['Name'] == '交易标号':
+                    RawWagersId = response_data[1]['List'][i]['Value']  # 注單號
+                # print(RawWagersId)
+            rawWagers_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                                "RawWagersId": RawWagersId, "connectionId": self.user.info()}
+            rawWagers_search_result = self.get_BetIdDetail_validate(rawWagers_search)
+            export_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories]}
+            export_data_result = self.export_file_validate(export_data)
+            advance_data = {
+                "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
+                                 "GameCategories": [gameCategories]}, "pageSize": 100}
+            advance_data_result = self.advance_PrgSlot_BetIdDetail_validate(advance_data, RawWagersId)
+            advance_export_data = {
+                "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
+                                 "GameCategories": [gameCategories]}, "category": gameCategories}
+            advance_export_result = self.advance_export_file_validate(advance_export_data)
+            gameTypeName_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
+                                   "GameTypeName": get_Game_type, "GameTypeNameIsLike": 'false',
+                                   "connectionId": self.user.info()}
+            gameTypeName_search_result = self.game_Type_Name_search(gameTypeName_search,
+                                                                    get_Game_type)  # 遊戲名稱查詢
+            print(rawWagers_search_result, export_data_result, advance_data_result, advance_export_result,
+                  gameTypeName_search_result)
+            self.assertEqual(bool(rawWagers_search_result == export_data_result == advance_data_result
+                                  == advance_export_result == gameTypeName_search_result), True)
+
+if __name__ == '__main__':
+    unittest.main(testRunner = HTMLTestRunner())
