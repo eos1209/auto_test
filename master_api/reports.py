@@ -53,6 +53,13 @@ class Statistics(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def UpdateStatus(self, data):
+        # API Name =>统计报表-更新狀態
+        # body--/{}
+        path = '/Statistics/UpdateStatus'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
     def toManualExportFileFTP(self, data):
         # API Name =>统计报表-报表链接
         # body--
@@ -312,7 +319,6 @@ class MemberLogin(object):
         # API Name =>登入记录查询-取得詳細頁面
         # body--
         path = '/MemberLogin/Detail'
-
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
