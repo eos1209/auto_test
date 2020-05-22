@@ -1,6 +1,7 @@
 import datetime
 import calendar
 import time
+from datetime import date, timedelta
 
 
 def get_yesterday():
@@ -17,10 +18,17 @@ def get_today():
     return today
 
 
+def betRecord_start():
+    # 投注紀錄查詢 -- 取得上個月一號的日期
+    WagersTimeBegin = (date.today().replace(day = 1) - timedelta(1)).replace(day = 1).strftime("%Y/%m/%d")
+    return WagersTimeBegin
+
+
 def get_todaynow():
     # 格式化成2016-03-20 11:45形式
     nows = time.strftime("%Y/%m/%d %H:%M", time.localtime())
     return nows
+
 
 def get_todaynow_Y():
     # 格式化成2016-03-20 11:45形式
