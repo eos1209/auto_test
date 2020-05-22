@@ -4,6 +4,7 @@
 '''
 from base.httpRequest import send_get_Portal_request
 from base.httpRequest import send_post_Portal_request
+from base.httpRequest import send_error_post_Portal_request
 from base.httpRequest import cookie_process
 from base.httpRequest import add_cookie
 import re
@@ -114,6 +115,14 @@ class Portal_api(object):
         header = headers(get_path, cookie)
         path = '/SiteMail/SendMail'
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_siteMail_error(self,data,cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/SiteMail'
+        header = headers(get_path, cookie)
+        path = '/SiteMail/SendMail'
+        self.response_data = send_error_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
 
     def portal_CompanyDeposit(self, data, cookie):
