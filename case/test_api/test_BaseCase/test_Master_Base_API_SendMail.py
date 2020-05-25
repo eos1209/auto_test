@@ -257,7 +257,7 @@ class SiteMailBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SiteMail_relatedApi_status_15(self):
-        """驗證 站內信 - 收件匣未讀/已讀信件"""
+        """驗證 站內信 - 設定收件匣未讀為已讀信件"""
         # step 1 取得收件匣Id
         SiteMailBaseTest.Master_login()  # 登入
         data = {"Size": 30, "SearchParam": {"InboxIsRead": 'true', "InboxIsUnRead": 'true', "InboxDate": "1"},

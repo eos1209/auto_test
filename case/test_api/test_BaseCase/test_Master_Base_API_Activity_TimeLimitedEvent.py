@@ -92,7 +92,6 @@ class TimeLimitedEventBaseTest(unittest.TestCase):
         data = self.create_NewTimeLimitdEvent()
         response_data = self.timeLimitedEvent.Create(data)
         status_code = response_data[0]
-        print(status_code)
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_TimeLimitedEvent_relatedApi_status_03(self):

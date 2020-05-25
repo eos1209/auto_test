@@ -63,10 +63,18 @@ class CommissionSettingBaseTest(unittest.TestCase):
 
     def test_CommissionSetting_relatedApi_status_04(self):
         """驗證 佣金設定 - 新增傭金等級"""
-        data = {"commissionSetting": {"Name": "QA_automation" + common_config.now, "MinWager": 1, "DepositPercent": 1,
-                                      "DepositMax": 1,
-                                      "WithdrawPercent": 1, "WithdrawMax": 1, "DepositThreshold": 1}}
-        print("QA_automation" + common_config.now)
+        data = {
+            "commissionSetting": {
+                "Name": "QA_automation" + common_config.now,
+                "MinWager": 1,
+                "DepositPercent": 1,
+                "DepositMax": 1,
+                "WithdrawPercent": 1,
+                "WithdrawMax": 1,
+                "DepositThreshold": 1
+            }
+        }
+        # print("QA_automation" + common_config.now)
         response_data = self.CommissionSetting.createSubmit(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -129,4 +137,4 @@ class CommissionSettingBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

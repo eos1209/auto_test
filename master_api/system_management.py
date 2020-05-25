@@ -1256,7 +1256,6 @@ class CommissionSetting(object):
         # API Name =>佣金设定-取得列表詳細資料
         # body--/{id}
         path = '/CommissionSetting/GetDetail'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1264,7 +1263,6 @@ class CommissionSetting(object):
         # API Name =>佣金设定-佣金設定更改狀態
         # body--/{id}
         path = '/CommissionSetting/ChangeState'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1288,7 +1286,6 @@ class CommissionSetting(object):
         # API Name =>佣金设定-新增佣金設定
         # body--/{commissionSetting}
         path = '/CommissionSetting/CreateSubmit'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1304,7 +1301,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城管理頁面
         # body--
         path = '/GameHallManagement/List'
-
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -1312,7 +1308,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城管理詳細資料頁面
         # body--
         path = '/GameHallManagement/Detail'
-
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -1320,7 +1315,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城管理歷史紀錄頁面
         # body--
         path = '/GameHallManagement/History'
-
         self.response_data = self.__http.sendRequest('GET', path, data)
         return self.response_data
 
@@ -1328,7 +1322,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城管理列表
         # body--
         path = '/GameHallManagement/GetGameHallList'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1336,7 +1329,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城管理列表資訊
         # body--
         path = '/GameHallManagement/GetGameHallListInfo'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1344,7 +1336,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城所有遊戲類型
         # body--/{gameSupplierType}
         path = '/GameHallManagement/GetGameCategoryTypes'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1352,7 +1343,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城詳細
         # body--/{gameHallUrlText}/{jaguar}
         path = '/GameHallManagement/GetGameHallDetail'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1360,7 +1350,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得指定娛樂城狀態
         # body--/{gameHallUrlText}/{jaguar}
         path = '/GameHallManagement/GetGameHallStatus'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1368,15 +1357,13 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-取得娛樂城後台連結 Url
         # body--/{gameSupplierType}
         path = '/GameHallManagement/GetBackofficeUrl'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def loadHistory(self, data):
+    def     loadHistory(self, data):
         # API Name =>娱乐城管理-載入指定娛樂城歷史紀錄
         # body--/{gameHallUrlText}/{take}/{skip}/{query}
         path = '/GameHallManagement/LoadHistory'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1384,7 +1371,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-把url的Text改成要顯示的Text
         # body--/{gameHallUrlText}/{jaguar}
         path = '/GameHallManagement/TransferGameHallUrlText'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1392,7 +1378,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-變更指定娛樂城狀態
         # body--/{gameSupplierType}/{isEnterable}
         path = '/GameHallManagement/ModifyGameHallStatus'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1407,7 +1392,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-轉回指定娛樂城所有錢包
         # body--/{gameSupplierType}
         path = '/GameHallManagement/TransferMoneyBack'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1415,7 +1399,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-更新指定娛樂城所有錢包
         # body--/{gameSupplierType}
         path = '/GameHallManagement/UpdateAllWallet'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
@@ -1423,7 +1406,6 @@ class GameHallManagement(object):
         # API Name =>娱乐城管理-娛樂城計算有效投注
         # body--/{searchParam}
         path = '/GameHallManagement/CalculateValidBet'
-
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
