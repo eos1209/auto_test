@@ -76,7 +76,7 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_AnnouncementManagement_relatedApi_status_04(self):
-        """ 公告管理-   狀態"""
+        """ 公告管理 - 檢查教程需要觀看  狀態"""
         data = {"tutorial": 1}
         response_data = self.AnnouncementManagement.checkTutorialNeedWatch(data)
         status_code = response_data[0]
@@ -115,7 +115,7 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
             "PopupWhenRefreshPage": 'true',
             "NeedSynchronize": 'false'
         }
-        response_data = self.AnnouncementManagement.getAnnouncementSetting(data)
+        response_data = self.AnnouncementManagement.updateAnnouncementSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -131,7 +131,7 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
             "PopupWhenRefreshPage": 'true',
             "NeedSynchronize": 'false'
         }
-        response_data = self.AnnouncementManagement.getAnnouncementSetting(data)
+        response_data = self.AnnouncementManagement.updateAnnouncementSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -147,7 +147,7 @@ class AnnouncementManagementBaseTest(unittest.TestCase):
             "PopupWhenRefreshPage": 'true',
             "NeedSynchronize": 'false'
         }
-        response_data = self.AnnouncementManagement.getAnnouncementSetting(data)
+        response_data = self.AnnouncementManagement.updateAnnouncementSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

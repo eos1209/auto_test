@@ -15,7 +15,7 @@ from data_config.system_config import systemSetting
 from datetime import datetime, timedelta
 from data_config import master_config
 from base.CommonMethod import SetDelayTime
-from base.MobileMethod import mobileExecution
+from base.CommonMethod import Portal_test
 
 
 class RedEnvelopeManagementBaseTest(unittest.TestCase):
@@ -27,6 +27,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         self.user = User(self.__http)
         self.redEnvelopeManagement = ActivityManagement.RedEnvelopeManagement(self.__http)
         self.user.login()
+        self.portal = Portal_test()
 
     def tearDown(self):
         self.user.logout()
@@ -66,12 +67,6 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                     response_data[1]['ReturnObject'][i]['Status'] == 2:
                 data = {"Id": response_data[1]['ReturnObject'][i]['Id']}
                 self.redEnvelopeManagement.suspendActivity(data)
-
-    @classmethod
-    def mobile(cls):
-        cls.config = systemSetting()  # 參數設定
-        cls.mobile = mobileExecution()  # Mobile領取紅包
-        cls.mobile.mobile_RedEnvelope(cls.config.test_Member_config(), cls.config.test_Password_config())
 
     def test_RedEnvelopeManagement_Get_List_Data(self):
         """驗證 红包派送 - 取得列表資料"""
@@ -140,7 +135,8 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         self.end_redEnvelope()
         # step 2:匯入紅包->手機領取->驗證紅包
         self.red_RedEnvelope_create()  # 匯入紅包
-        RedEnvelopeManagementBaseTest.mobile()  # 手機端領取紅包
+        SetDelayTime()
+        self.portal.RedEnvelope_Recevied(self.config.test_Member_config(), self.config.test_Password_config())  # 領取紅包
         Id = self.getId()  # 取得ID
         data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",
                 "Password": master_config.Master_Password}

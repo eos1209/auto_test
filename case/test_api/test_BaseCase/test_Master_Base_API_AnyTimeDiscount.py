@@ -122,7 +122,7 @@ class AnyTimeDiscountBaseTest(unittest.TestCase):
         # step 1 取得Id
         Id = self.getId()
         data = {"id": Id, "isDiscount": 'false'}
-        response_data = self.AnyTimeDiscount.updateName(data)
+        response_data = self.AnyTimeDiscount.updateHasDiscount(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
@@ -187,7 +187,10 @@ class AnyTimeDiscountBaseTest(unittest.TestCase):
         """驗證 返水設定 - 時時返水啟用/停用期間"""
         # step 1 取得Id
         Id = self.getId()
-        data = {"discountSettingId": Id, "EnableAppointment": common_config.EndDay, 'DisableAppointment': 'null'}
+        data = {"discountSettingId": Id,
+                "EnableAppointment": common_config.EndDay,
+                'DisableAppointment': 'null'
+                }
         response_data = self.AnyTimeDiscount.alterATDAppointment(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)

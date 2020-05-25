@@ -55,7 +55,8 @@ class YuebaoBaseTest(unittest.TestCase):
                 "LimitOrderCount": 10,
                 "LimitUserOrderCount": 5,
                 "limitOrderInterval": 1,
-                "StartTime": common_config.BeginDate, "EndTime": common_config.EndDate,
+                "StartTime": common_config.BeginDate,
+                "EndTime": common_config.EndDate,
                 "MemberLevelSettingIds": [member_Id]}
         response_data = self.yuebao.create(data)
         status_code = response_data[0]

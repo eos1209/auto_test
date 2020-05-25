@@ -93,13 +93,13 @@ class EmailNotificationMgmtBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_EmailNotificationMgmt_relatedApi_status_09(self):
-        """驗證 郵件商戶管理 - 更新會員等級 狀態"""
-        getId = self.getId()
-        data = {"id": getId, "levelSettingIds": [58]}
-        response_data = self.emailNotificationMgmt.updateLevelSettingIds(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+    # def test_EmailNotificationMgmt_relatedApi_status_09(self):
+    #     """驗證 郵件商戶管理 - 更新會員等級 狀態"""
+    #     getId = self.getId()
+    #     data = {"id": getId, "levelSettingIds": [58]}
+    #     response_data = self.emailNotificationMgmt.updateLevelSettingIds(data)
+    #     status_code = response_data[0]
+    #     self.assertEqual(status_code, common_config.Status_Code)
 
     def test_EmailNotificationMgmt_relatedApi_status_10(self):
         """驗證 郵件商戶管理 - 更新備註 狀態"""

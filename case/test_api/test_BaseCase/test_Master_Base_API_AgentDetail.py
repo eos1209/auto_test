@@ -343,6 +343,8 @@ class AgentDetailTest(unittest.TestCase):
         self.agentDetail.active(dataDisable)  # 停用代理商狀態
         response_data = self.agentDetail.updateAgentLinkStatus(dataLinkStatus)
         errorMessage = response_data[1]['ErrorMessage']
+        dataLinkStatus = {'id': agentId, 'status': 'true'}
+        self.agentDetail.updateAgentLinkStatus(dataLinkStatus)  # 停用推廣鏈接狀態
         self.assertEqual(errorMessage, '此代理链接已经是停用状态')
 
     def test_AgentDetail_baseApi_status_29(self):

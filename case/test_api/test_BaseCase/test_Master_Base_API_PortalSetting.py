@@ -77,7 +77,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         """驗證 會員端管理 - 更新餘額寶顯示開關"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
-        data = {'id': settingId, 'status': 'false'}
+        data = {'id': settingId, 'status': 'false'}  # 關閉
         response_data = self.PortalSetting.updateIsYuebaoToggle(data)
         status_code = response_data[0]
         data = {'id': settingId, 'status': 'true'}  # 開啟
@@ -88,7 +88,7 @@ class PortalSettingBaseTest(unittest.TestCase):
         """驗證 會員端管理 - 更新取款申請顯示開關"""
         # step1 取得會員端設定Id
         settingId = self.getPortalSettingId()
-        data = {'id': settingId, 'status': 'false'}
+        data = {'id': settingId, 'status': 'false'}  # 關閉
         response_data = self.PortalSetting.updateWithdrawToggle(data)
         status_code = response_data[0]
         data = {'id': settingId, 'status': 'true'}  # 開啟
@@ -167,7 +167,8 @@ class PortalSettingBaseTest(unittest.TestCase):
                          "IsCheckDuplicated_AgentIdNumber": 'false', "IsShow_AgentQQ": 'false',
                          "IsRequired_AgentQQ": 'false',
                          "IsCheckDuplicated_AgentQQ": 'false', "IsShow_AgentBankInfo": 'false',
-                         "IsRequired_AgentBankInfo": 'false', "IsCheckDuplicated_AgentBankInfo": 'false'}}
+                         "IsRequired_AgentBankInfo": 'false', "IsCheckDuplicated_AgentBankInfo": 'false'}
+                }
         response_data = self.PortalSetting.updateAgentRegisterSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
