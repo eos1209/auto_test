@@ -117,7 +117,7 @@ class Portal_api(object):
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
 
-    def portal_siteMail_error(self,data,cookie):
+    def portal_siteMail_error(self, data, cookie):
         cookie = cookie_process(cookie)
         get_path = '/SiteMail'
         header = headers(get_path, cookie)
@@ -146,5 +146,21 @@ class Portal_api(object):
         get_path = '/OnlineDeposit/Payment?type=General'
         header = headers(get_path, cookie)
         path = '/OnlineDeposit/Send_V2'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_Get_RedEnvelopeList(self, data, cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/'
+        header = headers(get_path, cookie)
+        path = '/RedEnvelope/GetRedEnvelopList'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_RedEnvelope_Recevied(self, data, cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/'
+        header = headers(get_path, cookie)
+        path = '/RedEnvelope/Received'
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data

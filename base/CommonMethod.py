@@ -185,6 +185,14 @@ class Portal_test:
         data = {"amount": 10, "settingId": 828, "paymentyType": 1}
         self.portal.portal_OnlineDeposit_Send_V2(data, cookie)
 
+    def RedEnvelope_Recevied(self, Account, Password):
+        cookie = self.login(Account, Password)
+        data = {}
+        response_data = self.portal.portal_Get_RedEnvelopeList(data, cookie)
+        Id = response_data[1][0]['Id']
+        data = {'id':Id}
+        self.portal.portal_RedEnvelope_Recevied(data,cookie)
+
 
 class PortalExecution(object):
     # Portal端

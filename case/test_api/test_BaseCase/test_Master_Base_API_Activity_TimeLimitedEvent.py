@@ -32,8 +32,6 @@ class TimeLimitedEventBaseTest(unittest.TestCase):
         self.user.logout()
 
     def create_NewTimeLimitdEvent(self):  # 新增限時優惠活動
-        self.system = system_config_Setting()
-        self.gameHall = GameHallType()
         BeginTime = (datetime.now() + timedelta(hours=-12)).strftime("%Y/%m/%d %H:%M:%S")
         EndTime = (datetime.now() + timedelta(hours=-11)).strftime("%Y/%m/%d %H:%M:%S")
         people = random.randint(0, 200)

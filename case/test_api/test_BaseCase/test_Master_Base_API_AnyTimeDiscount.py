@@ -122,7 +122,7 @@ class AnyTimeDiscountBaseTest(unittest.TestCase):
         # step 1 取得Id
         Id = self.getId()
         data = {"id": Id, "isDiscount": 'false'}
-        response_data = self.AnyTimeDiscount.updateName(data)
+        response_data = self.AnyTimeDiscount.updateHasDiscount(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

@@ -45,7 +45,7 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
 
     def getPayLists(self):
         response_data = self.siteParameter.GetList()
-        for i in range(len(response_data[1]['ReturnObject'][-1])):
+        for i in range(len(response_data[1]['ReturnObject'])):
             Id = response_data[1]['ReturnObject'][i]['Id']
             Name = response_data[1]['ReturnObject'][i]['Name']
             AvailableMinutes = response_data[1]['ReturnObject'][i]['AvailableMinutes']
