@@ -271,12 +271,12 @@ class GroupThirdParty(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def detail(self, data):
-        # API Name =>线上支付商户管理-取得明細頁面
-        # body--
-        path = '/GroupThirdParty/Detail'
-        self.response_data = self.__http.sendRequest('GET', path, data)
-        return self.response_data
+    # def detail(self, data):
+    #     # API Name =>线上支付商户管理-取得明細頁面
+    #     # body--
+    #     path = '/GroupThirdParty/Detail'
+    #     self.response_data = self.__http.sendRequest('GET', path, data)
+    #     return self.response_data
 
     def modify(self, data):
         # API Name =>线上支付商户管理-取得修改頁面
@@ -450,9 +450,24 @@ class GroupThirdParty(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
+    def UpdateDTPPIsShowCustomMerchant(self, data):
+        # API Name =>线上支付看板-自訂商戶開關
+        # body--/{maxId}/{isShow}
+        path = '/GroupThirdParty/UpdateDTPPIsShowCustomMerchant'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetList(self, data):
+        # API Name =>线上支付看板-取得商户使用占比与成功率列表
+        # body--/{maxId}/{isShow}
+        path = '/ThirdPartyPaymentStatistics/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
 
 # 會員流失預測
-class RetentionListUsers(object):
+class retentionListUsers(object):
+
     def __init__(self, http):
         self.__http = http
         self.response = {}

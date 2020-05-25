@@ -8,7 +8,7 @@ import unittest
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from data_config import common_config
-from master_api.system_management import PortalManagement, RetentionListUsers
+from master_api.system_management import PortalManagement, retentionListUsers
 from master_api.Home import Home
 from master_api.account_login import User
 from data_config.system_config import systemSetting
@@ -22,7 +22,7 @@ class RetentionListUsers(unittest.TestCase):
         self.__http = HttpRequest()
         self.user = User(self.__http)
         self.home = Home(self.__http)
-        self.siteParameter = RetentionListUsers(self.__http)
+        self.siteParameter = retentionListUsers(self.__http)
         self.user.login()
 
     # 登出

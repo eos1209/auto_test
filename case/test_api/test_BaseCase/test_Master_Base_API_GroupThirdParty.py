@@ -4,6 +4,7 @@
 '''
 
 import unittest
+from pprint import pprint
 
 from data_config import common_config
 from base.HTMLTestReportCN import HTMLTestRunner
@@ -262,15 +263,16 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_GroupThirdParty_relatedApi_status_25(self):
-        """驗證 线上支付商户管理 - 刪除金流公司商戶資料"""
-        # Step1 取得欲驗證的金流公司商戶id
-        groupThirdPartyId = self.GetGroupThirdPartyId()
-        # Step2 驗證呼叫該商戶的刪除
-        data = {"id": groupThirdPartyId}
-        response_data = self.groupThirdParty.dTPPDelete(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+    def test_SetDtppSortingMode_relatedApi_status_25(self):
+        """驗證 线上支付商户管理 - 自訂商戶開關 - 開&關 狀態"""
+        types = ["false", "true"]
+        for i in range(len(types)):
+            data = {"id": self.GetGroupThirdPartyId(),
+                    "isShow": i
+                    }
+            response_data = self.groupThirdParty.UpdateDTPPIsShowCustomMerchant(data)
+            status_code = response_data[0]
+            self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SetDtppSortingMode_relatedApi_status_26(self):
         """驗證 线上支付商户管理 - 前台顯示順序改為 自訂 狀態"""
@@ -285,6 +287,32 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         response_data = self.groupThirdParty.SetDtppSortingMode(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_GroupThirdParty_relatedApi_status_28(self):
+        """驗證 线上支付商户管理 - 刪除金流公司商戶資料"""
+        # Step1 取得欲驗證的金流公司商戶id
+        groupThirdPartyId = self.GetGroupThirdPartyId()
+        # Step2 驗證呼叫該商戶的刪除
+        data = {"id": groupThirdPartyId}
+        response_data = self.groupThirdParty.dTPPDelete(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_GroupThirdParty_relatedApi_status_29(self):
+        """驗證 线上支付商户管理 - 线上支付看板-取得商户使用占比与成功率列表 - 昨日 + 近7日 + 近30日"""
+        days = [1, 7, 30]
+        for i in range(len(days)):
+            data = {
+                "date": days.pop(),
+                "name": "",
+                "take": 100,
+                "skip": 0,
+                "descType": 1,
+                "isDesc": 'false'
+            }
+            response_data = self.groupThirdParty.GetList(data)
+            status_code = response_data[0]
+            self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':
