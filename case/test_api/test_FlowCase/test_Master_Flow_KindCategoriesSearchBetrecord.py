@@ -7,7 +7,7 @@ import unittest
 
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
-from base.TimeClass import get_first_day
+from base.TimeClass import betRecord_start
 from base.TimeClass import get_todaynow
 from master_api import reports
 from master_api.account_login import User
@@ -23,7 +23,7 @@ class test_kindCategories(unittest.TestCase):
         self.user = User(self.__http)
         self.betRecords = reports.BetRecords(self.__http)
         self.user.login()
-        self.first_day = get_first_day()[0]
+        self.first_day = betRecord_start()
         self.today = get_todaynow()
 
     def tearDown(self):
@@ -688,6 +688,7 @@ class test_kindCategories(unittest.TestCase):
                   gameTypeName_search_result)
             self.assertEqual(bool(rawWagers_search_result == export_data_result == advance_data_result
                                   == advance_export_result == gameTypeName_search_result), True)
+
 
 if __name__ == '__main__':
     unittest.main(testRunner = HTMLTestRunner())

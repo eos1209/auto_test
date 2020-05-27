@@ -190,8 +190,8 @@ class Portal_test:
         data = {}
         response_data = self.portal.portal_Get_RedEnvelopeList(data, cookie)
         Id = response_data[1][0]['Id']
-        data = {'id':Id}
-        self.portal.portal_RedEnvelope_Recevied(data,cookie)
+        data = {'id': Id}
+        self.portal.portal_RedEnvelope_Recevied(data, cookie)
 
 
 class PortalExecution(object):
