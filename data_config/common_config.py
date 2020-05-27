@@ -10,7 +10,7 @@ import time
 import calendar
 
 # 延遲時間
-DelayTime = 8
+DelayTime = 60
 
 # 狀態碼
 Status_Code = '200'

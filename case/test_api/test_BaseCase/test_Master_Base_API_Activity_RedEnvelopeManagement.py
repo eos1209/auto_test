@@ -138,6 +138,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         SetDelayTime()
         self.portal.RedEnvelope_Recevied(self.config.test_Member_config(), self.config.test_Password_config())  # 領取紅包
         Id = self.getId()  # 取得ID
+        SetDelayTime()
         data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",
                 "Password": master_config.Master_Password}
         self.redEnvelopeManagement.revoke(data)
