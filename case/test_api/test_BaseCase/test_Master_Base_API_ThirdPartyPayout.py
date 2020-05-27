@@ -31,8 +31,8 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         self.user.logout()
 
     def getApilist(self):
+        """取一筆代付商戶"""
         items = self.siteParameter.GetApiList()
-        print(items[1])
         for i in range(len(items[1]['ReturnObject'])):
             if items[1]['ReturnObject'][i]['Name'] == 'TestPayout':
                 Name = items[1]['ReturnObject'][i]['Name']
@@ -51,9 +51,26 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
             AvailableMinutes = response_data[1]['ReturnObject'][i]['AvailableMinutes']
         return Id, Name, AvailableMinutes
 
+    def getNewPayLists(self):
+        """取自動化新增的那一筆商戶"""
+        response_data = self.siteParameter.GetList()
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if response_data[1]['ReturnObject'][i]['Name'] == "QAtest":
+                Id = response_data[1]['ReturnObject'][i]['Id']
+                Name = response_data[1]['ReturnObject'][i]['Name']
+                AvailableMinutes = response_data[1]['ReturnObject'][i]['AvailableMinutes']
+        return Id, Name, AvailableMinutes
+
+    def getDelPayLists(self):
+        """取自動化新增的那一筆商戶 - 刪除"""
+        response_data = self.siteParameter.GetList()
+        for i in range(len(response_data[1]['ReturnObject'])):
+            if response_data[1]['ReturnObject'][i]['Name'] == "QAtest1":
+                Id = response_data[1]['ReturnObject'][i]['Id']
+        return Id
+
     def getAllMemberLevels(self):
-        data = {}
-        response_data = self.home.getAllMemberLevels(data)
+        response_data = self.home.getAllMemberLevels({})
         item = []
         for i in range(len(response_data[1])):
             item.append(response_data[1][i]['Value'])
@@ -88,40 +105,33 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayout_relatedApi_status_04(self):
         """驗證 代付商户管理 - 新增代付商戶 狀態"""
-        item = self.getApilist()
-        desc = "QA_test" + str(random.randint(1, 10))
-        data = {"AvailableMinutes": 1,  # 有效分鐘數
-                "IsAutoPayout": "true",  # 自动出款
-                "Name": desc,
-                "Api_id": item[1],
-                "MerchantNo": "xian4",
-                "Password": "10C36EFD68E6D4A29A62FB8AAB63A491",
-                "Gateway": "http://pay.jp777.net",
-                "TotalPayoutLimit": 1,  # 总出款限额
-                "IsCheckFirstPayoutMember": "false",  # 首次取款會員
-                "IsCheckHighRiskMember": "false",  # 高風險
-                "IsCheckDangerMember": "false",
-                "Memo": "test",  # 註解
-                "MemberLevelSettings": [1, 2, 3, 4, 5, 6],  # MemberLevel
-                "DispensingBankSettings": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                                           22, 23, 24, 25, 26, 27, 28, 29]  # Bank
-                }
+        item = self.getApilist()  # 取api代付商戶
+        data = {
+            "AvailableMinutes": 1,  # 有效分鐘數
+            "IsAutoPayout": 'true',  # 自动出款
+            "ApiId": item[1],
+            "Name": "QAtest",
+            "MerchantNo": "xian4",
+            "Password": "10C36EFD68E6D4A29A62FB8AAB63A491",
+            "Gateway": "http://gpkpay.fnjtd.com",
+            "TotalPayoutLimit": 1,  # 总出款限额
+            "IsCheckFirstPayoutMember": "false",  # 首次取款會員
+            "IsCheckHighRiskMember": "false",  # 高風險
+            "IsCheckDangerMember": 'false',
+            "PayoutLimitStart": 1,
+            "PayoutLimitEnd": 2,
+            "Memo": "註解",  # 註解
+            "MemberLevelSettings": self.getAllMemberLevels(),  # MemberLevel
+            "DispensingBankSettings": self.getAllBanks()  # Bank
+        }
         response_data = self.siteParameter.Create(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_05(self):
-        """驗證 代付商户管理 - 修改代付商戶名稱 狀態"""
-        data = {"id": self.getPayLists()[0],
-                "name": self.getPayLists()[1] + '1'
-                }
-        response_data = self.siteParameter.UpdateMerchantName(data)
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_06(self):
+    def test_ThirdPartyPayout_relatedApi_status_05(self):
         """驗證 代付商户管理 - 修改代付商戶資料 狀態"""
-        IDdata = {"id": self.getPayLists()[0]}
+        IDdata = {"id": self.getNewPayLists()[0]}
         ID_data = self.siteParameter.GetDetail(IDdata)
         data = {
             "id": ID_data[1]['ReturnObject']['Id'],
@@ -129,36 +139,36 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
                 "ApiId": ID_data[1]['ReturnObject']['ApiId'],
                 "MerchantNo": ID_data[1]['ReturnObject']['MerchantNo'] + "1",
                 "Password": "10C36EFD68E6D4A29A62FB8AAB63A491",
-                "Gateway": "http://pay.jp777.net"
+                "Gateway": "http://gpkpay.fnjtd.com"
             }
         }
         response_data = self.siteParameter.UpdateMerchantData(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_07(self):
+    def test_ThirdPartyPayout_relatedApi_status_06(self):
         """驗證 代付商户管理 - 代付商戶 - 停用 & 啟用狀態 狀態"""
         bools = ["false", "true"]
         for i in bools:
-            data = {"id": self.getPayLists()[0],
+            data = {"id": self.getNewPayLists()[0],
                     "isEnabled": i
                     }
             response_data = self.siteParameter.UpdateStatus(data)
             status_code = response_data[0]
             self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_08(self):
+    def test_ThirdPartyPayout_relatedApi_status_07(self):
         """驗證 代付商户管理 - 修改代付商戶有效分鐘數 狀態"""
-        data = {"id": self.getPayLists()[0],
+        data = {"id": self.getNewPayLists()[0],
                 "availableMinutes": self.getPayLists()[2]
                 }
         response_data = self.siteParameter.UpdateAvailableMinutes(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_09(self):
+    def test_ThirdPartyPayout_relatedApi_status_08(self):
         """驗證 代付商户管理 - 代付商戶目前累計歸0 狀態"""
-        IDdata = {"id": self.getPayLists()[0]}
+        IDdata = {"id": self.getNewPayLists()[0]}
         ID_data = self.siteParameter.GetDetail(IDdata)
         data = {
             "id": ID_data[1]['ReturnObject']['Id']
@@ -167,9 +177,9 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_10(self):
-        """驗證 代付商户管理 - 修改代付商戶總出款限額 狀態"""
-        IDdata = {"id": self.getPayLists()[0]}
+    def test_ThirdPartyPayout_relatedApi_status_09(self):
+        """驗證 代付商户管理 - 修改代付商戶總出款限額 1元&無限制 狀態"""
+        IDdata = {"id": self.getNewPayLists()[0]}
         ID_data = self.siteParameter.GetDetail(IDdata)
         TotalLimit = [1, "null"]
         for i in range(len(TotalLimit)):
@@ -181,29 +191,28 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
             status_code = response_data[0]
             self.assertEqual(status_code, common_config.Status_Code)
 
-
-    def test_ThirdPartyPayout_relatedApi_status_11(self):
+    def test_ThirdPartyPayout_relatedApi_status_10(self):
         """驗證 代付商户管理 - 修改代付商戶自動出款設置 停用 狀態"""
-        data = {"id":self.getPayLists()[0],
+        data = {"id": self.getNewPayLists()[0],
                 "isOpen": 'false'
                 }
         response_data = self.siteParameter.UpdateAutoPayoutSwitch(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_12(self):
+    def test_ThirdPartyPayout_relatedApi_status_11(self):
         """驗證 代付商户管理 - 修改代付商戶自動出款設置 啟用 狀態"""
-        data = {"id":self.getPayLists()[0],
+        data = {"id": self.getNewPayLists()[0],
                 "isOpen": 'true'
                 }
         response_data = self.siteParameter.UpdateAutoPayoutSwitch(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_13(self):
+    def test_ThirdPartyPayout_relatedApi_status_12(self):
         """驗證 代付商户管理 - 修改代付商戶禁止使用 狀態  狀態"""
         data = {
-            "id": self.getPayLists()[0],
+            "id": self.getNewPayLists()[0],
             "updateCondition": {
                 "IsCheckFirstPayoutMember": 'false',
                 "IsCheckHighRiskMember": 'false',
@@ -214,29 +223,29 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_14(self):
+    def test_ThirdPartyPayout_relatedApi_status_13(self):
         """ 驗證 代付商户管理 - 修改代付商戶會員等級 狀態"""
         data = {
-            "id": self.getPayLists()[0],
-            "memberLevelSettings": self.getAllMemberLevels()
+            "id": self.getNewPayLists()[0],
+            "memberLevelSettings": self.getAllMemberLevels()[1]
         }
         response_data = self.siteParameter.UpdateMemberLevelSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_15(self):
+    def test_ThirdPartyPayout_relatedApi_status_14(self):
         """ 驗證 代付商户管理 - 修改代付商戶出款銀行 狀態"""
         data = {
-            "id": self.getPayLists()[0],
+            "id": self.getNewPayLists()[0],
             "dispensingBankIds": self.getAllBanks()
         }
         response_data = self.siteParameter.UpdateDispensingBankSetting(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_16(self):
+    def test_ThirdPartyPayout_relatedApi_status_15(self):
         """ 驗證 代付商户管理 - 修改代付商戶出款限額 狀態"""
-        data = {"id": self.getPayLists()[0],
+        data = {"id": self.getNewPayLists()[0],
                 "payoutLimitStart": 'null',
                 "payoutLimitEnd": 'null'
                 }
@@ -244,20 +253,29 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_ThirdPartyPayout_relatedApi_status_17(self):
+    def test_ThirdPartyPayout_relatedApi_status_16(self):
         """ 驗證 代付商户管理 - 修改代付商戶備註 狀態"""
         desc = "test" + str(random.randint(1, 10))
         data = {
-            "id": self.getPayLists()[0],
+            "id": self.getNewPayLists()[0],
             "memo": desc
         }
         response_data = self.siteParameter.UpdateMemo(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_ThirdPartyPayout_relatedApi_status_17(self):
+        """驗證 代付商户管理 - 修改代付商戶名稱 狀態"""
+        data = {"id": self.getNewPayLists()[0],
+                "name": self.getNewPayLists()[1] + '1'
+                }
+        response_data = self.siteParameter.UpdateMerchantName(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
     def test_ThirdPartyPayout_relatedApi_status_18(self):
         """驗證 代付商户管理 - 刪除 - 代付商戶狀態"""
-        data = {"id": self.getPayLists()[0]}
+        data = {"id": self.getDelPayLists()}
         response_data = self.siteParameter.Delete(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
