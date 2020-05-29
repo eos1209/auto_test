@@ -164,3 +164,19 @@ class Portal_api(object):
         path = '/RedEnvelope/Received'
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
+
+    def portal_GetMemberDiscountDetail(self, data, cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/'
+        header = headers(get_path, cookie)
+        path = '/AnyTimeDiscount/GetMemberDiscountDetail'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_ReceiveMemberAnyTimeDiscount(self, data, cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/'
+        header = headers(get_path, cookie)
+        path = '/AnyTimeDiscount/ReceiveMemberAnyTimeDiscount'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
