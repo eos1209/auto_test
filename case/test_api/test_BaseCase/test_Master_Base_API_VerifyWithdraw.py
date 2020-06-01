@@ -14,7 +14,7 @@ from master_api import member_and_agent
 from base.CommonMethod import SetDelayTime
 from data_config.system_config import systemSetting
 from base.CommonMethod import Portal_test
-
+import time
 
 class VerifyWithdrawBaseTest(unittest.TestCase):
     """ 取款申请审核 - 相關 API 調用狀態"""
@@ -218,6 +218,19 @@ class VerifyWithdrawBaseTest(unittest.TestCase):
         response_data = self.verifyWithdraw.getViewers(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
+    #
+    # def test_VerifyWithdraw_relatedApi_status_20(self):
+    #     VerifyWithdrawBaseTest.Master_login()  # Master登入
+    #     for i in range(300):
+    #         data = {"count": 100,
+    #                 "query": {"search": "true", "_": int(time.time()), "States": [1], "IsCheckStates": 'true'}}
+    #         response_data = self.verifyWithdraw.load(data)
+    #         for j in range(100):
+    #             getId = response_data[1]['Data'][j]['Id']
+    #             data = {"id": getId}
+    #             self.verifyWithdraw.deny(data)
+
+
 
 
 if __name__ == '__main__':

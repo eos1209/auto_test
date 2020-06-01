@@ -501,6 +501,84 @@ class retentionListUsers(object):
         return self.response
 
 
+# 簡訊商戶管理
+class SmsMerchantManagement(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def GetList(self):
+        # API Name =>簡訊商戶管理 - 取得商戶列表
+        # body--/{}
+        data = {}
+        path = '/SmsNotificationMgmt/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def AddSmsMerchant(self, data):
+        # API Name =>簡訊商戶管理 - 新增商戶
+        # body--/{request}
+        path = '/SmsNotificationMgmt/AddSmsMerchant'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetDetail(self, data):
+        # API Name =>簡訊商戶管理 - 取得商戶詳細資料
+        # body--/{id}
+        path = '/SmsNotificationMgmt/GetDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateSecret(self, data):
+        # API Name =>簡訊商戶管理 - 修改商戶資料
+        # body--//{id}/{newValue}
+        path = '/SmsNotificationMgmt/UpdateSecret'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateTemplateId(self, data):
+        # API Name =>簡訊商戶管理 - 修改模板ID
+        # body--//{id}/{newValue}
+        path = '/SmsNotificationMgmt/UpdateTemplateId'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateState(self, data):
+        # API Name =>簡訊商戶管理 - 變更狀態
+        # body--//{id}/{newValue}
+        path = '/SmsNotificationMgmt/UpdateState'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateLevelSettingIds(self, data):
+        # API Name =>簡訊商戶管理 - 變更可使用會員等級
+        # body--//{id}/{levelSettingIds}
+        path = '/SmsNotificationMgmt/UpdateLevelSettingIds'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateMemo(self, data):
+        # API Name =>簡訊商戶管理 - 變更備註
+        # body--//{id}/{newValue}
+        path = '/SmsNotificationMgmt/UpdateMemo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def UpdateName(self, data):
+        # API Name =>簡訊商戶管理 - 變更名稱
+        # body--//{id}/{newValue}
+        path = '/SmsNotificationMgmt/UpdateName'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def DeleteSmsMerchant(self, data):
+        # API Name =>簡訊商戶管理 - 刪除商戶
+        # body--//{id}
+        path = '/SmsNotificationMgmt/DeleteSmsMerchant'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 # 代付商戶管理
 class PayoutMerchantManagement(object):
     def __init__(self, http):
@@ -1360,7 +1438,7 @@ class GameHallManagement(object):
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data
 
-    def     loadHistory(self, data):
+    def loadHistory(self, data):
         # API Name =>娱乐城管理-載入指定娛樂城歷史紀錄
         # body--/{gameHallUrlText}/{take}/{skip}/{query}
         path = '/GameHallManagement/LoadHistory'

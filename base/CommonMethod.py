@@ -127,9 +127,11 @@ class Portal_test:
         getImg = self.portal.get_login_image()
         Img = getImg[1]["value"]  # 取得驗證碼
         print(Img)
-        data = {"account": Account, "password": Passowrd,
+        data = {"account": Account,
+                "password": Passowrd,
                 "checkCode": portal_config.PortalCheckCode,
-                "checkCodeEncrypt": Img}
+                "checkCodeEncrypt": Img
+                }
         response_data = self.portal.portal_login(data)
         cookie = response_data[2]
         # print(cookie)
@@ -192,6 +194,19 @@ class Portal_test:
         Id = response_data[1][0]['Id']
         data = {'id': Id}
         self.portal.portal_RedEnvelope_Recevied(data, cookie)
+
+    def AnytimeDiscount_Received(self, Account, Password):
+        cookie = self.login(Account, Password)
+        data = {}
+        response_data = self.portal.portal_GetMemberDiscountDetail(data, cookie)
+        if response_data[1]['TotalAmount'] != 0:
+            response_data = self.portal.portal_ReceiveMemberAnyTimeDiscount(data, cookie)
+            if response_data[0] == 200:
+                message = '會員領取時返成功'
+                return message
+        else:
+            message = '該會員沒有時時返水'
+            return message
 
 
 class PortalExecution(object):
