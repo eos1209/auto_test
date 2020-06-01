@@ -220,7 +220,7 @@ class MobileThemeManagementBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SaveMobileTheme_relatedApi_status_09(self):
-        """ 主題設置 - 更換預設版型 - 切換A版 直向 狀態"""
+        """ 主題設置 - 更換預設版型 - 切換D版 直向 狀態"""
         ID = self.getWebsiteId()
         ThemeId = self.getThemeId(ID, "false")
         data = {
@@ -228,8 +228,8 @@ class MobileThemeManagementBaseTest(unittest.TestCase):
             "ThemeId": ThemeId,  # 預設版型id
             "MobileThemeSettingId": 1,  # 色系 id
             "ColorCode": "null",
-            "DefaultThemeTypeId": 2,  # 1: 預設，2: A版
-            "DefaultMobileThemeSettingId": 2,
+            "DefaultThemeTypeId": 5,  # 1: 預設，2: A版
+            "DefaultMobileThemeSettingId": 5,
             "IsHorizontal": "false"
         }
         response_data = self.siteParameter.SaveMobileTheme(data)
@@ -245,7 +245,7 @@ class MobileThemeManagementBaseTest(unittest.TestCase):
             "ThemeId": ThemeId,  # 預設版型id
             "MobileThemeSettingId": 1,  # 色系 id
             "ColorCode": "null",
-            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultThemeTypeId": 1,  # 1: 預設，5：D版
             "DefaultMobileThemeSettingId": 1,
             "IsHorizontal": "false"
         }
@@ -254,14 +254,14 @@ class MobileThemeManagementBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
     def test_SaveMobileTheme_relatedApi_status_11(self):
-        """ 主題設置 - 更換版型 - 切換A版 直向 狀態"""
+        """ 主題設置 - 更換版型 - 切換D版 直向 狀態"""
         ID = self.getWebsiteId()
         data = {
             "WebsiteId": ID,  # 站台id
-            "ThemeId": 2,  # 預設版型id
+            "ThemeId": 5,  # 預設版型id
             "MobileThemeSettingId": 2,  # 色系 id
             "ColorCode": "null",
-            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultThemeTypeId": 1,  # 1: 預設，5：D版
             "DefaultMobileThemeSettingId": 1,
             "IsHorizontal": "false"
         }
@@ -277,7 +277,7 @@ class MobileThemeManagementBaseTest(unittest.TestCase):
             "ThemeId": 1,  # 預設版型id
             "MobileThemeSettingId": 1,  # 色系 id
             "ColorCode": "null",
-            "DefaultThemeTypeId": 1,  # 1: 預設，2: A版
+            "DefaultThemeTypeId": 1,  # 1: 預設，5：D版
             "DefaultMobileThemeSettingId": 1,
             "IsHorizontal": "false"
         }

@@ -268,7 +268,7 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         types = ["false", "true"]
         for i in range(len(types)):
             data = {"id": self.GetGroupThirdPartyId(),
-                    "isShow": i
+                    "isShow": types[i]
                     }
             response_data = self.groupThirdParty.UpdateDTPPIsShowCustomMerchant(data)
             status_code = response_data[0]

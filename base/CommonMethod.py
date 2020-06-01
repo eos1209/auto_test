@@ -127,9 +127,11 @@ class Portal_test:
         getImg = self.portal.get_login_image()
         Img = getImg[1]["value"]  # 取得驗證碼
         print(Img)
-        data = {"account": Account, "password": Passowrd,
+        data = {"account": Account,
+                "password": Passowrd,
                 "checkCode": portal_config.PortalCheckCode,
-                "checkCodeEncrypt": Img}
+                "checkCodeEncrypt": Img
+                }
         response_data = self.portal.portal_login(data)
         cookie = response_data[2]
         # print(cookie)
