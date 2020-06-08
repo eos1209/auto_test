@@ -4,7 +4,9 @@ import os
 import time
 import datetime
 import json
-from utils.log import logger
+
+
+# from utils.log import logger
 
 
 class EncryptError(Exception):
@@ -41,7 +43,8 @@ def encrypt(string, salt='', encrypt_way='MD5'):
     elif encrypt_way.upper() == 'SHA1':
         hash_string = hashlib.sha1()
     else:
-        logger.exception(EncryptError('請輸入正確的加密方式，目前只有 MD5 或 SHA1'))
+        # logger.exception(EncryptError('請輸入正確的加密方式，目前只有 MD5 或 SHA1'))
+        print(EncryptError('請輸入正確的加密方式，目前只有 MD5 或 SHA1'))
         return False
 
     hash_string.update(string.encode())
