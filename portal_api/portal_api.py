@@ -157,7 +157,7 @@ class Portal_api(object):
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
 
-    def portal_RedEnvelope_Recevied(self, data, cookie):
+    def portal_RedEnvelope_Recevied(self, data, cookie):  # 前台接收紅包
         cookie = cookie_process(cookie)
         get_path = '/'
         header = headers(get_path, cookie)
@@ -165,7 +165,7 @@ class Portal_api(object):
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
 
-    def portal_GetMemberDiscountDetail(self, data, cookie):
+    def portal_GetMemberDiscountDetail(self, data, cookie):  # 前台領取時返詳細
         cookie = cookie_process(cookie)
         get_path = '/'
         header = headers(get_path, cookie)
@@ -173,10 +173,51 @@ class Portal_api(object):
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
 
-    def portal_ReceiveMemberAnyTimeDiscount(self, data, cookie):
+    def portal_ReceiveMemberAnyTimeDiscount(self, data, cookie):  # 前台領取時返
         cookie = cookie_process(cookie)
         get_path = '/'
         header = headers(get_path, cookie)
         path = '/AnyTimeDiscount/ReceiveMemberAnyTimeDiscount'
         self.response_data = send_post_Portal_request(path, data, header[0], cookie)
         return self.response_data
+
+    def portal_LuckyWheel_inputSerialNumber(self, data, cookie):  # 幸運輪盤 - 輸入抽獎序號
+        cookie = cookie_process(cookie)
+        get_path = '/LuckyWheel'
+        header = headers(get_path, cookie)
+        path = '/LuckyWheel/InputSerialNumber'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_LuckyWheel_startRaffle(self, data, cookie):  # 幸運輪盤 - 開始旋轉
+        cookie = cookie_process(cookie)
+        get_path = '/LuckyWheel'
+        header = headers(get_path, cookie)
+        path = '/LuckyWheel/StartRaffle'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_NewLuckyWheel_startRaffle(self, data, cookie):  # 時來運轉 - 開始旋轉
+        cookie = cookie_process(cookie)
+        get_path = '/NewLuckyWheel'
+        header = headers(get_path, cookie)
+        path = '/NewLuckyWheel/StartRaffle'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_missionReward(self,data,cookie,Id):
+        cookie = cookie_process(cookie)
+        get_path = '/MissionReward'
+        header = headers(get_path, cookie)
+        path = '/MissionReward/GetMissions/'+str(Id)
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+
+    def portal_missionReward_CompleteMission(self,data,cookie):
+        cookie = cookie_process(cookie)
+        get_path = '/MissionReward'
+        header = headers(get_path, cookie)
+        path = '/MissionReward/CompleteMission'
+        self.response_data = send_post_Portal_request(path, data, header[0], cookie)
+        return self.response_data
+

@@ -14,7 +14,7 @@ from data_config import common_config
 from data_config.system_config import systemSetting
 from base.CommonMethod import UploadFile
 from base.CommonMethod import GameHallType
-from base.CommonMethod import PortalExecution
+from base.CommonMethod import Portal_test
 from time import sleep
 from datetime import datetime, timedelta
 from base.CommonMethod import system_config_Setting
@@ -37,8 +37,8 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
     def create_NewLuckyWheel_mode(self, mode):  # 讀取系統檔案來決定獎品數量
         self.system = system_config_Setting()
         self.gameHall = GameHallType()
-        BeginTime = (datetime.now() + timedelta(hours=-12)).strftime("%Y/%m/%d %H:%M:%S")
-        EndTime = (datetime.now() + timedelta(hours=-11)).strftime("%Y/%m/%d %H:%M:%S")
+        BeginTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")
+        EndTime = (datetime.now() + timedelta(hours = -11)).strftime("%Y/%m/%d %H:%M:%S")
         if mode == 6:
             data = {
                 "RewardInfoList": [
@@ -306,7 +306,7 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
         # step1:取得詳細資料Id
         Id = self.getLuckyWheelId()
         data = {"luckyWheelId": Id}
-        print(Id)
+        # print(Id)
         response_data = self.newLuckyWheel.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -330,10 +330,12 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_11(self):
         """驗證 时来运转 - Portal時來運轉 狀態"""
-        sleep(30)
-        self.portal = PortalExecution()
-        validateData = self.portal.NewLuckyWheel(self.config.test_Member_config(), self.config.test_Password_config())
-        self.assertEqual(validateData, 'Success')
+        sleep(60)
+        Id = self.getLuckyWheelId()
+        self.portal = Portal_test()
+        validateData = self.portal.newLuckyWheel(self.config.test_Member_config(), self.config.test_Password_config(),
+                                                 Id)
+        self.assertEqual(validateData, True)
 
     def test_NewLuckyWheelBaseTest_relatedApi_status_12(self):
         """驗證 时来运转 - 剩餘抽獎次數名單 狀態"""
@@ -422,4 +424,4 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

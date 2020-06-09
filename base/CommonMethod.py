@@ -126,7 +126,7 @@ class Portal_test:
     def login(self, Account, Passowrd):
         getImg = self.portal.get_login_image()
         Img = getImg[1]["value"]  # 取得驗證碼
-        print(Img)
+        # print(Img)
         data = {"account": Account,
                 "password": Passowrd,
                 "checkCode": portal_config.PortalCheckCode,
@@ -187,7 +187,7 @@ class Portal_test:
         data = {"amount": 10, "settingId": 828, "paymentyType": 1}
         self.portal.portal_OnlineDeposit_Send_V2(data, cookie)
 
-    def RedEnvelope_Recevied(self, Account, Password):
+    def RedEnvelope_Received(self, Account, Password):
         cookie = self.login(Account, Password)
         data = {}
         response_data = self.portal.portal_Get_RedEnvelopeList(data, cookie)
@@ -207,6 +207,28 @@ class Portal_test:
         else:
             message = '該會員沒有時時返水'
             return message
+
+    def luckyWheel(self, Account, Password, luckyWheel_id, serialNumber):
+        cookie = self.login(Account, Password)
+        data = {'eventID': luckyWheel_id, 'account': Account, 'serialNumber': serialNumber}
+        self.portal.portal_LuckyWheel_inputSerialNumber(data, cookie)  # 輸入序號
+        data = {'eventID': luckyWheel_id, 'account': Account}
+        self.portal.portal_LuckyWheel_startRaffle(data, cookie)  # 抽獎
+
+    def newLuckyWheel(self, Account, Password, newLuckyWheel_id):
+        cookie = self.login(Account, Password)
+        data = {'luckywheelId': newLuckyWheel_id}
+        response_data = self.portal.portal_NewLuckyWheel_startRaffle(data, cookie)
+        return response_data[1]['IsSuccess']
+
+    def MissionReward(self, Account, Password, Id):
+        cookie = self.login(Account, Password)
+        data = {'id': Id}
+        response_data = self.portal.portal_missionReward(data, cookie, Id)
+        getId = response_data[1]['ReturnObject'][0]['Id']
+        data = {'id': getId}
+        response_data = self.portal.portal_missionReward_CompleteMission(data, cookie)
+        return response_data[1]['IsSuccess']
 
 
 class PortalExecution(object):
@@ -230,6 +252,7 @@ class PortalExecution(object):
 
     def Register(self, Account):  # 註冊
         self.driver.get(self.config.Portal_config() + '/Register')
+        sleep(2)
         self.driver.find_element_by_id("parentAccount").send_keys(self.config.agentLv4())
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
@@ -286,50 +309,3 @@ class PortalExecution(object):
         sleep(3)
         self.driver.find_element_by_class_name('btn-confirm').click()
         self.driver.quit()
-
-    def NewLuckyWheel(self, account, password):  # 時來運轉
-        self.Login(account, password)
-        self.driver.get(self.config.Portal_config() + '/NewLuckyWheel')
-        sleep(1)
-        for i in range(5):
-            self.driver.find_element_by_class_name('arrow').click()  # 開始旋轉
-            try:
-                WebDriverWait(self.driver, 30).until(
-                    EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div/button')))
-                self.driver.find_element_by_xpath('/html/body/div[3]/div/div/button').click()
-            except:
-                result = 'Fail'
-                return result
-        self.driver.quit()
-        result = 'Success'
-        return result
-
-    def MissionReward(self):
-        self.driver.get(self.config.Portal_config() + '/MissionReward')
-        sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div/div[3]/ul/li/span').click()
-        sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[4]/div/div/div[3]/button[2]').click()
-        sleep(2)
-        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[3]/div/div/div[3]/button[2]').click()
-
-    def LuckyWheel(self, account, password, serialNumber):  # 幸運輪盤
-        self.Login(account, password)
-        sleep(5)
-        self.driver.get(self.config.Portal_config() + '/LuckyWheel')
-        sleep(5)
-        self.driver.find_element_by_class_name('ng-pristine').send_keys(serialNumber)
-        self.driver.find_element_by_class_name('enterbtn').click()
-        sleep(1)
-        for i in range(5):
-            self.driver.find_element_by_class_name('roulette-arrow-image').click()
-            try:
-                WebDriverWait(self.driver, 30).until(
-                    EC.presence_of_element_located((By.XPATH, '//*[@id="ng-app"]/body/div[3]/div/div/div/button')))
-                self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[3]/div/div/div/button').click()
-            except:
-                result = 'Fail'
-                return result
-        self.driver.quit()
-        result = 'Success'
-        return result
