@@ -874,7 +874,6 @@ class DepositImport(object):
 
 # 总存取款汇出
 class TransactionReportSummary(object):
-
     def __init__(self, http):
         self.__http = http
         self.response_data = {}
@@ -896,5 +895,60 @@ class TransactionReportSummary(object):
     def updateStatus(self, data):
         # 大量匯出時更新狀態
         path = '/TransactionReport/UpdateStatus'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
+class Master(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def List(self, data):
+        # API Name =>子帳號管理-取得頁面
+        # body--{}
+        path = '/Master/List'
+        self.response_data = self.__http.sendRequest('GET', path, data)
+        return self.response_data
+
+    def GetAll(self, data):
+        # API Name =>子帳號管理-取得列表
+        # body--{}
+        path = '/Master/GetAll'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetRoleList(self, data):
+        # API Name =>子帳號管理-獲取角色列表
+        # body--{}
+        path = '/Master/GetRoleList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetDetail(self, data):
+        # API Name =>子帳號管理-獲取詳細資料
+        # body--{account}
+        path = '/Master/GetDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetRoleAuthorityForDetail(self, data):
+        # API Name =>子帳號管理-獲取角色授權已獲取詳細信息
+        # body--{roleId}
+        path = '/Master/GetRoleAuthorityForDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def History(self, data):
+        # API Name =>子帳號管理-獲取歷史訊息
+        # body--{}
+        path = '/Master/History'
+        self.response_data = self.__http.sendRequest('GET', path, data)
+        return self.response_data
+
+    def LoadHistory(self, data):
+        # API Name =>子帳號管理-獲取帳號歷史訊息
+        # body-/{account}/{take}/{skip}/{query}
+        path = '/Master/LoadHistory'
         self.response_data = self.__http.sendRequest('POST', path, data)
         return self.response_data

@@ -110,10 +110,11 @@ if __name__ == '__main__':
     # print(encrypt('100000307111111'))
     # print(get_newest_file_of_path(os.path.join(os.path.dirname(os.path.abspath(".")), "report")))
     # print(get_files_by_createtime(os.path.join(os.path.dirname(os.path.abspath(".")), "report")))
-    t = '2017-12-09'
-    # tm = time_to_timestamp(t)
-    # print(tm)
-    # print(timestamp_to_time(tm))
+    # t = '2017-12-09'
+    t = time.strftime('%Y-%m-%d', time.localtime())
+    tm = time_to_timestamp(t)
+    print(tm)
+    print(timestamp_to_time(tm))
 
     # print(timestamp_to_time(days(3)))
     # print(timestamp_to_time(days(-3)))
