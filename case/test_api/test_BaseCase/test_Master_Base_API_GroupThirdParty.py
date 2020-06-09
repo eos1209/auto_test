@@ -263,7 +263,7 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_SetDtppSortingMode_relatedApi_status_25(self):
+    def test_GroupThirdParty_relatedApi_status_25(self):
         """驗證 线上支付商户管理 - 自訂商戶開關 - 開&關 狀態"""
         types = ["false", "true"]
         for i in range(len(types)):
@@ -274,14 +274,14 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
             status_code = response_data[0]
             self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_SetDtppSortingMode_relatedApi_status_26(self):
+    def test_GroupThirdParty_relatedApi_status_26(self):
         """驗證 线上支付商户管理 - 前台顯示順序改為 自訂 狀態"""
         data = {"mode": "1"}
         response_data = self.groupThirdParty.SetDtppSortingMode(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_SetDtppSortingMode_relatedApi_status_27(self):
+    def test_GroupThirdParty_relatedApi_status_27(self):
         """驗證 线上支付商户管理 - 前台顯示順序改為 隨機 狀態"""
         data = {"mode": "2"}
         response_data = self.groupThirdParty.SetDtppSortingMode(data)
@@ -316,4 +316,4 @@ class GroupThirdPartyBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

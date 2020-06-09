@@ -18,6 +18,7 @@ from base.CommonMethod import PortalExecution
 from master_api import account_management
 from base.CommonMethod import Portal_test
 
+
 class MissionRewardBaseTest(unittest.TestCase):
     """ 任务挑战 - 相關 API 調用狀態"""
 
@@ -140,10 +141,8 @@ class MissionRewardBaseTest(unittest.TestCase):
 
     def test_MissionReward__relatedApi_status_09(self):
         """驗證 任务挑战 - Portal任務挑戰 狀態"""
-        # self.portal = PortalExecution()
-        # self.portal.ThirdPartyPayment(self.config.test_Member_config(), self.config.test_Password_config())
         self.portal = Portal_test()
-        self.portal.OnlineDeposit_Create_V2(self.config.test_Member_config(),self.config.test_Password_config())
+        self.portal.OnlineDeposit_Create_V2(self.config.test_Member_config(), self.config.test_Password_config())
         self.portal.OnlineDeposit_Send_V2(self.config.test_Member_config(), self.config.test_Password_config())
         MissionRewardBaseTest.Master_login()  # 線上支付看板-同意
         data = {"count": 25, "query": {"isDTPP": 'true', "search": 'null'}}
@@ -151,7 +150,10 @@ class MissionRewardBaseTest(unittest.TestCase):
         getId = response_data[1]['Data'][0]['Id']
         data = {'id': getId}
         self.thirdPartyPayment.allow_dTPP_manual(data)
-        self.portal.MissionReward()
+        Id = self.getId()
+        validateData = self.portal.MissionReward(self.config.test_Member_config(), self.config.test_Password_config(),
+                                                 Id)
+        self.assertEqual(validateData, True)
 
     def test_MissionReward__relatedApi_status_10(self):
         """驗證 任务挑战 - 立即下架 狀態"""

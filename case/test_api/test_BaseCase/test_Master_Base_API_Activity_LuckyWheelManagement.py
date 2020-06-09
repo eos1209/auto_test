@@ -13,7 +13,7 @@ from data_config import common_config
 from base.CommonMethod import UploadFile
 from datetime import datetime, timedelta
 from data_config.system_config import systemSetting
-from base.CommonMethod import PortalExecution
+from base.CommonMethod import Portal_test
 
 
 class LuckyWheelManagementBaseTest(unittest.TestCase):
@@ -21,17 +21,10 @@ class LuckyWheelManagementBaseTest(unittest.TestCase):
 
     def setUp(self):
         self.config = systemSetting()  # 系統參數
-        # self.__http = HttpRequest()
-        # self.user = User(self.__http)
-        # self.luckyWheelManagement = ActivityManagement.LuckyWheelManagement(self.__http)
-        # self.user.login()
-
-    @classmethod
-    def Master_login(cls):
-        cls.__http = HttpRequest()
-        cls.user = User(cls.__http)
-        cls.luckyWheelManagement = ActivityManagement.LuckyWheelManagement(cls.__http)
-        cls.user.login()
+        self.__http = HttpRequest()
+        self.user = User(self.__http)
+        self.luckyWheelManagement = ActivityManagement.LuckyWheelManagement(self.__http)
+        self.user.login()
 
     def tearDown(self):
         self.user.logout()
@@ -139,7 +132,6 @@ class LuckyWheelManagementBaseTest(unittest.TestCase):
 
     def test_LuckyWheelManagement_relatedApi_status_01(self):
         """驗證 幸运转盘 - 取得列表資料 頁面 狀態"""
-        LuckyWheelManagementBaseTest.Master_login()  # Master登入
         response_data = self.luckyWheelManagement.index({})
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -249,10 +241,8 @@ class LuckyWheelManagementBaseTest(unittest.TestCase):
         data = {"eventID": Id, "skip": 0, "take": 100}
         response_data = self.luckyWheelManagement.getSerialNumberList(data)  # 1.查詢新增的序號
         serialNumber = response_data[1]['Response'][0]['SerialNumber']  # 2.取得序號
-        # print(serialNumber)
-        self.portal = PortalExecution()  # 3.登入Portal做抽獎
-        self.portal.LuckyWheel(self.config.test_Member_config(), self.config.test_Password_config(), serialNumber)
-        LuckyWheelManagementBaseTest.Master_login()
+        self.portal = Portal_test()
+        self.portal.luckyWheel(self.config.test_Member_config(), self.config.test_Password_config(), Id, serialNumber)
         newData = {"eventID": Id, "skip": 0, "take": 100}
         response_data = self.luckyWheelManagement.getSerialNumberList(newData)  # 4.查詢已使用抽獎序號
         validateData = response_data[1]['Response'][0]['UseRecordCount']
