@@ -37,7 +37,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                                  'fileBase',  # 上傳欄位
                                  'red.xlsx'  # 上傳檔名
                                  )  # 先實例上傳檔案物件
-        startTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
+        startTime = (datetime.now() + timedelta(hours = -11.99)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
         endTime = (datetime.now() + timedelta(hours = +11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
         data = {'Name': (None, 'QA_Revoke_redEnvelope'),
                 'Password': (None, master_config.Master_Password),
@@ -99,7 +99,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
                                  'fileBase',  # 上傳欄位
                                  'red.xlsx'  # 上傳檔名
                                  )  # 先實例上傳檔案物件
-        startTime = (datetime.now() + timedelta(hours = -12)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
+        startTime = (datetime.now() + timedelta(hours = -11.99)).strftime("%Y/%m/%d %H:%M:%S")  # 開始時間-美東時間
         endTime = (datetime.now() + timedelta(hours = +11)).strftime("%Y/%m/%d %H:%M:%S")  # 結束時間 - 後天
         data = {'Name': (None, 'QA_automation_redEnvelope'),
                 'Password': (None, master_config.Master_Password),
@@ -136,7 +136,7 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         # step 2:匯入紅包->手機領取->驗證紅包
         self.red_RedEnvelope_create()  # 匯入紅包
         SetDelayTime()
-        self.portal.RedEnvelope_Recevied(self.config.test_Member_config(), self.config.test_Password_config())  # 領取紅包
+        self.portal.RedEnvelope_Received(self.config.test_Member_config(), self.config.test_Password_config())  # 領取紅包
         Id = self.getId()  # 取得ID
         SetDelayTime()
         data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",

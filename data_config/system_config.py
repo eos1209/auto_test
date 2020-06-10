@@ -155,3 +155,7 @@ class systemSetting(object):
     def report_title(self):  # 報表標題
         data = self.sheet.cell_value(35, 1)
         return data
+
+    def agent_link(self):  # 代理網址
+        data = self.sheet.cell_value(38, 1)
+        return data
