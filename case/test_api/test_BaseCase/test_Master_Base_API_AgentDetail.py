@@ -227,7 +227,7 @@ class AgentDetailTest(unittest.TestCase):
         """驗證 代理商詳細資料 - 更新銀行基本資料"""
         # Step1 取得銀行資訊並隨機獲取欲修改的id
         response_data = self.agentDetail.getAllBanks({})
-        bank_Count = len(response_data[1])
+        bank_Count = len(response_data[1]) - 1
         bankId = random.randint(1, bank_Count)
         # Step2 更新銀行基本資料
         data = {
