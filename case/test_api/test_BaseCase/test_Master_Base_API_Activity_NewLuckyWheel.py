@@ -306,7 +306,6 @@ class NewLuckyWheelBaseTest(unittest.TestCase):
         # step1:取得詳細資料Id
         Id = self.getLuckyWheelId()
         data = {"luckyWheelId": Id}
-        # print(Id)
         response_data = self.newLuckyWheel.getDetail(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
