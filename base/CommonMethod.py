@@ -187,13 +187,18 @@ class Portal_test:
         data = {"amount": 10, "settingId": 828, "paymentyType": 1}
         self.portal.portal_OnlineDeposit_Send_V2(data, cookie)
 
-    def RedEnvelope_Received(self, Account, Password):
+    def RedEnvelope_Received(self, Account, Password, master_Id):
         cookie = self.login(Account, Password)
         data = {}
         response_data = self.portal.portal_Get_RedEnvelopeList(data, cookie)
         Id = response_data[1][0]['Id']
-        data = {'id': Id}
-        self.portal.portal_RedEnvelope_Recevied(data, cookie)
+        recordId = response_data[1][0]['RecordId']
+        if recordId == master_Id:
+            data = {'id': Id}
+            response_data = self.portal.portal_RedEnvelope_Recevied(data, cookie)
+            return response_data[1]['IsSuccess']
+        else:
+            return '會員沒有領到紅包'
 
     def AnytimeDiscount_Received(self, Account, Password):
         cookie = self.login(Account, Password)
@@ -284,15 +289,19 @@ class PortalExecution(object):
 
     def Trail_Login(self, account, password):  # 試玩帳號登入
         self.Trail()
+        # self.driver.find_element_by_xpath('//*[@id="marquee"]/footer/span').click()
+        # self.driver.find_element_by_xpath("//div[@id='announcement-dialog']/div[2]/div[2]/i").click()
         sleep(2)
         self.driver.find_element_by_name('username').send_keys(account)  # 試玩帳號
         self.driver.find_element_by_name('password').send_keys(password)  # 試玩密碼
+        self.driver.find_element_by_xpath('//*[@id="ng-app"]/body/div[12]/div/div/div/div/div[2]/form/button').click()
         sleep(2)
         trailAccount = self.driver.find_element_by_class_name('account').text
         self.driver.quit()
         return trailAccount
 
     def AgentLink(self, link, Account):
+        self.link = self.driver.get(link)
         self.driver.find_element_by_xpath('//*[@id="account-box"]/form/button[2]').click()
         sleep(3)
         self.driver.find_element_by_xpath("//fieldset[1]/div[2]/div[1]/input").send_keys(Account)  # 會員帳號
