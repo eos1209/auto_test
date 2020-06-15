@@ -136,16 +136,20 @@ class RedEnvelopeManagementBaseTest(unittest.TestCase):
         # step 2:匯入紅包->手機領取->驗證紅包
         self.red_RedEnvelope_create()  # 匯入紅包
         SetDelayTime()
-        self.portal.RedEnvelope_Received(self.config.test_Member_config(), self.config.test_Password_config())  # 領取紅包
         Id = self.getId()  # 取得ID
+        response_result = self.portal.RedEnvelope_Received(self.config.test_Member_config(),
+                                                           self.config.test_Password_config(), Id)  # 領取紅包
         SetDelayTime()
-        data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",
-                "Password": master_config.Master_Password}
-        self.redEnvelopeManagement.revoke(data)
-        data = {"id": Id}
-        response_data = self.redEnvelopeManagement.get_detail(data)
-        revoke_member_count = 1  # 預計會員沖銷人數1人
-        self.assertEqual(revoke_member_count, response_data[1]['ReturnObject']['MemberCount'], '會員領錯紅包，請先將紅包都結束')
+        if response_result:
+            data = {"Id": Id, "RevokePortalMemo": "@QA_automation-RevokeRedEnvelope",
+                    "Password": master_config.Master_Password}
+            self.redEnvelopeManagement.revoke(data)
+            data = {"id": Id}
+            response_data = self.redEnvelopeManagement.get_detail(data)
+            revoke_member_count = 1  # 預計會員沖銷人數1人
+            self.assertEqual(revoke_member_count, response_data[1]['ReturnObject']['MemberCount'], '會員領錯紅包，請先將紅包都結束')
+        elif response_result == '會員沒有領到紅包':
+            self.assertNotEqual(response_result, '會員沒有領到紅包', '會員沒有領到紅包')
 
 
 if __name__ == '__main__':
