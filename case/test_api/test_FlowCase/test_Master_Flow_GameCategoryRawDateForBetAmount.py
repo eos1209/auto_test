@@ -62,18 +62,18 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_CQ9_Slot", 'Cq9Slot', '', 1, 5),
         ("Verify_CQ9_Fish", 'Cq9Fish', '', 1, 5),
         ("Verify_EVO_Real", 'EvoReal', '', 1, 11),
-        ("Verify_NE_Slot", 'NetEntSlot', '', 1, 9),
+        # ("Verify_NE_Slot", 'NetEntSlot', '', 1, 9), # 0531 sprint 已下架
         ("Verify_BG_Real", 'BgReal', '-', 1, 7),
         ("Verify_BG_Fish", 'BgFish', '-', 1, 7),
         ("Verify_GD_Real", 'GdReal', '', 1, 8),
         # ("Verify_GD_Slot", 'GdSlot', '', 1, 6),
-        ("Verify_TGP_Real", 'SunbetReal', '-', 1, 11),
-        ("Verify_TGP_Slot", 'RedTigerSlot', '-', 1, 10),
+        # ("Verify_TGP_Real", 'SunbetReal', '-', 1, 11), # 0531 sprint 已下架
+        # ("Verify_TGP_Slot", 'RedTigerSlot', '-', 1, 10), # 0531 sprint 已下架
         # ("Verify_GA_Slot", 'GameArtSlot', '', 1, 2),
         ("Verify_MW_Slot", 'Mw2Slot', '', 1, 3),
         ("Verify_CMD_Sport", 'CmdSport', '', 1, 8),
-        ("Verify_TGP2_Real", 'Sunbet2Real', '-', 1, 11),
-        ("Verify_TGP2_Slot", 'RedTiger2Slot', '-', 1, 10),
+        # ("Verify_TGP2_Real", 'Sunbet2Real', '-', 1, 11), # 0531 sprint 已下架
+        # ("Verify_TGP2_Slot", 'RedTiger2Slot', '-', 1, 10), # 0531 sprint 已下架
         # ("Verify_ISB_Slot", 'IsbSlot', '', 100, 9),
         ("Verify_KG_Board", 'KgBoard', '', 1, 9),
         ("Verify_LX_Lottery", 'LxLottery', '', 1, 6),
@@ -89,7 +89,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_FG_Fish", 'FsFish', '', 1, 6),
         ("Verify_FG_Board", 'FsBoard', '', 1, 6),
         ("Verify_FG_Arcade", 'FsArcade', '', 1, 6),
-        ("Verify_SA_Real", 'SaReal', '', 1, 3),
+        # ("Verify_SA_Real", 'SaReal', '', 1, 3),
         ("Verify_IM_Sport", 'ImsSport', '', 1, 4),
         ("Verify_CR_Sport", 'IboSport', '', 1, 6),
         ("Verify_NW_Board", 'NwBoard', '', 1, 7),
@@ -111,7 +111,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_PG_Slot", 'PgsSlot', '', 1, 3),
         ("Verify_RM_Board", 'DhBoard', '', 1, 3),
         # ("Verify_BF_Lottery", 'BfLottery', '', 1, 8),
-        ("Verify_DT_Esport", 'DtEsport', '', 1, 4),
+        # ("Verify_DT_Esport", 'DtEsport', '', 1, 4),
         ("Verify_DT_Board", 'DtBoard', '', 1, 5),
         ("Verify_DT_Slot", 'DtSlot', '', 1, 4),
         ("Verify_VG_Board", 'VgBoard', '', 1, 3),
@@ -121,13 +121,13 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         # ("Verify_VT_Slot", 'VtSlot', '', 1, 4),
         ("Verify_SE_Real", 'SeReal', '', 1, 2),
         ("Verify_GH_Slot", 'GhSlot', '', 1, 3),
-        ("Verify_LEG_Slot", 'LegSlot', '', 1, 7),
+        # ("Verify_LEG_Slot", 'LegSlot', '', 1, 7),
         ("Verify_LEG_Board", 'LegBoard', '', 1, 7),
         ("Verify_LEG_Fish", 'LegFish', '', 1, 7),
         ("Verify_PG2_Slot", 'Pg2Slot', '', 1, 7),
         # 2020/05/04 更新娛樂城清單
         ("Verify_LB_Lottery", 'LbLottery', '', 1, 9),
-        ("Verify_Gmg_Board", 'GmgBoard', '', 1, 5),
+        # ("Verify_Gmg_Board", 'GmgBoard', '', 1, 5), # 平台沒有打算要開啟
         ("Verify_Fbg_Slot", 'FbgSlot', '', 1, 4),
         ("Verify_Ll_Lottery", 'LlLottery', '', 1, 3),
         ("Verify_Im2_Slot", 'Im2Slot', '', 1, 7),
