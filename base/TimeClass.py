@@ -3,6 +3,7 @@ import calendar
 import time
 from datetime import date, timedelta
 
+
 class EncryptError(Exception):
     pass
 
@@ -33,8 +34,21 @@ def get_todaynow():
     return nows
 
 
+def get_todaynowS():
+    # 格式化成2016-03-20 11:45:30形式
+    nows = time.strftime("%Y/%m/%d %H:%M:%S", time.localtime())
+    return nows
+
+
+def get_yesterdayS():
+    # 取當前日期的前一天！格式化成2016-03-20 11:45:30形式
+    now = datetime.datetime.now()
+    yesterdayNow = now - datetime.timedelta(hours=23, minutes=59)
+    return str(yesterdayNow)
+
+
 def get_todaynow_Y():
-    # 格式化成2016-03-20 11:45形式
+    # 格式化成2016-03-20形式
     nows = time.strftime("%Y%m%d", time.localtime())
     return nows
 
