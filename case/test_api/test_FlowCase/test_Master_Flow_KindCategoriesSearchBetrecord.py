@@ -4,7 +4,7 @@
 '''
 
 import unittest
-
+from base.CommonMethod import SetDelayTime
 from base.HTMLTestReportCN import HTMLTestRunner
 from base.httpRequest import HttpRequest
 from base.TimeClass import betRecord_start
@@ -23,7 +23,7 @@ class test_kindCategories(unittest.TestCase):
         self.user = User(self.__http)
         self.betRecords = reports.BetRecords(self.__http)
         self.user.login()
-        self.first_day = betRecord_start()
+        self.first_day = '2020/06/17'
         self.today = get_todaynow()
 
     def tearDown(self):
@@ -42,6 +42,7 @@ class test_kindCategories(unittest.TestCase):
         # 注單查詢匯出檔案 驗證
         print(data)  # 注單Id
         response_data = self.betRecords.export(data)
+        print(response_data[1])
         if not response_data[1]['fileVirtualPath'] is None:
             return 0
         else:
@@ -49,6 +50,7 @@ class test_kindCategories(unittest.TestCase):
 
     def advance_export_file_validate(self, data):
         response_data = self.betRecords.advancedExportV2(data)
+        print(response_data[1])
         if not response_data[1]['fileVirtualPath'] is None:
             return 0
         else:
@@ -56,14 +58,25 @@ class test_kindCategories(unittest.TestCase):
 
     def get_BetIdDetail_validate(self, data):
         response_data = self.betRecords.search(data)
+        print(response_data[1])
         if not response_data[1]['PageData'] is None:
             return 0
         else:
             return 1
 
     def advance_BetIdDetail_validate(self, data, betId):
+        global response_betId
         response_data = self.betRecords.advancedLoadV2(data)
-        response_betId = response_data[1]['Data'][0]['BetId']
+        print(response_data[1])
+        try:
+            response_betId = response_data[1]['Data'][0]['BetId']
+        except KeyError as e:
+            print(e)
+            print(data)
+            pass
+        except IndexError:
+            response_data = self.betRecords.advancedLoadV2(data)
+            response_betId = response_data[1]['Data'][0]['BetId']
         print(response_betId)
         if response_betId == betId:
             return 0
@@ -72,7 +85,13 @@ class test_kindCategories(unittest.TestCase):
 
     def advance_SingSport_BetIdDetail_validate(self, data, betId):
         response_data = self.betRecords.advancedLoadV2(data)
-        response_betId = response_data[1]['Data'][0]['TransactionId']
+        print(response_data[1])
+        try:
+            response_betId = response_data[1]['Data'][0]['TransactionId']
+        except IndexError:
+            SetDelayTime()
+            response_data = self.betRecords.advancedLoadV2(data)
+            response_betId = response_data[1]['Data'][0]['TransactionId']
         print(response_betId)
         if response_betId == betId:
             return 0
@@ -81,7 +100,13 @@ class test_kindCategories(unittest.TestCase):
 
     def advance_PrgSlot_BetIdDetail_validate(self, data, betId):
         response_data = self.betRecords.advancedLoadV2(data)
-        response_betId = response_data[1]['Data'][0]['BetId']
+        print(response_data[1])
+        try:
+            response_betId = response_data[1]['Data'][0]['BetId']
+        except IndexError:
+            SetDelayTime()
+            response_data = self.betRecords.advancedLoadV2(data)
+            response_betId = response_data[1]['Data'][0]['BetId']
         betId = betId + 'B'
         print(response_betId)
         if response_betId == betId:
@@ -91,7 +116,13 @@ class test_kindCategories(unittest.TestCase):
 
     def advance_Pt2Slot_BetIdDetail_validate(self, data, betId):
         response_data = self.betRecords.advancedLoadV2(data)
-        response_betId = response_data[1]['Data'][0]['GameCode']
+        print(response_data[1])
+        try:
+            response_betId = response_data[1]['Data'][0]['GameCode']
+        except IndexError:
+            SetDelayTime()
+            response_data = self.betRecords.advancedLoadV2(data)
+            response_betId = response_data[1]['Data'][0]['GameCode']
         print(response_betId)
         if response_betId == betId:
             return 0
@@ -100,7 +131,13 @@ class test_kindCategories(unittest.TestCase):
 
     def advance_Mg_BetIdDetail_validate(self, data, betId):
         response_data = self.betRecords.advancedLoadV2(data)
-        response_betId = response_data[1]['Data'][0]['GameCode']
+        print(response_data[1])
+        try:
+            response_betId = response_data[1]['Data'][0]['GameCode']
+        except IndexError:
+            SetDelayTime()
+            response_data = self.betRecords.advancedLoadV2(data)
+            response_betId = response_data[1]['Data'][0]['GameCode']
         print(response_betId)
         if response_betId == betId:
             return 0
@@ -109,7 +146,14 @@ class test_kindCategories(unittest.TestCase):
 
     def game_Type_Name_search(self, data, gameTypeName):
         response_data = self.betRecords.search(data)
-        response_gameType = response_data[1]['PageData'][0]['GameType']
+        print(response_data[1])
+        try:
+            response_gameType = response_data[1]['PageData'][0]['GameType']
+        except IndexError:
+            SetDelayTime()
+            response_data = self.betRecords.search(data)
+            response_gameType = response_data[1]['PageData'][0]['GameType']
+            print(response_data[1])
         if gameTypeName == response_gameType:
             return 0
         else:
@@ -142,25 +186,31 @@ class test_kindCategories(unittest.TestCase):
                             # print(RawWagersId)
                     rawWagers_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
                                         "RawWagersId": RawWagersId, "connectionId": self.user.info()}
+                    SetDelayTime()
                     rawWagers_search_result = self.get_BetIdDetail_validate(rawWagers_search)  # 注單號查詢
                     rawWagers_search_advance = {
                         "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
                                          "GameCategories": [gameCategories], "RawWagersId": RawWagersId},
                         "pageSize": 100}
+                    SetDelayTime()
                     self.betRecords.advancedLoadV2(rawWagers_search_advance)  # 注單號進階查詢
                     export_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories]}
+                    SetDelayTime()
                     export_data_result = self.export_file_validate(export_data)  # 匯出
                     advance_data = {
                         "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
                                          "GameCategories": [gameCategories]}, "pageSize": 100}
+                    SetDelayTime()
                     advance_data_result = self.advance_BetIdDetail_validate(advance_data, RawWagersId)  # 注單號進階查詢
                     advance_export_data = {
                         "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
                                          "GameCategories": [gameCategories]}, "category": gameCategories}
+                    SetDelayTime()
                     advance_export_result = self.advance_export_file_validate(advance_export_data)  # 進階匯出
                     gameTypeName_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
                                            "GameTypeName": get_Game_type, "GameTypeNameIsLike": 'false',
                                            "connectionId": self.user.info()}
+                    SetDelayTime()
                     gameTypeName_search_result = self.game_Type_Name_search(gameTypeName_search,
                                                                             get_Game_type)  # 遊戲名稱查詢
                     print(rawWagers_search_result, export_data_result, advance_data_result, advance_export_result,
@@ -397,18 +447,22 @@ class test_kindCategories(unittest.TestCase):
                     #                      "GameCategories": [gameCategories], "RawWagersId": RawWagersId}, "pageSize": 100}
                     # self.betRecords.advancedLoadV2(rawWagers_search_advance)  # 注單號進階查詢
                     export_data = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories]}
+                    print(export_data)
                     export_data_result = self.export_file_validate(export_data)
                     advance_data = {
                         "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
                                          "GameCategories": [gameCategories]}, "pageSize": 100}
+                    print(advance_data)
                     advance_data_result = self.advance_BetIdDetail_validate(advance_data, RawWagersId)
                     advance_export_data = {
                         "searchParams": {"WagersTimeBegin": self.first_day, "WagersTimeEnd": self.today,
                                          "GameCategories": [gameCategories]}, "category": gameCategories}
+                    print(advance_export_data)
                     advance_export_result = self.advance_export_file_validate(advance_export_data)
                     gameTypeName_search = {"WagersTimeBegin": self.first_day, "GameCategories": [gameCategories],
                                            "GameTypeName": get_Game_type, "GameTypeNameIsLike": 'false',
                                            "connectionId": self.user.info()}  # 遊戲名稱查詢
+                    print(gameTypeName_search)
                     gameTypeName_search_result = self.game_Type_Name_search(gameTypeName_search,
                                                                             get_Game_type)  # 遊戲名稱查詢
                     print(rawWagers_search_result, export_data_result, advance_data_result, advance_export_result,
