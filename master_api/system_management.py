@@ -579,6 +579,69 @@ class SmsMerchantManagement(object):
         return self.response_data
 
 
+# GPK活動管理
+class JackPotActivity(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def GetList(self, data):
+        # API Name =>GPK活動管理 - 取得列表
+        # body--/{}
+        path = '/JackPotActivity/GetList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetJoinList(self, data):
+        # API Name =>GPK活動管理 - 獲取加入列表
+        # body--/{}
+        path = '/JackPotActivity/GetJoinList'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetJoinListTotalInfo(self, data):
+        # API Name =>GPK活動管理 - 獲取加入列表以獲取全部信息
+        # body--/{}
+        path = '/JackPotActivity/GetJoinListTotalInfo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetJoinListActivityInfo(self, data):
+        # API Name =>GPK活動管理 - 獲取加入列表活動信息
+        # body--/{}
+        path = '/JackPotActivity/GetJoinListActivityInfo'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetJoinDetail(self, data):
+        # API Name =>GPK活動管理 - 獲取加入詳細信息
+        # body--/{}
+        path = '/JackPotActivity/GetJoinDetail'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def JoinListExport(self, data):
+        # API Name =>GPK活動管理 - 列表匯出
+        # body--/{}
+        path = '/JackPotActivity/JoinListExport'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def Search(self, data):
+        # API Name =>GPK活動管理 - GPK活动钱包额度转移记录搜尋
+        # body--/{}
+        path = '/ActivityWalletTransferRecord/Search'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+    def GetTotalInfo(self, data):
+        # API Name =>GPK活動管理 - 獲取總信息
+        # body--/{}
+        path = '/ActivityWalletTransferRecord/Search'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 # 代付商戶管理
 class PayoutMerchantManagement(object):
     def __init__(self, http):
