@@ -198,6 +198,29 @@ class CheckInEventBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_CheckInEvent_relatedApi_status_10(self):
+        data = {"BeginTime": "2020/06/19 22:56:06", "EventSettings": [], "CheckType": 1, "IsSupplement": 'true',
+                "SupplementSetting": {"SettlementType": 1, "DepositTotalCount": 1}, "Name": "QA_test",
+                "EndTime": "2020/06/30 23:59:59", "DailyCheckMoney": 1, "MemberLevelSettings": [56]}
+        response_data = self.checkInEvent.Create(data)
+        print(response_data)
+        data = {"Id": "1224", "Name": "QA_test", "RecordCount": 0, "AccordCount": 0, "BeginTime": "2020/06/20 22:40:26",
+                "EndTime": "2020/06/30 23:59:59", "DailyCheckMoney": 1, "DailyAuditTimes": 'null',
+                "IsSupplement": 'true',
+                "AutoLoopBonusDays": 'false', "AutoSupplementZeroing": 'false', "CheckType": 1,
+                "DepositSetting": {"DepositCountStart": 'null', "DepositCountEnd": 'null',
+                                   "DepositTotalAmountStart": 'null',
+                                   "DepositTotalAmountEnd": 'null', "DepositTimeStart": 'null',
+                                   "DepositTimeEnd": 'null'},
+                "CommissionSettings": [],
+                "DailySetting": {"DepositTotalCount": 1, "GameCategories": 'null', "categoriesText": 'null'},
+                "SupplementSetting": {"RawDataList": [], "SupplementCount": 'null', "DepositTotalCount": 1,
+                                      "DepositTotalAmount": 1, "SettlementType": 1, "Commission": 'null'},
+                "MemberLevels": [{"Id": 236, "Name": "5"}], "EventSettings": [], "Creator": "DS",
+                "CreateTime": "/Date(1592404861650)/", "MemberLevelSettings": [236]}
+        response_data = self.checkInEvent.Update(data)
+        print(response_data[1])
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

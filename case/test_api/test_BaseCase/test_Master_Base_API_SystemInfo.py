@@ -64,7 +64,7 @@ class SystemInfoBaseTest(unittest.TestCase):
 
     def test_SystemInfo_relatedApi_status_07(self):
         """驗證 站台系统值设置-更新區域驗證"""
-        data = {"newValue": 'true'}
+        data = {"newValue": 'false'}
         response_data = self.SystemInfo.updateLoginRegionValidationEnable(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
