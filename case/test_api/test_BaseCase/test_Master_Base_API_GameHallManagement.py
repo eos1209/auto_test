@@ -10,6 +10,7 @@ from base.httpRequest import HttpRequest
 from master_api.account_login import User
 from data_config import common_config
 from master_api import system_management
+from base.TimeClass import get_todaynow, get_yesterdayS
 
 
 class GameHailManagementBaseTest(unittest.TestCase):
@@ -171,6 +172,16 @@ class GameHailManagementBaseTest(unittest.TestCase):
                 data = {"gameSupplierType": getData['Id'][i], "isEnterable": 'true'}  # 娛樂城開啟
                 self.GameHailManagement.modifyGameHallStatus(data)
                 self.assertEqual(status_code, common_config.Status_Code)
+
+    def test_GameHallManagement_relatedApi_status_14(self):
+        """驗證 娛樂城管理 - MG投注記錄"""
+        start = get_yesterdayS()
+        end = get_todaynow()
+        data = {"GameSupplierType": "MG", "Account": 'test1234', "StartTime": start,
+                "EndTime": end}
+        response_data = self.GameHailManagement.calculateValidBet(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
 
 
 if __name__ == '__main__':

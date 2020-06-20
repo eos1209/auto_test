@@ -12,3 +12,10 @@ def agent_login():  # getCookie
     data = {'account': agent_Account, 'password': agent_Password}
     response_data = http.post_login(systemSetting().agent_link() + '/Account/login', data, {}, {})
     return response_data[2]
+
+
+def connectionId():  # getCookie
+    http = Agent_Http()
+    data = {}
+    response_data = http.post_login(systemSetting().agent_link() + '/signalr/negotiate', data, {}, {})
+    return response_data[1]['ConnectionId']
