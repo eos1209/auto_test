@@ -89,7 +89,7 @@ class TrailBaseTest(unittest.TestCase):
         self.portal.Trail()
         Id = self.getId()
         data = {"id": Id}
-        print(Id)
+        # print(Id)
         sleep(2)
         response_data = self.trail.allow(data)
         status_code = response_data[0]

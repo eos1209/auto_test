@@ -14,6 +14,7 @@ from master_api.system_management import PortalManagement
 from data_config.system_config import systemSetting
 from time import sleep
 
+
 class SlideShowBaseTest(unittest.TestCase):
     """ 大圖輪播 - 相關 API 調用狀態"""
 
@@ -95,7 +96,7 @@ class SlideShowBaseTest(unittest.TestCase):
 
     def test_SlideShow_relatedApi_status_07(self):
         """ 大圖輪播 - 電腦版更新大圖輪播 狀態"""
-        data = {"currentWebsiteId":self.getWebsiteId(), "currentDevice": "1", "currentSlideShowItems": [
+        data = {"currentWebsiteId": self.getWebsiteId(), "currentDevice": "1", "currentSlideShowItems": [
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/88b73347665e41048daa90f5d8fa8140.jpg", "link": "",
              "sort": 0},
             {"url": "/Cdn2Redirect/PortalManagement/AB005/SlideShow/1848916a567847a88b3ed5d763acb701.jpg", "link": "",
@@ -144,4 +145,4 @@ class SlideShowBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())
