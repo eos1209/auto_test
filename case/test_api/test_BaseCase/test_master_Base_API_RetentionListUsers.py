@@ -40,7 +40,7 @@ class RetentionListUsers(unittest.TestCase):
     def test_RetentionListUsers_relatedApi_status_01(self):
         """驗證 會員流失預測 - 獲取計算時間 狀態"""
         data = {}
-        response_data = self.siteParameter.GetComputeTime(data)
+        response_data = self.siteParameter.GetComputeTime()
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 

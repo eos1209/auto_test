@@ -82,6 +82,11 @@ class CheckGameDetailUrl(unittest.TestCase):
         ("Verify_BetDetailUrl_YgSlot", 'YgSlot'),
         ("Verify_BetDetailUrl_IcgSlot", 'IcgSlot'),
         ("Verify_BetDetailUrl_IcgFish", 'IcgFish'),
+        # 2020/06/20 新增清單 A5彩票
+        ("Verify_BetDetailUrl_A5Lottery", 'A5Lottery'),
+        # 2020/06/22 新增清單 ING棋牌、XBB真人
+        ("Verify_BetDetailUrl_IngBoard", 'IngBoard'),  # 需掛VPN才能看到正確小紅
+        ("Verify_BetDetailUrl_XbbReal", 'XbbReal'),
         # 下架
         # ("Verify_BetDetailUrl_Mg3Real", 'Mg3Real'),
         # ("Verify_BetDetailUrl_Mg3Slot", 'Mg3Slot'),

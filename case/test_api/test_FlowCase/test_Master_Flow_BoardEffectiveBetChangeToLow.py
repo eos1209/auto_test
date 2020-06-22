@@ -45,8 +45,9 @@ class BoardEffectiveBetChangeToLow(unittest.TestCase):
         ("Verify_EffectiveBetChangeToLow_Im2Board", 'Im2Board', 7, 8),  # IM 棋牌
         ("Verify_EffectiveBetChangeToLow_JlBoard", 'JlBoard', 5, 10),  # JL 棋牌
         ("Verify_EffectiveBetChangeToLow_BspBoard", 'BspBoard', 7, 9),  # BSP 棋牌
-        # ("Verify_EffectiveBetChangeToLow_YgBoard", 'YgBoard', 7, 8),  # YG 棋牌
-
+        ("Verify_EffectiveBetChangeToLow_YgBoard", 'YgBoard', 6, 7),  # YG 棋牌
+        # 2020/06/22 jo新增ING棋牌
+        ("Verify_EffectiveBetChangeToLow_INGBoard", 'IngBoard', 3, 5)
         # 尚未對接完成
         # ("Verify_SaBoard", 'SaBoard', '', 1, 6), # SA前台目前沒有棋牌類，暫時不對接
         # 停止合作

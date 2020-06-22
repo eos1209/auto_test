@@ -24,6 +24,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         self.user.login()
 
     @parameterized.expand([
+        # 最主要去找注單回來的最後二個參數位置是在哪邊
         ("Verify_BBIN_Sport", 'BBINbbsport', '$ ', 1, 5),
         # ("Verify_BBIN_Lottery", 'BBINlottery', '$ ', 1, 5),
         ("Verify_BBIN_Live", 'BBINvideo', '$ ', 1, 10),
@@ -143,9 +144,13 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_Yg_Fish", 'YgFish', '', 1, 6),
         ("Verify_Icg_Slot", 'IcgSlot', '', 1, 3),
         ("Verify_Icg_Fish", 'IcgFish', '', 1, 3),
-        # 2020/05/18 新增娛樂城清單
-        ("Verify_LEBO_Real", 'LeboReal', '', 1, 4)
-        #
+        # 2020/05/18 Jo新增娛樂城清單
+        ("Verify_LEBO_Real", 'LeboReal', '', 1, 4),
+        # 2020/06/22 Jo新增清單 ING棋牌、XBB真人、168彩票、A5彩票
+        ("Verify_Ing_Board", 'IngBoard', '', 1, 4),
+        ("Verify_Xbb_Real", 'XbbReal', '', 1, 4),
+        ("Verify_Rg168_Lottery", 'Rg168Lottery', '', 1, 4),
+        ("Verify_A5_Lottery", 'A5Lottery', '', 1, 4),
         # 下架
         # ("Verify_Pt3Real", 'Pt3Real', '', 1, 7),
         # ("Verify_Pt3Slot", 'Pt3Slot', '', 1, 7),
@@ -205,4 +210,4 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner = HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())

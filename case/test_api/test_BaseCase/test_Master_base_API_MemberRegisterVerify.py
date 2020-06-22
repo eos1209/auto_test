@@ -99,11 +99,11 @@ class MemberRegisterVerifyTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-    def test_MemberRegisterVerify_baseApi_status_05(self):
-        """驗證 會員註冊審核-取得設定資料"""
-        response_data = self.memberVerify.getSetting({})
-        status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+    # def test_MemberRegisterVerify_baseApi_status_05(self):
+    #     """驗證 會員註冊審核-取得設定資料"""
+    #     response_data = self.memberVerify.getSetting({})
+    #     status_code = response_data[0]
+    #     self.assertEqual(status_code, common_config.Status_Code)
 
     def test_MemberRegisterVerify_baseApi_status_06(self):
         """驗證 會員註冊審核-更新審核有效分鐘數"""
