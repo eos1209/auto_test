@@ -264,7 +264,7 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
         sleep(1)
-        self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
+        # self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
         sleep(2)

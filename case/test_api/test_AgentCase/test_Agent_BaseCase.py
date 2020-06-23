@@ -268,7 +268,7 @@ class AgentBaseTest(unittest.TestCase):
         self.assertEqual(status, '200')
 
     def test_Agent_api_status_28(self):
-        """取得傭金計算頁面"""
+        """取得會員交易頁面"""
         data = {}
         response_data = self.http.get(self.config.agent_link() + '/MemberTransaction/Query', data,
                                       Get_Agent_Headers,
@@ -277,7 +277,7 @@ class AgentBaseTest(unittest.TestCase):
         self.assertEqual(status, '200')
 
     def test_Agent_api_status_29(self):
-        """取得傭金計算頁面"""
+        """取得代理資訊頁面"""
         data = {}
         response_data = self.http.get(self.config.agent_link() + '/Statistics/GetAgentInfo', data,
                                       Get_Agent_Headers,
@@ -286,10 +286,10 @@ class AgentBaseTest(unittest.TestCase):
         self.assertEqual(status, '200')
 
     def test_Agent_api_status_30(self):
-        """取得傭金計算頁面"""
+        """取得登出頁面"""
         data = {}
         response_data = self.http.get(self.config.agent_link() + '/Account/SignOut', data,
-                                      Get_Agent_Headers,
+                                      {},
                                       self.cookie)
         status = response_data[0]
         self.assertEqual(status, '200')
