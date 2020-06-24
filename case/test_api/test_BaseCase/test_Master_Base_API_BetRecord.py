@@ -97,7 +97,7 @@ class BetRecordBaseTest(unittest.TestCase):
         """驗證 投注記錄查詢-取得遊戲種類，以及所屬的遊戲類型 狀態"""
         response_data = self.betRecords.getKindCategories({})
         status_code = response_data[0]
-        self.assertEqual(status_code, common_config.Status_Code)
+        self.assertEqual(status_code, common_config.Status_Code,response_data[3])
 
     def test_BetRecord_relatedApi_status_11(self):
         """驗證 投注记录查询-查詢 狀態"""
@@ -177,6 +177,18 @@ class BetRecordBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
+    def test_BetRecord_relatedApi_status_21(self):
+        """驗證 名字+遊戲名稱查詢 狀態"""
+        data = {"WagersTimeBegin": common_config.BeginDate, "connectionId": self.user.info()}
+        response_data = self.betRecords.search(data)
+        account = response_data[1]['PageData'][0]['Account']
+        game_type = response_data[1]['PageData'][0]['GameType']
+        data = {"Account": account, "WagersTimeBegin": common_config.BeginDate, "GameTypeName": game_type,
+                "GameTypeNameIsLike": 'false', "connectionId": self.user.info()}
+        response_data = self.betRecords.search(data)
+        status_code = response_data[0]
+        self.assertEqual(status_code, common_config.Status_Code)
+
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())

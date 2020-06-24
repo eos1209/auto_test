@@ -74,9 +74,12 @@ class HttpRequest(object):
         #     response_json = r.content
         if r.content:
             response_json = r.json()  # 響應内容，json類型轉化成python數據類型
+            response_time = r.elapsed.total_seconds()
         else:
             response_json = r.content
-        return str(status_code), response_json, r.cookies  # 返回響應碼，内容
+            response_time = r.elapsed.total_seconds()
+        print(r.elapsed.total_seconds())
+        return str(status_code), response_json, r.cookies, response_time  # 返回響應碼，内容
 
     def send_post_request_for_file(self, base_url, file, Headers):
         r = requests.post(base_url, files = file, headers = Headers, cookies = self.Cookies)
