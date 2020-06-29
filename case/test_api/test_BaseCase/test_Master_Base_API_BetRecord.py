@@ -122,7 +122,6 @@ class BetRecordBaseTest(unittest.TestCase):
     def test_BetRecord_relatedApi_status_14(self):
         """驗證 投注记录查询-取得投注紀錄詳細資訊 狀態"""
         Id = self.getId()
-        # print(Id)
         data = {"id": Id}
         response_data = self.betRecords.getDetail(data)
         status_code = response_data[0]
@@ -131,7 +130,6 @@ class BetRecordBaseTest(unittest.TestCase):
     def test_BetRecord_relatedApi_status_15(self):
         """驗證 投注记录查询-取得注單詳細資訊 狀態"""
         Id = self.getId()
-        # print(Id)
         data = {"id": Id}
         response_data = self.betRecords.getRawData(data)
         status_code = response_data[0]
