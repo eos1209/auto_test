@@ -60,7 +60,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
 
     def test_Member_Level_Setting_relatedApi_status_06(self):
         """驗證 会员等级管理 - 新增等級"""
-        data = {"Name": "API 測試Level", "GroupDepositMin": 1, "GroupDepositMax": 100, "AlipayWithdrawMin": 1,
+        data = {"Name": "API測試Level", "GroupDepositMin": 1, "GroupDepositMax": 100, "AlipayWithdrawMin": 1,
                 "AlipayWithdrawMax": 100, "WithdrawMin": 1, "WithdrawMax": 100, "Fee": 1, "FeeType": "Discount",
                 "FreeFeeHours": 1, "FreeFeeTimes": 1, "Memo": "1",
                 "MemberLevelSettingGroupAccountDiscounts": [{"Amount": 1, "Percent": 1, "AuditTimes": 1, "Max": 1}],
@@ -109,7 +109,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         memberLevelSettingId = self.GetMemberLevelSettingId()
         # Step2
         data = {"id": memberLevelSettingId,
-                "Name": "API 測試Level", "GroupDepositMin": 1, "GroupDepositMax": 100, "AlipayWithdrawMin": 1,
+                "Name": "API測試Level", "GroupDepositMin": 1, "GroupDepositMax": 100, "AlipayWithdrawMin": 1,
                 "AlipayWithdrawMax": 100, "WithdrawMin": 1, "WithdrawMax": 100, "Fee": 1, "FeeType": "Discount",
                 "FreeFeeHours": 1, "FreeFeeTimes": 1, "Memo": "1",
                 "MemberLevelSettingGroupAccountDiscounts": [{"Amount": 1, "Percent": 1, "AuditTimes": 1, "Max": 1}],
@@ -167,7 +167,7 @@ class MemberLevelSettingBaseTest(unittest.TestCase):
         # Step2
         data = {"id": memberLevelSettingId}
         response_data = self.memberLevelSetting.getDetail(data)
-        self.assertEqual(response_data[1]['Detail']['Name'], 'API 測試Level')
+        self.assertEqual(response_data[1]['Detail']['Name'], 'API測試Level')
 
     def test_Member_Level_Setting_relatedApi_status_15(self):
         """驗證 会员等级管理 - 刪除等級"""

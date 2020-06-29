@@ -17,5 +17,5 @@ def agent_login():  # getCookie
 def connectionId():  # getCookie
     http = Agent_Http()
     data = {}
-    response_data = http.post_login(systemSetting().agent_link() + '/signalr/negotiate', data, {}, {})
+    response_data = http.post(systemSetting().agent_link() + '/signalr/negotiate', data, {}, {})
     return response_data[1]['ConnectionId']

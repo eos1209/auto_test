@@ -14,9 +14,7 @@ from data_config import portal_config
 import time
 from master_api.account_login import User
 from base.httpRequest import HttpRequest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import random
 import os
 from portal_api.portal_api import Portal_api
 from base.TimeClass import get_todaynow
@@ -163,7 +161,8 @@ class Portal_test:
 
     def verifyDraw(self, Account, Password, MoneyPassword):  # 取款
         cookie = self.login(Account, Password)
-        data = {"withdrawType": "1", "amount": "1", "moneyPassword": MoneyPassword}
+        type = random.randint(1, 2)
+        data = {"withdrawType": type, "amount": "1", "moneyPassword": MoneyPassword}
         self.portal.portal_verifyDraw(data, cookie)
 
     def siteMail(self, Account, Password):  # 前端寄信
@@ -263,7 +262,7 @@ class PortalExecution(object):
         self.driver.find_element_by_xpath("//fieldset[1]/div[3]/div[1]/input").send_keys("a123456")  # 會員密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[4]/div[1]/input").send_keys("a123456")  # 確認密碼
         self.driver.find_element_by_xpath("//fieldset[1]/div[5]/div[1]/input").send_keys("123456")  # 取款密碼
-        sleep(1)
+        sleep(3)
         self.driver.find_element_by_xpath("//*[@ng-model='scope.params.Name']").send_keys('QATest')  # 真實姓名
         self.driver.find_element_by_xpath("//*[@id='checkcode-input-group']/input").send_keys(
             portal_config.PortalCheckCode)  # 萬用碼
