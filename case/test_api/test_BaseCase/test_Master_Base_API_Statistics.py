@@ -72,10 +72,11 @@ class StatisticsBaseTest(unittest.TestCase):
 
     def test_Statistics_relatedApi_status_06(self):
         """驗證 統計報表 - 匯出"""
-        data = {"begin": common_config.BeginDate,
-                "end": common_config.EndDate,
+        data = {"begin": common_config.WagersTimeBegin,
+                "end": common_config.FirstDay,
                 "agent": "",
-                "types": ""}
+                "types": "",
+                'isExportGameName': 'true'}
         response_data = self.statistics.export(data)
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
@@ -94,4 +95,4 @@ class StatisticsBaseTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())
