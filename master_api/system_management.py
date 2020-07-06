@@ -770,6 +770,18 @@ class PayoutMerchantManagement(object):
         return self.response_data
 
 
+class GPKRewardRecords(object):
+    def __init__(self, http):
+        self.__http = http
+        self.response_data = {}
+
+    def getExcel(self, data):
+        # 取得GPK2打賞匯出Excel
+        path = '/BetRecord/ExportGtiRewardRecord'
+        self.response_data = self.__http.sendRequest('POST', path, data)
+        return self.response_data
+
+
 # 郵件商戶管理
 class EmailNotificationMgmt(object):
     def __init__(self, http):
