@@ -28,6 +28,12 @@ def betRecord_start():
     return WagersTimeBegin
 
 
+def betRecord_end():
+    #  -- 取得今天的日期
+    WagersTimeBegin = date.today().replace().replace().strftime("%Y/%m/%d")
+    return WagersTimeBegin
+
+
 def get_todaynow():
     # 格式化成2016-03-20 11:45形式
     nows = time.strftime("%Y/%m/%d %H:%M", time.localtime())
