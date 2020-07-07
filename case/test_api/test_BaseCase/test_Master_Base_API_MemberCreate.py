@@ -120,7 +120,7 @@ class MemberCreateTest(unittest.TestCase):
                 'memo': '@QA_automation'}
         response_data = self.memberCreate.createSubmit(data)
         errorMessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句號')
+        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句号')
 
 
 if __name__ == '__main__':

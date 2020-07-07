@@ -77,7 +77,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         # ("Verify_TGP2_Slot", 'RedTiger2Slot', '-', 1, 10), # 0531 sprint 已下架
         # ("Verify_ISB_Slot", 'IsbSlot', '', 100, 9),
         ("Verify_KG_Board", 'KgBoard', '', 1, 9),
-        ("Verify_LX_Lottery", 'LxLottery', '', 1, 6),
+        # ("Verify_LX_Lottery", 'LxLottery', '', 1, 6),
         ("Verify_SW_Slot", 'PtsSlot', '', 1, 2),
         ("Verify_EBET_Real", 'EBetReal', '', 1, 7),
         ("Verify_ESB_Esport", 'ImEsport', '', 1, 9),
@@ -108,7 +108,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_CR2_Real", 'Ibo2Real', '', 1, 6),
         ("Verify_TH_Board", 'ThBoard', '', 1, 7),
         ("Verify_TH_Fish", 'ThFish', '', 1, 7),
-        ("Verify_GPK3_Lottery", 'LtLottery', '', 1, 4),
+        # ("Verify_GPK3_Lottery", 'LtLottery', '', 1, 4),
         ("Verify_PG_Slot", 'PgsSlot', '', 1, 3),
         ("Verify_RM_Board", 'DhBoard', '', 1, 3),
         # ("Verify_BF_Lottery", 'BfLottery', '', 1, 8),
@@ -127,7 +127,7 @@ class GameCategoryRawDateForBetAmount(unittest.TestCase):
         ("Verify_LEG_Fish", 'LegFish', '', 1, 7),
         ("Verify_PG2_Slot", 'Pg2Slot', '', 1, 7),
         # 2020/05/04 更新娛樂城清單
-        ("Verify_LB_Lottery", 'LbLottery', '', 1, 9),
+        # ("Verify_LB_Lottery", 'LbLottery', '', 1, 9),
         # ("Verify_Gmg_Board", 'GmgBoard', '', 1, 5), # 平台沒有打算要開啟
         ("Verify_Fbg_Slot", 'FbgSlot', '', 1, 4),
         ("Verify_Ll_Lottery", 'LlLottery', '', 1, 3),
