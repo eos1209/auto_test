@@ -413,7 +413,7 @@ class MemberDetailBaseTest(unittest.TestCase):
         }
         response_data = self.memberDetail.updateMemberInfo(data)
         errorMessage = response_data[1]['ErrorMessage']
-        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句號')
+        self.assertEqual(errorMessage, '真实姓名只接受中英文字与全、半型英文句号')
 
     def test_MemberDetail_relatedApi_status_38(self):
         """會員詳細資料 - 解除暫停登入狀態"""
