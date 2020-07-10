@@ -128,7 +128,6 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         status_code = response_data[0]
         self.assertEqual(status_code, common_config.Status_Code)
 
-
     def test_ThirdPartyPayout_relatedApi_status_05(self):
         """驗證 代付商户管理 - 修改代付商戶資料 狀態"""
         IDdata = {"id": self.getNewPayLists()[0]}
@@ -255,7 +254,7 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
 
     def test_ThirdPartyPayout_relatedApi_status_16(self):
         """ 驗證 代付商户管理 - 修改代付商戶備註 狀態"""
-        desc = "test" + str(random.randint(1, 10))
+        desc = 'QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100QA自動化測試備註上限100完'
         data = {
             "id": self.getNewPayLists()[0],
             "memo": desc
@@ -281,5 +280,6 @@ class ThirdPartyPayoutBaseTest(unittest.TestCase):
         self.assertEqual(status_code, common_config.Status_Code)
 
 
+
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner())
+    unittest.main(testRunner = HTMLTestRunner())
